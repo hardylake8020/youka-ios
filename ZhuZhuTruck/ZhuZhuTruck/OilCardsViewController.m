@@ -1,0 +1,88 @@
+//
+//  OilCardsViewController.m
+//  ZhuZhuTruck
+//
+//  Created by CongCong on 2016/12/2.
+//  Copyright © 2016年 CongCong. All rights reserved.
+//
+
+#import "OilCardsViewController.h"
+
+@interface OilCardsViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) UITableView *tableView;
+
+@end
+
+@implementation OilCardsViewController
+
+- (NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray  = [NSMutableArray array];
+    }
+    return _dataArray;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"油卡";
+    self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    [self initTableView];
+}
+- (void)initTableView{
+    
+    [self.dataArray addObjectsFromArray:@[@NO,@NO,@YES,@NO,@YES,@YES]];
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100)];
+    self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.tableView registerNib:[UINib nibWithNibName:@"OilCardCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"OilCardCell"];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableView];
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
+}
+
+
+#pragma mark ---> UITableViewDelegate dataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.dataArray.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
+}
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
+    OilCardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OilCardCell" forIndexPath:indexPath];
+    [cell showCellWithStatus:status.boolValue];
+    return cell;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
