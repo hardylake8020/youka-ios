@@ -26,6 +26,8 @@
 		BB035DFC1DF45484006EC2F0 /* OilCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035DFA1DF45484006EC2F0 /* OilCardCell.xib */; };
 		BB035E001DF45499006EC2F0 /* ETCCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035DFE1DF45499006EC2F0 /* ETCCardCell.m */; };
 		BB035E011DF45499006EC2F0 /* ETCCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035DFF1DF45499006EC2F0 /* ETCCardCell.xib */; };
+		BB035E061DF468ED006EC2F0 /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035E041DF468ED006EC2F0 /* WalletCell.m */; };
+		BB035E071DF468ED006EC2F0 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035E051DF468ED006EC2F0 /* WalletCell.xib */; };
 		BB43215E1DF04A9A00F77680 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */; };
 		BB43215F1DF04A9A00F77680 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215C1DF04A9A00F77680 /* BaiduMapAPI_Location.framework */; };
 		BB4321601DF04A9A00F77680 /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215D1DF04A9A00F77680 /* BaiduMapAPI_Search.framework */; };
@@ -231,6 +233,9 @@
 		BB035DFD1DF45499006EC2F0 /* ETCCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETCCardCell.h; sourceTree = "<group>"; };
 		BB035DFE1DF45499006EC2F0 /* ETCCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETCCardCell.m; sourceTree = "<group>"; };
 		BB035DFF1DF45499006EC2F0 /* ETCCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ETCCardCell.xib; sourceTree = "<group>"; };
+		BB035E031DF468ED006EC2F0 /* WalletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
+		BB035E041DF468ED006EC2F0 /* WalletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
+		BB035E051DF468ED006EC2F0 /* WalletCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
 		BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = ZhuZhuTruck/BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
 		BB43215C1DF04A9A00F77680 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Location.framework; path = ZhuZhuTruck/BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
 		BB43215D1DF04A9A00F77680 /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Search.framework; path = ZhuZhuTruck/BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
@@ -602,6 +607,16 @@
 			name = CardCell;
 			sourceTree = "<group>";
 		};
+		BB035E081DF468F3006EC2F0 /* WalletCell */ = {
+			isa = PBXGroup;
+			children = (
+				BB035E031DF468ED006EC2F0 /* WalletCell.h */,
+				BB035E041DF468ED006EC2F0 /* WalletCell.m */,
+				BB035E051DF468ED006EC2F0 /* WalletCell.xib */,
+			);
+			name = WalletCell;
+			sourceTree = "<group>";
+		};
 		BB4321711DF05A9D00F77680 /* 自制控件 */ = {
 			isa = PBXGroup;
 			children = (
@@ -612,6 +627,7 @@
 				BB035DEF1DF40768006EC2F0 /* TenderDetailCell */,
 				BB035DF51DF44EB4006EC2F0 /* CarCell */,
 				BB035E021DF4549E006EC2F0 /* CardCell */,
+				BB035E081DF468F3006EC2F0 /* WalletCell */,
 			);
 			name = "自制控件";
 			sourceTree = "<group>";
@@ -1263,6 +1279,7 @@
 				BB4321B41DF069C500F77680 /* F0C8AA@2x.png in Resources */,
 				BB5AB5801DF2C56C009107B9 /* RecordingSignal007.png in Resources */,
 				BB5AB5B51DF2D962009107B9 /* line.png in Resources */,
+				BB035E071DF468ED006EC2F0 /* WalletCell.xib in Resources */,
 				BB4321AC1DF069C500F77680 /* 229926@2x.png in Resources */,
 				BB5AB59B1DF2CB04009107B9 /* arrowright@2x.png in Resources */,
 				BB4321AB1DF069C500F77680 /* 4285f4@2x.png in Resources */,
@@ -1449,6 +1466,7 @@
 				BB035DED1DF40760006EC2F0 /* TenderDetailHeaderCell.m in Sources */,
 				BB035DCE1DF3C9FC006EC2F0 /* WaybillDetailCellModel.m in Sources */,
 				BB5AB58C1DF2C911009107B9 /* DriverTimeLineViewController.m in Sources */,
+				BB035E061DF468ED006EC2F0 /* WalletCell.m in Sources */,
 				BB96BE6D1DEEFD5900AA74D2 /* UIColor+CustomColors.m in Sources */,
 				BBED55C81DF1BF34009776E4 /* MediatorTransportingViewController.m in Sources */,
 				BB96BE821DEEFDAA00AA74D2 /* CCFile.m in Sources */,

@@ -24,6 +24,7 @@
     [self initTableView];
 }
 
+
 - (void)initTableView{
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
     self.tableView.dataSource = self;

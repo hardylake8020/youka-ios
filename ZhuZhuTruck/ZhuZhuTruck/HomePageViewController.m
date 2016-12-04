@@ -53,6 +53,7 @@
 
 - (void)initHeaderViewButton{
     
+    
     UIButton *headerButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH-15-26-6, 26+3, 24, 24)];
     headerButton.clipsToBounds = YES;
     headerButton.layer.cornerRadius = 12;

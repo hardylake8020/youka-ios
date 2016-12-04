@@ -8,19 +8,92 @@
 
 #import "MyWalletViewController.h"
 
-@interface MyWalletViewController ()
+@interface MyWalletViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
 @implementation MyWalletViewController
 
+- (NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray  = [NSMutableArray array];
+    }
+    return _dataArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addNaviHeaderViewWithTitle:@"我的钱包"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
-    //    [self initTableView];
+    [self initHeaderView];
+    [self initTableView];
+}
+- (void)initHeaderView{
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 140)];
+    headerView.backgroundColor = [UIColor naviBarColor];
+    [self.view addSubview:headerView];
+    
+    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, SYSTEM_WIDTH-30, 20)];
+    tipLabel.textColor = [UIColor customGrayColor];
+    tipLabel.font = fontBysize(12);
+    tipLabel.text = @"账户余额（元）";
+    [headerView addSubview:tipLabel];
+    
+    UILabel *accountLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, SYSTEM_WIDTH-30, 100)];
+    accountLabel.textColor = [UIColor customGrayColor];
+    accountLabel.font = [UIFont boldSystemFontOfSize:32];
+    accountLabel.text = @"2000.00";
+    [headerView addSubview:accountLabel];
+    
 }
 
+- (void)initTableView{
+    
+    NSMutableArray *firstSectionArray = [NSMutableArray array];
+    [firstSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"银行卡"}];
+    [firstSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"充值"}];
+    [firstSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"提现"}];
+    [self.dataArray addObject:firstSectionArray];
+    
+    NSMutableArray *secondSectionArray = [NSMutableArray array];
+    [secondSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"保证金"}];
+    [secondSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"账单"}];
+    [self.dataArray addObject:secondSectionArray];
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+140, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-140)];
+    self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self.view addSubview:self.tableView];
+}
+#pragma mark ---> UITableViewDelegate dataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.dataArray.count;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [[self.dataArray objectAtIndex:section] count];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 10;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dataDict = [[self.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
+    return nil;
+}
+- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
+    footerView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
+    lineView.backgroundColor = [UIColor customGrayColor];
+    [footerView addSubview:lineView];
+    return footerView;
+}
 
 #pragma mark ---> 返回 其他
 - (void)naviBack{
