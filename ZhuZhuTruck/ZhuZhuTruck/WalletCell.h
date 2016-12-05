@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WalletCell : UITableViewCell
-
+- (void)showCellWithDataDict:(NSDictionary *)dataDict;
 @end

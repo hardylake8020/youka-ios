@@ -7,7 +7,7 @@
 //
 
 #import "MyWalletViewController.h"
-
+#import "WalletCell.h"
 @interface MyWalletViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -35,15 +35,15 @@
     headerView.backgroundColor = [UIColor naviBarColor];
     [self.view addSubview:headerView];
     
-    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, SYSTEM_WIDTH-30, 20)];
+    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, SYSTEM_WIDTH-30, 20)];
     tipLabel.textColor = [UIColor customGrayColor];
-    tipLabel.font = fontBysize(12);
+    tipLabel.font = fontBysize(16);
     tipLabel.text = @"账户余额（元）";
     [headerView addSubview:tipLabel];
     
-    UILabel *accountLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, SYSTEM_WIDTH-30, 100)];
+    UILabel *accountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 40, SYSTEM_WIDTH-30, 100)];
     accountLabel.textColor = [UIColor customGrayColor];
-    accountLabel.font = [UIFont boldSystemFontOfSize:32];
+    accountLabel.font = [UIFont boldSystemFontOfSize:60];
     accountLabel.text = @"2000.00";
     [headerView addSubview:accountLabel];
     
@@ -66,8 +66,11 @@
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    [self.tableView registerNib:[UINib nibWithNibName:@"WalletCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"WalletCell"];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
+    
 }
 #pragma mark ---> UITableViewDelegate dataSource
 
@@ -78,19 +81,26 @@
     return [[self.dataArray objectAtIndex:section] count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
+    if (section==0) {
+        return 10;
+    }
+    return 0;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dataDict = [[self.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
-    return nil;
+    WalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WalletCell"];
+    [cell showCellWithDataDict:dataDict];
+    return cell;
 }
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
     footerView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
-    lineView.backgroundColor = [UIColor customGrayColor];
+    lineView.backgroundColor = [UIColor lightGrayColor];
     [footerView addSubview:lineView];
     return footerView;
 }
