@@ -33,7 +33,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="车辆描述  金杯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ErS-3h-HBa">
-                        <frame key="frameInset" minX="98" minY="44" width="93.69%" height="21"/>
+                        <frame key="frameInset" minX="98" minY="44" width="73.42%" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
@@ -46,6 +46,10 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="LPT-Wm-srU">
+                        <frame key="frameInset" minY="43" width="15" height="15" maxX="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -53,6 +57,7 @@
                 <outlet property="carImageView" destination="jAw-uf-KQ8" id="Nua-m1-Dyj"/>
                 <outlet property="carNumberLabel" destination="sDD-t1-ZFP" id="Ht1-a7-01D"/>
                 <outlet property="contactLabel" destination="gIX-41-rNk" id="uYq-9J-jXo"/>
+                <outlet property="seletedImageView" destination="LPT-Wm-srU" id="xjM-JX-Vz0"/>
             </connections>
             <point key="canvasLocation" x="25" y="52"/>
         </tableViewCell>

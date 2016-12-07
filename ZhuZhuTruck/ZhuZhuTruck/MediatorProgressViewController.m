@@ -9,6 +9,7 @@
 #import "MediatorProgressViewController.h"
 #import "Constants.h"
 #import "CCNaviHeaderView.h"
+#import "HomePageViewController.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
 @interface MediatorProgressViewController ()
 
@@ -20,13 +21,19 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.fd_prefersNavigationBarHidden = YES;
+    self.fd_interactivePopDisabled = YES;
     CCNaviHeaderView *naivHeader  = [[CCNaviHeaderView alloc]newInstance:self.title];
     [naivHeader addBackButtonWithTarget:self action:@selector(naviBack)];
     [self.view addSubview:naivHeader];
 }
 
 - (void)naviBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    for (NSInteger i=self.navigationController.viewControllers.count-1; i>=0; i--) {
+        UIViewController *VC = [self.navigationController.viewControllers objectAtIndex:i];
+        if ([VC isKindOfClass:[HomePageViewController class]]) {
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:i] animated:YES];
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface ETCCardsViewController : BaseViewController
-
+@property (nonatomic, assign) BOOL isSeletedMode;
 @end

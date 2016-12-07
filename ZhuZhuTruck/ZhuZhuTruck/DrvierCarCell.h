@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DrvierCarCell : UITableViewCell
-
+- (void)showCellWithStatus:(BOOL)status;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "OilCardsViewController.h"
-
+#import "DriverCarDetailViewController.h"
 @interface OilCardsViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
@@ -33,7 +33,12 @@
     
     [self.dataArray addObjectsFromArray:@[@NO,@NO,@YES,@NO,@YES,@YES]];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100)];
+    if (self.isSeletedMode) {
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100-60)];
+    }else{
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100)];
+    }
+    
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -66,9 +71,29 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
     OilCardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OilCardCell" forIndexPath:indexPath];
-    [cell showCellWithStatus:status.boolValue];
+    if (self.isSeletedMode) {
+        [cell showSeletedCellWithStatus:status.boolValue];
+    }else{
+        [cell showCellWithStatus:status.boolValue];
+    }
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];if (self.isSeletedMode) {
+        NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
+        status = [NSNumber numberWithBool:!status.boolValue];
+        [self.dataArray replaceObjectAtIndex:indexPath.section withObject:status];
+        [tableView reloadData];
+        
+    }else{
+        if (status.boolValue) {
+            DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]init];
+            [self.navigationController pushViewController:carDetail animated:YES];
+        }
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

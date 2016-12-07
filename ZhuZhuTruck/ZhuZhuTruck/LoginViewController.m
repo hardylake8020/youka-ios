@@ -7,8 +7,8 @@
 //
 
 #import "LoginViewController.h"
-#import "RegisterViewController.h"
 #import "HomePageViewController.h"
+#import "RegisterViewController.h"
 @interface LoginViewController ()<UITextFieldDelegate>{
     CCTextFiled *phoneTextField;
     CCTextFiled *passWordTextFied;

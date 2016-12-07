@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="99.5"/>
+                <frame key="frameInset" width="320" height="99"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" misplaced="YES" id="s15-0Y-kP4">
@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="油卡" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OdU-N7-VVS">
-                                <frame key="frameInset" minX="15" minY="35" width="281" height="21"/>
+                                <frame key="frameInset" minX="15" minY="35" width="218" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,6 +40,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="ZyC-yV-nha">
+                                <frame key="frameInset" minY="43" width="15" height="15" maxX="8"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.29803921568627451" green="0.54509803921568623" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
@@ -58,6 +62,7 @@
                 <outlet property="carNumberLabel" destination="sv5-ZN-oVR" id="EwO-0G-TdV"/>
                 <outlet property="cardNumberLabel" destination="oHI-XY-GrJ" id="P43-p6-NDg"/>
                 <outlet property="cardTipLabel" destination="OdU-N7-VVS" id="0Bl-xH-V4I"/>
+                <outlet property="seletedImageView" destination="ZyC-yV-nha" id="bSX-Gh-geR"/>
             </connections>
             <point key="canvasLocation" x="26" y="52"/>
         </tableViewCell>

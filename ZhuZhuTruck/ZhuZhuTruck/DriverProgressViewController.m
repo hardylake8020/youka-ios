@@ -9,6 +9,7 @@
 #import "DriverProgressViewController.h"
 #import "Constants.h"
 #import "CCNaviHeaderView.h"
+#import "HomePageViewController.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
 @interface DriverProgressViewController ()
 
@@ -26,7 +27,12 @@
 }
 
 - (void)naviBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    for (NSInteger i=self.navigationController.viewControllers.count-1; i>=0; i--) {
+        UIViewController *VC = [self.navigationController.viewControllers objectAtIndex:i];
+        if ([VC isKindOfClass:[HomePageViewController class]]) {
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:i] animated:YES];
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -103,7 +103,7 @@
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderFailed];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderFailed];
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderSucceed];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }
 }

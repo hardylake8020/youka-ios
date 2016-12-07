@@ -8,6 +8,7 @@
 
 #import "MediatorFindOrdersViewController.h"
 
+#import "MediatorOrderDetailViewController.h"
 @interface MediatorFindOrdersViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>{
 
     UIButton * _totoalButton;
@@ -170,7 +171,7 @@
 
 - (void)initTableView{
     
-    [self.dataArray addObjectsFromArray:@[@"",@"",@"",@"",@"",@""]];
+    [self.dataArray addObjectsFromArray:@[@YES,@YES,@NO,@NO,@YES,@NO]];
 
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT+110, SYSTEM_WIDTH, SYSTEM_HEIGHT-110-SYSTEM_TITLE_HEIGHT)];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
@@ -243,14 +244,21 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSNumber *status = [self.dataArray objectAtIndex:indexPath.row];
     TenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderCell" forIndexPath:indexPath];
+    [cell showCellWithStatus:status.boolValue];
     return cell;
 }
 
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSNumber *status = [self.dataArray objectAtIndex:indexPath.row];
+    if (status.boolValue) {
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart];
+        [self.navigationController pushViewController:orderDetail animated:YES];
+    }else{
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart];
+        [self.navigationController pushViewController:orderDetail animated:YES];
+    }
 }
 
 
@@ -261,6 +269,7 @@
     [textField resignFirstResponder];
     return YES;
 }
+
 
 #pragma mark ---> 返回 其他
 - (void)naviBack{

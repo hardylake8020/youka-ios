@@ -26,8 +26,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETC卡" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m3x-ia-Gkc">
-                                <frame key="frameInset" minX="15" minY="35" width="281" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ETC卡" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m3x-ia-Gkc">
+                                <frame key="frameInset" minX="15" minY="35" width="231" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,6 +40,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="rNU-be-fDy">
+                                <frame key="frameInset" minY="43" width="15" height="15" maxX="8"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274509803915" green="0.29803921568627451" blue="0.37254901960784315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
@@ -58,6 +62,7 @@
                 <outlet property="carNumberLabel" destination="WFk-MJ-x3J" id="288-I9-HPf"/>
                 <outlet property="cardNumberLabel" destination="Cfz-IT-fXe" id="fIP-AE-xJN"/>
                 <outlet property="cardTipLabel" destination="m3x-ia-Gkc" id="O99-87-1xN"/>
+                <outlet property="seletedImageView" destination="rNU-be-fDy" id="712-kx-LAF"/>
             </connections>
             <point key="canvasLocation" x="25" y="52"/>
         </tableViewCell>

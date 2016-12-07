@@ -10,6 +10,10 @@
 #import "TenderDetailCell.h"
 #import "TenderDetailHeaderCell.h"
 #import "TenderDetailTableDataModel.h"
+#import "MediatorPendingViewController.h"
+#import "MediatorProgressViewController.h"
+#import "MediatorFinishedViewController.h"
+#import "MediatorTransportingViewController.h"
 @interface MediatorOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>{
     CGFloat _headerHight;
     UIView *_operationView;
@@ -42,9 +46,7 @@
         }
             break;
         case RobTenderUnStart:
-        case RobTenderOngoing:
-        case RobTenderSucceed:
-        case RobTenderFailed:{
+        case RobTenderSucceed:{
             [self addNaviHeaderViewWithTitle:@"抢单详情"];
         }
             break;
@@ -140,11 +142,8 @@
 
         case RobTenderUnStart:
 
-        case RobTenderOngoing:
-
         case RobTenderSucceed:
 
-        case RobTenderFailed:
         {
             _headerHight = 0;
         }
@@ -192,11 +191,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        TenderDetailHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderDetailHeaderCell"];
+        TenderDetailHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderDetailHeaderCell" forIndexPath:indexPath];
         return cell;
     }else{
         TenderDetailCellModel *cellModel = [self.tableModel.dataArray objectAtIndex:indexPath.row];
-        TenderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderDetailCell"];
+        TenderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderDetailCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell showCellWithModel:cellModel];
         return cell;
@@ -382,38 +381,7 @@
             .rightSpaceToView(_operationView,1);
         }
             break;
-        case RobTenderOngoing:
-        {
-            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
-            [_operationView addSubview:priceView];
             
-            UILabel *priceLabel = [[UILabel alloc]init];
-            priceLabel.text = @"运费：3000 元";
-            priceLabel.font = fontBysize(18);
-            priceLabel.textColor = [UIColor darkTextColor];
-            [priceView addSubview:priceLabel];
-            
-            priceLabel.sd_layout
-            .leftSpaceToView(priceView,15)
-            .rightSpaceToView(priceView,15)
-            .topEqualToView(priceView)
-            .bottomEqualToView(priceView);
-            
-            UILabel *statusLabel = [[UILabel alloc]init];
-            statusLabel.text = @"已抢标";
-            statusLabel.textColor = [UIColor whiteColor];
-            statusLabel.font = fontBysize(18);
-            statusLabel.textAlignment = NSTextAlignmentCenter;
-            statusLabel.backgroundColor = [UIColor customRedColor];
-            [_operationView addSubview:statusLabel];
-            
-            statusLabel.sd_layout
-            .leftSpaceToView(priceView,0)
-            .topEqualToView(_operationView)
-            .bottomEqualToView(_operationView)
-            .rightSpaceToView(_operationView,1);
-        }
-            break;
         case RobTenderSucceed:
         {
             UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
@@ -432,39 +400,7 @@
             .bottomEqualToView(priceView);
             
             UILabel *statusLabel = [[UILabel alloc]init];
-            statusLabel.text = @"抢标中标";
-            statusLabel.textColor = [UIColor whiteColor];
-            statusLabel.font = fontBysize(18);
-            statusLabel.textAlignment = NSTextAlignmentCenter;
-            statusLabel.backgroundColor = [UIColor customRedColor];
-            [_operationView addSubview:statusLabel];
-            
-            statusLabel.sd_layout
-            .leftSpaceToView(priceView,0)
-            .topEqualToView(_operationView)
-            .bottomEqualToView(_operationView)
-            .rightSpaceToView(_operationView,1);
-        }
-            break;
-        case RobTenderFailed:
-        {
-            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
-            [_operationView addSubview:priceView];
-            
-            UILabel *priceLabel = [[UILabel alloc]init];
-            priceLabel.text = @"运费：3000 元";
-            priceLabel.font = fontBysize(18);
-            priceLabel.textColor = [UIColor darkTextColor];
-            [priceView addSubview:priceLabel];
-            
-            priceLabel.sd_layout
-            .leftSpaceToView(priceView,15)
-            .rightSpaceToView(priceView,15)
-            .topEqualToView(priceView)
-            .bottomEqualToView(priceView);
-            
-            UILabel *statusLabel = [[UILabel alloc]init];
-            statusLabel.text = @"抢标未中标";
+            statusLabel.text = @"已抢到";
             statusLabel.textColor = [UIColor whiteColor];
             statusLabel.font = fontBysize(18);
             statusLabel.textAlignment = NSTextAlignmentCenter;
@@ -483,12 +419,38 @@
 }
 
 - (void)bidPriceOffer{
-    
+    [self gotoMediatorProgress];
 }
 - (void)robTender{
-    
+    [self gotoMediatorProgress];
 }
 
+- (void)gotoMediatorProgress{
+    NSArray *viewControllers;
+    NSArray *titles;
+    NSString *title;
+    viewControllers = @[[MediatorPendingViewController class],[MediatorTransportingViewController class],[MediatorFinishedViewController class]];
+    titles = @[@"待处理",@"运输中",@"已完成"];
+    title = @"我的定单";
+    MediatorProgressViewController *pageVC = [[MediatorProgressViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
+    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
+    pageVC.postNotification = YES;
+    pageVC.bounces = YES;
+    pageVC.menuHeight = 36;
+    pageVC.menuViewStyle = WMMenuViewStyleLine;
+    pageVC.menuBGColor = [UIColor naviBarColor];
+    pageVC.titleColorSelected = [UIColor whiteColor];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleFontName = @"Helvetica-Bold";
+    pageVC.titleSizeNormal = 18;
+    pageVC.progressHeight = 4;
+    pageVC.progressColor = [UIColor whiteColor];
+    pageVC.pageAnimatable = YES;
+    pageVC.titleSizeSelected = 18;
+    pageVC.title = title;
+    [self.navigationController pushViewController:pageVC animated:YES];
+    
+}
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }

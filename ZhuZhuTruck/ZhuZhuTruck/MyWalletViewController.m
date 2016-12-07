@@ -8,6 +8,7 @@
 
 #import "MyWalletViewController.h"
 #import "WalletCell.h"
+#import "MarginViewController.h"
 @interface MyWalletViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -42,8 +43,8 @@
     [headerView addSubview:tipLabel];
     
     UILabel *accountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 40, SYSTEM_WIDTH-30, 100)];
-    accountLabel.textColor = [UIColor customGrayColor];
-    accountLabel.font = [UIFont boldSystemFontOfSize:60];
+    accountLabel.textColor = [UIColor whiteColor];
+    accountLabel.font = fontBysize(60);
     accountLabel.text = @"2000.00";
     [headerView addSubview:accountLabel];
     
@@ -92,7 +93,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dataDict = [[self.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    WalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WalletCell"];
+    WalletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WalletCell" forIndexPath:indexPath];
     [cell showCellWithDataDict:dataDict];
     return cell;
 }
@@ -104,7 +105,13 @@
     [footerView addSubview:lineView];
     return footerView;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dataDict = [[self.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if ([[dataDict stringForKey:@"titleName"] isEqualToString:@"保证金"]) {
+        MarginViewController *margin = [[MarginViewController alloc]init];
+        [self.navigationController pushViewController:margin animated:YES];
+    }
+}
 #pragma mark ---> 返回 其他
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];

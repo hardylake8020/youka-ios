@@ -35,9 +35,7 @@ typedef enum : NSUInteger {
     BidTenderSucceed,
     BidTenderFailed,
     RobTenderUnStart,
-    RobTenderOngoing,
     RobTenderSucceed,
-    RobTenderFailed,
 } TenderOrderStatus;
 
 //圆角大小

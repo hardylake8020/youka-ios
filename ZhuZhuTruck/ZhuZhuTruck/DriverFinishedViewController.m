@@ -116,8 +116,6 @@
 
 - (void)timeLine:(UIButton *)button{
     //    NSInteger tag = button.tag - 10000;
-    DriverTimeLineViewController *timeLine = [[DriverTimeLineViewController alloc]init];
-    [self.navigationController pushViewController:timeLine animated:YES];
 }
 
 

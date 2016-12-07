@@ -8,6 +8,7 @@
 
 #import "MediatorTransportingViewController.h"
 #import "MediatorOrderDetailViewController.h"
+
 @interface MediatorTransportingViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
@@ -116,6 +117,7 @@
     UIButton *carNumberButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0.5, SYSTEM_WIDTH, 49)];
     [carNumberButton setBackgroundColor:[UIColor whiteColor]];
     [carNumberButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
+    [carNumberButton addTarget:self action:@selector(timeLine:) forControlEvents:UIControlEventTouchUpInside];
     [carNumberButton setTitle:@"沪B525N2" forState:UIControlStateNormal];
     
     carNumberButton.tag = 3000+section;
@@ -133,7 +135,7 @@
     return footerView;
 }
 
-- (void)assignOrder:(UIButton *)button{
+- (void)timeLine:(UIButton *)button{
     //    NSInteger tag = button.tag - 3000;
 }
 

@@ -11,7 +11,7 @@
 @implementation NSDictionary (Tool)
 -(id)objectForLowKey:(NSString*)key
 {
-    return [self objectForKey:[key lowercaseString]];
+    return [self objectForKey:key];
 }
 
 -(NSString*) stringForKey:(NSString*)key

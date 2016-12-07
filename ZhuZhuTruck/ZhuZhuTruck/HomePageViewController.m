@@ -315,7 +315,7 @@
     viewControllers = @[[OilCardsViewController class],[ETCCardsViewController class]];
     titles = @[@"油卡",@"ETC卡"];
     title = @"我的卡劵";
-    MediatorProgressViewController *pageVC = [[MediatorProgressViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
+    CarStockViewController *pageVC = [[CarStockViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
     pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
     pageVC.postNotification = YES;
     pageVC.bounces = YES;

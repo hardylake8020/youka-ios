@@ -113,7 +113,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WaybillDetailCellModel *cellModel = [[self.tableModel.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    WayBillDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WayBillDetailCell"];
+    WayBillDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WayBillDetailCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell showCellWithModel:cellModel];
     return cell;

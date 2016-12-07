@@ -66,6 +66,11 @@
 		BB4321B61DF069C500F77680 /* FF8886@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4321A61DF069C500F77680 /* FF8886@2x.png */; };
 		BB4321B71DF069C500F77680 /* ffb30f@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4321A71DF069C500F77680 /* ffb30f@2x.png */; };
 		BB4321B81DF06B3C00F77680 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB96BE9D1DEF27BF00AA74D2 /* fontawesome-webfont.ttf */; };
+		BB57D7F91DF6F6CF008888B0 /* MarginCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB57D7F71DF6F6CF008888B0 /* MarginCell.m */; };
+		BB57D7FA1DF6F6CF008888B0 /* MarginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB57D7F81DF6F6CF008888B0 /* MarginCell.xib */; };
+		BB57D7FE1DF71464008888B0 /* DriverCarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB57D7FD1DF71464008888B0 /* DriverCarDetailViewController.m */; };
+		BB57D8021DF7163E008888B0 /* CarDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB57D8001DF7163E008888B0 /* CarDetailCell.m */; };
+		BB57D8031DF7163E008888B0 /* CarDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB57D8011DF7163E008888B0 /* CarDetailCell.xib */; };
 		BB5AB53B1DF263E3009107B9 /* TenderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5391DF263E3009107B9 /* TenderCell.m */; };
 		BB5AB53C1DF263E3009107B9 /* TenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB5AB53A1DF263E3009107B9 /* TenderCell.xib */; };
 		BB5AB5461DF281AD009107B9 /* TenderSucceedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5441DF281AD009107B9 /* TenderSucceedCell.m */; };
@@ -161,6 +166,8 @@
 		BB96BECA1DEF2E5D00AA74D2 /* LocationUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BEC91DEF2E5D00AA74D2 /* LocationUploadManager.m */; };
 		BB96BECD1DEF2E7300AA74D2 /* AddressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BECC1DEF2E7300AA74D2 /* AddressManager.m */; };
 		BB96BED01DEF2E9000AA74D2 /* QnUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BECF1DEF2E9000AA74D2 /* QnUploadManager.m */; };
+		BBD921311DF84938005DE376 /* checked_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD9212F1DF84938005DE376 /* checked_small.png */; };
+		BBD921321DF84938005DE376 /* uncheck_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD921301DF84938005DE376 /* uncheck_small.png */; };
 		BBDCEC6F1DEDAAB100C2125D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BBDCEC6E1DEDAAB100C2125D /* main.m */; };
 		BBDCEC721DEDAAB100C2125D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBDCEC711DEDAAB100C2125D /* AppDelegate.m */; };
 		BBDCEC7A1DEDAAB100C2125D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBDCEC791DEDAAB100C2125D /* Assets.xcassets */; };
@@ -226,7 +233,7 @@
 		BB035DF01DF44EAF006EC2F0 /* DrvierCarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrvierCarCell.h; sourceTree = "<group>"; };
 		BB035DF11DF44EAF006EC2F0 /* DrvierCarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrvierCarCell.m; sourceTree = "<group>"; };
 		BB035DF21DF44EAF006EC2F0 /* DrvierCarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrvierCarCell.xib; sourceTree = "<group>"; };
-		BB035DF61DF44FA0006EC2F0 /* truck_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = truck_car.png; sourceTree = "<group>"; };
+		BB035DF61DF44FA0006EC2F0 /* truck_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = truck_car.png; path = VoiceRecordImage/truck_car.png; sourceTree = "<group>"; };
 		BB035DF81DF45484006EC2F0 /* OilCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OilCardCell.h; sourceTree = "<group>"; };
 		BB035DF91DF45484006EC2F0 /* OilCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OilCardCell.m; sourceTree = "<group>"; };
 		BB035DFA1DF45484006EC2F0 /* OilCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OilCardCell.xib; sourceTree = "<group>"; };
@@ -287,6 +294,14 @@
 		BB4321A51DF069C500F77680 /* f7f7f7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f7f7f7@2x.png"; sourceTree = "<group>"; };
 		BB4321A61DF069C500F77680 /* FF8886@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FF8886@2x.png"; sourceTree = "<group>"; };
 		BB4321A71DF069C500F77680 /* ffb30f@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ffb30f@2x.png"; sourceTree = "<group>"; };
+		BB57D7F61DF6F6CF008888B0 /* MarginCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarginCell.h; sourceTree = "<group>"; };
+		BB57D7F71DF6F6CF008888B0 /* MarginCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarginCell.m; sourceTree = "<group>"; };
+		BB57D7F81DF6F6CF008888B0 /* MarginCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarginCell.xib; sourceTree = "<group>"; };
+		BB57D7FC1DF71464008888B0 /* DriverCarDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverCarDetailViewController.h; sourceTree = "<group>"; };
+		BB57D7FD1DF71464008888B0 /* DriverCarDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverCarDetailViewController.m; sourceTree = "<group>"; };
+		BB57D7FF1DF7163E008888B0 /* CarDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarDetailCell.h; sourceTree = "<group>"; };
+		BB57D8001DF7163E008888B0 /* CarDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarDetailCell.m; sourceTree = "<group>"; };
+		BB57D8011DF7163E008888B0 /* CarDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarDetailCell.xib; sourceTree = "<group>"; };
 		BB5AB5381DF263E3009107B9 /* TenderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenderCell.h; sourceTree = "<group>"; };
 		BB5AB5391DF263E3009107B9 /* TenderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenderCell.m; sourceTree = "<group>"; };
 		BB5AB53A1DF263E3009107B9 /* TenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderCell.xib; sourceTree = "<group>"; };
@@ -429,6 +444,8 @@
 		BB96BECC1DEF2E7300AA74D2 /* AddressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManager.m; sourceTree = "<group>"; };
 		BB96BECE1DEF2E9000AA74D2 /* QnUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QnUploadManager.h; sourceTree = "<group>"; };
 		BB96BECF1DEF2E9000AA74D2 /* QnUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QnUploadManager.m; sourceTree = "<group>"; };
+		BBD9212F1DF84938005DE376 /* checked_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_small.png; sourceTree = "<group>"; };
+		BBD921301DF84938005DE376 /* uncheck_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheck_small.png; sourceTree = "<group>"; };
 		BBDCEC6A1DEDAAB100C2125D /* ZhuZhuTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhuZhuTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBDCEC6E1DEDAAB100C2125D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BBDCEC701DEDAAB100C2125D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -584,14 +601,14 @@
 			name = TenderDetailCell;
 			sourceTree = "<group>";
 		};
-		BB035DF51DF44EB4006EC2F0 /* CarCell */ = {
+		BB035DF51DF44EB4006EC2F0 /* DriverCarCell */ = {
 			isa = PBXGroup;
 			children = (
 				BB035DF01DF44EAF006EC2F0 /* DrvierCarCell.h */,
 				BB035DF11DF44EAF006EC2F0 /* DrvierCarCell.m */,
 				BB035DF21DF44EAF006EC2F0 /* DrvierCarCell.xib */,
 			);
-			name = CarCell;
+			name = DriverCarCell;
 			sourceTree = "<group>";
 		};
 		BB035E021DF4549E006EC2F0 /* CardCell */ = {
@@ -625,9 +642,11 @@
 				BB5AB5521DF29F05009107B9 /* WaybillCell */,
 				BB035DD71DF3D146006EC2F0 /* WaybillDetailCell */,
 				BB035DEF1DF40768006EC2F0 /* TenderDetailCell */,
-				BB035DF51DF44EB4006EC2F0 /* CarCell */,
+				BB035DF51DF44EB4006EC2F0 /* DriverCarCell */,
 				BB035E021DF4549E006EC2F0 /* CardCell */,
 				BB035E081DF468F3006EC2F0 /* WalletCell */,
+				BB57D7FB1DF6F6D3008888B0 /* MarginCell */,
+				BB57D8041DF71642008888B0 /* CarDetailCell */,
 			);
 			name = "自制控件";
 			sourceTree = "<group>";
@@ -656,6 +675,26 @@
 				BB43218D1DF0618400F77680 /* WMScrollView.m */,
 			);
 			path = WMMenuView;
+			sourceTree = "<group>";
+		};
+		BB57D7FB1DF6F6D3008888B0 /* MarginCell */ = {
+			isa = PBXGroup;
+			children = (
+				BB57D7F61DF6F6CF008888B0 /* MarginCell.h */,
+				BB57D7F71DF6F6CF008888B0 /* MarginCell.m */,
+				BB57D7F81DF6F6CF008888B0 /* MarginCell.xib */,
+			);
+			name = MarginCell;
+			sourceTree = "<group>";
+		};
+		BB57D8041DF71642008888B0 /* CarDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				BB57D7FF1DF7163E008888B0 /* CarDetailCell.h */,
+				BB57D8001DF7163E008888B0 /* CarDetailCell.m */,
+				BB57D8011DF7163E008888B0 /* CarDetailCell.xib */,
+			);
+			name = CarDetailCell;
 			sourceTree = "<group>";
 		};
 		BB5AB5371DF2637A009107B9 /* Views */ = {
@@ -741,6 +780,9 @@
 		BB5AB55E1DF2C54B009107B9 /* OtherImage */ = {
 			isa = PBXGroup;
 			children = (
+				BBD9212F1DF84938005DE376 /* checked_small.png */,
+				BBD921301DF84938005DE376 /* uncheck_small.png */,
+				BB035DF61DF44FA0006EC2F0 /* truck_car.png */,
 				BB035DD91DF3F357006EC2F0 /* search.png */,
 				BB5AB5C21DF2DD70009107B9 /* check.png */,
 				BB5AB58D1DF2CADA009107B9 /* play.png */,
@@ -760,7 +802,6 @@
 		BB5AB55F1DF2C56C009107B9 /* VoiceRecordImage */ = {
 			isa = PBXGroup;
 			children = (
-				BB035DF61DF44FA0006EC2F0 /* truck_car.png */,
 				BB5AB5601DF2C56C009107B9 /* RecordingBkg.png */,
 				BB5AB5611DF2C56C009107B9 /* RecordingBkg@2x.png */,
 				BB5AB5621DF2C56C009107B9 /* RecordingSignal001.png */,
@@ -952,8 +993,8 @@
 		BB96BE9C1DEF279F00AA74D2 /* 资源文件 */ = {
 			isa = PBXGroup;
 			children = (
-				BB5AB55F1DF2C56C009107B9 /* VoiceRecordImage */,
 				BB5AB55E1DF2C54B009107B9 /* OtherImage */,
+				BB5AB55F1DF2C56C009107B9 /* VoiceRecordImage */,
 				BB5AB55D1DF2C53D009107B9 /* Color */,
 				BB5AB55C1DF2C525009107B9 /* Ipnoe */,
 				BB96BE9D1DEF27BF00AA74D2 /* fontawesome-webfont.ttf */,
@@ -1120,6 +1161,8 @@
 				BBED55D91DF1C01A009776E4 /* SettingViewController.m */,
 				BBED55F41DF1C202009776E4 /* MyDriversViewController.h */,
 				BBED55F51DF1C202009776E4 /* MyDriversViewController.m */,
+				BB57D7FC1DF71464008888B0 /* DriverCarDetailViewController.h */,
+				BB57D7FD1DF71464008888B0 /* DriverCarDetailViewController.m */,
 				BBED55F71DF1C28D009776E4 /* DriversMapViewController.h */,
 				BBED55F81DF1C28D009776E4 /* DriversMapViewController.m */,
 				BB5AB5841DF2C6F4009107B9 /* ShowPhotoViewController.h */,
@@ -1281,12 +1324,14 @@
 				BB5AB5B51DF2D962009107B9 /* line.png in Resources */,
 				BB035E071DF468ED006EC2F0 /* WalletCell.xib in Resources */,
 				BB4321AC1DF069C500F77680 /* 229926@2x.png in Resources */,
+				BBD921321DF84938005DE376 /* uncheck_small.png in Resources */,
 				BB5AB59B1DF2CB04009107B9 /* arrowright@2x.png in Resources */,
 				BB4321AB1DF069C500F77680 /* 4285f4@2x.png in Resources */,
 				BB4321B21DF069C500F77680 /* E0F9E3@2x.png in Resources */,
 				BB035DFC1DF45484006EC2F0 /* OilCardCell.xib in Resources */,
 				BB4321AF1DF069C500F77680 /* D39192@2x.png in Resources */,
 				BB5AB5911DF2CADA009107B9 /* play.png in Resources */,
+				BBD921311DF84938005DE376 /* checked_small.png in Resources */,
 				BB4321B71DF069C500F77680 /* ffb30f@2x.png in Resources */,
 				BB4321B61DF069C500F77680 /* FF8886@2x.png in Resources */,
 				BB5AB5821DF2C56C009107B9 /* RecordingSignal008.png in Resources */,
@@ -1323,12 +1368,14 @@
 				BB5AB5C31DF2DD70009107B9 /* check.png in Resources */,
 				BB4321B11DF069C500F77680 /* e0e0e0@2x.png in Resources */,
 				BB5AB57F1DF2C56C009107B9 /* RecordingSignal006@2x.png in Resources */,
+				BB57D7FA1DF6F6CF008888B0 /* MarginCell.xib in Resources */,
 				BB43216A1DF0581000F77680 /* Default.png in Resources */,
 				BB5AB5811DF2C56C009107B9 /* RecordingSignal007@2x.png in Resources */,
 				BB5AB57E1DF2C56C009107B9 /* RecordingSignal006.png in Resources */,
 				BB035DE91DF40723006EC2F0 /* TenderDetailCell.xib in Resources */,
 				BB5AB53C1DF263E3009107B9 /* TenderCell.xib in Resources */,
 				BB4321AE1DF069C500F77680 /* D7960B@2x.png in Resources */,
+				BB57D8031DF7163E008888B0 /* CarDetailCell.xib in Resources */,
 				BB5AB5B31DF2D962009107B9 /* frame_icon@2x.png in Resources */,
 				BB5AB5B71DF2D962009107B9 /* line@3x.png in Resources */,
 				BB035DF41DF44EAF006EC2F0 /* DrvierCarCell.xib in Resources */,
@@ -1420,6 +1467,7 @@
 				BB5AB5BD1DF2D962009107B9 /* QRCodeVC.m in Sources */,
 				BBED55DD1DF1C042009776E4 /* OilCardsViewController.m in Sources */,
 				BB4321801DF0605300F77680 /* LoginViewController.m in Sources */,
+				BB57D7FE1DF71464008888B0 /* DriverCarDetailViewController.m in Sources */,
 				BBED55C11DF1BE93009776E4 /* MediatorProgressViewController.m in Sources */,
 				BBED55CE1DF1BF79009776E4 /* MediatorAssaginCarsViewController.m in Sources */,
 				BB96BE881DEEFE0D00AA74D2 /* NSString+FontAwesome.m in Sources */,
@@ -1473,6 +1521,7 @@
 				BB96BE7E1DEEFDAA00AA74D2 /* CCAlert.m in Sources */,
 				BB035E001DF45499006EC2F0 /* ETCCardCell.m in Sources */,
 				BBED55F21DF1C1BC009776E4 /* MarginViewController.m in Sources */,
+				BB57D8021DF7163E008888B0 /* CarDetailCell.m in Sources */,
 				BB96BE641DEEFD5900AA74D2 /* NSDictionary+Tool.m in Sources */,
 				BB96BEC71DEF2E4B00AA74D2 /* SeverTimeManager.m in Sources */,
 				BB035DD51DF3D140006EC2F0 /* WayBillDetailCell.m in Sources */,
@@ -1498,6 +1547,7 @@
 				BB96BE841DEEFDAA00AA74D2 /* CCTool.m in Sources */,
 				BB5AB55B1DF2C4AF009107B9 /* RecordImageView.m in Sources */,
 				BB96BED01DEF2E9000AA74D2 /* QnUploadManager.m in Sources */,
+				BB57D7F91DF6F6CF008888B0 /* MarginCell.m in Sources */,
 				BBED55DA1DF1C01A009776E4 /* SettingViewController.m in Sources */,
 				BB5AB5BB1DF2D962009107B9 /* QRCodeAreaView.m in Sources */,
 			);

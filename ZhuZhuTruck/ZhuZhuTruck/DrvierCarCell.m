@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *carNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *carDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contactLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *seletedImageView;
 
 @end
 
@@ -22,7 +23,13 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+- (void)showCellWithStatus:(BOOL)status{
+    if (status) {
+        self.seletedImageView.image = [UIImage imageNamed:@"checked_small"];
+    }else{
+        self.seletedImageView.image = [UIImage imageNamed:@"uncheck_small"];
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

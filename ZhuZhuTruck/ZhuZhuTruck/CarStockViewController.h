@@ -9,5 +9,5 @@
 #import "WMPageController.h"
 
 @interface CarStockViewController : WMPageController
-
+@property (nonatomic, assign) BOOL isSeletedMode;
 @end

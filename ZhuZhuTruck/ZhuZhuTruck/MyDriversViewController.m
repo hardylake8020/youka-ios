@@ -7,18 +7,25 @@
 //
 
 #import "MyDriversViewController.h"
-
+#import "CarStockViewController.h"
+#import "OilCardsViewController.h"
+#import "ETCCardsViewController.h"
+#import "DriverCarDetailViewController.h"
 @interface MyDriversViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-
 @end
 
 @implementation MyDriversViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"我的车队"];
+    if (self.isSeletedMode) {
+        [self addNaviHeaderViewWithTitle:@"分配车辆"];
+    }else{
+        [self addNaviHeaderViewWithTitle:@"我的车队"];
+    }
+    
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initTableView];
     [self initBottomView];
@@ -66,7 +73,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     DrvierCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DrvierCarCell" forIndexPath:indexPath];
+    if (self.isSeletedMode) {
+        NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
+        [cell showCellWithStatus:status.boolValue];
+    }
     return cell;
 }
 
@@ -80,24 +92,65 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (self.isSeletedMode) {
+        NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
+        status = [NSNumber numberWithBool:!status.boolValue];
+        [self.dataArray replaceObjectAtIndex:indexPath.section withObject:status];
+        [tableView reloadData];
+    }else{
+        DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]init];
+        [self.navigationController pushViewController:carDetail animated:YES];
+    }
 }
 
 - (void)initBottomView{
     UIButton * sumbitButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-60, SYSTEM_WIDTH, 60)];
     sumbitButton.backgroundColor = [UIColor buttonGreenColor];
-    [sumbitButton setTitle:@"添加车辆" forState:UIControlStateNormal];
     [sumbitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [sumbitButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
+    if (self.isSeletedMode) {
+        [sumbitButton setTitle:@"分配车辆" forState:UIControlStateNormal];
+        [sumbitButton addTarget:self action:@selector(assginCar) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        [sumbitButton setTitle:@"添加车辆" forState:UIControlStateNormal];
+        [sumbitButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
+    }
     [self.view addSubview:sumbitButton];
-
 }
 
 - (void)addNewCar{
     
 }
 
+- (void)assginCar{
+    NSArray *viewControllers;
+    NSArray *titles;
+    NSString *title;
+    viewControllers = @[[OilCardsViewController class],[ETCCardsViewController class]];
+    titles = @[@"油卡",@"ETC卡"];
+    title = @"我的卡劵";
+    CarStockViewController *pageVC = [[CarStockViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
+    pageVC.isSeletedMode = YES;
+    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
+    pageVC.postNotification = YES;
+    pageVC.bounces = YES;
+    pageVC.menuHeight = 36;
+    pageVC.menuViewStyle = WMMenuViewStyleLine;
+    pageVC.menuBGColor = [UIColor naviBarColor];
+    pageVC.titleColorSelected = [UIColor whiteColor];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleFontName = @"Helvetica-Bold";
+    pageVC.titleSizeNormal = 18;
+    pageVC.progressHeight = 4;
+    pageVC.progressColor = [UIColor whiteColor];
+    pageVC.pageAnimatable = YES;
+    pageVC.titleSizeSelected = 18;
+    pageVC.title = title;
+    [self.navigationController pushViewController:pageVC animated:YES];
+
+}
+
 #pragma mark ---> 返回 其他
+
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];
 }

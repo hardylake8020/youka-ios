@@ -10,4 +10,5 @@
 
 @interface OilCardCell : UITableViewCell
 - (void)showCellWithStatus:(BOOL)status;
+- (void)showSeletedCellWithStatus:(BOOL)status;
 @end

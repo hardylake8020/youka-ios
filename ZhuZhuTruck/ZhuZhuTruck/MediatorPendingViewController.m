@@ -7,6 +7,7 @@
 //
 
 #import "MediatorPendingViewController.h"
+#import "MyDriversViewController.h"
 #import "MediatorOrderDetailViewController.h"
 @interface MediatorPendingViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -113,10 +114,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
     if (status.boolValue) {
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing];
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderSucceed];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderOngoing];
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }
 }
@@ -156,6 +157,10 @@
 
 - (void)assignOrder:(UIButton *)button{
 //    NSInteger tag = button.tag - 2000;
+    MyDriversViewController *myDrvier = [[MyDriversViewController alloc]init];
+    myDrvier.isSeletedMode = YES;
+    [self.navigationController pushViewController:myDrvier animated:YES];
+
 }
 //- (void)initErrorMaskView{
 //    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
