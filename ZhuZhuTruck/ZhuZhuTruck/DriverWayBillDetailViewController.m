@@ -18,6 +18,7 @@
     OperationButton*    _signInbutton;
     OperationButton*    _scanbutton;
 }
+@property (nonatomic, assign) OrderModel *orderModel;
 @property (nonatomic, assign) WaybillStatus status;
 @property (nonatomic, strong) WaybillDetailTableDataModel *tableModel;
 @property (nonatomic, strong) UITableView *tableView;
@@ -35,6 +36,16 @@
     return self;
 }
 
+- (instancetype)initWithWillbillStaus:(WaybillStatus)status andOrderModel:(OrderModel *)orderModel
+{
+    self = [super init];
+    if (self) {
+        self.status = status;
+        self.orderModel = orderModel;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addNaviHeaderViewWithTitle:@"运单详情"];
@@ -45,9 +56,9 @@
 }
 - (void)initTableView{
     
-    self.tableModel = [[WaybillDetailTableDataModel alloc]init];
+    self.tableModel = [[WaybillDetailTableDataModel alloc]initWithModel:self.orderModel];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-150-SYSTEM_TITLE_HEIGHT)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-150-SYSTITLEHEIGHT)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -80,7 +91,7 @@
     return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[self.tableModel.dataArray objectAtIndex:section] count];
+    return [(NSArray *)[self.tableModel.dataArray objectAtIndex:section] count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 40;
@@ -132,17 +143,17 @@
 }
 - (void)gotoSignIn{
     if (self.status == UnpickupedStatus) {
-        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign];
-        [self.navigationController pushViewController:operation animated:YES];
+//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign];
+//        [self.navigationController pushViewController:operation animated:YES];
     }else if (self.status == UndeliveryedStatus) {
-        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign];
-        [self.navigationController pushViewController:operation animated:YES];
+//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign];
+//        [self.navigationController pushViewController:operation animated:YES];
     }
 }
 - (void)gotoHalfWayEvent{
     
-    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:HalfWayEvent];
-    [self.navigationController pushViewController:operation animated:YES];
+//    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:HalfWayEvent];
+//    [self.navigationController pushViewController:operation animated:YES];
 }
 
 #pragma mark ----> 上报按钮
@@ -160,11 +171,11 @@
 
 - (void)sumbitClick{
     if (self.status == UnpickupedStatus) {
-        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed];
-        [self.navigationController pushViewController:operation animated:YES];
+//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed];
+//        [self.navigationController pushViewController:operation animated:YES];
     }else if (self.status == UndeliveryedStatus) {
-        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySucceed];
-        [self.navigationController pushViewController:operation animated:YES];
+//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySucceed];
+//        [self.navigationController pushViewController:operation animated:YES];
     }
 }
 

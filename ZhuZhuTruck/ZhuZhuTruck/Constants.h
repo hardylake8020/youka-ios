@@ -7,13 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-//#define BASE_URL @"http://101.66.253.182:3002"//测试环境
-#define BASE_URL @"http://192.168.0.109:3002"//本地测试
-
-#define APPVERSION @"1.0.0.1"
-#define VERSIONNUMBER @"1001"
+#define BASE_URL @"http://www.zhuzhu56.com"
+#define APPVERSION @"2.0.0.9"
+#define VERSIONNUMBER @"2009"
 
 
+
+
+
+
+
+#define SIGN_IN @"/driver/signin"
+#define SIGN_UP @"/driver/signup"
+#define GET_BYSTATUS @"/driver/order/getbystatus"
+#define UPLOADEVENT @"/transport_event/upload"
+
+
+
+
+
+//登录参数
+#define USERNAME @"username"
+#define PWD @"password"
 
 typedef enum : NSUInteger {
     PickupSign,
@@ -52,12 +67,18 @@ typedef enum : NSUInteger {
 #define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+
 #ifdef DEBUG
-#define CCLog(...) NSLog(@"%s 第%d行 \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+
+#define CCLog(FORMAT, ...) fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+
 #else
+
 #define CCLog(...)
 
 #endif
+
+
 
 #define CCWeakSelf(type)  __weak typeof(type) weak##type = type;
 #define CCStrongSelf(type)  __strong typeof(type) type = weak##type;

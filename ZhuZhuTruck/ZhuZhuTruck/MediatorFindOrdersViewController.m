@@ -36,7 +36,7 @@
     return _dataArray;
 }
 - (void)initHeaderViewButton{
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT, SYSTEM_WIDTH, 110)];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 110)];
     [self.view addSubview:headerView];
     
     UIImageView * searchImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search"]];
@@ -173,7 +173,7 @@
     
     [self.dataArray addObjectsFromArray:@[@YES,@YES,@NO,@NO,@YES,@NO]];
 
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT+110, SYSTEM_WIDTH, SYSTEM_HEIGHT-110-SYSTEM_TITLE_HEIGHT)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+110, SYSTEM_WIDTH, SYSTEM_HEIGHT-110-SYSTITLEHEIGHT)];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

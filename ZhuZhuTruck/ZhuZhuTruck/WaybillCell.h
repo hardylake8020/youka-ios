@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderModel.h"
 @interface WaybillCell : UITableViewCell
-
+- (void)showCellWithOrderModel:(OrderModel*)model;
 @end

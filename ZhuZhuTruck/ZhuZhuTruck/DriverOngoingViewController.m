@@ -126,13 +126,13 @@
 }
 - (void)deliverySign:(UIButton *)button{
     //    NSInteger tag = button.tag - 8000;
-    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign];
-    [self.navigationController pushViewController:operation animated:YES];
+//    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign];
+//    [self.navigationController pushViewController:operation animated:YES];
 }
 - (void)deliverySucceed:(UIButton *)button{
     //    NSInteger tag = button.tag - 9000;
-    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySucceed];
-    [self.navigationController pushViewController:operation animated:YES];
+//    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySucceed];
+//    [self.navigationController pushViewController:operation animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

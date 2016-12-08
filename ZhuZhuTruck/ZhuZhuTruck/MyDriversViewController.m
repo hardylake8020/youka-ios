@@ -40,7 +40,7 @@
 - (void)initTableView{
     [self.dataArray addObjectsFromArray:@[@YES,@YES,@NO,@NO,@YES,@NO]];
 
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTEM_TITLE_HEIGHT-60) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-60) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

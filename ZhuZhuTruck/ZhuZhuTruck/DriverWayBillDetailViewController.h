@@ -10,4 +10,5 @@
 
 @interface DriverWayBillDetailViewController : BaseViewController
 - (instancetype)initWithWillbillStaus:(WaybillStatus)status;
+- (instancetype)initWithWillbillStaus:(WaybillStatus)status andOrderModel:(OrderModel *)orderModel;
 @end

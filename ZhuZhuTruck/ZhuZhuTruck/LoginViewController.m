@@ -106,35 +106,34 @@
 
 - (void)loginButtonClick{
 
-//    if ([phoneTextField.text isEmpty]||![phoneTextField.text isValidateMobile]) {
-//        toast_showInfoMsg(@"手机号码不符合规范", 200);
-//        return;
-//    }
-//    if ([passWordTextFied.text isEmpty]||passWordTextFied.text.length<6) {
-//        toast_showInfoMsg(@"密码少于6位", 200);
-//        return;
-//    }
-    [self pushToHomePage];    
+    if ([phoneTextField.text isEmpty]||![phoneTextField.text isValidateMobile]) {
+        toast_showInfoMsg(@"手机号码不符合规范", 200);
+        return;
+    }
+    if ([passWordTextFied.text isEmpty]||passWordTextFied.text.length<6) {
+        toast_showInfoMsg(@"密码少于6位", 200);
+        return;
+    }
+    [self diverLogin];
 }
 - (void)diverLogin{
-//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    [parameters put:phoneTextField.text key:USERNAME];
-//    [parameters put:passWordTextFied.text key:PWD];
-//    [SVProgressHUD showWithStatus:@"正在登录..."];
-//    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_IN_DRIVER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
-//        if (error) {
-//            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
-//        }else{
-//            NSDictionary *driver = [result objectForKey:@"driver"];
-//            [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-//            save_userType((int)_appDeleted.userRole);
-//            save_UserPwd(passWordTextFied.text);
-//            save_userPhone([driver stringForKey:@"username"]);
-//            save_PushId([driver stringForKey:USER_PUSH_ID]);
-//            save_AccessToken([result stringForKey:ACCESS_TOKEN]);
-//            [self pushToHomePage];
-//        }
-//    }];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:phoneTextField.text key:USERNAME];
+    [parameters put:passWordTextFied.text key:PWD];
+    [SVProgressHUD showWithStatus:@"正在登录..."];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_IN parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
+        }else{
+            NSDictionary *driver = [result objectForKey:@"driver"];
+            [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+            save_UserPwd(passWordTextFied.text);
+            save_userPhone([driver stringForKey:@"username"]);
+            save_PushId([driver stringForKey:USER_PUSH_ID]);
+            save_AccessToken([result stringForKey:ACCESS_TOKEN]);
+            [self pushToHomePage];
+        }
+    }];
     
 }
 
@@ -164,7 +163,8 @@
 #pragma mark --------> 自动登陆
 - (void)autoLogin{
     if (accessToken()&&![accessToken() isEmpty]&&user_phone()&&![user_phone() isEmpty]&&user_Pwd()&&![user_Pwd() isEmpty]) {
-        [self pushToHomePage];
+        HomePageViewController *homePage = [[HomePageViewController alloc]init];
+        [self.navigationController pushViewController:homePage animated:NO];
     }
 }
 

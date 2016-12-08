@@ -78,7 +78,8 @@
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errType                                                                     forKey:NSLocalizedDescriptionKey];
                 error = [[NSError alloc]initWithDomain:errType code:-200 userInfo:userInfo];
                 
-                if ([error.localizedDescription isEqualToString:@"driver_token_invalid"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"dest_admin_token_invalid"]||[error.localizedDescription isEqualToString:@"carrier_admin_token_invalid"]) {
+                if ([error.localizedDescription isEqualToString:@"driver_token_invalid"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"account_not_exist"]) {
+                    save_AccessToken(@"");
 #warning 退出登录
 //                    [[NSNotificationCenter defaultCenter] postNotificationName:USER_TOKEN_INVILID_NOTI object:nil];
                 }
@@ -138,7 +139,8 @@
                 NSLog(@"errtype:----->%@",errType);
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errType                                                                     forKey:NSLocalizedDescriptionKey];
                 error = [[NSError alloc]initWithDomain:errType code:-200 userInfo:userInfo];
-                if ([error.localizedDescription isEqualToString:@"driver_token_invalid"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"dest_admin_token_invalid"]||[error.localizedDescription isEqualToString:@"carrier_admin_token_invalid"]) {
+                if ([error.localizedDescription isEqualToString:@"driver_token_invalid"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"account_not_exist"]) {
+                    save_AccessToken(@"");
 //                    [[NSNotificationCenter defaultCenter] postNotificationName:USER_TOKEN_INVILID_NOTI object:nil];
                 }
             }

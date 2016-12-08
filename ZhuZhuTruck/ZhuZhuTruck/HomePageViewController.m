@@ -61,7 +61,7 @@
     [headerButton addTarget:self action:@selector(gotoSetting) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:headerButton];
     
-    UIView *progressView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT, SYSTEM_WIDTH, 100)];
+    UIView *progressView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 100)];
     progressView.backgroundColor = [UIColor naviBarColor];
     [self.view addSubview:progressView];
     
@@ -109,7 +109,7 @@
     [self.dataArray addObjectsFromArray:@[@YES,@YES,@NO,@NO,@YES,@NO]];
     
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT+100, SYSTEM_WIDTH, SYSTEM_HEIGHT-100-SYSTEM_TITLE_HEIGHT) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+100, SYSTEM_WIDTH, SYSTEM_HEIGHT-100-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

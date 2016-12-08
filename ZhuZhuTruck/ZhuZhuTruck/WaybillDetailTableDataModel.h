@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "WaybillDetailCellModel.h"
+#import "OrderModel.h"
 @interface WaybillDetailTableDataModel : NSObject
+- (instancetype)initWithModel:(OrderModel*)model;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @end

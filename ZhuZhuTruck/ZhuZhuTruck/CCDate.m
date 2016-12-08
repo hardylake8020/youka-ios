@@ -171,7 +171,7 @@ NSString* diffDate(NSString* date,int dateDiff)
 }
 
 
-NSString *dateStringWithDateAndFormart(NSString *format,NSString *dateString){
+NSString *dateStringWithDateAndFormart(NSString *dateString,NSString *format){
     NSDate *date = [dateString dateFromString];
     NSTimeZone *timeZone = [NSTimeZone localTimeZone];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

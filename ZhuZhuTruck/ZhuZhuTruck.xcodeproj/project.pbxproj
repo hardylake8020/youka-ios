@@ -125,6 +125,11 @@
 		BB5AB5BE1DF2D962009107B9 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5B11DF2D962009107B9 /* UIViewExt.m */; };
 		BB5AB5C11DF2DBBC009107B9 /* OperationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5C01DF2DBBC009107B9 /* OperationButton.m */; };
 		BB5AB5C31DF2DD70009107B9 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5AB5C21DF2DD70009107B9 /* check.png */; };
+		BB8812E11DF995F600B54644 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8812E01DF995F600B54644 /* OrderModel.m */; };
+		BB8812E51DF9974D00B54644 /* OrderDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8812E41DF9974D00B54644 /* OrderDetailsModel.m */; };
+		BB8812E81DF9988100B54644 /* GoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8812E71DF9988100B54644 /* GoodModel.m */; };
+		BB8812EB1DF999B600B54644 /* PickupContactsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8812EA1DF999B600B54644 /* PickupContactsModel.m */; };
+		BB8812EE1DF999D000B54644 /* DeliveryContactsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8812ED1DF999D000B54644 /* DeliveryContactsModel.m */; };
 		BB96BE641DEEFD5900AA74D2 /* NSDictionary+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BE511DEEFD5900AA74D2 /* NSDictionary+Tool.m */; };
 		BB96BE651DEEFD5900AA74D2 /* NSMutableArray+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BE531DEEFD5900AA74D2 /* NSMutableArray+Tool.m */; };
 		BB96BE661DEEFD5900AA74D2 /* NSMutableDictionary+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BE551DEEFD5900AA74D2 /* NSMutableDictionary+Tool.m */; };
@@ -370,6 +375,16 @@
 		BB5AB5BF1DF2DBBC009107B9 /* OperationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationButton.h; sourceTree = "<group>"; };
 		BB5AB5C01DF2DBBC009107B9 /* OperationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationButton.m; sourceTree = "<group>"; };
 		BB5AB5C21DF2DD70009107B9 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		BB8812DF1DF995F600B54644 /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
+		BB8812E01DF995F600B54644 /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
+		BB8812E31DF9974D00B54644 /* OrderDetailsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsModel.h; sourceTree = "<group>"; };
+		BB8812E41DF9974D00B54644 /* OrderDetailsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsModel.m; sourceTree = "<group>"; };
+		BB8812E61DF9988100B54644 /* GoodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodModel.h; sourceTree = "<group>"; };
+		BB8812E71DF9988100B54644 /* GoodModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodModel.m; sourceTree = "<group>"; };
+		BB8812E91DF999B600B54644 /* PickupContactsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickupContactsModel.h; sourceTree = "<group>"; };
+		BB8812EA1DF999B600B54644 /* PickupContactsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickupContactsModel.m; sourceTree = "<group>"; };
+		BB8812EC1DF999D000B54644 /* DeliveryContactsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryContactsModel.h; sourceTree = "<group>"; };
+		BB8812ED1DF999D000B54644 /* DeliveryContactsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryContactsModel.m; sourceTree = "<group>"; };
 		BB96BE4E1DEEFC2B00AA74D2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		BB96BE501DEEFD5900AA74D2 /* NSDictionary+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Tool.h"; sourceTree = "<group>"; };
 		BB96BE511DEEFD5900AA74D2 /* NSDictionary+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Tool.m"; sourceTree = "<group>"; };
@@ -552,6 +567,7 @@
 			children = (
 				BB035DD81DF3D16F006EC2F0 /* WillbillModel */,
 				BB035DE41DF402E0006EC2F0 /* TenderModel */,
+				BB8812E21DF995FA00B54644 /* DrvierOrderModel */,
 			);
 			name = "数据模型";
 			sourceTree = "<group>";
@@ -870,6 +886,23 @@
 				BB5AB5A91DF2D962009107B9 /* prev@3x.png */,
 			);
 			path = prev.imageset;
+			sourceTree = "<group>";
+		};
+		BB8812E21DF995FA00B54644 /* DrvierOrderModel */ = {
+			isa = PBXGroup;
+			children = (
+				BB8812DF1DF995F600B54644 /* OrderModel.h */,
+				BB8812E01DF995F600B54644 /* OrderModel.m */,
+				BB8812E31DF9974D00B54644 /* OrderDetailsModel.h */,
+				BB8812E41DF9974D00B54644 /* OrderDetailsModel.m */,
+				BB8812E61DF9988100B54644 /* GoodModel.h */,
+				BB8812E71DF9988100B54644 /* GoodModel.m */,
+				BB8812E91DF999B600B54644 /* PickupContactsModel.h */,
+				BB8812EA1DF999B600B54644 /* PickupContactsModel.m */,
+				BB8812EC1DF999D000B54644 /* DeliveryContactsModel.h */,
+				BB8812ED1DF999D000B54644 /* DeliveryContactsModel.m */,
+			);
+			name = DrvierOrderModel;
 			sourceTree = "<group>";
 		};
 		BB96BE4C1DEEFBDB00AA74D2 /* 全局文件 */ = {
@@ -1481,10 +1514,12 @@
 				BB96BE6A1DEEFD5900AA74D2 /* UIActionSheet+Blocks.m in Sources */,
 				BB4321701DF05A2700F77680 /* BaseViewController.m in Sources */,
 				BB96BEBF1DEF2E1C00AA74D2 /* BackgroundTaskManager.m in Sources */,
+				BB8812EE1DF999D000B54644 /* DeliveryContactsModel.m in Sources */,
 				BB96BE661DEEFD5900AA74D2 /* NSMutableDictionary+Tool.m in Sources */,
 				BB96BECA1DEF2E5D00AA74D2 /* LocationUploadManager.m in Sources */,
 				BBED55C51DF1BEFD009776E4 /* MediatorPendingViewController.m in Sources */,
 				BBED55EF1DF1C19E009776E4 /* BillsViewController.m in Sources */,
+				BB8812E81DF9988100B54644 /* GoodModel.m in Sources */,
 				BB43217D1DF0603F00F77680 /* LaunchViewController.m in Sources */,
 				BB4321831DF0606000F77680 /* RegisterViewController.m in Sources */,
 				BBED55D71DF1C010009776E4 /* HomePageViewController.m in Sources */,
@@ -1506,6 +1541,7 @@
 				BB96BEC11DEF2E1C00AA74D2 /* LocationTracker.m in Sources */,
 				BBDCEC6F1DEDAAB100C2125D /* main.m in Sources */,
 				BBED55BE1DF1BE46009776E4 /* DriverOperationViewController.m in Sources */,
+				BB8812E51DF9974D00B54644 /* OrderDetailsModel.m in Sources */,
 				BB4321771DF05BC300F77680 /* CCTextFiled.m in Sources */,
 				BB035DD11DF3CA95006EC2F0 /* WaybillDetailTableDataModel.m in Sources */,
 				BB4321921DF0618400F77680 /* WMMenuView.m in Sources */,
@@ -1547,8 +1583,10 @@
 				BB96BE841DEEFDAA00AA74D2 /* CCTool.m in Sources */,
 				BB5AB55B1DF2C4AF009107B9 /* RecordImageView.m in Sources */,
 				BB96BED01DEF2E9000AA74D2 /* QnUploadManager.m in Sources */,
+				BB8812E11DF995F600B54644 /* OrderModel.m in Sources */,
 				BB57D7F91DF6F6CF008888B0 /* MarginCell.m in Sources */,
 				BBED55DA1DF1C01A009776E4 /* SettingViewController.m in Sources */,
+				BB8812EB1DF999B600B54644 /* PickupContactsModel.m in Sources */,
 				BB5AB5BB1DF2D962009107B9 /* QRCodeAreaView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

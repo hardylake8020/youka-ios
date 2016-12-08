@@ -21,6 +21,8 @@
     NSString *_voiceName;
     AddressManager *_addressManager;
 }
+
+@property (nonatomic, strong) OrderModel *orderModel;
 @property (nonatomic, assign) DriverOperationType operationType;
 @property (nonatomic, strong) NSMutableArray *photos;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -35,11 +37,12 @@
 
 @implementation DriverOperationViewController
 
-- (instancetype)initWithDriverOperationType:(DriverOperationType)type
+- (instancetype)initWithDriverOperationType:(DriverOperationType)type andOrderModel:(OrderModel *)orderModel
 {
     self = [super init];
     if (self) {
         self.operationType = type;
+        self.orderModel = orderModel;
     }
     return self;
 }
@@ -47,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = ColorFromRGB(0xe5e5e5);
-    self.fd_interactivePopDisabled = YES;
+    self.fd_prefersNavigationBarHidden = YES;
     
     switch (self.operationType) {
         case PickupSign:

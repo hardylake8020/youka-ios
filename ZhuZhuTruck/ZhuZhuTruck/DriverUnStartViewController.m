@@ -21,8 +21,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"运单待提货";
+    [self initDBData];
     [self initTableView];
 }
+
+- (void)initDBData{
+    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnpickupOrders]];
+}
+
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray  = [NSMutableArray array];
@@ -31,10 +37,8 @@
 }
 - (void)initTableView{
     
-    [self.dataArray addObjectsFromArray:@[@NO,@NO,@YES,@NO,@YES,@YES]];
-    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100) style:UITableViewStyleGrouped];
-    self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -53,9 +57,10 @@
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakself loadNewData];
     }];
-    
-    //    [self tableHeaderRefesh];
-    
+    if (!self.dataArray.count) {
+        [self tableHeaderRefesh];
+    }
+
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
@@ -73,6 +78,37 @@
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)loadNewData{
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"unPickupSigned",@"unPickuped",nil];
+    [parameters putKey:array key:@"status"];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [[HttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.localizedDescription);
+        }else{
+            //CCLog(@"---->%@",result);
+            NSArray *orders = [result objectForKey:@"orders"];
+            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            [weakself.dataArray removeAllObjects];
+            for (NSDictionary *orderDict in orders) {
+                CCLog(@"%@",orderDict);
+                OrderModel *orderModel = [[OrderModel alloc]initWithDictionary:orderDict error:nil];
+                [[DBManager sharedManager] insertOrderWithOrderModel:orderModel];
+                [weakself.dataArray addObject:orderModel];
+            }
+            [weakself.tableView reloadData];
+        }
+        if (weakself.dataArray.count==0) {
+//            weakself.errMaskView.hidden = NO;
+        }else{
+//            weakself.errMaskView.hidden = YES;
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+
+    
     
 }
 #pragma mark ---> UITableViewDelegate dataSource
@@ -94,19 +130,26 @@
     return 45;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WaybillCell" forIndexPath:indexPath];
+    OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
+    WaybillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WaybillCell" forIndexPath:indexPath];
+    [cell showCellWithOrderModel:orderModel];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    DriverWayBillDetailViewController *detail = [[DriverWayBillDetailViewController alloc]initWithWillbillStaus:UnpickupedStatus];
+    OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
+    DriverWayBillDetailViewController *detail = [[DriverWayBillDetailViewController alloc]initWithWillbillStaus:UnpickupedStatus andOrderModel:orderModel];
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 45)];
-    NSNumber *status = [self.dataArray objectAtIndex:section];
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(-1, 0, SYSTEM_WIDTH+2, 45)];
+    
+    footerView.layer.borderColor = [UIColor customGrayColor].CGColor;
+    footerView.layer.borderWidth = 0.5;
+    OrderModel *orderModel = [self.dataArray objectAtIndex:section];
+    
     UIColor *startColor = UIColorFromRGB(0xf5f5f5);
     UIColor *enterColor = UIColorFromRGB(0xf9f9f9);
-    if (status.boolValue) {
+    if (![orderModel.confirm_status isEqualToString:@"confirmed"]) {
         UIButton *carStartButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 45)];
         [carStartButton setBackgroundColor:startColor];
         [carStartButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -128,7 +171,7 @@
         
         UIButton *pickupSucceedButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3*2, 45)];
         [pickupSucceedButton setBackgroundColor:startColor];
-        [pickupSucceedButton setTitle:@"提货完成" forState:UIControlStateNormal];
+        [pickupSucceedButton setTitle:@"提货离场" forState:UIControlStateNormal];
         pickupSucceedButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [pickupSucceedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         pickupSucceedButton.tag = 7000+section;
@@ -140,16 +183,49 @@
 }
 
 - (void)startCar:(UIButton *)button{
-    //    NSInteger tag = button.tag - 5000;
+    NSInteger tag = button.tag - 5000;
+    
+    OrderModel *orderModel = [self.dataArray objectAtIndex:tag];
+    
+    NSMutableDictionary *confirReport = [[NSMutableDictionary alloc]init];
+    [confirReport put:orderModel._id key:@"order_id"];
+    [confirReport put:accessToken() key:@"access_token"];
+    [confirReport put:now() key:@"time"];
+    [confirReport put:@"confirm" key:@"type"];
+    [SVProgressHUD showWithStatus:@"发车启动..."];
+    CCWeakSelf(self);
+    [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOADEVENT parameters:confirReport resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
+            if ([error.domain isEqualToString:@"can_not_execute_confirm"]) {
+                orderModel.confirm_status = @"confirmed";
+                [[DBManager sharedManager] orderConfirmSucceedWithOrder:orderModel];
+                [weakself.tableView reloadData];
+            }
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"发车成功"];
+            orderModel.confirm_status = @"confirmed";
+            [[DBManager sharedManager] orderConfirmSucceedWithOrder:orderModel];
+            [weakself.tableView reloadData];
+        }
+    }];
+    
+    
 }
 - (void)pickupSign:(UIButton *)button{
-    //    NSInteger tag = button.tag - 6000;
-    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign];
+    NSInteger tag = button.tag - 6000;
+    OrderModel *orderModel = [self.dataArray objectAtIndex:tag];
+    if ([orderModel.status isEqualToString:@"unPickuped"]) {
+        toast_showInfoMsg(@"已经进过场了", 200);
+        return;
+    }
+    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:orderModel];
     [self.navigationController pushViewController:operation animated:YES];
 }
 - (void)pickupSucceed:(UIButton *)button{
-    //    NSInteger tag = button.tag - 7000;
-    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed];
+    NSInteger tag = button.tag - 7000;
+    OrderModel *orderModel = [self.dataArray objectAtIndex:tag];
+    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed andOrderModel:orderModel];
     [self.navigationController pushViewController:operation animated:YES];
 }
 - (void)didReceiveMemoryWarning {

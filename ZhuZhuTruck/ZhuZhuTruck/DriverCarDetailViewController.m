@@ -85,7 +85,7 @@
     return self.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[self.dataArray objectAtIndex:section] count];
+    return [(NSArray *)[self.dataArray objectAtIndex:section] count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;

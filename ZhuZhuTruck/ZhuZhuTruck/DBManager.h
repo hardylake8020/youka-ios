@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Constants.h"
+#import "OrderModel.h"
 @interface DBManager : NSObject
 + (DBManager *)sharedManager;
 - (BOOL)inserPhotoWithPhotoName:(NSString *)photoName;
@@ -24,4 +25,15 @@
 - (BOOL)deleteLocationWithInfo:(NSString *)locationInfo;
 - (BOOL)deletedAllLocations;
 - (void)deleteLocationsWithLoctions:(NSArray *)locations;
+
+- (void)insertOrderWithOrderModel:(OrderModel *)orderModel;
+- (void)orderConfirmSucceedWithOrder:(OrderModel *)orderModel;
+- (void)orderPickupSignSucceedWithOrder:(OrderModel *)orderModel;
+- (void)orderPickupSucceedWithOrder:(OrderModel *)orderModel;
+- (void)orderDeliverySignSucceedWithOrder:(OrderModel *)orderModel;
+- (void)orderDeliverySucceedWithOrder:(OrderModel *)orderModel;
+
+- (NSArray *)readAllUnpickupOrders;
+- (NSArray *)readAllUnDeliveryOrders;
+- (NSArray *)readAllCompletedOrders;
 @end

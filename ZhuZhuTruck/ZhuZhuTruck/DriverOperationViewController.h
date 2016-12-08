@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface DriverOperationViewController : BaseViewController
-- (instancetype)initWithDriverOperationType:(DriverOperationType)type;
+- (instancetype)initWithDriverOperationType:(DriverOperationType)type andOrderModel:(OrderModel *)orderModel;
 @end

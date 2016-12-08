@@ -155,7 +155,7 @@
     
     self.tableModel = [[TenderDetailTableDataModel alloc]init];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTEM_TITLE_HEIGHT+_headerHight, SYSTEM_WIDTH, SYSTEM_HEIGHT-60-SYSTEM_TITLE_HEIGHT-_headerHight)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+_headerHight, SYSTEM_WIDTH, SYSTEM_HEIGHT-60-SYSTITLEHEIGHT-_headerHight)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     

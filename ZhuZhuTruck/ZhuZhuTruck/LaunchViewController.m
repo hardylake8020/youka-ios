@@ -75,33 +75,30 @@
 
 #pragma mark ---> 自动登录接口
 - (void)autoLogin{//
-//    
-//    [AppDelegate shareAppDelegate].userRole = user_type();
-//    
-//    if (accessToken()&&![accessToken() isEmpty]&&user_phone()&&![user_phone() isEmpty]&&user_Pwd()&&![user_Pwd() isEmpty]) {
-//        
-//        _lauchImage  = [[UIImageView alloc]initWithFrame:self.view.frame];
-//        _lauchImage.image = [UIImage imageNamed:@"Default-568h@2x~iphone"];
-//        //适配3.5寸屏幕
-//        if (self.view.frame.size.height<=480) {
-//            _lauchImage.image = [UIImage imageNamed:@"Default"];
-//        }
-//        [[AppDelegate shareAppDelegate].window addSubview:_lauchImage];
-//        [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(hiddleImage) userInfo:nil repeats:NO];
-//        LoginViewController *login = [[LoginViewController alloc]init];
-//        login.isAutoLogin = YES;
-//        [self.navigationController pushViewController:login animated:NO];
-//    }
+    
+    if (accessToken()&&![accessToken() isEmpty]&&user_phone()&&![user_phone() isEmpty]&&user_Pwd()&&![user_Pwd() isEmpty]) {
+        
+        _lauchImage  = [[UIImageView alloc]initWithFrame:self.view.frame];
+        _lauchImage.image = [UIImage imageNamed:@"Default-667h@2x"];
+        //适配3.5寸屏幕
+        if (self.view.frame.size.height<=480) {
+            _lauchImage.image = [UIImage imageNamed:@"Default"];
+        }
+        [[AppDelegate shareAppDelegate].window addSubview:_lauchImage];
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hiddleImage) userInfo:nil repeats:NO];
+        LoginViewController *login = [[LoginViewController alloc]init];
+        login.isAutoLogin = YES;
+        [self.navigationController pushViewController:login animated:NO];
+    }
 }
 - (void)hiddleImage{
-//    [[AppDelegate shareAppDelegate].window addSubview:_lauchImage];
-//    [UIView animateWithDuration:1 animations:^{
-//        _lauchImage.alpha = 0;
-//    } completion:^(BOOL finished) {
-//        [_lauchImage removeFromSuperview];
-//        _lauchImage = nil;
-//    }];
-//
+    [[AppDelegate shareAppDelegate].window addSubview:_lauchImage];
+    [UIView animateWithDuration:1 animations:^{
+        _lauchImage.alpha = 0;
+    } completion:^(BOOL finished) {
+        [_lauchImage removeFromSuperview];
+        _lauchImage = nil;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

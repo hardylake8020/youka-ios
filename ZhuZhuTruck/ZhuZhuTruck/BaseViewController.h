@@ -17,6 +17,7 @@
 #import "CCUserData.h"
 #import "TenderCell.h"
 #import "PhotosCell.h"
+#import "OrderModel.h"
 #import "OilCardCell.h"
 #import "ETCCardCell.h"
 #import "WaybillCell.h"
