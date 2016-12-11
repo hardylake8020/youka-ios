@@ -12,6 +12,7 @@
 #import "ShowPhotoViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "DriverProgressViewController.h"
 @interface DriverOperationViewController ()<AVAudioRecorderDelegate,AVAudioPlayerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,LVRecordToolDelegate>
 {
     CCTextFiled *_markTextView;
@@ -20,6 +21,8 @@
     RecordImageView *_voiceView;
     NSString *_voiceName;
     AddressManager *_addressManager;
+    UISwitch *_demageButton;
+    CGFloat _bottomHight;
 }
 
 @property (nonatomic, strong) OrderModel *orderModel;
@@ -32,7 +35,7 @@
 @property (nonatomic, assign) BOOL isRecordSucceed;
 @property (nonatomic, copy  ) NSString *address;
 @property (nonatomic, assign) CLLocationCoordinate2D userLocation;
-
+@property (nonatomic, assign) NSArray *scanCodeArray;
 @end
 
 @implementation DriverOperationViewController
@@ -51,31 +54,38 @@
     [super viewDidLoad];
     self.view.backgroundColor = ColorFromRGB(0xe5e5e5);
     self.fd_prefersNavigationBarHidden = YES;
-    
+    _bottomHight = 110;
     switch (self.operationType) {
         case PickupSign:
         {
             [self addNaviHeaderViewWithTitle:@"提货进场"];
+            self.scanCodeArray = self.orderModel.scanCodes;
         }
             break;
         case PickupSucceed:
         {
             [self addNaviHeaderViewWithTitle:@"提货成功"];
+            
+            _bottomHight = 160;
         }
             break;
         case DeliveySign:
         {
             [self addNaviHeaderViewWithTitle:@"交货进场"];
+            self.scanCodeArray = self.orderModel.scanCodes;
         }
             break;
         case DeliveySucceed:
         {
             [self addNaviHeaderViewWithTitle:@"交货成功"];
+            self.scanCodeArray = self.orderModel.scanCodes;
+            _bottomHight = 160;
         }
             break;
         case HalfWayEvent:
         {
             [self addNaviHeaderViewWithTitle:@"中途事件"];
+            self.scanCodeArray = self.orderModel.scanCodes;
         }
             break;
     }
@@ -98,7 +108,11 @@
 }
 - (void)initData{
     _voiceName = @"";
-    self.photos = [NSMutableArray array];
+    if (self.operationType == HalfWayEvent) {
+        self.photos = [NSMutableArray array];
+    }else{
+        self.photos = [NSMutableArray arrayWithArray:[[DBManager sharedManager] readAllPhotosWithId:self.orderModel._id andStatus:self.operationType]];
+    }
 }
 - (void)initTool{
     self.picker = [[UIImagePickerController alloc] init];
@@ -120,7 +134,7 @@
 - (void)initPhotoWall{
     UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-250) collectionViewLayout:flowLayout];
+    self.collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-_bottomHight) collectionViewLayout:flowLayout];
     self.collectionView.dataSource=self;
     self.collectionView.delegate=self;
     [self.collectionView setBackgroundColor:[UIColor clearColor]];
@@ -140,9 +154,9 @@
         cell = [[PhotosCell alloc]init];
     }
     if (indexPath.row == self.photos.count) {
-        [cell setTitle:@"拍照（可选）" andPhotoName:@""];
+        [cell setTitle:@"拍 照" andPhotoName:@""];
     }else{
-        [cell setTitle:@"拍照（可选）" andPhotoName:self.photos[indexPath.row]];
+        [cell setTitle:@"拍 照" andPhotoName:self.photos[indexPath.row]];
     }
     return cell;
 }
@@ -156,6 +170,7 @@
         NSString *fileName = _photos[indexPath.row];
         __weak typeof(self) _weakSelf = self;
         ShowPhotoViewController *show = [[ShowPhotoViewController alloc]initWithEditFileName:fileName editCallBack:^(NSString *fileName) {
+            [[DBManager sharedManager] photoDeletedWithPhotoName:fileName];
             [_weakSelf.photos removeObject:fileName];
             [_weakSelf.collectionView reloadData];
         }];
@@ -204,6 +219,7 @@
     NSString* fileName=[NSString stringWithFormat:@"ios_user_phone%@take_time%@", user_phone(),[NSDate  date]];
     if(saveImg(image,fileName)){
         [self.photos addObject:fileName];
+        [[DBManager sharedManager] inserPhotoWithPhotoName:fileName orderId:self.orderModel._id andStatus:self.operationType];
         [self.collectionView reloadData];
     }
     else
@@ -213,14 +229,33 @@
 #pragma mark -------> 填写原因和备注
 - (void)initReportReasonView{
     
-    self.reportReasonView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTEM_HEIGHT-150, SYSTEM_WIDTH, 100)];
-    self.reportReasonView.backgroundColor = [UIColor clearColor];
-    MarginLabel *choiceTipLabel = [[MarginLabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 40) andInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
-    choiceTipLabel.backgroundColor = ColorFromRGB(0xf5f5f5);
-    choiceTipLabel.font = fontBysize(18);
-    choiceTipLabel.text = @"录音或备注";
-    choiceTipLabel.textColor = UIColorFromRGB(0x999999);
-    [_reportReasonView addSubview:choiceTipLabel];
+    self.reportReasonView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH, _bottomHight-50)];
+    
+    self.reportReasonView.backgroundColor = [UIColor whiteColor];
+    
+    if (_bottomHight==160) {
+        UIView *switchLine = [[UIView alloc]initWithFrame:CGRectMake(0, 50, SYSTEM_WIDTH, 0.5)];
+        switchLine.backgroundColor = ColorFromRGB(0xdddddd);
+        [_reportReasonView addSubview:switchLine];
+        
+        UIView *switchView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 50)];
+        [_reportReasonView addSubview:switchView];
+        
+        UILabel *switchTipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 50)];
+        switchTipLabel.text = @"货损";
+//        switchTipLabel.textColor  = [UIColor customRedColor];
+        
+        [switchView addSubview:switchTipLabel];
+        
+        _demageButton  = [[UISwitch alloc]init];
+        _demageButton.onTintColor = [UIColor customRedColor];
+        [switchView addSubview:_demageButton];
+        
+        _demageButton.sd_layout
+        .rightSpaceToView(switchView, 15)
+        .centerYEqualToView(switchView);
+    }
+    
     
     UIView *line = [[UIView alloc]init];
     line.backgroundColor = ColorFromRGB(0xdddddd);
@@ -442,52 +477,169 @@
 #pragma mark ------------> 上报异常事件
 
 - (void)sumbitClick{
-    //    if (!_address||[_address isEmpty]) {
-    //        [self getAddress];
-    //        alert_showInfoMsg(@"还没有得到位置，请稍后再试");
-    //        return;
-    //    }
-    //
-    //    [SVProgressHUD showWithStatus:@"上报中..."];
-    //    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    //    [parameters put:accessToken() key:ACCESS_TOKEN];
-    //    NSMutableDictionary *event = [NSMutableDictionary dictionary];
-    //    [event put:_markTextView.text key:@"description"];
-    //    [event put:_address key:@"address"];
-    //    [event put:[NSNumber numberWithFloat:_userLocation.latitude] key:@"latitude"];
-    //    [event put:[NSNumber numberWithFloat:_userLocation.longitude] key:@"longitude"];
-    //    if (_voiceName&&![_voiceName isEmpty]) {
-    //        [event put:_voiceName key:@"voice"];
-    //    }
-    //    if (self.photos>0) {
-    //        [event put:self.photos key:@"photos"];
-    //    }
-    //    NSNumber *time = [NSNumber numberWithDouble:[[SeverTimeManager defaultManager] currentTimeIntervarl]*1000];
-    //    [event put:time key:@"time"];
-    //
-    //
-    //    [parameters put:event key:@"event"];
-    //    CCWeakSelf(self);
-    //    [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOAD_EVENT_ABNORMAL parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
-    //        if (error) {
-    //            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"上报失败")];
-    //        }else{
-    //            [SVProgressHUD showSuccessWithStatus:@"上报成功"];
-    //            [weakself sumbitEventSucceed];
-    //        }
-    //    }];
+    
+    if (!_address||[_address isEmpty]) {
+        [self getAddress];
+        alert_showInfoMsg(@"还没有得到位置，请稍后再试");
+        return;
+    }
+    
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    switch (self.operationType) {
+        case HalfWayEvent:
+        {
+            if ([_voiceName isEmpty] && _photos.count==0 && [_markTextView.text isEmpty]) {
+                toast_showInfoMsg(@"请至少填写一项内容", 200);
+                return;
+            }
+            [parameters put:@"halfway" key:@"type"];
+        }
+            break;
+        case PickupSign:
+        {
+//            if (self.orderModel.pickup_entrance_force.boolValue&&self.photos.count==0) {
+//                toast_showInfoMsg(@"请至少拍摄一张照片", 200);
+//                return;
+//            }
+            [parameters put:@"pickupSign" key:@"type"];
+        }
+            break;
+            
+        case PickupSucceed:
+        {
+            if ((self.orderModel.pickup_photo_force.boolValue||_demageButton.isOn)&&self.photos.count==0) {
+                toast_showInfoMsg(@"请至少拍摄一张照片", 200);
+                return;
+            }
+            [parameters putKey:self.orderModel.scanCodes key:@"order_codes"];
+            [parameters put:@"pickup" key:@"type"];
+            [parameters putBool:_demageButton.isOn key:@"damaged"];
+        }
+            break;
+            
+        case DeliveySign:
+        {
+//            if (self.orderModel.delivery_entrance_force.boolValue&&self.photos.count==0) {
+//                toast_showInfoMsg(@"请至少拍摄一张照片", 200);
+//                return;
+//            }
+            [parameters put:@"deliverySign" key:@"type"];
+        }
+            break;
+            
+        case DeliveySucceed:
+        {
+            if ((self.orderModel.delivery_photo_force.boolValue||_demageButton.isOn)&&self.photos.count==0) {
+                toast_showInfoMsg(@"请至少拍摄一张照片", 200);
+                return;
+            }
+            [parameters putKey:self.orderModel.scanCodes key:@"order_codes"];
+            [parameters putBool:_demageButton.isOn key:@"damaged"];
+            [parameters put:@"delivery" key:@"type"];
+        }
+            break;
+            
+        default:
+            break;
+    }
+
+    [SVProgressHUD showWithStatus:@"上报中..."];
+    
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [parameters put:self.orderModel._id key:@"order_id"];
+    [parameters put:_markTextView.text key:@"remark"];
+    [parameters put:_address key:@"address"];
+    [parameters put:[NSNumber numberWithFloat:_userLocation.latitude] key:@"latitude"];
+    [parameters put:[NSNumber numberWithFloat:_userLocation.longitude] key:@"longitude"];
+    NSNumber *time = [NSNumber numberWithDouble:[[SeverTimeManager defaultManager] currentTimeIntervarl]*1000];
+    [parameters put:time key:@"time"];
+    
+    if (_voiceName&&![_voiceName isEmpty]) {
+        [parameters put:_voiceName key:@"voice_file"];
+    }
+    
+    NSMutableArray *photosArray = [NSMutableArray array];
+    for (NSString *url in self.photos) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict put:url key:@"url"];
+        [dict putKey:self.title key:@"name"];
+        [photosArray addObject:dict];
+    }
+    if (photosArray>0) {
+        [parameters put:photosArray key:@"photos"];
+    }
+    
+    
+    CCWeakSelf(self);
+    
+    [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOADEVENT parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"上报失败")];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"操作成功"];
+            NSDictionary *orderDict = [result objectForKey:@"order"];
+            weakself.orderModel = [[OrderModel alloc]initWithDictionary:orderDict error:nil];
+            [weakself sumbitEventSucceed];
+        }
+    }];
 }
 
 - (void)sumbitEventSucceed{
-    if (self.photos>0) {
-        [[DBManager sharedManager] insertPhotosWithPhotoArray:self.photos];
-    }
+//    if (self.photos>0) {
+//        [[DBManager sharedManager] insertPhotosWithPhotoArray:self.photos orderId:self.orderModel._id andStatus:self.operationType];
+//    }
     if (_voiceName&&![_voiceName isEmpty]) {
         [[DBManager sharedManager] inserVoiceWithVoiceName:_voiceName];
     }
-    [self naviBack];
+    
+    switch (self.operationType) {
+        case HalfWayEvent:
+        {
+            [self saveScanCodes];
+            [[DBManager sharedManager] updateOrderWithOrderModel:self.orderModel];
+            [self naviBack];
+        }
+            break;
+        case PickupSign:
+        {
+            [self saveScanCodes];
+            [[DBManager sharedManager] orderPickupSignSucceedWithOrder:self.orderModel];
+            [self naviBack];
+        }
+            break;
+            
+        case PickupSucceed:
+        {
+            [[DBManager sharedManager] orderPickupSucceedWithOrder:self.orderModel];
+            [self backToListView];
+        }
+            break;
+            
+        case DeliveySign:
+        {
+            [self saveScanCodes];
+            [[DBManager sharedManager] orderDeliverySignSucceedWithOrder:self.orderModel];
+            [self naviBack];
+        }
+            break;
+            
+        case DeliveySucceed:
+        {
+            [[DBManager sharedManager] orderDeliverySucceedWithOrder:self.orderModel];
+            [self backToListView];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
-
+- (void)saveScanCodes{
+    if (self.scanCodeArray.count) {
+        self.orderModel.scanCodes = [NSMutableArray arrayWithArray:self.scanCodeArray];
+    }
+}
 #pragma mark ---> 返回 其他
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -503,7 +655,7 @@
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];
     int keyboardHeight = keyboardRect.size.height;
-    CGRect frame = CGRectMake(0, SYSTEM_HEIGHT-200-keyboardHeight, SYSTEM_WIDTH, 200);
+    CGRect frame = CGRectMake(0, SYSTEM_HEIGHT-_bottomHight-keyboardHeight+50, SYSTEM_WIDTH, _bottomHight-50);
     [UIView animateWithDuration:0.25 animations:^{
         _reportReasonView.frame = frame;
     }];
@@ -511,10 +663,17 @@
 }
 - (void)keyboardWillHide:(NSNotification *)aNotification{
     [UIView animateWithDuration:0.25 animations:^{
-        _reportReasonView.frame = CGRectMake(0, SYSTEM_HEIGHT-250, SYSTEM_WIDTH, 200);
+        _reportReasonView.frame = CGRectMake(0, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH, _bottomHight-50);
     }];
 }
-
+- (void)backToListView{
+    for (NSInteger i=self.navigationController.viewControllers.count-1; i>=0; i--) {
+        UIViewController *VC = [self.navigationController.viewControllers objectAtIndex:i];
+        if ([VC isKindOfClass:[DriverProgressViewController class]]) {
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:i] animated:YES];
+        }
+    }
+}
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -9,10 +9,13 @@
 #import "DriverUnStartViewController.h"
 #import "DriverOperationViewController.h"
 #import "DriverWayBillDetailViewController.h"
-@interface DriverUnStartViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface DriverUnStartViewController ()<UITableViewDelegate, UITableViewDataSource>{
+    AddressManager *_addressManager;
+}
+@property (nonatomic, copy  ) NSString *address;
+@property (nonatomic, assign) CLLocationCoordinate2D userLocation;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-
 
 @end
 
@@ -21,14 +24,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"运单待提货";
-    [self initDBData];
     [self initTableView];
 }
-
-- (void)initDBData{
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnpickupOrders]];
+    [self.tableView reloadData];
+    [self getAddress];
+    if (self.dataArray.count ==0) {
+        [self tableHeaderRefesh];
+    }
 }
-
+- (void)getAddress{
+    _addressManager = [AddressManager sharedManager];
+    CCWeakSelf(self);
+    [_addressManager getCurentAddressWithCallBackHandler:^(NSString *address, CLLocationCoordinate2D location) {
+        weakself.address = address;
+        weakself.userLocation = location;
+    }];
+}
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray  = [NSMutableArray array];
@@ -57,21 +72,17 @@
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakself loadNewData];
     }];
-    if (!self.dataArray.count) {
-        [self tableHeaderRefesh];
-    }
-
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
-    // 上拉刷新
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [tableView.mj_footer endRefreshing];
-        });
-    }];
+//    // 上拉刷新
+//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            // 结束刷新
+//            [tableView.mj_footer endRefreshing];
+//        });
+//    }];
 }
 
 - (void)tableHeaderRefesh{
@@ -89,14 +100,27 @@
         }else{
             //CCLog(@"---->%@",result);
             NSArray *orders = [result objectForKey:@"orders"];
+            
+            NSMutableArray *orderModels = [NSMutableArray array];
             CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
-            [weakself.dataArray removeAllObjects];
+            
             for (NSDictionary *orderDict in orders) {
-                CCLog(@"%@",orderDict);
+//                CCLog(@"%@",orderDict);
+                
                 OrderModel *orderModel = [[OrderModel alloc]initWithDictionary:orderDict error:nil];
-                [[DBManager sharedManager] insertOrderWithOrderModel:orderModel];
-                [weakself.dataArray addObject:orderModel];
+                if (orderModel.delete_status.boolValue) {
+                    [[DBManager sharedManager] deleteOrderWithOrderId:orderModel._id];
+                }else{
+                    [[DBManager sharedManager] insertOrderWithOrderModel:orderModel];
+                    [orderModels addObject:orderModel];
+                }
             }
+            if (orderModels.count != [[DBManager sharedManager] readAllUnpickupOrders].count) {
+                [[DBManager sharedManager] deletAllOrdersWithStatus:@0];
+                [[DBManager sharedManager ] inserOrdersWithOrders:orderModels];
+            }
+            [weakself.dataArray removeAllObjects];
+            [weakself.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnpickupOrders]];
             [weakself.tableView reloadData];
         }
         if (weakself.dataArray.count==0) {
@@ -107,10 +131,14 @@
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView.mj_footer endRefreshing];
     }];
+}
 
-    
+- (void)orderCountNotMatch{
     
 }
+
+
+
 #pragma mark ---> UITableViewDelegate dataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -183,8 +211,13 @@
 }
 
 - (void)startCar:(UIButton *)button{
-    NSInteger tag = button.tag - 5000;
+    if (!_address||[_address isEmpty]) {
+        [self getAddress];
+        toast_showInfoMsg(@"还没有得到位置，请稍后再试", 200);
+        return;
+    }
     
+    NSInteger tag = button.tag - 5000;
     OrderModel *orderModel = [self.dataArray objectAtIndex:tag];
     
     NSMutableDictionary *confirReport = [[NSMutableDictionary alloc]init];
@@ -192,6 +225,12 @@
     [confirReport put:accessToken() key:@"access_token"];
     [confirReport put:now() key:@"time"];
     [confirReport put:@"confirm" key:@"type"];
+    [confirReport put:_address key:@"address"];
+    [confirReport put:[NSNumber numberWithFloat:_userLocation.latitude] key:@"latitude"];
+    [confirReport put:[NSNumber numberWithFloat:_userLocation.longitude] key:@"longitude"];
+    NSNumber *time = [NSNumber numberWithDouble:[[SeverTimeManager defaultManager] currentTimeIntervarl]*1000];
+    [confirReport put:time key:@"time"];
+    
     [SVProgressHUD showWithStatus:@"发车启动..."];
     CCWeakSelf(self);
     [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOADEVENT parameters:confirReport resultBlock:^(NSDictionary *result, NSError *error) {
@@ -225,8 +264,28 @@
 - (void)pickupSucceed:(UIButton *)button{
     NSInteger tag = button.tag - 7000;
     OrderModel *orderModel = [self.dataArray objectAtIndex:tag];
-    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed andOrderModel:orderModel];
-    [self.navigationController pushViewController:operation animated:YES];
+    
+    if (orderModel.pickup_photo_force.boolValue) {
+        __weak typeof(self) _weakSelf = self;
+        RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
+            
+        }];
+        
+        RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
+            DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:orderModel];
+            [_weakSelf.navigationController pushViewController:operation animated:YES];
+        }];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
+                                                            message:@"你还没提货进场，请先提货进场！"
+                                                   cancelButtonItem:nil
+                                                   otherButtonItems:cancelItem,pickUpsign, nil];
+        [alertView show];
+        
+    }else{
+        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed andOrderModel:orderModel];
+        [self.navigationController pushViewController:operation animated:YES];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

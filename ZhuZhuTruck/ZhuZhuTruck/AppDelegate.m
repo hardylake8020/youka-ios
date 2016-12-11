@@ -37,7 +37,7 @@
     
     
     BMKMapManager* mapManager = [[BMKMapManager alloc] init];
-    BOOL ret = [mapManager start:@"8fbe899ac1f8c2f54f09517c" generalDelegate:nil];
+    BOOL ret = [mapManager start:@"Q6QE7woytQs7XNk8adWPQdWIDt5yL8eO" generalDelegate:nil];
     if (!ret) {
         NSLog(@"manager start failed!");
     }

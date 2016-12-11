@@ -11,9 +11,10 @@
 #import "OrderModel.h"
 @interface DBManager : NSObject
 + (DBManager *)sharedManager;
-- (BOOL)inserPhotoWithPhotoName:(NSString *)photoName;
-- (void)insertPhotosWithPhotoArray:(NSArray *)photoArray;
+- (BOOL)inserPhotoWithPhotoName:(NSString *)photoName orderId:(NSString *)_id andStatus:(DriverOperationType)status;
+- (void)insertPhotosWithPhotoArray:(NSArray *)photoArray orderId:(NSString *)_id andStatus:(DriverOperationType)status;
 - (NSArray*)readAllUnUploadPhotos;
+- (NSArray*)readAllPhotosWithId:(NSString *)_id andStatus:(DriverOperationType)status;
 - (BOOL)photoUploadSucceedWithPhotoName:(NSString *)photoName;
 - (BOOL)photoDeletedWithPhotoName:(NSString *)photoName;
 - (BOOL)inserVoiceWithVoiceName:(NSString *)voiceName;
@@ -32,6 +33,10 @@
 - (void)orderPickupSucceedWithOrder:(OrderModel *)orderModel;
 - (void)orderDeliverySignSucceedWithOrder:(OrderModel *)orderModel;
 - (void)orderDeliverySucceedWithOrder:(OrderModel *)orderModel;
+- (void)updateOrderWithOrderModel:(OrderModel *)orderModel;
+- (BOOL)deletAllOrdersWithStatus:(NSNumber *)status;
+- (void)inserOrdersWithOrders:(NSArray *)orders;
+- (BOOL)deleteOrderWithOrderId:(NSString *)orderId;
 
 - (NSArray *)readAllUnpickupOrders;
 - (NSArray *)readAllUnDeliveryOrders;

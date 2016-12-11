@@ -7,6 +7,7 @@
 //
 
 #import "HomePageViewController.h"
+#import "QnUploadManager.h"
 #import "SettingViewController.h"
 #import "SettingViewController.h"
 #import "CarStockViewController.h"
@@ -38,6 +39,9 @@
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.fd_prefersNavigationBarHidden = YES;
     self.fd_interactivePopDisabled = YES;
+    LocationTracker *tracker = [LocationTracker defaultLoactionTarker];
+    [[QnUploadManager sharedManager] getToken];
+    [tracker startLocationTracking];
     CCNaviHeaderView *naivHeader  = [[CCNaviHeaderView alloc]newInstance:@"柱柱卡车"];
     [self.view addSubview:naivHeader];
     [self initHeaderViewButton];

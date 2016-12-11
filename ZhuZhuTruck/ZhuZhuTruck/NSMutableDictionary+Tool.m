@@ -60,6 +60,9 @@
 
 -(void) putKey:(NSObject*) object key:(NSString*)key
 {
+    if (object==nil||object == NULL) {
+        return;
+    }
     [self setObject:object forKey:key];
 }
 

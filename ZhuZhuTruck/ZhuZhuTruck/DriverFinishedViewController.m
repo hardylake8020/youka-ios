@@ -23,6 +23,12 @@
     self.title = @"运单运输中";
     [self initTableView];
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.dataArray removeAllObjects];
+    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllCompletedOrders]];
+    [self.tableView reloadData];
+}
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray  = [NSMutableArray array];
@@ -31,10 +37,8 @@
 }
 - (void)initTableView{
     
-    [self.dataArray addObjectsFromArray:@[@NO,@NO,@YES,@NO,@YES,@YES]];
-    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100) style:UITableViewStyleGrouped];
-    self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -60,20 +64,60 @@
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
     // 上拉刷新
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [tableView.mj_footer endRefreshing];
-        });
-    }];
+//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            // 结束刷新
+//            [tableView.mj_footer endRefreshing];
+//        });
+//    }];
 }
 
 - (void)tableHeaderRefesh{
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)loadNewData{
-    
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"completed",nil];
+    [parameters putKey:array key:@"status"];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [[HttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.localizedDescription);
+        }else{
+            //CCLog(@"---->%@",result);
+            NSArray *orders = [result objectForKey:@"orders"];
+            NSMutableArray *orderModels = [NSMutableArray array];
+            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            
+            for (NSDictionary *orderDict in orders) {
+//                CCLog(@"%@",orderDict);
+                OrderModel *orderModel = [[OrderModel alloc]initWithDictionary:orderDict error:nil];
+                if (orderModel.delete_status.boolValue) {
+                    [[DBManager sharedManager] deleteOrderWithOrderId:orderModel._id];
+                }else{
+                    [[DBManager sharedManager] insertOrderWithOrderModel:orderModel];
+                    [orderModels addObject:orderModel];
+                }
+            }
+            if (orderModels.count != [[DBManager sharedManager] readAllCompletedOrders].count) {
+                [[DBManager sharedManager] deletAllOrdersWithStatus:@2];
+                [[DBManager sharedManager ] inserOrdersWithOrders:orderModels];
+            }
+            [weakself.dataArray removeAllObjects];
+            [weakself.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllCompletedOrders]];
+            [weakself.tableView reloadData];
+        }
+        if (weakself.dataArray.count==0) {
+            //            weakself.errMaskView.hidden = NO;
+        }else{
+            //            weakself.errMaskView.hidden = YES;
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+
 }
 #pragma mark ---> UITableViewDelegate dataSource
 
@@ -93,11 +137,14 @@
     return 45;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WaybillCell" forIndexPath:indexPath];
+    OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
+    WaybillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WaybillCell" forIndexPath:indexPath];
+    [cell showCellWithOrderModel:orderModel];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    DriverWayBillDetailViewController *detail = [[DriverWayBillDetailViewController alloc]initWithWillbillStaus:SucceedDelvieryStatus];
+    OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
+    DriverWayBillDetailViewController *detail = [[DriverWayBillDetailViewController alloc]initWithWillbillStaus:SucceedDelvieryStatus andOrderModel:orderModel];
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -115,7 +162,11 @@
 }
 
 - (void)timeLine:(UIButton *)button{
-    //    NSInteger tag = button.tag - 10000;
+    NSInteger tag = button.tag - 10000;
+    OrderModel *model = [self.dataArray objectAtIndex:tag];
+    DriverTimeLineViewController *timeLine = [[DriverTimeLineViewController alloc]initWithOrderModel:model];
+    [self.navigationController pushViewController:timeLine animated:YES];
+    
 }
 
 

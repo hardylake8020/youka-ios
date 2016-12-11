@@ -70,18 +70,20 @@
     CCWeakSelf(self);
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    [parameters put:locationArray key:@"trace_list"];
-#warning url
-    [[HttpRequstManager requestManager] postWithRequestBodyString:@"" parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [parameters put:locationArray key:@"trace_infos"];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOADLOCATIONS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         weakself.isUploading = NO;
         if (error) {
+            
             CCLog(@"LocationUploadERROR-------->%@",error.domain);
             if ([error.domain isEqualToString:@"trace_time_invalid"]||[error.domain isEqualToString:@"trace_info_invalid"]||[error.domain isEqualToString:@"trace_location_type_invalid"]) {
                 [_dbManager deleteLocationsWithLoctions:locationArray];
             }
+            
             if (error.code == -404) {
                 return ;
             }
+            
         }else{
             CCLog(@"LocationUploadResult-------->%@",result);
             [weakself.dbManager deleteLocationsWithLoctions:locationArray];

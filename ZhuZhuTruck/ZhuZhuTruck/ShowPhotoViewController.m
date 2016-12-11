@@ -39,14 +39,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor blackColor]];
-    [self addNaviHeaderViewWithTitle:@"照片详情"];
-    [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
+//    [self addNaviHeaderViewWithTitle:@""];
+    self.title = @"照片详情";
+    CCNaviHeaderView *naivHeader  = [[CCNaviHeaderView alloc] newInstance:self.title andBackGruondColor:[UIColor blackColor]];
+    [naivHeader addBackButtonWithTarget:self action:@selector(naviBack)];
+    [self.view addSubview:naivHeader];
     if (self.isCanEdit) {
         UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
         [button addTarget:self action:@selector(deletedThisFile) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:@"删除" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.naviHeaderView addRightButton:button];
+        [naivHeader addRightButton:button];
     }
     [self initShowPageView];
 }

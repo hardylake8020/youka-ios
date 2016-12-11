@@ -176,11 +176,25 @@
     int totalCount1 = 0;
     int totalCount2 = 0;
     int totalCount3 = 0;
+    
     for (int i=0; i<orderModel.order_details.goods.count; i++) {
         GoodModel *goodModel = [orderModel.order_details.goods objectAtIndex:i];
         model = [[WaybillDetailCellModel alloc]init];
         model.title = @"";
-        model.subTitle = [NSString stringWithFormat:@"%d%@/ %d%@/ %d%@",goodModel.count.intValue,goodModel.unit,goodModel.count2.intValue,goodModel.unit2,goodModel.count2.intValue, goodModel.unit3];
+        NSMutableString * titleString  = [NSMutableString string];
+        
+        if (goodModel.count.integerValue) {
+            [titleString appendFormat:@"%d%@",goodModel.count.intValue,goodModel.unit];
+        }else{
+            [titleString appendFormat:@"未知件数"];
+        }
+        if (goodModel.count2.integerValue) {
+            [titleString appendFormat:@"/ %d%@",goodModel.count2.intValue,goodModel.unit2];
+        }
+        if (goodModel.count3.integerValue) {
+            [titleString appendFormat:@"/ %d%@",goodModel.count3.intValue,goodModel.unit3];
+        }
+        model.subTitle = titleString;
         [goodDetailsArray addObject:model];
         totalCount1 += goodModel.count.intValue;
         totalCount2 += goodModel.count2.intValue;
@@ -226,14 +240,14 @@
     model = [[WaybillDetailCellModel alloc]init];
     model.title = @"手机";
     model.subTitle = ![orderModel.pickup_contacts.mobile_phone isEmpty]?orderModel.pickup_contacts.mobile_phone:@"未填写";
-    model.isPhone = YES;
+    model.isPhone = ![orderModel.pickup_contacts.mobile_phone isEmpty];
     [pickupArray addObject:model];
     
     
     model = [[WaybillDetailCellModel alloc]init];
     model.title = @"固话";
     model.subTitle = ![orderModel.pickup_contacts.phone isEmpty]?orderModel.pickup_contacts.phone:@"未填写";
-    model.isPhone = YES;
+    model.isPhone = ![orderModel.pickup_contacts.phone isEmpty];
     [pickupArray addObject:model];
     
     model = [[WaybillDetailCellModel alloc]init];
@@ -260,14 +274,14 @@
     model = [[WaybillDetailCellModel alloc]init];
     model.title = @"手机";
     model.subTitle = ![orderModel.delivery_contacts.mobile_phone isEmpty]?orderModel.delivery_contacts.mobile_phone:@"未填写";
-    model.isPhone = YES;
+    model.isPhone = ![orderModel.delivery_contacts.mobile_phone isEmpty];
     [deliveryArray addObject:model];
     
     
     model = [[WaybillDetailCellModel alloc]init];
     model.title = @"固话";
      model.subTitle = ![orderModel.delivery_contacts.phone isEmpty]?orderModel.delivery_contacts.phone:@"未填写";
-    model.isPhone = YES;
+    model.isPhone = ![orderModel.delivery_contacts.phone isEmpty];
     [deliveryArray addObject:model];
     
     model = [[WaybillDetailCellModel alloc]init];

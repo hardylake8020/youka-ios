@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface DriverTimeLineViewController : BaseViewController
-
+- (instancetype)initWithOrderModel:(OrderModel *)model;
 @end

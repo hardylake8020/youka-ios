@@ -12,23 +12,23 @@
 #define VERSIONNUMBER @"2009"
 
 
-
-
-
-
-
 #define SIGN_IN @"/driver/signin"
 #define SIGN_UP @"/driver/signup"
 #define GET_BYSTATUS @"/driver/order/getbystatus"
 #define UPLOADEVENT @"/transport_event/upload"
-
-
-
+#define QN_IMAGE_TOKEN @"/token/image/upload"
+#define QN_VOICE_TOKEN @"/token/amr/upload"
+#define UPLOADLOCATIONS @"/trace/multiupload"
 
 
 //登录参数
 #define USERNAME @"username"
 #define PWD @"password"
+#define QN_IMAGE_HEADER @"http://7xiwrb.com1.z0.glb.clouddn.com/"
+
+//通知
+#define USER_TOKEN_INVILID_NOTI @"user_token_invaild_noti"
+
 
 typedef enum : NSUInteger {
     PickupSign,

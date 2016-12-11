@@ -92,7 +92,7 @@
          *   succeed      :上传成功与否
          */
         BOOL result =  [db executeUpdate:@"create table photos(serial integer PRIMARY KEY AUTOINCREMENT,"
-                        "photoname char(1000),succeed integer)"];
+                        "photoname char(1000),succeed integer, _id char(100), status ,integer)"];
         if (result) {
             CCLog(@"照片表创建成功");
         }else{
@@ -133,12 +133,12 @@
     }
 }
 
-- (BOOL)inserPhotoWithPhotoName:(NSString *)photoName{
+- (BOOL)inserPhotoWithPhotoName:(NSString *)photoName orderId:(NSString *)_id andStatus:(DriverOperationType)status{
     //判断是否打开
     if ([_database open]) {
         if (![self isPhotoExistWithPhotoName:photoName]) {
-            NSString *sql = @"insert into photos(photoname,succeed) values (?,?)";
-            BOOL succeed = [_database executeUpdate:sql,photoName,[NSNumber numberWithBool:NO]];
+            NSString *sql = @"insert into photos(photoname,succeed,_id,status) values (?,?,?,?)";
+            BOOL succeed = [_database executeUpdate:sql,photoName,[NSNumber numberWithBool:NO],_id, [NSNumber numberWithInt:status]];
             if (!succeed) {
                 CCLog(@"insert error:%@",_database.lastErrorMessage);
                 return NO;
@@ -162,9 +162,9 @@
     return NO;
 }
 
-- (void)insertPhotosWithPhotoArray:(NSArray *)photoArray{
+- (void)insertPhotosWithPhotoArray:(NSArray *)photoArray orderId:(NSString *)_id andStatus:(DriverOperationType)status{
     for (NSString *photoName in photoArray) {
-        [self inserPhotoWithPhotoName:photoName];
+        [self inserPhotoWithPhotoName:photoName orderId:_id andStatus:status];
     }
 }
 
@@ -179,6 +179,19 @@
     }
     return array;
 }
+
+- (NSArray*)readAllPhotosWithId:(NSString *)_id andStatus:(DriverOperationType)status{
+    NSMutableArray *array =[[NSMutableArray alloc] init];
+    NSString *sql = @"select * from photos where status = ? and _id = ?";
+    FMResultSet *rs = [_database executeQuery:sql,[NSNumber numberWithInt:status],_id];
+    //查询结果集合
+    while ([rs next]) {
+        NSString *photoName = [rs stringForColumn:@"photoname"];
+        [array addObject:photoName];
+    }
+    return array;
+}
+
 - (BOOL)photoUploadSucceedWithPhotoName:(NSString *)photoName{
     NSString *sql = @"update photos set succeed = ? where photoname = ?";
     if ([_database open]) {
@@ -380,7 +393,9 @@
     NSString *orderString = [orderModel  toJSONString];
     NSString *sql = @"update orders set orderInfo = ? where _id = ?";
     BOOL isSuccess= [_database executeUpdate:sql,orderString,orderModel._id];
-    if (!isSuccess) {
+    NSString *sql2 = @"update orders set status = ? where _id = ?";
+    BOOL isSuccess2= [_database executeUpdate:sql2,@1,orderModel._id];
+    if (!isSuccess&&!isSuccess2) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
         CCLog(@"%@---->提货成功", orderModel.order_details.order_number);
@@ -409,14 +424,14 @@
     NSString *orderString = [orderModel  toJSONString];
     NSString *sql = @"update orders set orderInfo = ? where _id = ?";
     BOOL isSuccess= [_database executeUpdate:sql,orderString,orderModel._id];
-    if (!isSuccess) {
+    NSString *sql2 = @"update orders set status = ? where _id = ?";
+    BOOL isSuccess2= [_database executeUpdate:sql2,@2,orderModel._id];
+    if (!isSuccess&&!isSuccess2) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
         CCLog(@"%@---->交货成功", orderModel.order_details.order_number);
     }
 }
-
-
 
 - (NSArray *)readAllUnpickupOrders{
     return  [self readOrderWithStatus:@0];
@@ -440,6 +455,51 @@
     return arr;
 }
 
+- (void)updateOrderWithOrderModel:(OrderModel *)orderModel{
+    NSString *orderString = [orderModel  toJSONString];
+    NSString *sql = @"update orders set orderInfo = ? where _id = ?";
+    BOOL isSuccess= [_database executeUpdate:sql,orderString,orderModel._id];
+    if (!isSuccess) {
+        CCLog(@"insert error:%@",_database.lastErrorMessage);
+    }else{
+        CCLog(@"%@---->更新运单成功", orderModel.order_details.order_number);
+    }
+}
+
+- (BOOL)deletAllOrdersWithStatus:(NSNumber *)status{
+    NSString *sql = @"delete from orders where status = ?";
+    if ([_database open]) {
+        BOOL succeed = [_database executeUpdate:sql,status];
+        if (!succeed) {
+            CCLog(@"Deleted error:%@",_database.lastErrorMessage);
+        }else{
+            CCLog(@"运单删除成功");
+        }
+        return succeed;
+    }
+    return NO;
+}
+
+
+- (void)inserOrdersWithOrders:(NSArray *)orders{
+    for (OrderModel *model in orders) {
+        [self insertOrderWithOrderModel:model];
+    }
+}
+
+- (BOOL)deleteOrderWithOrderId:(NSString *)orderId{
+    NSString *sql = @"delete from orders where _id = ?";
+    if ([_database open]) {
+        BOOL succeed = [_database executeUpdate:sql,orderId];
+        if (!succeed) {
+            CCLog(@"Deleted error:%@",_database.lastErrorMessage);
+        }else{
+            CCLog(@"运单删除成功");
+        }
+        return succeed;
+    }
+    return NO;
+}
 
 //根据指定的类型 返回 这条记录在数据库中是否存在
 

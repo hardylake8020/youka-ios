@@ -19,10 +19,9 @@
 /**
  *  发送get请求
  *
- *  @param URLString  请求的网址字符串
+ *  @param header  请求的网址字符串
  *  @param parameters 请求的参数
- *  @param success    请求成功的回调
- *  @param err    请求失败的回调
+ *  @param resultBlock    请求成功的回调
  */
 - (void)getWithRequestBodyString:(NSString *)header
                       parameters:(id)parameters
@@ -31,10 +30,9 @@
 /**
  *  发送post请求
  *
- *  @param URLString  请求的网址字符串
+ *  @param header  请求的网址字符串
  *  @param parameters 请求的参数
- *  @param success    请求成功的回调
- *  @param err    请求失败的回调
+ *  @param resultBlock    请求成功的回调
  */
 - (void)postWithRequestBodyString:(NSString *)header
                        parameters:(id)parameters

@@ -30,11 +30,11 @@
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initAccoutView];
     [self initLoginView];
-//    CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
-//    if(authorizationStatus == kCLAuthorizationStatusNotDetermined){
-//        [[LocationTracker defaultLoactionTarker] startLocationTracking];
-//    }
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenInvild) name:USER_TOKEN_INVILID_NOTI object:nil];
+    CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
+    if(authorizationStatus == kCLAuthorizationStatusNotDetermined){
+        [[LocationTracker defaultLoactionTarker] startLocationTracking];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenInvild) name:USER_TOKEN_INVILID_NOTI object:nil];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

@@ -10,7 +10,7 @@
 #import "OrderDetailsModel.h"
 #import "PickupContactsModel.h"
 #import "DeliveryContactsModel.h"
-
+#import "EventModel.h"
 @interface OrderModel : JSONModel
 @property (nonatomic, copy) NSString<Optional> *_id;
 @property (nonatomic, copy) NSString<Optional> *status;
@@ -32,4 +32,12 @@
 @property (nonatomic, copy) NSString<Optional> *created;
 @property (nonatomic, copy) NSString<Optional> *updated;
 @property (nonatomic, copy) NSString<Optional> *damaged;
+@property (nonatomic, copy) NSString<Optional> *delete_status;
+@property (nonatomic, strong) NSMutableArray<Optional> *scanCodes;
+@property (nonatomic, strong) NSMutableArray<Optional,EventModel> *halfway_events;
+@property (nonatomic, strong) NSMutableArray<Optional,EventModel> *delivery_events;
+@property (nonatomic, strong) NSMutableArray<Optional,EventModel> *delivery_sign_events;
+@property (nonatomic, strong) NSMutableArray<Optional,EventModel> *pickup_events;
+@property (nonatomic, strong) NSMutableArray<Optional,EventModel> *pickup_sign_events;
+@property (nonatomic, strong) NSMutableArray<Optional,EventModel> *confirm_events;
 @end

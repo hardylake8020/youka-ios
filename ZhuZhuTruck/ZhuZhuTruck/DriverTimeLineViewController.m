@@ -7,20 +7,81 @@
 //
 
 #import "DriverTimeLineViewController.h"
+#import "TimeLineCell.h"
 
-@interface DriverTimeLineViewController ()
 
+@interface DriverTimeLineViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) OrderModel *orderModel;
 @end
 
 @implementation DriverTimeLineViewController
 
+- (instancetype)initWithOrderModel:(OrderModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.orderModel = model;
+    }
+    return self;
+}
+
+- (NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray  = [NSMutableArray array];
+    }
+    return _dataArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"设置"];
+    [self addNaviHeaderViewWithTitle:@"时间轴"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
-//    [self initTableView];
+    [self initTableView];
 
 }
+- (void)initTableView{
+    
+    [self.dataArray addObjectsFromArray:self.orderModel.halfway_events];
+    [self.dataArray addObjectsFromArray:self.orderModel.confirm_events];
+    [self.dataArray addObjectsFromArray:self.orderModel.pickup_sign_events];
+    [self.dataArray addObjectsFromArray:self.orderModel.pickup_events];
+    [self.dataArray addObjectsFromArray:self.orderModel.delivery_sign_events];
+    [self.dataArray addObjectsFromArray:self.orderModel.delivery_events];
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"TimeLineCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TimeLineCell"];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 20)];
+    [self.view addSubview:self.tableView];
+
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataArray.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    EventModel *eventModel = [self.dataArray objectAtIndex:indexPath.row];
+    if (eventModel.photos.count>0) {
+        return 160;
+    }else{
+        return 60;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    EventModel *eventModel = [self.dataArray objectAtIndex:indexPath.row];
+    TimeLineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TimeLineCell" forIndexPath:indexPath];
+    
+    [cell showEventWithModel:eventModel];
+    return cell;
+}
+
 
 #pragma mark ---> 返回 其他
 - (void)naviBack{

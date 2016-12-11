@@ -8,6 +8,7 @@
 
 #import "WaybillCell.h"
 #import "CCDate.h"
+#import "NSString+Tool.h"
 @interface WaybillCell ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberLabel;
@@ -25,9 +26,9 @@
 }
 - (void)showCellWithOrderModel:(OrderModel*)model{
     self.titleLabel.text = model.order_details.order_number;
-    self.numberLabel.text = model.order_details.refer_order_number;
-    self.goodsLabel.text = model.order_details.goods_name;
-    self.reciverLabel.text = model.delivery_contacts.name;
+    self.numberLabel.text = ![model.order_details.refer_order_number isEmpty]?model.order_details.refer_order_number:@"未填写";
+    self.goodsLabel.text = ![model.order_details.goods_name isEmpty]?model.order_details.goods_name:@"未填写";
+    self.reciverLabel.text = ![model.delivery_contacts.name isEmpty]?model.delivery_contacts.name:@"未填写";
     NSString *startTime;
     NSString *endTime;
     if ([model.status isEqualToString:@"unPickupSigned"]||[model.status isEqualToString:@"unPickuped"]) {
@@ -40,6 +41,7 @@
         startTime = dateStringWithDateAndFormart(model.created, @"MM月 dd日 hh:mm");
         endTime = dateStringWithDateAndFormart(model.updated, @"MM月 dd日 hh:mm");
     }
+
     self.timelabel.text = [NSString stringWithFormat:@"%@ ~ %@", startTime, endTime];
     
 }

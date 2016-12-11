@@ -83,7 +83,7 @@
 
 
 - (void)uploadImage{
-    //NSLog(@"time  out  15s");
+    //CCLog(@"time  out  15s");
     [self.photosArray removeAllObjects];
     [self.photosArray addObjectsFromArray:[_dbManager readAllUnUploadPhotos]];
     if ([self.qn_token isEmpty]||!self.qn_token) {
@@ -112,19 +112,19 @@
     __weak typeof(self) _Self = self;
     /*创建一个串行队列*/
     dispatch_async(serialQueue, ^{
-//        NSLog(@"%@",filePath);
-//        NSLog(@"%@",token);
+//        CCLog(@"%@",filePath);
+//        CCLog(@"%@",token);
         [qnuploadManager putFile :filePath key:photoName token:token complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp){
-            NSLog(@"%@", info);
-            NSLog(@"%@", resp);
+            CCLog(@"%@", info);
+            CCLog(@"%@", resp);
             if(info.isOK){
-                NSLog(@"=======>上传成功");
+                CCLog(@"=======>上传成功");
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [_dbManager photoUploadSucceedWithPhotoName:photoName];
                     NSMutableArray *localArray = [NSMutableArray arrayWithArray:[_dbManager readAllUnUploadPhotos]];
                     //回调或者说是通知主线程刷新，
                     if (localArray.count>0) {
-//                        NSLog(@"-------->还剩%lu张图片",(unsigned long)localArray.count);
+//                        CCLog(@"-------->还剩%lu张图片",(unsigned long)localArray.count);
                         [_Self upLoadFile:localArray[0] token:_Self.qn_token];
                     }
                     else{
@@ -139,7 +139,7 @@
                         save_qntoken(@"");
                         _qn_token = nil;
                         [_Self getToken];
-                        NSLog(@"token 失效---》code%d",info.statusCode);
+                        CCLog(@"token 失效---》code%d",info.statusCode);
                         _isRuning = NO;
                         return;
                     }
@@ -148,7 +148,7 @@
                         NSMutableArray *localArray = [NSMutableArray arrayWithArray:[_dbManager readAllUnUploadPhotos]];
                         //回调或者说是通知主线程刷新，
                         if (localArray.count>0) {
-                            NSLog(@"-------->还剩%lu张图片",(unsigned long)localArray.count);
+                            CCLog(@"-------->还剩%lu张图片",(unsigned long)localArray.count);
                             [_Self upLoadFile:localArray[0] token:_Self.qn_token];
                         }
                         else{
@@ -156,7 +156,7 @@
                             return;
                         }
                     }else{
-                        NSLog(@"上传失败---》code%d",info.statusCode);
+                        CCLog(@"上传失败---》code%d",info.statusCode);
                         _isRuning = NO;
                         return;
                     }
@@ -169,10 +169,10 @@
 - (void)getToken{
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]init];
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    #warning url
-    [[HttpRequstManager requestManager] getWithRequestBodyString:@"" parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    
+    [[HttpRequstManager requestManager] getWithRequestBodyString:QN_IMAGE_TOKEN parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
-            NSLog(@"err%@",error.localizedDescription);
+            CCLog(@"err%@",error.localizedDescription);
         }
         else{
             NSString *token = [result objectForKey:@"token"];
@@ -187,10 +187,9 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]init];
     [parameters put:accessToken() key:ACCESS_TOKEN];
     [parameters put:fileName key:@"mp3_key"];
-    #warning url
-    [[HttpRequstManager requestManager] getWithRequestBodyString:@"" parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[HttpRequstManager requestManager] getWithRequestBodyString:QN_VOICE_TOKEN parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
-            NSLog(@"err%@",error.localizedDescription);
+            CCLog(@"err%@",error.localizedDescription);
             _isVoiceUploading = NO;
         }
         else{
@@ -209,13 +208,13 @@
         return;
     }
     dispatch_async(serialQueue, ^{
-        NSLog(@"%@",fileName);
-        NSLog(@"path%@",filePathByName(fileName));
+        CCLog(@"%@",fileName);
+        CCLog(@"path%@",filePathByName(fileName));
         [qnuploadManager putFile:filePathByName(fileName) key:fileName token:_voice_token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             if (info.isOK) {
-                NSLog(@"info:%@",info);
-                NSLog(@"%@", resp);
-                NSLog(@"=======>上传成功");
+                CCLog(@"info:%@",info);
+                CCLog(@"%@", resp);
+                CCLog(@"=======>上传成功");
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _voice_token = nil;
                     [_dbManager voiceUploadSucceedWithVoiceName:fileName];
@@ -227,12 +226,12 @@
                     }
                 });
             }else {
-                NSLog(@"info:%@",info.error);
-                NSLog(@"上传失败---》code%d",info.statusCode);
+                CCLog(@"info:%@",info.error);
+                CCLog(@"上传失败---》code%d",info.statusCode);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _voice_token = nil;
                     if (info.error.code == 614||info.error.code == 260) {
-                        NSLog(@"=======>文件不存在");
+                        CCLog(@"=======>文件不存在");
                         [_dbManager voiceDeleteWithVoiceName:fileName];
                     }
                     NSArray *leftVoices = [_dbManager readAllUnUploadPhotos];

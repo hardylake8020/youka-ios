@@ -51,14 +51,47 @@
     [self addNaviHeaderViewWithTitle:@"运单详情"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initTableView];
+    
+    if (self.status == SucceedDelvieryStatus) {
+        return;
+    }
     [self initOperationItems];
     [self initSumbitView];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if ([self.orderModel.status isEqualToString:@"unPickuped"]||[self.orderModel.status isEqualToString:@"unDeliveried"]) {
+        [_signInbutton setSelectedTitle:@"已进场"];
+    }
+    
+    if (self.orderModel.scanCodes.count>0) {
+        [_scanbutton setSelectedTitle:@"已扫码"];
+    }
+    
+//    if ([self.orderModel.status isEqualToString:@"unPickupSigned"]) {
+//        
+//    }else if ([self.orderModel.status isEqualToString:@"unPickuped"]) {
+//        
+//    }else if ([self.orderModel.status isEqualToString:@"unDeliverySigned"]) {
+//        
+//    }else if ([self.orderModel.status isEqualToString:@"unDeliveried"]) {
+//        
+//    }else if ([self.orderModel.status isEqualToString:@"completed"]) {
+//        
+//    }
+}
+
 - (void)initTableView{
     
     self.tableModel = [[WaybillDetailTableDataModel alloc]initWithModel:self.orderModel];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-150-SYSTITLEHEIGHT)];
+    CGFloat bottomHight = 150;
+    if (self.status == SucceedDelvieryStatus) {
+        bottomHight = 0;
+    }
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-bottomHight )];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -69,6 +102,9 @@
 }
 
 - (void)initOperationItems{
+    
+    
+    
     self.operationView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTEM_HEIGHT-150, SYSTEM_WIDTH, 100)];
     self.operationView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.operationView];
@@ -136,24 +172,37 @@
     }
 }
 - (void)gotoScanCode{
+    CCWeakSelf(self);
     QRCodeVC *scan = [[QRCodeVC alloc]initWithCallBackHandler:^(NSString *codeString) {
         NSLog(@"codeString----> %@", codeString);
+        if ([codeString isEmpty]) {
+            toast_showInfoMsg(@"扫码失败", 200);
+            return ;
+        }
+        if (!weakself.orderModel.scanCodes) {
+            weakself.orderModel.scanCodes = [NSMutableArray arrayWithObject:codeString];
+        }else if(![weakself.orderModel.scanCodes containsObject:codeString]){
+            [weakself.orderModel.scanCodes addObject:codeString];
+        }else{
+            toast_showInfoMsg(@"条码已存在", 200);
+        }
     }];
     [self presentViewController:scan animated:YES completion:nil];
 }
 - (void)gotoSignIn{
     if (self.status == UnpickupedStatus) {
-//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign];
-//        [self.navigationController pushViewController:operation animated:YES];
+        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:self.orderModel];
+        [self.navigationController pushViewController:operation animated:YES];
     }else if (self.status == UndeliveryedStatus) {
-//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign];
-//        [self.navigationController pushViewController:operation animated:YES];
+        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign andOrderModel:self.orderModel];
+        [self.navigationController pushViewController:operation animated:YES];
     }
 }
 - (void)gotoHalfWayEvent{
     
-//    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:HalfWayEvent];
-//    [self.navigationController pushViewController:operation animated:YES];
+    DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:HalfWayEvent andOrderModel:self.orderModel];
+    [self.navigationController pushViewController:operation animated:YES];
+    
 }
 
 #pragma mark ----> 上报按钮
@@ -171,11 +220,49 @@
 
 - (void)sumbitClick{
     if (self.status == UnpickupedStatus) {
-//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed];
-//        [self.navigationController pushViewController:operation animated:YES];
+        
+        if (self.orderModel.pickup_photo_force.boolValue) {
+            __weak typeof(self) _weakSelf = self;
+            RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
+                [_weakSelf gotoSignIn];
+            }];
+            
+            RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
+               
+            }];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
+                                                                message:@"你还没提货进场，请先提货进场！"
+                                                       cancelButtonItem:nil
+                                                       otherButtonItems:cancelItem,pickUpsign, nil];
+            [alertView show];
+
+        }else{
+            DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed andOrderModel:self.orderModel];
+            [self.navigationController pushViewController:operation animated:YES];
+        }
+        
     }else if (self.status == UndeliveryedStatus) {
-//        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySucceed];
-//        [self.navigationController pushViewController:operation animated:YES];
+        if (self.orderModel.pickup_photo_force.boolValue) {
+            __weak typeof(self) _weakSelf = self;
+            RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
+                [_weakSelf gotoSignIn];
+            }];
+            
+            RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
+                
+            }];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
+                                                                message:@"你还没交货进场，请先交货进场！"
+                                                       cancelButtonItem:nil
+                                                       otherButtonItems:cancelItem,pickUpsign, nil];
+            [alertView show];
+            
+        }else{
+            DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySucceed andOrderModel:self.orderModel];
+            [self.navigationController pushViewController:operation animated:YES];
+        }
     }
 }
 

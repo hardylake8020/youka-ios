@@ -36,7 +36,8 @@
         textLabel.textColor = iconLabel.textColor = [UIColor colorWithWhite:0 alpha:1];
         [self addSubview:textLabel];
         
-        imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        imageView = [[UIImageView alloc]initWithFrame:self.contentView.bounds];
+        [imageView setContentMode:UIViewContentModeScaleToFill];
         [self addSubview:imageView];
         
 //        titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 16)];

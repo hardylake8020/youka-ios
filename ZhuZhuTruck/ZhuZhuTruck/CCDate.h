@@ -18,4 +18,4 @@ NSString* lastAndnextWeek(NSString* date,int type);
 NSString* diffDate(NSString* date,int dateDiff);
 NSDate* string2Time(NSString* date);
 NSDate* string2DateTime(NSString* date);
-NSString *dateStringWithDateAndFormart(NSString *format,NSString *dateString);
+NSString *dateStringWithDateAndFormart(NSString *dateString,NSString *format);
