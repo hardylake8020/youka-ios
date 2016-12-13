@@ -181,7 +181,14 @@ NSString *dateStringWithDateAndFormart(NSString *dateString,NSString *format){
     return timeSting;
 }
 
-
+NSString *getFormatStringWithDateAndFormat(NSDate *date, NSString *format){
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:timeZone];
+    [formatter setDateFormat:format];
+    NSString *timeSting = [formatter stringFromDate:date];
+    return timeSting;
+}
 
 
 

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.fd_prefersNavigationBarHidden = YES;
-    CCNaviHeaderView *naivHeader  = [[CCNaviHeaderView alloc]newInstance:self.title];
+    CCNaviHeaderView *naivHeader  = [[CCNaviHeaderView alloc]newInstance:self.title andBackGruondColor:[UIColor naviBlackColor]];
     [naivHeader addBackButtonWithTarget:self action:@selector(naviBack)];
     [self.view addSubview:naivHeader];
     if (self.isSeletedMode) {

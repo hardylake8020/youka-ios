@@ -25,14 +25,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"车辆详情"];
+    [self addBlackNaviHaderViewWithTitle:@"车辆详情"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderView];
     [self initTableView];
 }
 - (void)initHeaderView{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 150)];
-    headerView.backgroundColor = [UIColor naviBarColor];
+    headerView.backgroundColor = [UIColor naviBlackColor];
     [self.view addSubview:headerView];
     
     

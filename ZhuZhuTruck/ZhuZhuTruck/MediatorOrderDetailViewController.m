@@ -42,12 +42,12 @@
         case BidTenderOngoing:
         case BidTenderSucceed:
         case BidTenderFailed:{
-            [self addNaviHeaderViewWithTitle:@"比价详情"];
+            [self addBlackNaviHaderViewWithTitle:@"比价详情"];
         }
             break;
         case RobTenderUnStart:
         case RobTenderSucceed:{
-            [self addNaviHeaderViewWithTitle:@"抢单详情"];
+            [self addBlackNaviHaderViewWithTitle:@"抢单详情"];
         }
             break;
     }
@@ -164,7 +164,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"TenderDetailHeaderCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TenderDetailHeaderCell"];
     
     self.tableView.showsVerticalScrollIndicator = NO;
-
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
 }
 #pragma mark ---> UITableViewDelegate dataSource
@@ -192,12 +192,15 @@
     
     if (indexPath.section==0) {
         TenderDetailHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderDetailHeaderCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.separatorInset = UIEdgeInsetsZero;
         return cell;
     }else{
         TenderDetailCellModel *cellModel = [self.tableModel.dataArray objectAtIndex:indexPath.row];
         TenderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderDetailCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell showCellWithModel:cellModel];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
@@ -438,7 +441,7 @@
     pageVC.bounces = YES;
     pageVC.menuHeight = 36;
     pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.menuBGColor = [UIColor naviBarColor];
+    pageVC.menuBGColor = [UIColor naviBlackColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";

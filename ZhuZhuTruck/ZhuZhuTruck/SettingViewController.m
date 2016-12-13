@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"设置"];
+    [self addBlackNaviHaderViewWithTitle:@"设置"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     self.dataArray = [NSArray array];
     [self initTableView];

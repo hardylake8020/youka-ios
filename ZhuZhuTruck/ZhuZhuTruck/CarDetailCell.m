@@ -28,8 +28,13 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    if (selected) {
+        [self performSelector:@selector(deSeletedCell) withObject:nil afterDelay:0.5];
+    }
     // Configure the view for the selected state
+}
+- (void)deSeletedCell{
+    [self setSelected:NO];
 }
 
 @end

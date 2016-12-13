@@ -8,7 +8,7 @@
 
 #import "AddressManager.h"
 #import "CCAlert.h"
-
+#import "Constants.h"
 @interface AddressManager ()<BMKLocationServiceDelegate, BMKGeoCodeSearchDelegate>
 {
     BMKLocationService *_locService;
@@ -42,10 +42,20 @@
     _locService.delegate =self;
     _search = [[BMKGeoCodeSearch alloc]init];
     _search.delegate = self;
+    [self repeatGetAdress];
+     [NSTimer scheduledTimerWithTimeInterval:120 target:self selector:@selector(repeatGetAdress) userInfo:nil repeats:YES];
 }
+
+- (void)repeatGetAdress{
+    [_locService startUserLocationService];
+}
+
 
 - (void)getCurentAddressWithCallBackHandler:(GetCurrentAddressCallBack)callBack{
     self.callBackHandler = callBack;
+    if (self.callBackHandler) {
+        self.callBackHandler(self.currentAddress,self.currentLocation);
+    }
     [_locService startUserLocationService];
 }
 
@@ -62,7 +72,6 @@
         else{
             NSLog(@"反geo检索发送失败");
         }
-
     }
 }
 #pragma mark -->地理反编码回调函数
@@ -72,7 +81,7 @@
     NSLog(@"%@",result);
     if (error == BMK_SEARCH_NO_ERROR){
         self.currentAddress = result.address;
-        NSLog(@"------>%@",self.currentAddress);
+        CCLog(@"------>%@",self.currentAddress);
         if (self.callBackHandler) {
             self.callBackHandler(self.currentAddress,self.currentLocation);
         }

@@ -38,7 +38,7 @@ typedef void(^ACActionSheetBlock)(NSInteger buttonIndex);
  *  type block
  *
  *  @param title                  title            (可以为空)
- *  @param delegate               delegate
+ *  @param actionSheetBlock               delegate
  *  @param cancelButtonTitle      "取消"按钮         (默认有)
  *  @param destructiveButtonTitle "警示性"(红字)按钮  (可以为空)
  *  @param otherButtonTitles      otherButtonTitles

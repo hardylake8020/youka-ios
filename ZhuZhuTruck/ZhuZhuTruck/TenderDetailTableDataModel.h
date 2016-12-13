@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TenderModel.h"
 #import "TenderDetailCellModel.h"
+
 @interface TenderDetailTableDataModel : NSObject
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @end

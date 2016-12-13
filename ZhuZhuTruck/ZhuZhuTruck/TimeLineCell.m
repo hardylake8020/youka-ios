@@ -44,7 +44,7 @@
         CGFloat imageHight = self.photoScrollView.frame.size.height;
         self.photoScrollView.contentSize = CGSizeMake(imageHight*eventModel.photos.count, imageHight);
         for (int i=0; i<eventModel.photos.count; i++) {
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i*imageHight, 0, imageHight, imageHight)];
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i*imageHight+3*i, 0, imageHight, imageHight)];
             [imageView setContentMode:UIViewContentModeScaleAspectFill];
             
             PhotoModel *photoModel  = [eventModel.photos objectAtIndex:i];
@@ -85,6 +85,7 @@
     }
     self.dataLabel.text = dateStringWithDateAndFormart(eventModel.time, @"yyyy-MM-dd");
     self.timeLabel.text = dateStringWithDateAndFormart(eventModel.time, @"hh:mm:ss");
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

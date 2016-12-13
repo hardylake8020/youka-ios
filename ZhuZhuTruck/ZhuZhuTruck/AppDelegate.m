@@ -11,7 +11,8 @@
 #import "LaunchViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <BaiduMapAPI_Location/BMKLocationComponent.h>//引入定位功能所有的头文件
-
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 @interface AppDelegate ()
 
 @end
@@ -34,7 +35,8 @@
     //appKey
     [JPUSHService setupWithOption:launchOptions appKey:@"94839ab20286805683e7080e" channel:@"Publish channel" apsForProduction:YES];
     
-    
+    [Fabric with:@[[Crashlytics class]]];
+
     
     BMKMapManager* mapManager = [[BMKMapManager alloc] init];
     BOOL ret = [mapManager start:@"Q6QE7woytQs7XNk8adWPQdWIDt5yL8eO" generalDelegate:nil];

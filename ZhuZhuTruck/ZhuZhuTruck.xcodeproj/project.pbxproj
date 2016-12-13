@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4E7BF91F310DEB63E70C6337 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B1A0A1EFD1FDE195631985 /* libPods.a */; };
+		BB00C0581E00222100E9B3FA /* TenderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB00C0571E00222100E9B3FA /* TenderModel.m */; };
+		BB00C05B1E00267900E9B3FA /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB00C05A1E00267900E9B3FA /* CardModel.m */; };
+		BB00C05F1E00272D00E9B3FA /* TruckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB00C05E1E00272D00E9B3FA /* TruckModel.m */; };
 		BB035DCE1DF3C9FC006EC2F0 /* WaybillDetailCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035DCD1DF3C9FC006EC2F0 /* WaybillDetailCellModel.m */; };
 		BB035DD11DF3CA95006EC2F0 /* WaybillDetailTableDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035DD01DF3CA95006EC2F0 /* WaybillDetailTableDataModel.m */; };
 		BB035DD51DF3D140006EC2F0 /* WayBillDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035DD31DF3D140006EC2F0 /* WayBillDetailCell.m */; };
@@ -28,6 +31,9 @@
 		BB035E011DF45499006EC2F0 /* ETCCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035DFF1DF45499006EC2F0 /* ETCCardCell.xib */; };
 		BB035E061DF468ED006EC2F0 /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035E041DF468ED006EC2F0 /* WalletCell.m */; };
 		BB035E071DF468ED006EC2F0 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035E051DF468ED006EC2F0 /* WalletCell.xib */; };
+		BB34625F1DFEDB6C00DC3FA8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */; };
+		BB3462601DFEDB6C00DC3FA8 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */; };
+		BB3462621DFEEA1400DC3FA8 /* F44C5F@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */; };
 		BB43215E1DF04A9A00F77680 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */; };
 		BB43215F1DF04A9A00F77680 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215C1DF04A9A00F77680 /* BaiduMapAPI_Location.framework */; };
 		BB4321601DF04A9A00F77680 /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215D1DF04A9A00F77680 /* BaiduMapAPI_Search.framework */; };
@@ -226,6 +232,12 @@
 /* Begin PBXFileReference section */
 		10B1A0A1EFD1FDE195631985 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D12FA8AAEF863A2F7DFB76 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BB00C0561E00222100E9B3FA /* TenderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenderModel.h; sourceTree = "<group>"; };
+		BB00C0571E00222100E9B3FA /* TenderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenderModel.m; sourceTree = "<group>"; };
+		BB00C0591E00267900E9B3FA /* CardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
+		BB00C05A1E00267900E9B3FA /* CardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
+		BB00C05D1E00272D00E9B3FA /* TruckModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruckModel.h; sourceTree = "<group>"; };
+		BB00C05E1E00272D00E9B3FA /* TruckModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TruckModel.m; sourceTree = "<group>"; };
 		BB035DCC1DF3C9FC006EC2F0 /* WaybillDetailCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaybillDetailCellModel.h; sourceTree = "<group>"; };
 		BB035DCD1DF3C9FC006EC2F0 /* WaybillDetailCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaybillDetailCellModel.m; sourceTree = "<group>"; };
 		BB035DCF1DF3CA95006EC2F0 /* WaybillDetailTableDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaybillDetailTableDataModel.h; sourceTree = "<group>"; };
@@ -257,6 +269,9 @@
 		BB035E031DF468ED006EC2F0 /* WalletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
 		BB035E041DF468ED006EC2F0 /* WalletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
 		BB035E051DF468ED006EC2F0 /* WalletCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
+		BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ZhuZhuTruck/Crashlytics.framework; sourceTree = "<group>"; };
+		BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ZhuZhuTruck/Fabric.framework; sourceTree = "<group>"; };
+		BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F44C5F@2x.png"; sourceTree = "<group>"; };
 		BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = ZhuZhuTruck/BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
 		BB43215C1DF04A9A00F77680 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Location.framework; path = ZhuZhuTruck/BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
 		BB43215D1DF04A9A00F77680 /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Search.framework; path = ZhuZhuTruck/BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
@@ -554,10 +569,12 @@
 				BB96BEA91DEF2B4300AA74D2 /* Security.framework in Frameworks */,
 				BB96BEA71DEF2B3B00AA74D2 /* CoreGraphics.framework in Frameworks */,
 				BB96BEA51DEF2B3600AA74D2 /* SystemConfiguration.framework in Frameworks */,
+				BB34625F1DFEDB6C00DC3FA8 /* Crashlytics.framework in Frameworks */,
 				BB43215E1DF04A9A00F77680 /* BaiduMapAPI_Base.framework in Frameworks */,
 				BB43215F1DF04A9A00F77680 /* BaiduMapAPI_Location.framework in Frameworks */,
 				BB4321601DF04A9A00F77680 /* BaiduMapAPI_Search.framework in Frameworks */,
 				BB96BEA31DEF2B2E00AA74D2 /* OpenGLES.framework in Frameworks */,
+				BB3462601DFEDB6C00DC3FA8 /* Fabric.framework in Frameworks */,
 				BB96BEA11DEF2B2500AA74D2 /* QuartzCore.framework in Frameworks */,
 				BB96BE9F1DEF2B1B00AA74D2 /* CoreLocation.framework in Frameworks */,
 				4E7BF91F310DEB63E70C6337 /* libPods.a in Frameworks */,
@@ -583,12 +600,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BB00C05C1E00267F00E9B3FA /* TruckAndCardModel */ = {
+			isa = PBXGroup;
+			children = (
+				BB00C0591E00267900E9B3FA /* CardModel.h */,
+				BB00C05A1E00267900E9B3FA /* CardModel.m */,
+				BB00C05D1E00272D00E9B3FA /* TruckModel.h */,
+				BB00C05E1E00272D00E9B3FA /* TruckModel.m */,
+			);
+			name = TruckAndCardModel;
+			sourceTree = "<group>";
+		};
 		BB035DCB1DF3C96D006EC2F0 /* 数据模型 */ = {
 			isa = PBXGroup;
 			children = (
 				BB035DD81DF3D16F006EC2F0 /* WillbillModel */,
 				BB035DE41DF402E0006EC2F0 /* TenderModel */,
 				BB8812E21DF995FA00B54644 /* DrvierOrderModel */,
+				BB00C05C1E00267F00E9B3FA /* TruckAndCardModel */,
 			);
 			name = "数据模型";
 			sourceTree = "<group>";
@@ -617,6 +646,8 @@
 		BB035DE41DF402E0006EC2F0 /* TenderModel */ = {
 			isa = PBXGroup;
 			children = (
+				BB00C0561E00222100E9B3FA /* TenderModel.h */,
+				BB00C0571E00222100E9B3FA /* TenderModel.m */,
 				BB035DDE1DF402A1006EC2F0 /* TenderDetailCellModel.h */,
 				BB035DDF1DF402A1006EC2F0 /* TenderDetailCellModel.m */,
 				BB035DE11DF402DA006EC2F0 /* TenderDetailTableDataModel.h */,
@@ -821,6 +852,7 @@
 				BB4321A51DF069C500F77680 /* f7f7f7@2x.png */,
 				BB4321A61DF069C500F77680 /* FF8886@2x.png */,
 				BB4321A71DF069C500F77680 /* ffb30f@2x.png */,
+				BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */,
 			);
 			name = Color;
 			sourceTree = "<group>";
@@ -1288,6 +1320,8 @@
 		C7174C4BF7FF45B283FFC286 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */,
+				BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */,
 				BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */,
 				BB43215C1DF04A9A00F77680 /* BaiduMapAPI_Location.framework */,
 				BB43215D1DF04A9A00F77680 /* BaiduMapAPI_Search.framework */,
@@ -1318,6 +1352,7 @@
 				BBDCEC681DEDAAB100C2125D /* Resources */,
 				2113E658471473A99E618E00 /* Embed Pods Frameworks */,
 				D92269C7064684128B005F72 /* Copy Pods Resources */,
+				BB3462581DFEDA3F00DC3FA8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1471,6 +1506,7 @@
 				BB035DE91DF40723006EC2F0 /* TenderDetailCell.xib in Resources */,
 				BB5AB53C1DF263E3009107B9 /* TenderCell.xib in Resources */,
 				BB4321AE1DF069C500F77680 /* D7960B@2x.png in Resources */,
+				BB3462621DFEEA1400DC3FA8 /* F44C5F@2x.png in Resources */,
 				BB57D8031DF7163E008888B0 /* CarDetailCell.xib in Resources */,
 				BB5AB5B31DF2D962009107B9 /* frame_icon@2x.png in Resources */,
 				BB5AB5B71DF2D962009107B9 /* line@3x.png in Resources */,
@@ -1511,6 +1547,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		BB3462581DFEDA3F00DC3FA8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./ZhuZhuTruck/Fabric.framework/run 61cf4e1887e8894345852aa6dc9c12bf55205da3 022923131f84265ce022a9a36385dbecccac7658b474539a1d8b9392bb2d8d97";
 		};
 		D92269C7064684128B005F72 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1554,6 +1603,7 @@
 				BB4321951DF0618400F77680 /* WMPageController.m in Sources */,
 				BBED55B21DF1BDD2009776E4 /* DriverUnStartViewController.m in Sources */,
 				BB5AB5BE1DF2D962009107B9 /* UIViewExt.m in Sources */,
+				BB00C05F1E00272D00E9B3FA /* TruckModel.m in Sources */,
 				BB5AB5461DF281AD009107B9 /* TenderSucceedCell.m in Sources */,
 				BB4321931DF0618400F77680 /* WMProgressView.m in Sources */,
 				BBED55F91DF1C28D009776E4 /* DriversMapViewController.m in Sources */,
@@ -1570,6 +1620,7 @@
 				BB96BE881DEEFE0D00AA74D2 /* NSString+FontAwesome.m in Sources */,
 				BB43217A1DF05BE900F77680 /* ErrorMaskView.m in Sources */,
 				BBED55E31DF1C0A8009776E4 /* CarStockViewController.m in Sources */,
+				BB00C0581E00222100E9B3FA /* TenderModel.m in Sources */,
 				BB96BE681DEEFD5900AA74D2 /* NSString+Tool.m in Sources */,
 				BBED56021DF1C545009776E4 /* MediatorFindOrdersViewController.m in Sources */,
 				BB96BE801DEEFDAA00AA74D2 /* CCColor.m in Sources */,
@@ -1614,6 +1665,7 @@
 				BB5AB5581DF2C492009107B9 /* PhotosCell.m in Sources */,
 				BB96BE851DEEFDAA00AA74D2 /* CCUserData.m in Sources */,
 				BB035DED1DF40760006EC2F0 /* TenderDetailHeaderCell.m in Sources */,
+				BB00C05B1E00267900E9B3FA /* CardModel.m in Sources */,
 				BB035DCE1DF3C9FC006EC2F0 /* WaybillDetailCellModel.m in Sources */,
 				BB5AB58C1DF2C911009107B9 /* DriverTimeLineViewController.m in Sources */,
 				BB035E061DF468ED006EC2F0 /* WalletCell.m in Sources */,

@@ -26,14 +26,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"我的钱包"];
+    [self addBlackNaviHaderViewWithTitle:@"我的钱包"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderView];
     [self initTableView];
 }
 - (void)initHeaderView{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 140)];
-    headerView.backgroundColor = [UIColor naviBarColor];
+    headerView.backgroundColor = [UIColor naviBlackColor];
     [self.view addSubview:headerView];
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, SYSTEM_WIDTH-30, 20)];

@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"登录"];
+    [self addBlackNaviHaderViewWithTitle:@"登录"];
     self.fd_interactivePopDisabled = YES;
     self.appDeleted = [AppDelegate shareAppDelegate];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];

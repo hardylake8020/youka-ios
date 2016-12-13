@@ -12,11 +12,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="159.5"/>
+                <frame key="frameInset" width="320" height="160"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" misplaced="YES" id="jmo-3h-OoB">
-                        <frame key="frameInset" minX="24" minY="2" width="2" height="99.68%"/>
+                        <frame key="frameInset" minX="24" minY="2" width="2" height="98.73%"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.88617795705795288" green="0.88633018732070923" blue="0.88616830110549927" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>

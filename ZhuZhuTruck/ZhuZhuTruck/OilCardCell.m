@@ -41,6 +41,7 @@
         self.cardNumberLabel.textColor = [UIColor customBlueColor];
         self.cardTipLabel.textColor = [UIColor customBlueColor];
     }
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 - (void)showSeletedCellWithStatus:(BOOL)status{
     self.backgroundColor = ColorFromRGB(0xf5f5f5);
@@ -57,6 +58,7 @@
     }else{
         self.seletedImageView.image = [UIImage imageNamed:@"uncheck_small"];
     }
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

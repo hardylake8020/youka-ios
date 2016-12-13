@@ -19,3 +19,4 @@ NSString* diffDate(NSString* date,int dateDiff);
 NSDate* string2Time(NSString* date);
 NSDate* string2DateTime(NSString* date);
 NSString *dateStringWithDateAndFormart(NSString *dateString,NSString *format);
+NSString *getFormatStringWithDateAndFormat(NSDate *date, NSString *format);

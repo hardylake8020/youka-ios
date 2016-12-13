@@ -24,6 +24,11 @@
     self.naviHeaderView  = [[CCNaviHeaderView alloc]newInstance:title];
     [self.view addSubview:self.naviHeaderView];
 }
+- (void)addBlackNaviHaderViewWithTitle:(NSString *)title{
+    self.title = title;
+    self.naviHeaderView  = [[CCNaviHeaderView alloc]newInstance:title andBackGruondColor:[UIColor naviBlackColor]];
+    [self.view addSubview:self.naviHeaderView];
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
@@ -31,7 +36,7 @@
     [super viewWillDisappear:animated];
 }
 - (void)dealloc{
-    NSLog(@"%@------->delloc",self.title);
+    CCLog(@"%@------->delloc",self.title);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)didReceiveMemoryWarning {

@@ -21,9 +21,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.isSeletedMode) {
-        [self addNaviHeaderViewWithTitle:@"分配车辆"];
+        [self addBlackNaviHaderViewWithTitle:@"分配车辆"];
     }else{
-        [self addNaviHeaderViewWithTitle:@"我的车队"];
+        [self addBlackNaviHaderViewWithTitle:@"我的车队"];
     }
     
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
@@ -69,7 +69,7 @@
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 120;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -135,7 +135,7 @@
     pageVC.bounces = YES;
     pageVC.menuHeight = 36;
     pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.menuBGColor = [UIColor naviBarColor];
+    pageVC.menuBGColor = [UIColor naviBlackColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";

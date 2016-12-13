@@ -51,4 +51,5 @@
 @interface BaseViewController : UIViewController
 @property (nonatomic, strong)CCNaviHeaderView *naviHeaderView;
 - (void)addNaviHeaderViewWithTitle:(NSString *)title;
+- (void)addBlackNaviHaderViewWithTitle:(NSString *)title;
 @end

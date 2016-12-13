@@ -10,7 +10,7 @@
 
 @interface CCNaviHeaderView : UIView
 - (CCNaviHeaderView*)newInstance:(NSString*)title;
-- (CCNaviHeaderView*) newInstance:(NSString*)title andBackGruondColor:(UIColor *)backColor;
+- (CCNaviHeaderView*)newInstance:(NSString*)title andBackGruondColor:(UIColor *)backColor;
 - (void)addLeftButton:(UIButton *)leftButton;
 - (void)addRightButton:(UIButton *)rightButton;
 - (void)resetTitle:(NSString*)title;

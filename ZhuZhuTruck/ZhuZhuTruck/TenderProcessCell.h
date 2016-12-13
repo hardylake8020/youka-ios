@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TenderModel.h"
 @interface TenderProcessCell : UITableViewCell
-
+- (void)showTenderCellWithTenderModel:(TenderModel *)model;
 @end

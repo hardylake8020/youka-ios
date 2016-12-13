@@ -40,10 +40,10 @@
     self.fd_prefersNavigationBarHidden = YES;
     self.fd_interactivePopDisabled = YES;
     LocationTracker *tracker = [LocationTracker defaultLoactionTarker];
+    [AddressManager sharedManager];
     [[QnUploadManager sharedManager] getToken];
     [tracker startLocationTracking];
-    CCNaviHeaderView *naivHeader  = [[CCNaviHeaderView alloc]newInstance:@"柱柱卡车"];
-    [self.view addSubview:naivHeader];
+    [self addBlackNaviHaderViewWithTitle:@"柱柱优卡"];
     [self initHeaderViewButton];
     [self initTableView];
 }
@@ -66,7 +66,7 @@
     [self.view addSubview:headerButton];
     
     UIView *progressView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 100)];
-    progressView.backgroundColor = [UIColor naviBarColor];
+    progressView.backgroundColor = [UIColor naviBlackColor];
     [self.view addSubview:progressView];
     
     
@@ -82,7 +82,7 @@
     [mediatorButton addSubview:mediatorNumberLabel];
     
     UILabel *mediatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/2, 40)];
-    mediatorLabel.text = @"待处理订单";
+    mediatorLabel.text = @"比价、抢单中";
     mediatorLabel.textAlignment = NSTextAlignmentCenter;
     mediatorLabel.textColor = [UIColor whiteColor];
     [mediatorButton addSubview:mediatorLabel];
@@ -295,7 +295,7 @@
     pageVC.bounces = YES;
     pageVC.menuHeight = 36;
     pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.menuBGColor = [UIColor naviBarColor];
+    pageVC.menuBGColor = [UIColor naviBlackColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";
@@ -325,7 +325,7 @@
     pageVC.bounces = YES;
     pageVC.menuHeight = 36;
     pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.menuBGColor = [UIColor naviBarColor];
+    pageVC.menuBGColor = [UIColor naviBlackColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";

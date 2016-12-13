@@ -38,9 +38,9 @@
         _updateTimerCount = 0;
         _currentTimeIntervarl = 0;
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-        [self getServerTime];
-        _getNewCurrentTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCurrentDate) userInfo:nil repeats:YES];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+//        [self getServerTime];
+//        _getNewCurrentTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCurrentDate) userInfo:nil repeats:YES];
     }
     return self;
 }

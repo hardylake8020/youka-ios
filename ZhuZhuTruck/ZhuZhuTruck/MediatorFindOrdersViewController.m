@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"货源列表"];
+    [self addBlackNaviHaderViewWithTitle:@"货源列表"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderViewButton];
     [self initTableView];

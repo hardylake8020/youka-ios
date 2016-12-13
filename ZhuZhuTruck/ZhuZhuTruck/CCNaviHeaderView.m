@@ -119,6 +119,7 @@ CCNaviHeaderView* mInstance;
     backButton = [CCButton backButtonWithtarget:target action:action];
     [self addSubview:backButton];
 }
+
 - (void)hiddenBackButton{
     backButton.hidden = YES;
 }

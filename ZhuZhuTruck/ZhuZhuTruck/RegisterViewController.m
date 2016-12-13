@@ -39,9 +39,9 @@
     view_back.backgroundColor = ColorFromRGB(0xf5f5f5);
     
     if (_type == REGISTER_TRUCK_MAN) {
-        [self addNaviHeaderViewWithTitle:@"注册司机"];
+        [self addBlackNaviHaderViewWithTitle:@"注册司机"];
     }else{
-        [self addNaviHeaderViewWithTitle:@"忘记密码"];
+        [self addBlackNaviHaderViewWithTitle:@"忘记密码"];
     }
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initTextFileds];
