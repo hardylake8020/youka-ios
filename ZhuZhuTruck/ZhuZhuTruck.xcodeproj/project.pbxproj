@@ -217,6 +217,31 @@
 		BBED55F91DF1C28D009776E4 /* DriversMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBED55F81DF1C28D009776E4 /* DriversMapViewController.m */; };
 		BBED55FB1DF1C372009776E4 /* ic_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = BBED55FA1DF1C372009776E4 /* ic_setting.png */; };
 		BBED56021DF1C545009776E4 /* MediatorFindOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBED56011DF1C545009776E4 /* MediatorFindOrdersViewController.m */; };
+		BBFB6E901E0171CD00BC1EDA /* Default-640@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6E8F1E0171CD00BC1EDA /* Default-640@2x.png */; };
+		BBFB6E961E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E941E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a */; };
+		BBFB6E971E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E951E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a */; };
+		BBFB6E991E01740500BC1EDA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E981E01740500BC1EDA /* libc++.tbd */; };
+		BBFB6E9B1E01742100BC1EDA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E9A1E01742100BC1EDA /* libz.tbd */; };
+		BBFB6E9D1E01743C00BC1EDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E9C1E01743C00BC1EDA /* MobileCoreServices.framework */; };
+		BBFB6E9F1E01745100BC1EDA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E9E1E01745100BC1EDA /* AVFoundation.framework */; };
+		BBFB6EA11E01745A00BC1EDA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6EA01E01745A00BC1EDA /* JavaScriptCore.framework */; };
+		BBFB6EA31E01746F00BC1EDA /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6EA21E01746F00BC1EDA /* UserNotifications.framework */; };
+		BBFB6EA51E01747B00BC1EDA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6EA41E01747B00BC1EDA /* AdSupport.framework */; };
+		BBFB6EB51E0183AC00BC1EDA /* margin.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EA71E0183AC00BC1EDA /* margin.png */; };
+		BBFB6EB61E0183AC00BC1EDA /* recharge.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EA81E0183AC00BC1EDA /* recharge.png */; };
+		BBFB6EB71E0183AC00BC1EDA /* assign_car.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EA91E0183AC00BC1EDA /* assign_car.png */; };
+		BBFB6EB81E0183AC00BC1EDA /* tender_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EAA1E0183AC00BC1EDA /* tender_arrow.png */; };
+		BBFB6EB91E0183AC00BC1EDA /* withdraw.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EAB1E0183AC00BC1EDA /* withdraw.png */; };
+		BBFB6EBA1E0183AC00BC1EDA /* seleted.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EAC1E0183AC00BC1EDA /* seleted.png */; };
+		BBFB6EBB1E0183AC00BC1EDA /* un_seleted.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EAD1E0183AC00BC1EDA /* un_seleted.png */; };
+		BBFB6EBC1E0183AC00BC1EDA /* bank_card.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EAE1E0183AC00BC1EDA /* bank_card.png */; };
+		BBFB6EBD1E0183AC00BC1EDA /* tender_bill.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EAF1E0183AC00BC1EDA /* tender_bill.png */; };
+		BBFB6EBE1E0183AC00BC1EDA /* car white.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EB01E0183AC00BC1EDA /* car white.png */; };
+		BBFB6EBF1E0183AC00BC1EDA /* wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EB11E0183AC00BC1EDA /* wallet.png */; };
+		BBFB6EC01E0183AC00BC1EDA /* find_tender.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EB21E0183AC00BC1EDA /* find_tender.png */; };
+		BBFB6EC11E0183AC00BC1EDA /* oil_card.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EB31E0183AC00BC1EDA /* oil_card.png */; };
+		BBFB6EC21E0183AC00BC1EDA /* search_tender.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EB41E0183AC00BC1EDA /* search_tender.png */; };
+		BBFB6EC41E018D7400BC1EDA /* f3455a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6EC31E018D7400BC1EDA /* f3455a@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -555,6 +580,33 @@
 		BBED55FA1DF1C372009776E4 /* ic_setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_setting.png; sourceTree = "<group>"; };
 		BBED56001DF1C545009776E4 /* MediatorFindOrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediatorFindOrdersViewController.h; sourceTree = "<group>"; };
 		BBED56011DF1C545009776E4 /* MediatorFindOrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediatorFindOrdersViewController.m; sourceTree = "<group>"; };
+		BBFB6E8F1E0171CD00BC1EDA /* Default-640@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-640@2x.png"; sourceTree = "<group>"; };
+		BBFB6E921E0173CE00BC1EDA /* GeTuiExtSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiExtSdk.h; sourceTree = "<group>"; };
+		BBFB6E931E0173CE00BC1EDA /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
+		BBFB6E941E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.5.3.a"; sourceTree = "<group>"; };
+		BBFB6E951E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGtExtensionSdk-1.0.0.a"; sourceTree = "<group>"; };
+		BBFB6E981E01740500BC1EDA /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		BBFB6E9A1E01742100BC1EDA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		BBFB6E9C1E01743C00BC1EDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		BBFB6E9E1E01745100BC1EDA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BBFB6EA01E01745A00BC1EDA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		BBFB6EA21E01746F00BC1EDA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		BBFB6EA41E01747B00BC1EDA /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		BBFB6EA71E0183AC00BC1EDA /* margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = margin.png; sourceTree = "<group>"; };
+		BBFB6EA81E0183AC00BC1EDA /* recharge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recharge.png; sourceTree = "<group>"; };
+		BBFB6EA91E0183AC00BC1EDA /* assign_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = assign_car.png; sourceTree = "<group>"; };
+		BBFB6EAA1E0183AC00BC1EDA /* tender_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tender_arrow.png; sourceTree = "<group>"; };
+		BBFB6EAB1E0183AC00BC1EDA /* withdraw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withdraw.png; sourceTree = "<group>"; };
+		BBFB6EAC1E0183AC00BC1EDA /* seleted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seleted.png; sourceTree = "<group>"; };
+		BBFB6EAD1E0183AC00BC1EDA /* un_seleted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = un_seleted.png; sourceTree = "<group>"; };
+		BBFB6EAE1E0183AC00BC1EDA /* bank_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bank_card.png; sourceTree = "<group>"; };
+		BBFB6EAF1E0183AC00BC1EDA /* tender_bill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tender_bill.png; sourceTree = "<group>"; };
+		BBFB6EB01E0183AC00BC1EDA /* car white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car white.png"; sourceTree = "<group>"; };
+		BBFB6EB11E0183AC00BC1EDA /* wallet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wallet.png; sourceTree = "<group>"; };
+		BBFB6EB21E0183AC00BC1EDA /* find_tender.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = find_tender.png; sourceTree = "<group>"; };
+		BBFB6EB31E0183AC00BC1EDA /* oil_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oil_card.png; sourceTree = "<group>"; };
+		BBFB6EB41E0183AC00BC1EDA /* search_tender.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_tender.png; sourceTree = "<group>"; };
+		BBFB6EC31E018D7400BC1EDA /* f3455a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f3455a@2x.png"; sourceTree = "<group>"; };
 		CAB17238D143F9086A717D95 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -563,6 +615,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBFB6EA51E01747B00BC1EDA /* AdSupport.framework in Frameworks */,
+				BBFB6EA31E01746F00BC1EDA /* UserNotifications.framework in Frameworks */,
+				BBFB6EA11E01745A00BC1EDA /* JavaScriptCore.framework in Frameworks */,
+				BBFB6E9F1E01745100BC1EDA /* AVFoundation.framework in Frameworks */,
+				BBFB6E9D1E01743C00BC1EDA /* MobileCoreServices.framework in Frameworks */,
+				BBFB6E9B1E01742100BC1EDA /* libz.tbd in Frameworks */,
+				BBFB6E991E01740500BC1EDA /* libc++.tbd in Frameworks */,
 				BB96BEAF1DEF2B5B00AA74D2 /* libstdc++.6.0.9.tbd in Frameworks */,
 				BB96BEAD1DEF2B5200AA74D2 /* CoreTelephony.framework in Frameworks */,
 				BB96BEAB1DEF2B4A00AA74D2 /* libsqlite3.0.tbd in Frameworks */,
@@ -571,9 +630,11 @@
 				BB96BEA51DEF2B3600AA74D2 /* SystemConfiguration.framework in Frameworks */,
 				BB34625F1DFEDB6C00DC3FA8 /* Crashlytics.framework in Frameworks */,
 				BB43215E1DF04A9A00F77680 /* BaiduMapAPI_Base.framework in Frameworks */,
+				BBFB6E971E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a in Frameworks */,
 				BB43215F1DF04A9A00F77680 /* BaiduMapAPI_Location.framework in Frameworks */,
 				BB4321601DF04A9A00F77680 /* BaiduMapAPI_Search.framework in Frameworks */,
 				BB96BEA31DEF2B2E00AA74D2 /* OpenGLES.framework in Frameworks */,
+				BBFB6E961E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a in Frameworks */,
 				BB3462601DFEDB6C00DC3FA8 /* Fabric.framework in Frameworks */,
 				BB96BEA11DEF2B2500AA74D2 /* QuartzCore.framework in Frameworks */,
 				BB96BE9F1DEF2B1B00AA74D2 /* CoreLocation.framework in Frameworks */,
@@ -829,6 +890,7 @@
 				BB4321651DF0581000F77680 /* Default-736h@3x.png */,
 				BB4321661DF0581000F77680 /* Default.png */,
 				BB4321671DF0581000F77680 /* Default@2x.png */,
+				BBFB6E8F1E0171CD00BC1EDA /* Default-640@2x.png */,
 			);
 			name = Ipnoe;
 			sourceTree = "<group>";
@@ -853,6 +915,7 @@
 				BB4321A61DF069C500F77680 /* FF8886@2x.png */,
 				BB4321A71DF069C500F77680 /* ffb30f@2x.png */,
 				BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */,
+				BBFB6EC31E018D7400BC1EDA /* f3455a@2x.png */,
 			);
 			name = Color;
 			sourceTree = "<group>";
@@ -998,6 +1061,7 @@
 		BB96BE8C1DEF001100AA74D2 /* 第三方类 */ = {
 			isa = PBXGroup;
 			children = (
+				BBFB6E911E0173CE00BC1EDA /* GtSdkLib */,
 				BB5AB59D1DF2D962009107B9 /* scanVC */,
 				BB4321841DF0618400F77680 /* WMPageController */,
 				BB96BE9A1DEF008500AA74D2 /* LVRecord */,
@@ -1063,6 +1127,7 @@
 		BB96BE9C1DEF279F00AA74D2 /* 资源文件 */ = {
 			isa = PBXGroup;
 			children = (
+				BBFB6EA61E01827400BC1EDA /* Tender */,
 				BB5AB55E1DF2C54B009107B9 /* OtherImage */,
 				BB5AB55F1DF2C56C009107B9 /* VoiceRecordImage */,
 				BB5AB55D1DF2C53D009107B9 /* Color */,
@@ -1317,9 +1382,48 @@
 			name = NSTool;
 			sourceTree = "<group>";
 		};
+		BBFB6E911E0173CE00BC1EDA /* GtSdkLib */ = {
+			isa = PBXGroup;
+			children = (
+				BBFB6E921E0173CE00BC1EDA /* GeTuiExtSdk.h */,
+				BBFB6E931E0173CE00BC1EDA /* GeTuiSdk.h */,
+				BBFB6E941E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a */,
+				BBFB6E951E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a */,
+			);
+			path = GtSdkLib;
+			sourceTree = "<group>";
+		};
+		BBFB6EA61E01827400BC1EDA /* Tender */ = {
+			isa = PBXGroup;
+			children = (
+				BBFB6EA71E0183AC00BC1EDA /* margin.png */,
+				BBFB6EA81E0183AC00BC1EDA /* recharge.png */,
+				BBFB6EA91E0183AC00BC1EDA /* assign_car.png */,
+				BBFB6EAA1E0183AC00BC1EDA /* tender_arrow.png */,
+				BBFB6EAB1E0183AC00BC1EDA /* withdraw.png */,
+				BBFB6EAC1E0183AC00BC1EDA /* seleted.png */,
+				BBFB6EAD1E0183AC00BC1EDA /* un_seleted.png */,
+				BBFB6EAE1E0183AC00BC1EDA /* bank_card.png */,
+				BBFB6EAF1E0183AC00BC1EDA /* tender_bill.png */,
+				BBFB6EB01E0183AC00BC1EDA /* car white.png */,
+				BBFB6EB11E0183AC00BC1EDA /* wallet.png */,
+				BBFB6EB21E0183AC00BC1EDA /* find_tender.png */,
+				BBFB6EB31E0183AC00BC1EDA /* oil_card.png */,
+				BBFB6EB41E0183AC00BC1EDA /* search_tender.png */,
+			);
+			name = Tender;
+			sourceTree = "<group>";
+		};
 		C7174C4BF7FF45B283FFC286 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBFB6EA41E01747B00BC1EDA /* AdSupport.framework */,
+				BBFB6EA21E01746F00BC1EDA /* UserNotifications.framework */,
+				BBFB6EA01E01745A00BC1EDA /* JavaScriptCore.framework */,
+				BBFB6E9E1E01745100BC1EDA /* AVFoundation.framework */,
+				BBFB6E9C1E01743C00BC1EDA /* MobileCoreServices.framework */,
+				BBFB6E9A1E01742100BC1EDA /* libz.tbd */,
+				BBFB6E981E01740500BC1EDA /* libc++.tbd */,
 				BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */,
 				BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */,
 				BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */,
@@ -1435,6 +1539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB5AB5741DF2C56C009107B9 /* RecordingSignal001.png in Resources */,
+				BBFB6E901E0171CD00BC1EDA /* Default-640@2x.png in Resources */,
 				BB4321B81DF06B3C00F77680 /* fontawesome-webfont.ttf in Resources */,
 				BB5AB5731DF2C56C009107B9 /* RecordingBkg@2x.png in Resources */,
 				BB035DDA1DF3F357006EC2F0 /* search.png in Resources */,
@@ -1443,6 +1548,7 @@
 				BBDCEC7A1DEDAAB100C2125D /* Assets.xcassets in Resources */,
 				BB5AB57A1DF2C56C009107B9 /* RecordingSignal004.png in Resources */,
 				BB4321971DF0674F00F77680 /* ic_backimg.png in Resources */,
+				BBFB6EB81E0183AC00BC1EDA /* tender_arrow.png in Resources */,
 				BB5AB5931DF2CADA009107B9 /* text.png in Resources */,
 				BB4321B41DF069C500F77680 /* F0C8AA@2x.png in Resources */,
 				BB49F0011DFD4F8300CFFC39 /* pickup_succeed.png in Resources */,
@@ -1455,28 +1561,34 @@
 				BB4321AB1DF069C500F77680 /* 4285f4@2x.png in Resources */,
 				BB4321B21DF069C500F77680 /* E0F9E3@2x.png in Resources */,
 				BB035DFC1DF45484006EC2F0 /* OilCardCell.xib in Resources */,
+				BBFB6EBE1E0183AC00BC1EDA /* car white.png in Resources */,
 				BB4321AF1DF069C500F77680 /* D39192@2x.png in Resources */,
 				BB5AB5911DF2CADA009107B9 /* play.png in Resources */,
 				BBD921311DF84938005DE376 /* checked_small.png in Resources */,
 				BB4321B71DF069C500F77680 /* ffb30f@2x.png in Resources */,
 				BB49EFFA1DFD4E3C00CFFC39 /* TimeLineCell.xib in Resources */,
 				BB4321B61DF069C500F77680 /* FF8886@2x.png in Resources */,
+				BBFB6EB91E0183AC00BC1EDA /* withdraw.png in Resources */,
 				BB5AB5821DF2C56C009107B9 /* RecordingSignal008.png in Resources */,
 				BB5AB5511DF29EF8009107B9 /* WaybillCell.xib in Resources */,
 				BB5AB5771DF2C56C009107B9 /* RecordingSignal002@2x.png in Resources */,
 				BB49F0001DFD4F8300CFFC39 /* confirm_succeed.png in Resources */,
 				BB4321A91DF069C500F77680 /* 7f7f7f@2x.png in Resources */,
 				BB5AB5BA1DF2D962009107B9 /* prev@3x.png in Resources */,
+				BBFB6EC01E0183AC00BC1EDA /* find_tender.png in Resources */,
 				BB5AB5921DF2CADA009107B9 /* stop.png in Resources */,
 				BB5AB59A1DF2CB04009107B9 /* arrowleftseleted.png in Resources */,
 				BB5AB5B61DF2D962009107B9 /* line@2x.png in Resources */,
 				BB035DEE1DF40760006EC2F0 /* TenderDetailHeaderCell.xib in Resources */,
 				BB035DF71DF44FA0006EC2F0 /* truck_car.png in Resources */,
 				BB035E011DF45499006EC2F0 /* ETCCardCell.xib in Resources */,
+				BBFB6EBC1E0183AC00BC1EDA /* bank_card.png in Resources */,
 				BB5AB5721DF2C56C009107B9 /* RecordingBkg.png in Resources */,
 				BB5AB5B41DF2D962009107B9 /* frame_icon@3x.png in Resources */,
 				BB4321681DF0581000F77680 /* Default-667h@2x.png in Resources */,
+				BBFB6EBB1E0183AC00BC1EDA /* un_seleted.png in Resources */,
 				BB49F0021DFD4F8300CFFC39 /* halfway_event.png in Resources */,
+				BBFB6EBA1E0183AC00BC1EDA /* seleted.png in Resources */,
 				BB5AB59C1DF2CB04009107B9 /* ic_head.png in Resources */,
 				BB5AB54C1DF281C5009107B9 /* TenderProcessCell.xib in Resources */,
 				BBED55FB1DF1C372009776E4 /* ic_setting.png in Resources */,
@@ -1484,6 +1596,7 @@
 				BB5AB5831DF2C56C009107B9 /* RecordingSignal008@2x.png in Resources */,
 				BB5AB5991DF2CB04009107B9 /* arrowleft.png in Resources */,
 				BB5AB5791DF2C56C009107B9 /* RecordingSignal003@2x.png in Resources */,
+				BBFB6EB51E0183AC00BC1EDA /* margin.png in Resources */,
 				BB5AB5B91DF2D962009107B9 /* prev@2x.png in Resources */,
 				BB96BE951DEF005700AA74D2 /* ACActionSheet.bundle in Resources */,
 				BB5AB5B81DF2D962009107B9 /* prev.png in Resources */,
@@ -1497,16 +1610,22 @@
 				BB4321691DF0581000F77680 /* Default-736h@3x.png in Resources */,
 				BB5AB5C31DF2DD70009107B9 /* check.png in Resources */,
 				BB4321B11DF069C500F77680 /* e0e0e0@2x.png in Resources */,
+				BBFB6EBD1E0183AC00BC1EDA /* tender_bill.png in Resources */,
 				BB5AB57F1DF2C56C009107B9 /* RecordingSignal006@2x.png in Resources */,
 				BB49EFFF1DFD4F8300CFFC39 /* develiy_succeed.png in Resources */,
 				BB57D7FA1DF6F6CF008888B0 /* MarginCell.xib in Resources */,
+				BBFB6EC11E0183AC00BC1EDA /* oil_card.png in Resources */,
+				BBFB6EB61E0183AC00BC1EDA /* recharge.png in Resources */,
+				BBFB6EB71E0183AC00BC1EDA /* assign_car.png in Resources */,
 				BB43216A1DF0581000F77680 /* Default.png in Resources */,
+				BBFB6EBF1E0183AC00BC1EDA /* wallet.png in Resources */,
 				BB5AB5811DF2C56C009107B9 /* RecordingSignal007@2x.png in Resources */,
 				BB5AB57E1DF2C56C009107B9 /* RecordingSignal006.png in Resources */,
 				BB035DE91DF40723006EC2F0 /* TenderDetailCell.xib in Resources */,
 				BB5AB53C1DF263E3009107B9 /* TenderCell.xib in Resources */,
 				BB4321AE1DF069C500F77680 /* D7960B@2x.png in Resources */,
 				BB3462621DFEEA1400DC3FA8 /* F44C5F@2x.png in Resources */,
+				BBFB6EC21E0183AC00BC1EDA /* search_tender.png in Resources */,
 				BB57D8031DF7163E008888B0 /* CarDetailCell.xib in Resources */,
 				BB5AB5B31DF2D962009107B9 /* frame_icon@2x.png in Resources */,
 				BB5AB5B71DF2D962009107B9 /* line@3x.png in Resources */,
@@ -1520,6 +1639,7 @@
 				BB5AB57B1DF2C56C009107B9 /* RecordingSignal004@2x.png in Resources */,
 				BB5AB5761DF2C56C009107B9 /* RecordingSignal002.png in Resources */,
 				BB5AB5781DF2C56C009107B9 /* RecordingSignal003.png in Resources */,
+				BBFB6EC41E018D7400BC1EDA /* f3455a@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1822,6 +1942,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhuZhuTruck/ZhuZhuTruck.entitlements;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 4BP3787HSZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1831,6 +1952,10 @@
 				INFOPLIST_FILE = ZhuZhuTruck/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZhuZhuTruck/GtSdkLib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuzhuqsTLL.ZhuZhuTruck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1851,6 +1976,10 @@
 				INFOPLIST_FILE = ZhuZhuTruck/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZhuZhuTruck/GtSdkLib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuzhuqsTLL.ZhuZhuTruck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

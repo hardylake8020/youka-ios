@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "NSString+FontAwesome.h"
 
 @interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,7 +27,7 @@
 
 
 - (void)initTableView{
-    self.dataArray = @[@"合作公司",@"帮助中心",@"系统设置"];
+    self.dataArray = @[[NSString stringWithFormat:@"%@    合作公司",[NSString fontAwesomeIconStringForEnum:FAshareAlt]],[NSString stringWithFormat:@"%@    帮助中心",[NSString fontAwesomeIconStringForEnum:FAHeadphones]],[NSString stringWithFormat:@"%@    系统设置",[NSString fontAwesomeIconStringForEnum:FACog]]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -44,6 +45,7 @@
     if(!cell){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SettingCellID"];
     }
+    cell.textLabel.font = [UIFont fontWithName:@"FontAwesome" size:16];
     cell.textLabel.text = [self.dataArray objectAtIndex:indexPath.row];
     return cell;
 }

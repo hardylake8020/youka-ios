@@ -19,7 +19,7 @@
 }
 + (UIColor *)customRedColor
 {
-    return ColorFromRGB(0xf44c5f);
+    return ColorFromRGB(0xf3455a);
 }
 + (UIColor *)customPinkColor
 {

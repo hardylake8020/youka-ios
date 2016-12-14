@@ -23,7 +23,8 @@
     // Initialization code
 }
 - (void)showCellWithDataDict:(NSDictionary *)dataDict{
-//    self.iconImageView.image = [UIImage imageNamed:[dataDict stringForKey:@"imageName"]];
+    self.iconImageView.image = [UIImage imageNamed:[dataDict stringForKey:@"imageName"]];
+    self.iconImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.titleLabel.text = [dataDict objectForKey:@"titleName"];
     self.bottomLineView.frame = CGRectMake(0, 43.5, SYSTEM_WIDTH, 0.5);
 }

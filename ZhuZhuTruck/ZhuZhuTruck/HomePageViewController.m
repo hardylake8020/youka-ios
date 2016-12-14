@@ -197,7 +197,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 110)];
     buttonsView.backgroundColor = UIColorFromRGB(0xf5f5f5);
-//    NSArray *images = @[@"",@"",@"",@""];
+    NSArray *images = @[@"find_tender",@"assign_car",@"wallet",@"oil_card"];
     NSArray *titles = @[@"我要找货",@"我的车队",@"我的钱包",@"我的卡劵"];
     for (int i=0; i<titles.count; i++) {
         UIButton *itemButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/4*i, 0, SYSTEM_WIDTH/4+1, 100)];
@@ -207,10 +207,15 @@
         itemButton.tag = 1000+i;
         [buttonsView addSubview:itemButton];
         itemButton.backgroundColor = [UIColor whiteColor];
+        UIImage *iconImage = [UIImage imageNamed:[images objectAtIndex:i]];
+        UIImageView *itemImage = [[UIImageView alloc]initWithImage:iconImage];
+        [itemButton addSubview:itemImage];
         
-//        UIImageView *itemImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[images objectAtIndex:i]]];
-//        itemImage.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-//        [itemButton addSubview:itemImage];
+        itemImage.sd_layout
+        .widthIs(40)
+        .autoHeightRatio((float)iconImage.size.height/(float)iconImage.size.width)
+        .centerXEqualToView(itemButton)
+        .centerYIs(40);
         
         
         UILabel *itemLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/4, 40)];

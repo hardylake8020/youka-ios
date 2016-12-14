@@ -53,14 +53,14 @@
 - (void)initTableView{
     
     NSMutableArray *firstSectionArray = [NSMutableArray array];
-    [firstSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"银行卡"}];
-    [firstSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"充值"}];
-    [firstSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"提现"}];
+    [firstSectionArray addObject:@{@"imageName":@"bank_card",@"titleName":@"银行卡"}];
+    [firstSectionArray addObject:@{@"imageName":@"recharge",@"titleName":@"充值"}];
+    [firstSectionArray addObject:@{@"imageName":@"withdraw",@"titleName":@"提现"}];
     [self.dataArray addObject:firstSectionArray];
     
     NSMutableArray *secondSectionArray = [NSMutableArray array];
-    [secondSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"保证金"}];
-    [secondSectionArray addObject:@{@"imageName":@"bankCard",@"titleName":@"账单"}];
+    [secondSectionArray addObject:@{@"imageName":@"margin",@"titleName":@"保证金"}];
+    [secondSectionArray addObject:@{@"imageName":@"tender_bill",@"titleName":@"账单"}];
     [self.dataArray addObject:secondSectionArray];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+140, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-140)];

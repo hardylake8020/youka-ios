@@ -19,7 +19,6 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - HappyDNS (0.3.7)
-  - JPush (2.1.8)
   - JSONKit-NoWarning (1.2)
   - JSONModel (1.2.0)
   - MJRefresh (3.1.10)
@@ -35,7 +34,6 @@ PODS:
 DEPENDENCIES:
   - FDFullscreenPopGesture (~> 1.1)
   - FMDB (~> 2.6.2)
-  - JPush (~> 2.1.8)
   - JSONKit-NoWarning (~> 1.2)
   - JSONModel (~> 1.2.0)
   - MJRefresh (~> 3.1.0)
@@ -59,7 +57,6 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HappyDNS: ec476226e119bf4766b74975ec4873f6fa078cf2
-  JPush: 2d1286494eae216433f6d7709b2721565b4babc9
   JSONKit-NoWarning: 3d27e6f9e6846ecf741e8c64dcadd7d5aa7193cb
   JSONModel: 12523685c4b623553ccf844bbbf7007624317b2c
   MJRefresh: bb72948c985914b0b5cecac573a2c69a8915fb02

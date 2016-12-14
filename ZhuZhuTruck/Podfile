@@ -5,7 +5,6 @@ pod "Qiniu", :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetw
 pod 'JSONModel', '~> 1.2.0'
 pod 'JSONKit-NoWarning', '~> 1.2' 
 pod 'MJRefresh', '~> 3.1.0'
-pod 'JPush', '~> 2.1.8'
 pod 'FDFullscreenPopGesture', '~> 1.1'
 pod 'FMDB', '~> 2.6.2'
 pod 'SVProgressHUD'

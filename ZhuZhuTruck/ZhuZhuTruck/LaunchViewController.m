@@ -9,7 +9,6 @@
 #import "LaunchViewController.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
-#import <JPUSHService.h>
 @interface LaunchViewController (){
     UIImageView *_lauchImage;
 }

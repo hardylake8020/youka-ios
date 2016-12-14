@@ -26,9 +26,9 @@
 }
 - (void)showCellWithStatus:(BOOL)status{
     if (status) {
-        self.seletedImageView.image = [UIImage imageNamed:@"checked_small"];
+        self.seletedImageView.image = [UIImage imageNamed:@"seleted"];
     }else{
-        self.seletedImageView.image = [UIImage imageNamed:@"uncheck_small"];
+        self.seletedImageView.image = [UIImage imageNamed:@"un_seleted"];
     }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

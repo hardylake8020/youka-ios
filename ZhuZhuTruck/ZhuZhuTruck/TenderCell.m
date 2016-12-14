@@ -34,7 +34,7 @@
 - (void)showCellWithStatus:(BOOL)status{
     if (!status) {
         self.CompareOrRobView.text = @"抢";
-        self.compareOrRobImageView.image = [UIImage imageNamed:@"FF8886"];
+        self.compareOrRobImageView.image = [UIImage imageNamed:@"f3455a"];
     }else{
         self.CompareOrRobView.text = @"比";
         self.compareOrRobImageView.image = [UIImage imageNamed:@"3ebf43"];
