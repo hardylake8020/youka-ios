@@ -29,7 +29,7 @@
 @interface HomePageViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-//@property (nonatomic, strong) ErrorMaskView *errMaskView;
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation HomePageViewController
@@ -46,6 +46,19 @@
     [self addBlackNaviHaderViewWithTitle:@"柱柱优卡"];
     [self initHeaderViewButton];
     [self initTableView];
+    [self initErrorMaskView];
+}
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发现订单";
+    self.errMaskView.hidden = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self tableHeaderRefesh];
 }
 
 - (NSMutableArray *)dataArray{
@@ -104,16 +117,52 @@
     driverLabel.textColor = [UIColor whiteColor];
     [driverButton addSubview:driverLabel];
     
-   
+    
+    
+    
+    
+    UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+100, SYSTEM_WIDTH, 110)];
+    buttonsView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    NSArray *images = @[@"find_tender",@"assign_car",@"wallet",@"oil_card"];
+    NSArray *titles = @[@"我要找货",@"我的车队",@"我的钱包",@"我的卡劵"];
+    for (int i=0; i<titles.count; i++) {
+        UIButton *itemButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/4*i, 0, SYSTEM_WIDTH/4+1, 100)];
+        [itemButton addTarget:self action:@selector(itemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        itemButton.layer.borderColor = [UIColor customGrayColor].CGColor;
+        itemButton.layer.borderWidth = 1;
+        itemButton.tag = 1000+i;
+        [buttonsView addSubview:itemButton];
+        itemButton.backgroundColor = [UIColor whiteColor];
+        UIImage *iconImage = [UIImage imageNamed:[images objectAtIndex:i]];
+        UIImageView *itemImage = [[UIImageView alloc]initWithImage:iconImage];
+        [itemButton addSubview:itemImage];
+        
+        itemImage.sd_layout
+        .widthIs(40)
+        .autoHeightRatio((float)iconImage.size.height/(float)iconImage.size.width)
+        .centerXEqualToView(itemButton)
+        .centerYIs(40);
+        
+        
+        UILabel *itemLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/4, 40)];
+        itemLabel.font = [UIFont systemFontOfSize:12];
+        itemLabel.text = [titles objectAtIndex:i];
+        itemLabel.textAlignment = NSTextAlignmentCenter;
+        [itemButton addSubview:itemLabel];
+        
+    }
+    
+//    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 109.5, SYSTEM_WIDTH, 0.5)];
+//    lineView.backgroundColor = [UIColor customGrayColor];
+//    [buttonsView addSubview:lineView];
+
+    [self.view addSubview:buttonsView];
 }
 
 
 - (void)initTableView{
-    
-    [self.dataArray addObjectsFromArray:@[@YES,@YES,@NO,@NO,@YES,@NO]];
-    
-    
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+100, SYSTEM_WIDTH, SYSTEM_HEIGHT-100-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
+
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+210, SYSTEM_WIDTH, SYSTEM_HEIGHT-210-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -152,18 +201,46 @@
 }
 - (void)loadNewData{
     
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+#warning 分页
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    
+    [[HttpRequstManager requestManager] postWithRequestBodyString:GET_UNSTART_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.localizedDescription);
+        }else{
+            //CCLog(@"---->%@",result);
+            NSArray *orders = [result objectForKey:@"tenders"];
+            [weakself.dataArray removeAllObjects];
+            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            
+            for (NSDictionary *orderDict in orders) {
+                //                CCLog(@"%@",orderDict);
+                
+                TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
+                [weakself.dataArray addObject:tenderModel];
+            }
+            
+            [weakself.tableView reloadData];
+        }
+        if (weakself.dataArray.count==0) {
+            weakself.errMaskView.hidden = NO;
+        }else{
+            weakself.errMaskView.hidden = YES;
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+    
 }
-
-//- (void)initErrorMaskView{
-//    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
-//    [self.tableView addSubview:_errMaskView];
-//    self.errMaskView.messageLabel.text = @"暂时未发现未开始的运单";
-//    self.errMaskView.hidden = YES;
-//}
 
 #pragma mark ---> UITableViewDelegate dataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.5;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.5;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -172,64 +249,24 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 140;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 110;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSNumber *status = [self.dataArray objectAtIndex:indexPath.row];
+    TenderModel *tenderModel = [self.dataArray objectAtIndex:indexPath.row];
     TenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderCell" forIndexPath:indexPath];
-    [cell showCellWithStatus:status.boolValue];
+    [cell showTenderCellWithTenderModel:tenderModel];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSNumber *status = [self.dataArray objectAtIndex:indexPath.row];
-    if (status.boolValue) {
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart];
+   TenderModel *tenderModel = [self.dataArray objectAtIndex:indexPath.row];
+    
+    if ([tenderModel.tender_type isEqualToString:@"grab"]) {
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart];
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 110)];
-    buttonsView.backgroundColor = UIColorFromRGB(0xf5f5f5);
-    NSArray *images = @[@"find_tender",@"assign_car",@"wallet",@"oil_card"];
-    NSArray *titles = @[@"我要找货",@"我的车队",@"我的钱包",@"我的卡劵"];
-    for (int i=0; i<titles.count; i++) {
-        UIButton *itemButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/4*i, 0, SYSTEM_WIDTH/4+1, 100)];
-        [itemButton addTarget:self action:@selector(itemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        itemButton.layer.borderColor = [UIColor customGrayColor].CGColor;
-        itemButton.layer.borderWidth = 1;
-        itemButton.tag = 1000+i;
-        [buttonsView addSubview:itemButton];
-        itemButton.backgroundColor = [UIColor whiteColor];
-        UIImage *iconImage = [UIImage imageNamed:[images objectAtIndex:i]];
-        UIImageView *itemImage = [[UIImageView alloc]initWithImage:iconImage];
-        [itemButton addSubview:itemImage];
-        
-        itemImage.sd_layout
-        .widthIs(40)
-        .autoHeightRatio((float)iconImage.size.height/(float)iconImage.size.width)
-        .centerXEqualToView(itemButton)
-        .centerYIs(40);
-        
-        
-        UILabel *itemLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/4, 40)];
-        itemLabel.font = [UIFont systemFontOfSize:12];
-        itemLabel.text = [titles objectAtIndex:i];
-        itemLabel.textAlignment = NSTextAlignmentCenter;
-        [itemButton addSubview:itemLabel];
-
-    }
-    
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 109.5, SYSTEM_WIDTH, 0.5)];
-    lineView.backgroundColor = [UIColor customGrayColor];
-    [buttonsView addSubview:lineView];
-    return buttonsView;
 }
 
 - (void)itemButtonClick:(UIButton *)button{

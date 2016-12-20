@@ -64,7 +64,7 @@
     
     NSString *URL = [self requestUrl:header];
     
-    NSLog(@"GET--URL:%@   \n paraters:%@",URL,parameters);
+    CCLog(@"GET--URL:%@   \n paraters:%@",URL,parameters);
     
     [manager GET:URL parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"GET --> %@, \n Callback Thread%@", URL, [NSThread currentThread]); //自动返回主线程
@@ -124,7 +124,7 @@
     manager.requestSerializer.timeoutInterval = 30;
     
     NSString *URL = [self requestUrl:header];
-    NSLog(@"POST--URL:%@\n paraters:%@",URL,parameters);
+    CCLog(@"POST--URL:%@\n paraters:%@",URL,parameters);
     
     [manager POST:URL parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"POST --> %@, \n Callback Thread%@", URL, [NSThread currentThread]); //自动返回主线

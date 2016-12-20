@@ -13,9 +13,9 @@
 
 #import "DBManager.h"
 #import <FMDB.h>
-#import "CCUserData.h"
 #import <JSONKit.h>
 #import <JSONModel.h>
+#import "CCUserData.h"
 #import "NSString+Tool.h"
 
 @implementation DBManager{

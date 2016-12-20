@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#define BASE_URL @"http://www.zhuzhu56.com"
+//#define BASE_URL @"http://192.168.0.113:3002"
+
+#define BASE_URL @"http://192.168.0.113:3006"
 #define APPVERSION @"2.0.0.9"
 #define VERSIONNUMBER @"2009"
 
@@ -21,6 +23,12 @@
 #define UPLOADLOCATIONS @"/trace/multiupload"
 
 
+#define GET_UNSTART_TENDER @"/tender/driver/getUnStartedListByDriver" //post
+#define GET_TENDER_BY_STATUS @"/tender/driver/getStartedListByDriver" //post
+#define USER_GRAB_TENDER @"/tender/driver/grab"  //post
+#define USER_ADD_CARD   @"/tender/driver/card/create"   //post
+
+
 //登录参数
 #define USERNAME @"username"
 #define PWD @"password"
@@ -28,6 +36,7 @@
 
 //通知
 #define USER_TOKEN_INVILID_NOTI @"user_token_invaild_noti"
+#define RELOAD_DRIVER_ORDER_LIST_NOTI @"reload_driver_order_list_noti"
 
 
 typedef enum : NSUInteger {
@@ -52,6 +61,12 @@ typedef enum : NSUInteger {
     RobTenderUnStart,
     RobTenderSucceed,
 } TenderOrderStatus;
+
+
+typedef enum : NSUInteger {
+    ADD_ETC_CARD,
+    ADD_OIL_CARD,
+} UserAddCardType;
 
 //圆角大小
 #define CORNERRADIUS 6.0f

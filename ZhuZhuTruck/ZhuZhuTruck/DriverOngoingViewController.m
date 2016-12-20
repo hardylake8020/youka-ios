@@ -21,17 +21,23 @@
     [super viewDidLoad];
     self.title = @"运单运输中";
     [self initTableView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:RELOAD_DRIVER_ORDER_LIST_NOTI object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.dataArray removeAllObjects];
-    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnDeliveryOrders]];
-    [self.tableView reloadData];
+    [self reloadData];
 //    if (self.dataArray.count ==0) {
 //        [self tableHeaderRefesh];
 //    }
 }
+
+- (void)reloadData{
+    [self.dataArray removeAllObjects];
+    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnpickupOrders]];
+    [self.tableView reloadData];
+}
+
 
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {

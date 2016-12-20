@@ -236,12 +236,12 @@
     model.isLight = NO;
     model.noBottomLine = YES;
 
-    if (tenderModel.payment_top_cash_rate.floatValue==1) {
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（现金支付）",tenderModel.payment_top_rate.floatValue*100];
-    }else if (tenderModel.payment_top_card_rate.floatValue==1) {
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（油卡支付）",tenderModel.payment_top_rate.floatValue*100];
+    if (tenderModel.payment_top_cash_rate.floatValue==100) {
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（现金支付）",tenderModel.payment_top_rate.floatValue];
+    }else if (tenderModel.payment_top_card_rate.floatValue==100) {
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（油卡支付）",tenderModel.payment_top_rate.floatValue];
     }else{
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（ %.f%%现金  + %.f%%油卡）",tenderModel.payment_top_rate.floatValue *100, tenderModel.payment_top_cash_rate.floatValue*100,tenderModel.payment_top_card_rate.floatValue*100];
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（ %.f%%现金  + %.f%%油卡）",tenderModel.payment_top_rate.floatValue , tenderModel.payment_top_cash_rate.floatValue,tenderModel.payment_top_card_rate.floatValue];
         
     }
     
@@ -252,12 +252,12 @@
     model.isLight = NO;
     model.noBottomLine = YES;
     
-    if (tenderModel.payment_tail_cash_rate.floatValue==1) {
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（现金支付）",tenderModel.payment_tail_rate.floatValue*100];
-    }else if (tenderModel.payment_tail_card_rate.floatValue==1) {
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（油卡支付）",tenderModel.payment_tail_rate.floatValue*100];
+    if (tenderModel.payment_tail_cash_rate.floatValue==100) {
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（现金支付）",tenderModel.payment_tail_rate.floatValue];
+    }else if (tenderModel.payment_tail_card_rate.floatValue==100) {
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（油卡支付）",tenderModel.payment_tail_rate.floatValue];
     }else{
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（ %.f%%现金  + %.f%%油卡）",tenderModel.payment_tail_rate.floatValue *100, tenderModel.payment_tail_cash_rate.floatValue*100,tenderModel.payment_tail_card_rate.floatValue*100];
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（ %.f%%现金  + %.f%%油卡）",tenderModel.payment_tail_rate.floatValue, tenderModel.payment_tail_cash_rate.floatValue,tenderModel.payment_tail_card_rate.floatValue];
         
     }
     
@@ -266,12 +266,12 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"回单";
     model.isLight = NO;
-    if (tenderModel.payment_last_cash_rate.floatValue==1) {
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（现金支付）",tenderModel.payment_last_rate.floatValue*100];
-    }else if (tenderModel.payment_last_card_rate.floatValue==1) {
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（油卡支付）",tenderModel.payment_last_rate.floatValue*100];
+    if (tenderModel.payment_last_cash_rate.floatValue==100) {
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（现金支付）",tenderModel.payment_last_rate.floatValue];
+    }else if (tenderModel.payment_last_card_rate.floatValue==100) {
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（油卡支付）",tenderModel.payment_last_rate.floatValue];
     }else{
-        model.subTitle = [NSString stringWithFormat:@"%.f%%（ %.f%%现金  + %.f%%油卡）",tenderModel.payment_last_rate.floatValue *100, tenderModel.payment_last_cash_rate.floatValue*100,tenderModel.payment_last_card_rate.floatValue*100];
+        model.subTitle = [NSString stringWithFormat:@"%.f%%（ %.f%%现金  + %.f%%油卡）",tenderModel.payment_last_rate.floatValue , tenderModel.payment_last_cash_rate.floatValue,tenderModel.payment_last_card_rate.floatValue];
         
     }
     

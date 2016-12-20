@@ -190,34 +190,34 @@
 }
 
 - (void)registerUserAccount{
-//    __weak typeof(self) _weakSelf = self;
-//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    [parameters put:_phoneNumberFiled.text key:USERNAME];
-//    [parameters put:_firstPassWordFiled.text key:PWD];
-//    [SVProgressHUD showWithStatus:@"正在注册"];
-//    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP_DRIVER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
-//        if (error) {
-//            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
-//        }else{
-//            [_weakSelf succeedDone];
-//            [SVProgressHUD showSuccessWithStatus:@"注册成功"];
-//        }
-//    }];
+    __weak typeof(self) _weakSelf = self;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:_phoneNumberFiled.text key:USERNAME];
+    [parameters put:_firstPassWordFiled.text key:PWD];
+    [SVProgressHUD showWithStatus:@"正在注册"];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
+        }else{
+            [_weakSelf succeedDone];
+            [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+        }
+    }];
 }
 - (void)chagePassWord{
-//    __weak typeof(self) _weakSelf = self;
-//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    [parameters put:_phoneNumberFiled.text key:USERNAME];
-//    [parameters put:_firstPassWordFiled.text key:PWD];
-//    [SVProgressHUD showWithStatus:@"正在修改中"];
-//    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP_DRIVER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
-//        if (error) {
-//            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
-//        }else{
-//            [_weakSelf succeedDone];
-//            [SVProgressHUD showSuccessWithStatus:@"重置成功"];
-//        }
-//    }];
+    __weak typeof(self) _weakSelf = self;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:_phoneNumberFiled.text key:USERNAME];
+    [parameters put:_firstPassWordFiled.text key:PWD];
+    [SVProgressHUD showWithStatus:@"正在修改中"];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
+        }else{
+            [_weakSelf succeedDone];
+            [SVProgressHUD showSuccessWithStatus:@"重置成功"];
+        }
+    }];
 
 }
 

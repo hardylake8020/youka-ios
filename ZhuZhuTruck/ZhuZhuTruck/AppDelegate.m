@@ -159,6 +159,29 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
     CCLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
+    NSDictionary *MsgDict = [payloadData objectFromJSONData];
+    NSString *newName = [MsgDict stringForKey:@"userphone"];
+    if (![user_phone() isEqualToString:newName]){
+        return;
+    }
+    NSString *type = [MsgDict stringForKey:@"type"];
+    
+    if ([type isEqualToString:@"new_order"]) {
+        
+        alert_showInfoMsg(@"你有新的的运单了");
+        
+    }else if ([type isEqualToString:@"update_order"]) {
+        
+        alert_showInfoMsg(@"你有运单更新了");
+        
+    }else if ([type isEqualToString:@"delete_order"]) {
+        
+        alert_showInfoMsg(@"你运单被删除了");
+        
+        [[DBManager sharedManager] deleteOrderWithOrderId:[MsgDict stringForKey:@"order_id"]];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:RELOAD_DRIVER_ORDER_LIST_NOTI object:nil];
+    }
 }
 
 
@@ -205,6 +228,15 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)getNewOrderById:(NSString *)orderId{
+    
+}
+
+- (void)updateOrderById:(NSString *)orderId{
+    
 }
 
 

@@ -31,14 +31,35 @@
 }
 - (void)showTenderCellWithTenderModel:(TenderModel *)model{
     
- 
+    self.centerTipLabel.text = @"";
+    if ([model.tender_type isEqualToString:@"grab"]) {
+        if ([model.status isEqualToString:@"unAssigned"]) {
+            self.statusLabel.text = @"抢标成功";
+            self.centerTipLabel.text = @"待分配车辆";
+            self.statusLabel.textColor = [UIColor customGreenColor];
+        }else{
+            self.statusLabel.text = @"抢标失败";
+            self.statusLabel.textColor = [UIColor customRedColor];
+        }
+    }else{
+        if ([model.status isEqualToString:@"unAssigned"]) {
+            self.statusLabel.text = @"比价中标成功";
+            self.centerTipLabel.text = @"待分配车辆";
+            self.statusLabel.textColor = [UIColor customGreenColor];
+        }else{
+            self.statusLabel.text = @"抢标失败";
+            self.statusLabel.textColor = [UIColor customRedColor];
+        }
+    }
+    
+    
     
     
     self.fromCityLabel.text = model.pickup_city;
     self.fromDistrictLabel.text = model.pickup_region;
     self.toCityLabel.text = model.delivery_city;
     self.toDistrictLabel.text = model.delivery_region;
-    self.timeLabel.text = [NSString stringWithFormat:@"发布时间  %@", getFormatStringWithDateAndFormat(model.start_time, @"MM-dd hh:mm")];
+    self.timeLabel.text = [NSString stringWithFormat:@"发布时间  %@", dateStringWithDateAndFormart(model.start_time, @"MM-dd hh:mm")];
     self.goodsDetailLabel.text = [NSString stringWithFormat:@"货物摘要  %@ %@ %@",model.sender_company,@"55方",@"44公里"];
     
 }

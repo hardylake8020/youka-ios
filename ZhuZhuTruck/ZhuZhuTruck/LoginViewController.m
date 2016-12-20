@@ -139,23 +139,23 @@
 
 
 - (void)tokenInvild{
-    if ([accessToken() isEmpty]) {
-        return;
-    }
-    save_UserPwd(@"");
-    save_AccessToken(@"");
-    [[DBManager sharedManager] deletedAllLocations];
-    [[LocationTracker defaultLoactionTarker] stopLocationTracking];
-    __weak typeof(self) _weakSelf = self;
-    RIButtonItem *deleteItem = [RIButtonItem itemWithLabel:@"去登录" action:^{
-        [_weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    }];
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
-                                                        message:@"用户验证信息失效，请重新登录"
-                                               cancelButtonItem:nil
-                                               otherButtonItems:deleteItem, nil];
-    [alertView show];
+//    if ([accessToken() isEmpty]) {
+//        return;
+//    }
+//    save_UserPwd(@"");
+//    save_AccessToken(@"");
+//    [[DBManager sharedManager] deletedAllLocations];
+//    [[LocationTracker defaultLoactionTarker] stopLocationTracking];
+//    __weak typeof(self) _weakSelf = self;
+//    RIButtonItem *deleteItem = [RIButtonItem itemWithLabel:@"去登录" action:^{
+//        [_weakSelf.navigationController popToRootViewControllerAnimated:YES];
+//    }];
+//    
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
+//                                                        message:@"用户验证信息失效，请重新登录"
+//                                               cancelButtonItem:nil
+//                                               otherButtonItems:deleteItem, nil];
+//    [alertView show];
     
     
 }

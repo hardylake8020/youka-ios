@@ -21,6 +21,7 @@
 }
 @property (nonatomic, assign) TenderOrderStatus tenderStatus;
 @property (nonatomic, strong) TenderDetailTableDataModel *tableModel;
+@property (nonatomic, strong) TenderModel *tenderModel;
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
@@ -31,6 +32,15 @@
     self = [super init];
     if (self) {
         self.tenderStatus = status;
+    }
+    return self;
+}
+- (instancetype)initWithTenderStatus:(TenderOrderStatus)status andTenderModel:(TenderModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.tenderStatus = status;
+        self.tenderModel = model;
     }
     return self;
 }
@@ -153,7 +163,7 @@
 }
 - (void)initTableView{
     
-    self.tableModel = [[TenderDetailTableDataModel alloc]init];
+    self.tableModel = [[TenderDetailTableDataModel alloc]initWithModel:self.tenderModel];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+_headerHight, SYSTEM_WIDTH, SYSTEM_HEIGHT-60-SYSTITLEHEIGHT-_headerHight)];
     self.tableView.dataSource = self;
@@ -194,6 +204,7 @@
         TenderDetailHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderDetailHeaderCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.separatorInset = UIEdgeInsetsZero;
+        [cell showTenderHeaderCellWithModel:self.tenderModel];
         return cell;
     }else{
         TenderDetailCellModel *cellModel = [self.tableModel.dataArray objectAtIndex:indexPath.row];
@@ -425,7 +436,22 @@
     [self gotoMediatorProgress];
 }
 - (void)robTender{
-    [self gotoMediatorProgress];
+//    [self gotoMediatorProgress];
+    
+//    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [parameters put:self.tenderModel._id key:@"tender_id"];
+    [SVProgressHUD showWithStatus:@"正在抢单..."];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GRAB_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"抢单失败")];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"抢单成功"];
+        }
+    }];
+
+    
 }
 
 - (void)gotoMediatorProgress{

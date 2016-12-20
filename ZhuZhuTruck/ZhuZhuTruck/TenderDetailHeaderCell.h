@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TenderModel.h"
 
 @interface TenderDetailHeaderCell : UITableViewCell
-
+- (void)showTenderHeaderCellWithModel:(TenderModel *)model;
 @end

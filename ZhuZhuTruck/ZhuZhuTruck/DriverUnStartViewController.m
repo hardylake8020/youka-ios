@@ -25,17 +25,23 @@
     [super viewDidLoad];
     self.title = @"运单待提货";
     [self initTableView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:RELOAD_DRIVER_ORDER_LIST_NOTI object:nil];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.dataArray removeAllObjects];
-    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnpickupOrders]];
-    [self.tableView reloadData];
+    [self reloadData];
     [self getAddress];
     if (self.dataArray.count ==0) {
         [self tableHeaderRefesh];
     }
 }
+
+- (void)reloadData{
+    [self.dataArray removeAllObjects];
+    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnpickupOrders]];
+    [self.tableView reloadData];
+}
+
 - (void)getAddress{
     _addressManager = [AddressManager sharedManager];
     CCWeakSelf(self);

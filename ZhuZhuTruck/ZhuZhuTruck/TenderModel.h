@@ -10,15 +10,17 @@
 #import "GoodModel.h"
 
 @interface TenderModel : JSONModel
+@property (nonatomic, copy) NSString<Optional> *_id;
 @property (nonatomic, copy) NSString<Optional> *tender_number;
 @property (nonatomic, copy) NSString<Optional> *order_number;
 @property (nonatomic, copy) NSString<Optional> *status;
 @property (nonatomic, copy) NSString<Optional> *refer_order_number;
 @property (nonatomic, copy) NSString<Optional> *sender_company;
 @property (nonatomic, copy) NSString<Optional> *pay_approver;
-@property (nonatomic, strong) NSDate<Optional> *start_time;
+@property (nonatomic, copy) NSString<Optional> *start_time;
 @property (nonatomic, copy) NSString<Optional> *end_time;
 @property (nonatomic, copy) NSString<Optional> *truck_type;
+@property (nonatomic, copy) NSString<Optional> *tender_type;//grab 
 @property (nonatomic, copy) NSString<Optional> *auto_close_time;
 @property (nonatomic, copy) NSString<Optional> *remark;
 @property (nonatomic, copy) NSString<Optional> *pickup_province;
@@ -48,7 +50,9 @@
 @property (nonatomic, copy) NSString<Optional> *delivery_mobile_phone;
 
 @property (nonatomic, strong) NSMutableArray<Optional,GoodModel> *goods;
+@property (nonatomic, strong) NSMutableArray<Optional,GoodModel> *mobile_goods;
 
+@property (nonatomic, strong) NSNumber<Optional> *current_grab_price;
 @property (nonatomic, strong) NSNumber<Optional> *truck_count;
 @property (nonatomic, strong) NSNumber<Optional> *auto_close_duration;
 
@@ -61,15 +65,6 @@
 @property (nonatomic, strong) NSNumber<Optional> *payment_last_rate;
 @property (nonatomic, strong) NSNumber<Optional> *payment_last_cash_rate;
 @property (nonatomic, strong) NSNumber<Optional> *payment_last_card_rate;
-
-
-
-
-
-
-
-
-
 
 
 

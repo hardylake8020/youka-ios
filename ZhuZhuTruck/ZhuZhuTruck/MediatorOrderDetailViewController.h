@@ -10,4 +10,5 @@
 
 @interface MediatorOrderDetailViewController : BaseViewController
 - (instancetype)initWithTenderStatus:(TenderOrderStatus)status;
+- (instancetype)initWithTenderStatus:(TenderOrderStatus)status andTenderModel:(TenderModel *)model;
 @end

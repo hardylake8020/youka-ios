@@ -9,6 +9,7 @@
 #import "CarStockViewController.h"
 #import "Constants.h"
 #import "CCNaviHeaderView.h"
+#import "AddCardViewController.h"
 #import "OilCardsViewController.h"
 #import "ETCCardsViewController.h"
 #import "DriverUnStartViewController.h"
@@ -32,7 +33,40 @@
     if (self.isSeletedMode) {
         [self initBottomView];
     }
+    
+    UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
+    [addButton addTarget:self action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
+    [addButton setTitle:@"添加" forState:UIControlStateNormal];
+    [addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [naivHeader addRightButton:addButton];
+    
 }
+
+- (void)addCard{
+    __weak typeof(self) _weakSelf = self;
+    
+    RIButtonItem *addOliCard = [RIButtonItem itemWithLabel:@"添加油卡" action:^{
+        AddCardViewController *addCard = [[AddCardViewController alloc]initWithType:ADD_OIL_CARD];
+        [_weakSelf.navigationController pushViewController:addCard animated:YES];
+    }];
+    
+    RIButtonItem *addETCCard = [RIButtonItem itemWithLabel:@"添加ETC卡" action:^{
+        AddCardViewController *addCard = [[AddCardViewController alloc]initWithType:ADD_ETC_CARD];
+        [_weakSelf.navigationController pushViewController:addCard animated:YES];
+    }];
+    
+    RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
+        
+    }];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
+                                                        message:@"请选择添加卡片类型"
+                                               cancelButtonItem:cancelItem
+                                               otherButtonItems:addOliCard,addETCCard, nil];
+    [alertView show];
+
+}
+
 - (UIViewController *)initializeViewControllerAtIndex:(NSInteger)index {
     
     if ([self.dataSource respondsToSelector:@selector(pageController:viewControllerAtIndex:)]) {

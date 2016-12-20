@@ -51,9 +51,9 @@
         serialQueue = dispatch_queue_create("myThreadQueueImageUpload", DISPATCH_QUEUE_SERIAL);
         qnuploadManager = [[QNUploadManager alloc]init];
         _dbManager = [DBManager sharedManager];
-        [self uploadImage];
-        [self upLoadVoice];
-        [self runClock];
+//        [self uploadImage];
+//        [self upLoadVoice];
+//        [self runClock];
     }
     return self;
 }

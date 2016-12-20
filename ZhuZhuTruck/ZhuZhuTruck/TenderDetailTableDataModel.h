@@ -12,4 +12,5 @@
 
 @interface TenderDetailTableDataModel : NSObject
 @property (nonatomic, strong) NSMutableArray *dataArray;
+- (instancetype)initWithModel:(TenderModel*)model;
 @end

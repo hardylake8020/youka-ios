@@ -34,6 +34,7 @@
 		BB34625F1DFEDB6C00DC3FA8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */; };
 		BB3462601DFEDB6C00DC3FA8 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */; };
 		BB3462621DFEEA1400DC3FA8 /* F44C5F@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */; };
+		BB37D3201E0987D700703AB4 /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37D31F1E0987D700703AB4 /* AddCardViewController.m */; };
 		BB43215E1DF04A9A00F77680 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */; };
 		BB43215F1DF04A9A00F77680 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215C1DF04A9A00F77680 /* BaiduMapAPI_Location.framework */; };
 		BB4321601DF04A9A00F77680 /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB43215D1DF04A9A00F77680 /* BaiduMapAPI_Search.framework */; };
@@ -219,7 +220,6 @@
 		BBED56021DF1C545009776E4 /* MediatorFindOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBED56011DF1C545009776E4 /* MediatorFindOrdersViewController.m */; };
 		BBFB6E901E0171CD00BC1EDA /* Default-640@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6E8F1E0171CD00BC1EDA /* Default-640@2x.png */; };
 		BBFB6E961E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E941E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a */; };
-		BBFB6E971E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E951E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a */; };
 		BBFB6E991E01740500BC1EDA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E981E01740500BC1EDA /* libc++.tbd */; };
 		BBFB6E9B1E01742100BC1EDA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E9A1E01742100BC1EDA /* libz.tbd */; };
 		BBFB6E9D1E01743C00BC1EDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E9C1E01743C00BC1EDA /* MobileCoreServices.framework */; };
@@ -297,6 +297,8 @@
 		BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ZhuZhuTruck/Crashlytics.framework; sourceTree = "<group>"; };
 		BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ZhuZhuTruck/Fabric.framework; sourceTree = "<group>"; };
 		BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F44C5F@2x.png"; sourceTree = "<group>"; };
+		BB37D31E1E0987D700703AB4 /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
+		BB37D31F1E0987D700703AB4 /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
 		BB43215B1DF04A9A00F77680 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = ZhuZhuTruck/BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
 		BB43215C1DF04A9A00F77680 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Location.framework; path = ZhuZhuTruck/BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
 		BB43215D1DF04A9A00F77680 /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Search.framework; path = ZhuZhuTruck/BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
@@ -630,7 +632,6 @@
 				BB96BEA51DEF2B3600AA74D2 /* SystemConfiguration.framework in Frameworks */,
 				BB34625F1DFEDB6C00DC3FA8 /* Crashlytics.framework in Frameworks */,
 				BB43215E1DF04A9A00F77680 /* BaiduMapAPI_Base.framework in Frameworks */,
-				BBFB6E971E0173CE00BC1EDA /* libGtExtensionSdk-1.0.0.a in Frameworks */,
 				BB43215F1DF04A9A00F77680 /* BaiduMapAPI_Location.framework in Frameworks */,
 				BB4321601DF04A9A00F77680 /* BaiduMapAPI_Search.framework in Frameworks */,
 				BB96BEA31DEF2B2E00AA74D2 /* OpenGLES.framework in Frameworks */,
@@ -1276,6 +1277,8 @@
 				BBED55DC1DF1C042009776E4 /* OilCardsViewController.m */,
 				BBED55DE1DF1C061009776E4 /* ETCCardsViewController.h */,
 				BBED55DF1DF1C061009776E4 /* ETCCardsViewController.m */,
+				BB37D31E1E0987D700703AB4 /* AddCardViewController.h */,
+				BB37D31F1E0987D700703AB4 /* AddCardViewController.m */,
 			);
 			name = "油卡卡劵";
 			sourceTree = "<group>";
@@ -1821,6 +1824,7 @@
 				BB96BE841DEEFDAA00AA74D2 /* CCTool.m in Sources */,
 				BB5AB55B1DF2C4AF009107B9 /* RecordImageView.m in Sources */,
 				BB96BED01DEF2E9000AA74D2 /* QnUploadManager.m in Sources */,
+				BB37D3201E0987D700703AB4 /* AddCardViewController.m in Sources */,
 				BB8812E11DF995F600B54644 /* OrderModel.m in Sources */,
 				BB57D7F91DF6F6CF008888B0 /* MarginCell.m in Sources */,
 				BBED55DA1DF1C01A009776E4 /* SettingViewController.m in Sources */,

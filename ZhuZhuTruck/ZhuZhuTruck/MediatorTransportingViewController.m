@@ -12,6 +12,7 @@
 @interface MediatorTransportingViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation MediatorTransportingViewController
@@ -20,7 +21,17 @@
     [super viewDidLoad];
     self.title = @"订单运输中";
     [self initTableView];
+    [self initErrorMaskView];
 }
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发现运输中的订单";
+    self.errMaskView.hidden = YES;
+}
+
+
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray  = [NSMutableArray array];
@@ -127,11 +138,11 @@
     UIView *centerLine = [[UIView alloc]initWithFrame:CGRectMake(0, 49.5, SYSTEM_WIDTH, 0.5)];
     centerLine.backgroundColor = [UIColor customGrayColor];
     [footerView addSubview:centerLine];
-    
-    UIView *bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 59.5, SYSTEM_WIDTH, 0.5)];
-    bottomLine.backgroundColor = [UIColor customGrayColor];
-    [footerView addSubview:bottomLine];
-    
+    if (section < self.dataArray.count-1) {
+        UIView *bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 59.5, SYSTEM_WIDTH, 0.5)];
+        bottomLine.backgroundColor = [UIColor customGrayColor];
+        [footerView addSubview:bottomLine];
+    }
     return footerView;
 }
 
