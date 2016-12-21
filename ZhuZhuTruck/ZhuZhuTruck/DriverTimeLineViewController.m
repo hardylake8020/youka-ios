@@ -9,7 +9,6 @@
 #import "DriverTimeLineViewController.h"
 #import "TimeLineCell.h"
 
-
 @interface DriverTimeLineViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -43,12 +42,22 @@
 }
 - (void)initTableView{
     
-    [self.dataArray addObjectsFromArray:self.orderModel.halfway_events];
-    [self.dataArray addObjectsFromArray:self.orderModel.confirm_events];
-    [self.dataArray addObjectsFromArray:self.orderModel.pickup_sign_events];
-    [self.dataArray addObjectsFromArray:self.orderModel.pickup_events];
-    [self.dataArray addObjectsFromArray:self.orderModel.delivery_sign_events];
-    [self.dataArray addObjectsFromArray:self.orderModel.delivery_events];
+    NSMutableArray *timeLineArray = [NSMutableArray array];
+    
+    
+    [timeLineArray addObjectsFromArray:self.orderModel.halfway_events];
+    [timeLineArray addObjectsFromArray:self.orderModel.confirm_events];
+    [timeLineArray addObjectsFromArray:self.orderModel.pickup_sign_events];
+    [timeLineArray addObjectsFromArray:self.orderModel.pickup_events];
+    [timeLineArray addObjectsFromArray:self.orderModel.delivery_sign_events];
+    [timeLineArray addObjectsFromArray:self.orderModel.delivery_events];
+    
+    NSArray *resultArray = [timeLineArray sortedArrayUsingComparator:^NSComparisonResult(EventModel *event1, EventModel *event2) {
+        NSComparisonResult result = [event1.time  compare:event2.time];
+        return result == NSOrderedDescending; // 升序
+    }];
+    
+    [self.dataArray addObjectsFromArray:resultArray];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
     self.tableView.backgroundColor = [UIColor whiteColor];

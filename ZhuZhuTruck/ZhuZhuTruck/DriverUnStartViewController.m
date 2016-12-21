@@ -16,7 +16,7 @@
 @property (nonatomic, assign) CLLocationCoordinate2D userLocation;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation DriverUnStartViewController
@@ -25,8 +25,18 @@
     [super viewDidLoad];
     self.title = @"运单待提货";
     [self initTableView];
+    [self initErrorMaskView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:RELOAD_DRIVER_ORDER_LIST_NOTI object:nil];
 }
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发现待提货的运单";
+    self.errMaskView.hidden = YES;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self reloadData];
@@ -130,9 +140,9 @@
             [weakself.tableView reloadData];
         }
         if (weakself.dataArray.count==0) {
-//            weakself.errMaskView.hidden = NO;
+            weakself.errMaskView.hidden = NO;
         }else{
-//            weakself.errMaskView.hidden = YES;
+            weakself.errMaskView.hidden = YES;
         }
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView.mj_footer endRefreshing];

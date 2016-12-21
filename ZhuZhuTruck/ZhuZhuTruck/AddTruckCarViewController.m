@@ -1,86 +1,65 @@
 //
-//  AddCardViewController.m
+//  AddTruckCarViewController.m
 //  ZhuZhuTruck
 //
-//  Created by CongCong on 2016/12/20.
+//  Created by CongCong on 2016/12/21.
 //  Copyright © 2016年 CongCong. All rights reserved.
 //
 
-#import "AddCardViewController.h"
+#import "AddTruckCarViewController.h"
 
-@interface AddCardViewController ()<UITextFieldDelegate>
+@interface AddTruckCarViewController ()<UITextFieldDelegate>
 {
-    CCTextFiled *_cardNumberFiled;
+    CCTextFiled *_phoneNumberFiled;
 }
-@property (nonatomic, assign) UserAddCardType addType;
+
 @end
 
-@implementation AddCardViewController
-
-- (instancetype)initWithType:(UserAddCardType)type
-{
-    self = [super init];
-    if (self) {
-        self.addType = type;
-    }
-    return self;
-}
-
+@implementation AddTruckCarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.addType == ADD_ETC_CARD) {
-        [self addBlackNaviHaderViewWithTitle:@"添加ETC卡"];
-    }else if (self.addType == ADD_OIL_CARD) {
-        [self addBlackNaviHaderViewWithTitle:@"添加油卡"];
-    }
+    [self addBlackNaviHaderViewWithTitle:@"添加车辆"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initAddView];
 }
 - (void)initAddView{
-    _cardNumberFiled = [[CCTextFiled alloc]initWithFrame:CGRectMake(20,SYSTITLEHEIGHT+50, SYSTEM_WIDTH-40, 40)];
-    [_cardNumberFiled setKeyboardType:UIKeyboardTypeNumberPad];
-    _cardNumberFiled.delegate = self;
-    
-    if (self.addType == ADD_ETC_CARD) {
-        [_cardNumberFiled setPlaceholder:@"请输入ETC卡卡号"];
-    }else if (self.addType == ADD_OIL_CARD) {
-        [_cardNumberFiled setPlaceholder:@"请输入油卡卡号"];
-    }
-    _cardNumberFiled.delegate = self;
-    _cardNumberFiled.keyboardType = UIKeyboardTypeNumberPad;
-    [self.view addSubview:_cardNumberFiled];
-    
+    _phoneNumberFiled = [[CCTextFiled alloc]initWithFrame:CGRectMake(20,SYSTITLEHEIGHT+50, SYSTEM_WIDTH-40, 40)];
+    [_phoneNumberFiled setKeyboardType:UIKeyboardTypeNumberPad];
+    _phoneNumberFiled.delegate = self;
+    [_phoneNumberFiled setPlaceholder:@"请输入司机手机号"];
+    _phoneNumberFiled.delegate = self;
+    _phoneNumberFiled.keyboardType = UIKeyboardTypeNumberPad;
+    [self.view addSubview:_phoneNumberFiled];
     
     UIButton *loginButton = [CCButton ButtonWithFrame:CGRectMake(20,SYSTEM_HEIGHT-100, SYSTEM_WIDTH-40, 50) cornerradius:CORNERRADIUS title:@"添加" titleColor:[UIColor whiteColor] titleFont:[UIFont systemFontOfSize:17] normalBackGrondImage:[UIImage imageNamed:@"3ebf43"] highLightImage:[UIImage imageNamed:@"229926"] target:self action:@selector(addCardCall)];
     [self.view addSubview:loginButton];
-
-
+    
 }
 
 - (void)addCardCall{
     
-    if ([_cardNumberFiled.text isEmpty]) {
-        toast_showInfoMsg(@"请填写卡号", 200);
+    if (![_phoneNumberFiled.text isValidateMobile]) {
+        toast_showInfoMsg(@"请填写正确的手机号", 200);
         return;
     }
     
     CCWeakSelf(self);
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    NSMutableDictionary *cardInfo  = [NSMutableDictionary dictionary];
-    [parameters put:accessToken() key:ACCESS_TOKEN];
+    NSMutableDictionary *truckInfo  = [NSMutableDictionary dictionary];
     
-    [cardInfo put:_cardNumberFiled.text key:@"number"];
-    if (self.addType == ADD_ETC_CARD) {
-        [cardInfo put:@"etc" key:@"type"];
-    }else if (self.addType == ADD_OIL_CARD) {
-        [cardInfo put:@"unEtc" key:@"type"];
-    }
-    [parameters put:cardInfo key:@"card_info"];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [truckInfo put:_phoneNumberFiled.text key:@"driver_number"];
+    
+    [truckInfo put:@"沪BAT8888" key:@"truck_number"];
+    
+    [truckInfo put:@"金杯车" key:@"truck_type"];
+    
+    [parameters put:truckInfo key:@"truck_info"];
     
     [SVProgressHUD showWithStatus:@"正在添加..."];
-    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_ADD_CARD parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_ADD_TRUCK_CAR parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"添加失败")];
         }else{
@@ -88,7 +67,7 @@
             [weakself naviBack];
         }
     }];
-
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -102,6 +81,7 @@
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

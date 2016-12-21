@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CardModel.h"
 @interface OilCardCell : UITableViewCell
-- (void)showCellWithStatus:(BOOL)status;
-- (void)showSeletedCellWithStatus:(BOOL)status;
+- (void)showCardCellWithModel:(CardModel *)model;
+- (void)showSeletedCardCellWithModel:(CardModel *)model;
 @end

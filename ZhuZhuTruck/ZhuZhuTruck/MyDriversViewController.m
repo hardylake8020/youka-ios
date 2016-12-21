@@ -7,16 +7,30 @@
 //
 
 #import "MyDriversViewController.h"
+#import "TruckModel.h"
 #import "CarStockViewController.h"
 #import "OilCardsViewController.h"
 #import "ETCCardsViewController.h"
+#import "AddTruckCarViewController.h"
 #import "DriverCarDetailViewController.h"
 @interface MyDriversViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) TenderModel *tenderModel;
+@property (nonatomic, strong) TruckModel  *seletedTruck;
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation MyDriversViewController
+
+- (id)initWithAssaginTenderModel:(TenderModel*)tenderModel{
+    self = [super init];
+    if (self) {
+        self.isSeletedMode = YES;
+        self.tenderModel = tenderModel;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +43,16 @@
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initTableView];
     [self initBottomView];
+    [self initErrorMaskView];
 }
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发车辆";
+    self.errMaskView.hidden = YES;
+}
+
 
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
@@ -38,8 +61,7 @@
     return _dataArray;
 }
 - (void)initTableView{
-    [self.dataArray addObjectsFromArray:@[@YES,@YES,@NO,@NO,@YES,@NO]];
-
+    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-60) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
@@ -52,7 +74,57 @@
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
     
     [self.view addSubview:self.tableView];
+    
+    CCWeakSelf(self);
+    __unsafe_unretained UITableView *tableView = self.tableView;
+    // 下拉刷新
+    tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakself loadNewData];
+    }];
+    
+    [self tableHeaderRefesh];
+    
 }
+
+- (void)loadNewData{
+    
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GET_TRUCK_LIST parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.localizedDescription);
+        }else{
+            //CCLog(@"---->%@",result);
+            [weakself.dataArray removeAllObjects];
+            NSArray *trucks = [result objectForKey:@"trucks"];
+            CCLog(@"UnpickOrderCount------------->:%ld",trucks.count);
+            for (NSDictionary *truckDict in trucks) {
+                //                CCLog(@"%@",orderDict);
+                TruckModel *model = [[TruckModel alloc]initWithDictionary:truckDict error:nil];
+                [weakself.dataArray addObject:model];
+            }
+            [weakself.tableView reloadData];
+        }
+        if (weakself.dataArray.count==0) {
+            weakself.errMaskView.hidden = NO;
+        }else{
+            weakself.errMaskView.hidden = YES;
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+    
+}
+
+
+- (void)tableHeaderRefesh{
+    [self.tableView.mj_header beginRefreshing];
+}
+
+
+
 
 #pragma mark ---> UITableViewDelegate dataSource
 
@@ -73,11 +145,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    TruckModel *truckModel = [self.dataArray objectAtIndex:indexPath.section];
     DrvierCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DrvierCarCell" forIndexPath:indexPath];
     if (self.isSeletedMode) {
-        NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
-        [cell showCellWithStatus:status.boolValue];
+        [cell showSeletedTruckCellWithModel:truckModel];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }else{
+        [cell showTruckCellWithModel:truckModel];
     }
     return cell;
 }
@@ -92,12 +166,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.seletedTruck) {
+        self.seletedTruck.isSeleted = @NO;
+    }
     if (self.isSeletedMode) {
-        NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
-        status = [NSNumber numberWithBool:!status.boolValue];
-        [self.dataArray replaceObjectAtIndex:indexPath.section withObject:status];
+        TruckModel *truckModel = [self.dataArray objectAtIndex:indexPath.section];
+        truckModel.isSeleted = @YES;
+        self.seletedTruck = truckModel;
         [tableView reloadData];
     }else{
+        
         DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]init];
         [self.navigationController pushViewController:carDetail animated:YES];
     }
@@ -118,34 +196,33 @@
 }
 
 - (void)addNewCar{
-    
+    AddTruckCarViewController *addTruck = [[AddTruckCarViewController alloc]init];
+    [self.navigationController pushViewController:addTruck animated:YES];
 }
 
 - (void)assginCar{
-    NSArray *viewControllers;
-    NSArray *titles;
-    NSString *title;
-    viewControllers = @[[OilCardsViewController class],[ETCCardsViewController class]];
-    titles = @[@"油卡",@"ETC卡"];
-    title = @"我的卡劵";
-    CarStockViewController *pageVC = [[CarStockViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
-    pageVC.isSeletedMode = YES;
-    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
-    pageVC.postNotification = YES;
-    pageVC.bounces = YES;
-    pageVC.menuHeight = 36;
-    pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.menuBGColor = [UIColor naviBlackColor];
-    pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
-    pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
-    pageVC.progressHeight = 4;
-    pageVC.progressColor = [UIColor whiteColor];
-    pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
-    pageVC.title = title;
-    [self.navigationController pushViewController:pageVC animated:YES];
+    
+    NSMutableArray *seletedTrucks = [NSMutableArray array];
+    for (TruckModel *truckModel in self.dataArray) {
+        if (truckModel.isSeleted.boolValue) {
+            
+            if (![truckModel.truck_type isEqualToString:self.tenderModel.truck_type]) {
+                toast_showInfoMsg(@"车辆类型与要求不匹配", 200);
+                return;
+            }
+            [seletedTrucks addObject:truckModel];
+        }
+    }
+    if (!self.seletedTruck) {
+        toast_showInfoMsg(@"请选择一个车辆", 200);
+        return;
+    }
+    if (![self.seletedTruck.truck_type isEqualToString:self.tenderModel.truck_type]) {
+        toast_showInfoMsg(@"车辆类型与要求不匹配", 200);
+        return;
+    }
+    OilCardsViewController *card = [[OilCardsViewController alloc]initWithTenderModel:self.tenderModel andTruckModel:self.seletedTruck];
+    [self.navigationController pushViewController:card animated:YES];
 
 }
 

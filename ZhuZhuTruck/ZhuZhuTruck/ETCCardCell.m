@@ -7,6 +7,7 @@
 //
 
 #import "ETCCardCell.h"
+#import "NSString+Tool.h"
 #import "UIColor+CustomColors.h"
 @interface ETCCardCell ()
 @property (weak, nonatomic) IBOutlet UIView *backGroundView;
@@ -25,12 +26,13 @@
     // Initialization code
 }
 
-- (void)showCellWithStatus:(BOOL)status{
+
+- (void)showCardCellWithModel:(CardModel *)model{
     self.backgroundColor = ColorFromRGB(0xf5f5f5);
     self.backGroundView.layer.borderColor = [UIColor customRedColor].CGColor;
     self.backGroundView.layer.borderWidth = 0.5;
-    if (status) {
-        self.carNumberLabel.text = @"沪A88888";
+    if (![model.truck_number isEmpty]) {
+        self.carNumberLabel.text = model.truck_number;
         self.backGroundView.backgroundColor = [UIColor customRedColor];
         self.carNumberLabel.textColor = [UIColor whiteColor];
         self.cardNumberLabel.textColor = [UIColor whiteColor];
@@ -42,10 +44,10 @@
         self.cardNumberLabel.textColor = [UIColor customRedColor];
         self.cardTipLabel.textColor = [UIColor customRedColor];
     }
+    self.cardNumberLabel.text = model.number;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
-
-- (void)showSeletedCellWithStatus:(BOOL)status{
+- (void)showSeletedCardCellWithModel:(CardModel *)model{
     self.backgroundColor = ColorFromRGB(0xf5f5f5);
     self.backGroundView.layer.borderColor = [UIColor customRedColor].CGColor;
     self.backGroundView.layer.borderWidth = 0.5;
@@ -54,14 +56,16 @@
     self.carNumberLabel.textColor = [UIColor customRedColor];
     self.cardNumberLabel.textColor = [UIColor customRedColor];
     self.cardTipLabel.textColor = [UIColor customRedColor];
-    
-    if (status) {
+    self.cardNumberLabel.text = model.number;
+    if (model.isSeleted.boolValue) {
         self.seletedImageView.image = [UIImage imageNamed:@"seleted"];
     }else{
         self.seletedImageView.image = [UIImage imageNamed:@"un_seleted"];
     }
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
        // Configure the view for the selected state

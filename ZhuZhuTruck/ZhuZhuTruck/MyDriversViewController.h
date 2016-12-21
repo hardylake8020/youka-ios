@@ -10,4 +10,5 @@
 
 @interface MyDriversViewController : BaseViewController
 @property (nonatomic, assign) BOOL isSeletedMode;
+- (id)initWithAssaginTenderModel:(TenderModel*)tenderModel;
 @end

@@ -11,7 +11,7 @@
 @interface ETCCardsViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation ETCCardsViewController
@@ -28,10 +28,19 @@
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.title = @"ETC卡";
     [self initTableView];
+    [self initErrorMaskView];
 }
+
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发现ETC卡";
+    self.errMaskView.hidden = YES;
+}
+
 - (void)initTableView{
     
-    [self.dataArray addObjectsFromArray:@[@NO,@NO,@YES,@NO,@YES,@YES]];
     if (self.isSeletedMode) {
         self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100-60)];
     }else{
@@ -48,6 +57,56 @@
     [self.view addSubview:self.tableView];
     
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
+    
+    CCWeakSelf(self);
+    __unsafe_unretained UITableView *tableView = self.tableView;
+    // 下拉刷新
+    tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakself loadNewData];
+    }];
+    
+    [self tableHeaderRefesh];
+    
+}
+
+- (void)loadNewData{
+    
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GET_CARD_LIST parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.localizedDescription);
+        }else{
+            //CCLog(@"---->%@",result);
+            [weakself.dataArray removeAllObjects];
+            NSArray *cards = [result objectForKey:@"cards"];
+            CCLog(@"UnpickOrderCount------------->:%ld",cards.count);
+            for (NSDictionary *cardDict in cards) {
+                //                CCLog(@"%@",orderDict);
+                CardModel *cardModel = [[CardModel alloc]initWithDictionary:cardDict error:nil];
+                
+                if ([cardModel.type isEqualToString:@"etc"]) {
+                    [weakself.dataArray addObject:cardModel];
+                }
+            }
+            [weakself.tableView reloadData];
+        }
+        if (weakself.dataArray.count==0) {
+            weakself.errMaskView.hidden = NO;
+        }else{
+            weakself.errMaskView.hidden = YES;
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+    
+}
+
+
+- (void)tableHeaderRefesh{
+    [self.tableView.mj_header beginRefreshing];
 }
 
 
@@ -70,27 +129,27 @@
     return headerView;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
+    CardModel *cardModel = [self.dataArray objectAtIndex:indexPath.section];
     ETCCardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ETCCardCell" forIndexPath:indexPath];
-    if (self.isSeletedMode) {
-        [cell showSeletedCellWithStatus:status.boolValue];
+    
+    if (!self.isSeletedMode) {
+        [cell showCardCellWithModel:cardModel];
     }else{
-        [cell showCellWithStatus:status.boolValue];
+        [cell showSeletedCardCellWithModel:cardModel];
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
     
+    CardModel *cardModel = [self.dataArray objectAtIndex:indexPath.section];
     if (self.isSeletedMode) {
-        NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
-        status = [NSNumber numberWithBool:!status.boolValue];
-        [self.dataArray replaceObjectAtIndex:indexPath.section withObject:status];
+        cardModel.isSeleted = [NSNumber numberWithBool:!cardModel.isSeleted.boolValue];
+        [self.dataArray replaceObjectAtIndex:indexPath.section withObject:cardModel];
         [tableView reloadData];
         
     }else{
-        if (status.boolValue) {
+        if (![cardModel.truck_number isEmpty]) {
             DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]init];
             [self.navigationController pushViewController:carDetail animated:YES];
         }

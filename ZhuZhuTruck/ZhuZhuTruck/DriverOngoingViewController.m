@@ -12,7 +12,7 @@
 @interface DriverOngoingViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation DriverOngoingViewController
@@ -21,7 +21,15 @@
     [super viewDidLoad];
     self.title = @"运单运输中";
     [self initTableView];
+    [self initErrorMaskView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:RELOAD_DRIVER_ORDER_LIST_NOTI object:nil];
+}
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发现运输中的运单";
+    self.errMaskView.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -121,9 +129,9 @@
             [weakself.tableView reloadData];
         }
         if (weakself.dataArray.count==0) {
-            //            weakself.errMaskView.hidden = NO;
+            weakself.errMaskView.hidden = NO;
         }else{
-            //            weakself.errMaskView.hidden = YES;
+            weakself.errMaskView.hidden = YES;
         }
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView.mj_footer endRefreshing];

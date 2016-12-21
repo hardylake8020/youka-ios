@@ -203,20 +203,9 @@
 - (void)assignOrder:(UIButton *)button{
     NSInteger tag = button.tag - 2000;
     TenderModel *tenderModel = [self.dataArray objectAtIndex:tag];
-
-
-//    MyDriversViewController *myDrvier = [[MyDriversViewController alloc]init];
-//    myDrvier.isSeletedMode = YES;
-//    [self.navigationController pushViewController:myDrvier animated:YES];
-
+    MyDriversViewController *myDrvier = [[MyDriversViewController alloc]initWithAssaginTenderModel:tenderModel];
+    [self.navigationController pushViewController:myDrvier animated:YES];
 }
-//- (void)initErrorMaskView{
-//    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
-//    [self.tableView addSubview:_errMaskView];
-//    self.errMaskView.messageLabel.text = @"暂时未发现未开始的运单";
-//    self.errMaskView.hidden = YES;
-//}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -355,29 +355,32 @@
     [self.navigationController pushViewController:myWallet animated:YES];
 }
 - (void)gotoMyOilCardsStock{
-    NSArray *viewControllers;
-    NSArray *titles;
-    NSString *title;
-    viewControllers = @[[OilCardsViewController class],[ETCCardsViewController class]];
-    titles = @[@"油卡",@"ETC卡"];
-    title = @"我的卡劵";
-    CarStockViewController *pageVC = [[CarStockViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
-    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
-    pageVC.postNotification = YES;
-    pageVC.bounces = YES;
-    pageVC.menuHeight = 36;
-    pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.menuBGColor = [UIColor naviBlackColor];
-    pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
-    pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
-    pageVC.progressHeight = 4;
-    pageVC.progressColor = [UIColor whiteColor];
-    pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
-    pageVC.title = title;
-    [self.navigationController pushViewController:pageVC animated:YES];
+//    NSArray *viewControllers;
+//    NSArray *titles;
+//    NSString *title;
+//    viewControllers = @[[OilCardsViewController class],[ETCCardsViewController class]];
+//    titles = @[@"油卡",@"ETC卡"];
+//    title = @"我的卡劵";
+//    CarStockViewController *pageVC = [[CarStockViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
+//    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
+//    pageVC.postNotification = YES;
+//    pageVC.bounces = YES;
+//    pageVC.menuHeight = 36;
+//    pageVC.menuViewStyle = WMMenuViewStyleLine;
+//    pageVC.menuBGColor = [UIColor naviBlackColor];
+//    pageVC.titleColorSelected = [UIColor whiteColor];
+//    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+//    pageVC.titleFontName = @"Helvetica-Bold";
+//    pageVC.titleSizeNormal = 18;
+//    pageVC.progressHeight = 4;
+//    pageVC.progressColor = [UIColor whiteColor];
+//    pageVC.pageAnimatable = YES;
+//    pageVC.titleSizeSelected = 18;
+//    pageVC.title = title;
+//    [self.navigationController pushViewController:pageVC animated:YES];
+    
+    OilCardsViewController *card = [[OilCardsViewController alloc]init];
+    [self.navigationController pushViewController:card animated:YES];
 
 }
 - (void)gotoSearchOrders{

@@ -195,7 +195,7 @@
     [parameters put:_phoneNumberFiled.text key:USERNAME];
     [parameters put:_firstPassWordFiled.text key:PWD];
     [SVProgressHUD showWithStatus:@"正在注册"];
-    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
         }else{
@@ -210,7 +210,7 @@
     [parameters put:_phoneNumberFiled.text key:USERNAME];
     [parameters put:_firstPassWordFiled.text key:PWD];
     [SVProgressHUD showWithStatus:@"正在修改中"];
-    [[HttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] postWithRequestBodyString:SIGN_UP parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
         }else{

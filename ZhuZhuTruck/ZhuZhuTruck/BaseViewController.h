@@ -44,6 +44,7 @@
 #import <UIView+SDAutoLayout.h>
 #import "UIColor+CustomColors.h"
 #import "LocationUploadManager.h"
+#import "DiverHttpRequstManager.h"
 #import "NSMutableDictionary+Tool.h"
 #import <JSONKit-NoWarning/JSONKit.h>
 #import <UINavigationController+FDFullscreenPopGesture.h>

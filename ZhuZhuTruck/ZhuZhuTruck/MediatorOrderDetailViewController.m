@@ -438,22 +438,50 @@
 - (void)robTender{
 //    [self gotoMediatorProgress];
     
-//    CCWeakSelf(self);
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters put:accessToken() key:ACCESS_TOKEN];
-    [parameters put:self.tenderModel._id key:@"tender_id"];
-    [SVProgressHUD showWithStatus:@"正在抢单..."];
-    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GRAB_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"抢单失败")];
-        }else{
-            [SVProgressHUD showSuccessWithStatus:@"抢单成功"];
-        }
+    __weak typeof(self) _weakSelf = self;
+    RIButtonItem *robItem = [RIButtonItem itemWithLabel:@"确认" action:^{
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters put:accessToken() key:ACCESS_TOKEN];
+        [parameters put:self.tenderModel._id key:@"tender_id"];
+        [SVProgressHUD showWithStatus:@"正在抢单..."];
+        [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GRAB_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"抢单失败")];
+            }else{
+                [SVProgressHUD dismiss];
+                [_weakSelf robTenderSucceed];
+            }
+        }];
+
     }];
-
     
-}
+    RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
+        
+    }];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢单确认"
+                                                        message:@"你确定要抢单吗？抢单成功后违约将扣除你的保证金"
+                                               cancelButtonItem:cancelItem
+                                               otherButtonItems:robItem, nil];
+    [alertView show];
 
+}
+- (void)robTenderSucceed{
+    __weak typeof(self) _weakSelf = self;
+    RIButtonItem *seletdCarItem = [RIButtonItem itemWithLabel:@"选择车辆" action:^{
+    }];
+    
+    RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
+        
+    }];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢单成功"
+                                                        message:@"恭喜你抢单成功，请选择车辆与绑定油卡的操作，“取消”则稍后操作"
+                                               cancelButtonItem:cancelItem
+                                               otherButtonItems:seletdCarItem, nil];
+    [alertView show];
+
+}
 - (void)gotoMediatorProgress{
     NSArray *viewControllers;
     NSArray *titles;

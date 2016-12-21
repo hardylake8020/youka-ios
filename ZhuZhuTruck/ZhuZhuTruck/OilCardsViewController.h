@@ -10,4 +10,5 @@
 
 @interface OilCardsViewController : BaseViewController
 @property (nonatomic, assign) BOOL isSeletedMode;
+- (instancetype)initWithTenderModel:(TenderModel *)tenderModel andTruckModel:(TruckModel *)truckModel;
 @end

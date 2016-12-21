@@ -1,0 +1,28 @@
+/* 
+  SeverError.strings
+  ZhengChe
+
+  Created by CongCong on 16/9/21.    "" = "";
+  Copyright © 2016年 CongCong. All rights reserved. NSLocalizedStringFromTable(error.domin, @"SeverError", @"请求失败")
+*/
+"account_exist" = "此账号已存在";
+"mobile_invalid" = "手机号不正确";
+"invalid_password" = "密码不正确";
+"driver_token_invalid" = "用户凭证失效，请重新登录";
+"token_invalid" = "用户凭证失效，请重新登录";
+"undefined_access_token" = "用户凭证失效，请重新登录";
+"driver_not_exist" = "此账号不存在";
+"driver_account_not_exist" = "此账号不存在";
+"account_not_exist" = "此账号不存在";
+"account_password_not_match" = "账号密码不匹配";
+"Could not connect to the server." = "无法连接服务器";
+"The request timed out." = "连接超时";
+"event_time_invalid" = "没有获取到当前时间";
+"event_info_invalid" = "提交失败，信息不完整";
+"event_need_photo" = "需要拍照";
+"event_order_empty" = "提交失败，信息不完整";
+"truck_driver_not_exist" = "该司机账号没有注册";
+
+
+
+

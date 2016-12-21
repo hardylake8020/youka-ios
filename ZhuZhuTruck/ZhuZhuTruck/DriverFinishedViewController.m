@@ -4,7 +4,7 @@
 //
 //  Created by CongCong on 2016/12/2.
 //  Copyright © 2016年 CongCong. All rights reserved.
-//
+// 
 
 #import "DriverFinishedViewController.h"
 #import "DriverTimeLineViewController.h"
@@ -12,7 +12,7 @@
 @interface DriverFinishedViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 
 @end
 
@@ -20,9 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"运单运输中";
+    self.title = @"运单已完成";
     [self initTableView];
+    [self initErrorMaskView];
 }
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发现已完成的运单";
+    self.errMaskView.hidden = YES;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.dataArray removeAllObjects];
@@ -110,9 +120,9 @@
             [weakself.tableView reloadData];
         }
         if (weakself.dataArray.count==0) {
-            //            weakself.errMaskView.hidden = NO;
+            weakself.errMaskView.hidden = NO;
         }else{
-            //            weakself.errMaskView.hidden = YES;
+            weakself.errMaskView.hidden = YES;
         }
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView.mj_footer endRefreshing];

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TruckModel.h"
 @interface DrvierCarCell : UITableViewCell
-- (void)showCellWithStatus:(BOOL)status;
+- (void)showTruckCellWithModel:(TruckModel *)model;
+- (void)showSeletedTruckCellWithModel:(TruckModel *)model;
 @end

@@ -94,6 +94,7 @@
     [self.view addSubview:sumbitButton];
 }
 - (void)assginCarWithCard{
+    
     [self gotoDrvierProgress];
 }
 - (void)gotoDrvierProgress{

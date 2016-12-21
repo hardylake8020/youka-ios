@@ -45,7 +45,7 @@
     self = [super init];
     if (self) {
         _dbManager = [DBManager sharedManager];
-        [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(startUploadArray) userInfo:nil repeats:YES];
+//        [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(startUploadArray) userInfo:nil repeats:YES];
     }
     return self;
 }

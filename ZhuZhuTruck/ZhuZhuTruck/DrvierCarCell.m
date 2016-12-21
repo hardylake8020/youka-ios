@@ -7,7 +7,7 @@
 //
 
 #import "DrvierCarCell.h"
-
+#import "NSString+Tool.h"
 @interface DrvierCarCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *carImageView;
 @property (weak, nonatomic) IBOutlet UILabel *carNumberLabel;
@@ -24,17 +24,38 @@
     [super awakeFromNib];
     // Initialization code
 }
-- (void)showCellWithStatus:(BOOL)status{
-    if (status) {
+
+
+- (void)showTruckCellWithModel:(TruckModel *)model{
+    
+    self.carNumberLabel.text = model.truck_number;
+    self.carDetailLabel.text = model.truck_type;
+    self.driverNameLabel.text = ![model.driver_name isEmpty]?model.driver_name:@"未填写";
+    self.contactLabel.text = model.driver_number;
+}
+
+- (void)showSeletedTruckCellWithModel:(TruckModel *)model{
+    self.carNumberLabel.text = model.truck_number;
+    self.carDetailLabel.text = model.truck_type;
+    self.driverNameLabel.text = ![model.driver_name isEmpty]?model.driver_name:@"未填写";
+    self.contactLabel.text = model.driver_number;
+    if (model.isSeleted.boolValue) {
         self.seletedImageView.image = [UIImage imageNamed:@"seleted"];
     }else{
         self.seletedImageView.image = [UIImage imageNamed:@"un_seleted"];
     }
+
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    if (selected) {
+        [self performSelector:@selector(deSeletedCell) withObject:nil afterDelay:0.5];
+    }
     // Configure the view for the selected state
+}
+- (void)deSeletedCell{
+    [self setSelected:NO];
 }
 
 @end

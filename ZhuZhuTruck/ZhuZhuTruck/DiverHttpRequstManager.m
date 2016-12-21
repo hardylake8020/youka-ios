@@ -1,13 +1,14 @@
 //
-//  HttpRequstManager.m
-//  ZhengChe
+//  DiverHttpRequstManager.m
+//  ZhuZhuTruck
 //
-//  Created by CongCong on 16/9/9.
+//  Created by CongCong on 2016/12/21.
 //  Copyright © 2016年 CongCong. All rights reserved.
 //
+
 #define CustomErrorDomain @"没有网络"
 
-#import "HttpRequstManager.h"
+#import "DiverHttpRequstManager.h"
 #import <AFNetworking.h>
 #import <AFURLSessionManager.h>
 #import <AFHTTPSessionManager.h>
@@ -16,7 +17,7 @@
 #import "Constants.h"
 #import "CCUserData.h"
 
-@implementation HttpRequstManager
+@implementation DiverHttpRequstManager
 +(instancetype)requestManager
 {
     static id requestManager = nil;
@@ -26,14 +27,6 @@
         
     });
     return requestManager;
-}
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self listenNetWokingStatus];
-    }
-    return self;
 }
 
 - (void)getWithRequestBodyString:(NSString *)header
@@ -74,7 +67,7 @@
             if ([result hasKey:@"err"]) {
                 NSDictionary *errDict = [result objectForKey:@"err"];
                 NSString *errType = [errDict stringForKey:@"type"];
-                 NSLog(@"errtype:----->%@",errType);
+                NSLog(@"errtype:----->%@",errType);
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errType                                                                     forKey:NSLocalizedDescriptionKey];
                 error = [[NSError alloc]initWithDomain:errType code:-200 userInfo:userInfo];
                 
@@ -155,46 +148,10 @@
     }];
 }
 
-/**
- *  选用
- */
-- (void)listenNetWokingStatus{
-    //1.创建网络状态监测管理者
-    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
-    [manager startMonitoring];
-    //2.监听改变
-    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        /*
-         AFNetworkReachabilityStatusUnknown          = -1,
-         AFNetworkReachabilityStatusNotReachable     = 0,
-         AFNetworkReachabilityStatusReachableViaWWAN = 1,
-         AFNetworkReachabilityStatusReachableViaWiFi = 2,
-         */
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                NSLog(@"未知");
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                NSLog(@"没有网络");
-                //toast_showInfoMsg(@"断网了,请检查网络.", 200);
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"3G|4G");
-                //toast_showInfoMsg(@"3G|4G!", 200);
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                NSLog(@"WiFi");
-                //toast_showInfoMsg(@"WiFi!", 200);
-                break;
-            default:
-                break;
-        }
-    }];
-}
 
 - (NSString *)requestUrl:(NSString *)bodyString
 {
-    return [NSString stringWithFormat:@"%@%@",BASE_URL,bodyString];
+    return [NSString stringWithFormat:@"%@%@",DRIVER_BASE_URL,bodyString];
 }
 
 @end
