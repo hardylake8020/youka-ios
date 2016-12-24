@@ -13,10 +13,7 @@
 @end
 
 @interface OrderDetailsModel : JSONModel
-@property (nonatomic, copy) NSString<Optional> *order_number;
-@property (nonatomic, copy) NSString<Optional> *refer_order_number;
 @property (nonatomic, copy) NSString<Optional> *goods_name;
-@property (nonatomic, strong) NSArray<Optional,GoodModel> *goods;
 @property (nonatomic, copy) NSString<Optional> *count_unit;
 @property (nonatomic, copy) NSString<Optional> *weight_unit;
 @property (nonatomic, copy) NSString<Optional> *volume_unit;

@@ -5,16 +5,16 @@
 //  Created by CongCong on 16/9/9.
 //  Copyright © 2016年 CongCong. All rights reserved.
 //
-#define CustomErrorDomain @"没有网络"
-
 #import "HttpRequstManager.h"
-#import <AFNetworking.h>
-#import <AFURLSessionManager.h>
-#import <AFHTTPSessionManager.h>
-#import "NSDictionary+Tool.h"
 #import "CCTool.h"
 #import "Constants.h"
 #import "CCUserData.h"
+#import <AFNetworking.h>
+#import "NSDictionary+Tool.h"
+#import <AFURLSessionManager.h>
+#import <AFHTTPSessionManager.h>
+
+
 
 @implementation HttpRequstManager
 +(instancetype)requestManager

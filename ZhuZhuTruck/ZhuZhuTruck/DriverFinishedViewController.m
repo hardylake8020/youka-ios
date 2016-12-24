@@ -92,9 +92,10 @@
     NSArray *array = [[NSArray alloc] initWithObjects:@"completed",nil];
     [parameters putKey:array key:@"status"];
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    [[HttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
             NSArray *orders = [result objectForKey:@"orders"];

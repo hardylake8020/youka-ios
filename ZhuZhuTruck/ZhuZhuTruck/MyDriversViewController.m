@@ -31,20 +31,25 @@
     }
     return self;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.isSeletedMode) {
         [self addBlackNaviHaderViewWithTitle:@"分配车辆"];
+        self.fd_interactivePopDisabled = YES;
     }else{
         [self addBlackNaviHaderViewWithTitle:@"我的车队"];
     }
-    
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initTableView];
     [self initBottomView];
     [self initErrorMaskView];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadNewData];
+}
+
 
 - (void)initErrorMaskView{
     self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
@@ -82,7 +87,7 @@
         [weakself loadNewData];
     }];
     
-    [self tableHeaderRefesh];
+//    [self tableHeaderRefesh];
     
 }
 
@@ -95,15 +100,19 @@
     [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GET_TRUCK_LIST parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
             [weakself.dataArray removeAllObjects];
             NSArray *trucks = [result objectForKey:@"trucks"];
             CCLog(@"UnpickOrderCount------------->:%ld",trucks.count);
             for (NSDictionary *truckDict in trucks) {
-                //                CCLog(@"%@",orderDict);
                 TruckModel *model = [[TruckModel alloc]initWithDictionary:truckDict error:nil];
-                [weakself.dataArray addObject:model];
+                if (weakself.isSeletedMode&&model.card) {
+                    
+                }else{
+                    [weakself.dataArray addObject:model];
+                }
             }
             [weakself.tableView reloadData];
         }
@@ -166,17 +175,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TruckModel *truckModel = [self.dataArray objectAtIndex:indexPath.section];
     if (self.seletedTruck) {
         self.seletedTruck.isSeleted = @NO;
     }
     if (self.isSeletedMode) {
-        TruckModel *truckModel = [self.dataArray objectAtIndex:indexPath.section];
         truckModel.isSeleted = @YES;
         self.seletedTruck = truckModel;
         [tableView reloadData];
     }else{
-        
-        DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]init];
+        DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]initWithTruckModel:truckModel];
         [self.navigationController pushViewController:carDetail animated:YES];
     }
 }
@@ -229,7 +237,14 @@
 #pragma mark ---> 返回 其他
 
 - (void)naviBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.isFormDetail) {
+        
+        NSInteger pageIndex = self.navigationController.viewControllers.count;
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:pageIndex-3] animated:YES];
+        
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

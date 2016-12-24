@@ -24,7 +24,6 @@
     UISwitch *_demageButton;
     CGFloat _bottomHight;
 }
-
 @property (nonatomic, strong) OrderModel *orderModel;
 @property (nonatomic, assign) DriverOperationType operationType;
 @property (nonatomic, strong) NSMutableArray *photos;
@@ -36,6 +35,7 @@
 @property (nonatomic, copy  ) NSString *address;
 @property (nonatomic, assign) CLLocationCoordinate2D userLocation;
 @property (nonatomic, assign) NSArray *scanCodeArray;
+@property (nonatomic, copy  ) SingInBlock singinCallBack;
 @end
 
 @implementation DriverOperationViewController
@@ -46,6 +46,15 @@
     if (self) {
         self.operationType = type;
         self.orderModel = orderModel;
+    }
+    return self;
+}
+- (instancetype)initWithDriverOperationType:(DriverOperationType)type andOrderModel:(OrderModel *)orderModel andSigninCallBack:(SingInBlock)callback{
+    self = [super init];
+    if (self) {
+        self.operationType = type;
+        self.orderModel = orderModel;
+        self.singinCallBack = callback;
     }
     return self;
 }
@@ -573,9 +582,13 @@
     
     CCWeakSelf(self);
     
-    [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOADEVENT parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] postWithRequestBodyString:UPLOADEVENT parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"上报失败")];
+            if ([error.domain isEqualToString:@"can_not_execute_pickup"]||[error.domain isEqualToString:@"can_not_execute_delivery"]||[error.domain isEqualToString:@"can_not_execute_pickupSign"]||[error.domain isEqualToString:@"can_not_execute_deliverySign"]) {
+                [weakself sumbitEventSucceed];
+            }
+            
         }else{
             [SVProgressHUD showSuccessWithStatus:@"操作成功"];
             NSDictionary *orderDict = [result objectForKey:@"order"];
@@ -586,9 +599,7 @@
 }
 
 - (void)sumbitEventSucceed{
-//    if (self.photos>0) {
-//        [[DBManager sharedManager] insertPhotosWithPhotoArray:self.photos orderId:self.orderModel._id andStatus:self.operationType];
-//    }
+
     if (_voiceName&&![_voiceName isEmpty]) {
         [[DBManager sharedManager] inserVoiceWithVoiceName:_voiceName];
     }
@@ -605,6 +616,9 @@
         {
             [self saveScanCodes];
             [[DBManager sharedManager] orderPickupSignSucceedWithOrder:self.orderModel];
+            if (self.singinCallBack) {
+                self.singinCallBack();
+            }
             [self naviBack];
         }
             break;
@@ -620,6 +634,9 @@
         {
             [self saveScanCodes];
             [[DBManager sharedManager] orderDeliverySignSucceedWithOrder:self.orderModel];
+            if (self.singinCallBack) {
+                self.singinCallBack();
+            }
             [self naviBack];
         }
             break;

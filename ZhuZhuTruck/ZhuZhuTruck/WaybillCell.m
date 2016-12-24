@@ -25,9 +25,19 @@
     // Initialization code
 }
 - (void)showCellWithOrderModel:(OrderModel*)model{
-    self.titleLabel.text = model.order_details.order_number;
-    self.numberLabel.text = ![model.order_details.refer_order_number isEmpty]?model.order_details.refer_order_number:@"未填写";
-    self.goodsLabel.text = ![model.order_details.goods_name isEmpty]?model.order_details.goods_name:@"未填写";
+    self.titleLabel.text = model.order_number;
+    self.numberLabel.text = ![model.refer_order_number isEmpty]?model.refer_order_number:@"未填写";
+    
+    NSMutableString *goodNameSring = [NSMutableString string];
+    
+    for (int i=0; i<model.goods.count; i++) {
+        GoodModel *goodModel = [model.goods objectAtIndex:i];
+        if (i!=0) {
+            [goodNameSring appendString:@" / "];
+        }
+        [goodNameSring appendString:goodModel.name];
+    }
+    self.goodsLabel.text = ![goodNameSring isEmpty]?goodNameSring:@"未填写";
     self.reciverLabel.text = ![model.delivery_contacts.name isEmpty]?model.delivery_contacts.name:@"未填写";
     NSString *startTime;
     NSString *endTime;

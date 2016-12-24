@@ -26,7 +26,15 @@
 #import "MediatorOrderDetailViewController.h"
 #import "MediatorTransportingViewController.h"
 
-@interface HomePageViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HomePageViewController ()<UITableViewDelegate, UITableViewDataSource>{
+    UILabel *mediatorNumberLabel;
+    UILabel *driverNumberLabel;
+    
+    int _limit;//条数限制
+    int _skipCount;//跳 过 几条
+    int _totoalCount;// 总数
+    int _currentPage;// 当前页
+}
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ErrorMaskView *errMaskView;
@@ -36,6 +44,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _limit = 10;
+    _currentPage = 0;
+    _skipCount = 0;
+    _totoalCount = 0;
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.fd_prefersNavigationBarHidden = YES;
     self.fd_interactivePopDisabled = YES;
@@ -58,7 +70,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self tableHeaderRefesh];
+    driverNumberLabel.text = [[DBManager sharedManager] readAllOngoingOrderCount];
+    _currentPage = 0;
+    [self loadNewData];
 }
 
 - (NSMutableArray *)dataArray{
@@ -71,12 +85,29 @@
 - (void)initHeaderViewButton{
     
     
-    UIButton *headerButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH-15-26-6, 26+3, 24, 24)];
-    headerButton.clipsToBounds = YES;
-    headerButton.layer.cornerRadius = 12;
-    [headerButton setBackgroundImage:[UIImage imageNamed:@"ic_setting"] forState:UIControlStateNormal];
-    [headerButton addTarget:self action:@selector(gotoSetting) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:headerButton];
+//    UIButton *headerButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH-15-26-6, 26+3, 24, 24)];
+//    headerButton.clipsToBounds = YES;
+//    headerButton.layer.cornerRadius = 12;
+//    [headerButton setBackgroundImage:[UIImage imageNamed:@"ic_setting"] forState:UIControlStateNormal];
+//    [headerButton addTarget:self action:@selector(gotoSetting) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:headerButton];
+    
+    
+    UIView* roundView = [[UIView alloc]initWithFrame:CGRectMake(14, 27, 32, 32)];
+    roundView.backgroundColor = [UIColor whiteColor];
+    roundView.clipsToBounds = YES;
+    roundView.layer.cornerRadius = 16;
+    [self.view addSubview:roundView];
+    UIButton * headButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 28, 30, 30)];
+    [headButton setBackgroundImage:[UIImage imageNamed:@"headerImage"] forState:UIControlStateNormal];
+    headButton.clipsToBounds      = YES;
+    headButton.layer.cornerRadius = 15;
+    [headButton addTarget:self action:@selector(gotoSetting) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:headButton];
+
+    
+    
+    
     
     UIView *progressView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 100)];
     progressView.backgroundColor = [UIColor naviBlackColor];
@@ -87,7 +118,7 @@
     [mediatorButton addTarget:self action:@selector(gotoMediatorProgress) forControlEvents:UIControlEventTouchUpInside];
     [progressView addSubview:mediatorButton];
     
-    UILabel *mediatorNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 60)];
+    mediatorNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 60)];
     mediatorNumberLabel.text = @"4";
     mediatorNumberLabel.textAlignment = NSTextAlignmentCenter;
     mediatorNumberLabel.font = [UIFont boldSystemFontOfSize:32];
@@ -104,8 +135,8 @@
     [driverButton addTarget:self action:@selector(gotoDrvierProgress) forControlEvents:UIControlEventTouchUpInside];
     [progressView addSubview:driverButton];
     
-    UILabel *driverNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 60)];
-    driverNumberLabel.text = @"6";
+    driverNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 60)];
+    
     driverNumberLabel.textAlignment = NSTextAlignmentCenter;
     driverNumberLabel.font = [UIFont boldSystemFontOfSize:32];
     driverNumberLabel.textColor = [UIColor whiteColor];
@@ -116,10 +147,6 @@
     driverLabel.textAlignment = NSTextAlignmentCenter;
     driverLabel.textColor = [UIColor whiteColor];
     [driverButton addSubview:driverLabel];
-    
-    
-    
-    
     
     UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+100, SYSTEM_WIDTH, 110)];
     buttonsView.backgroundColor = UIColorFromRGB(0xf5f5f5);
@@ -179,6 +206,7 @@
     __unsafe_unretained UITableView *tableView = self.tableView;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _currentPage = 0;
         [weakself loadNewData];
     }];
     
@@ -188,12 +216,10 @@
     
     // 上拉刷新
     tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [tableView.mj_footer endRefreshing];
-        });
+        [weakself loadNewData];
     }];
+    
+//    [self tableHeaderRefesh];
 }
 
 - (void)tableHeaderRefesh{
@@ -201,28 +227,39 @@
 }
 - (void)loadNewData{
     
+    _currentPage++;
+    if (_currentPage==1) {
+        _skipCount = 0;
+    }else{
+        _skipCount = (int)self.dataArray.count;
+    }
     CCWeakSelf(self);
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-#warning 分页
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    
+    [parameters putInt:_currentPage key:@"current_page"];
+    [parameters putInt:_limit key:@"limit"];
+    [parameters putInt:_skipCount key:@"skip_count"];
     [[HttpRequstManager requestManager] postWithRequestBodyString:GET_UNSTART_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        NSInteger count = 10;
         if (error) {
-            CCLog(@"%@",error.localizedDescription);
+            CCLog(@"%@",error.domain);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
             NSArray *orders = [result objectForKey:@"tenders"];
-            [weakself.dataArray removeAllObjects];
-            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
             
+            if (_currentPage==1) {
+                //刷新
+                [weakself.dataArray removeAllObjects];
+            }
+            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            count = orders.count;
             for (NSDictionary *orderDict in orders) {
-                //                CCLog(@"%@",orderDict);
-                
                 TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
                 [weakself.dataArray addObject:tenderModel];
             }
-            
             [weakself.tableView reloadData];
+            
         }
         if (weakself.dataArray.count==0) {
             weakself.errMaskView.hidden = NO;
@@ -230,7 +267,11 @@
             weakself.errMaskView.hidden = YES;
         }
         [weakself.tableView.mj_header endRefreshing];
-        [weakself.tableView.mj_footer endRefreshing];
+        if (count<10) {
+            [weakself.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            [weakself.tableView.mj_footer endRefreshing];
+        }
     }];
     
 }

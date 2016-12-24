@@ -23,6 +23,7 @@
 @property (nonatomic, strong) WaybillDetailTableDataModel *tableModel;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *operationView;
+@property (nonatomic, assign) BOOL isSigned;
 @end
 
 @implementation DriverWayBillDetailViewController
@@ -61,7 +62,10 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     if ([self.orderModel.status isEqualToString:@"unPickuped"]||[self.orderModel.status isEqualToString:@"unDeliveried"]) {
+        self.isSigned = YES;
+        _signInbutton.enabled = NO;
         [_signInbutton setSelectedTitle:@"已进场"];
     }
     
@@ -102,9 +106,7 @@
 }
 
 - (void)initOperationItems{
-    
-    
-    
+
     self.operationView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTEM_HEIGHT-150, SYSTEM_WIDTH, 100)];
     self.operationView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.operationView];
@@ -190,11 +192,17 @@
     [self presentViewController:scan animated:YES completion:nil];
 }
 - (void)gotoSignIn{
+    CCWeakSelf(self)
     if (self.status == UnpickupedStatus) {
-        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:self.orderModel];
+        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:self.orderModel andSigninCallBack:^{
+            weakself.orderModel.status = @"unPickuped";
+        }];
+
         [self.navigationController pushViewController:operation animated:YES];
     }else if (self.status == UndeliveryedStatus) {
-        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign andOrderModel:self.orderModel];
+        DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign andOrderModel:self.orderModel andSigninCallBack:^{
+            weakself.orderModel.status = @"unDeliveried";
+        }];
         [self.navigationController pushViewController:operation animated:YES];
     }
 }
@@ -219,9 +227,13 @@
 }
 
 - (void)sumbitClick{
+    
+    
+    
+    
     if (self.status == UnpickupedStatus) {
         
-        if (self.orderModel.pickup_photo_force.boolValue) {
+        if (self.orderModel.pickup_photo_force.boolValue&&!self.isSigned) {
             __weak typeof(self) _weakSelf = self;
             RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
                 [_weakSelf gotoSignIn];
@@ -239,11 +251,14 @@
 
         }else{
             DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSucceed andOrderModel:self.orderModel];
+            
+            
+            
             [self.navigationController pushViewController:operation animated:YES];
         }
         
     }else if (self.status == UndeliveryedStatus) {
-        if (self.orderModel.pickup_photo_force.boolValue) {
+        if (self.orderModel.pickup_photo_force.boolValue&&!self.isSigned) {
             __weak typeof(self) _weakSelf = self;
             RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
                 [_weakSelf gotoSignIn];

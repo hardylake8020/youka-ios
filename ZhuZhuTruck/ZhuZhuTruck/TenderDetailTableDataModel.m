@@ -182,14 +182,15 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"提货联系人";
     model.isLight = NO;
+    model.isPhone = YES;
     model.noBottomLine = YES;
-    model.subTitle = ![tenderModel.pickup_name isEmpty]?tenderModel.pickup_name:@"未填写";
+    model.subTitle = ![tenderModel.pickup_name isEmpty]?tenderModel.pickup_name:@"";
     [self.dataArray addObject:model];
     
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"联系电话";
     model.isLight = NO;
-    model.subTitle = ![tenderModel.pickup_tel_phone isEmpty]?tenderModel.pickup_tel_phone:@"未填写";
+    model.subTitle = ![tenderModel.pickup_tel_phone isEmpty]?tenderModel.pickup_tel_phone:@"";
     model.isPhone = YES;
     [self.dataArray addObject:model];
     

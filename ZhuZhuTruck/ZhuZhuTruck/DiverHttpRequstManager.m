@@ -6,8 +6,6 @@
 //  Copyright © 2016年 CongCong. All rights reserved.
 //
 
-#define CustomErrorDomain @"没有网络"
-
 #import "DiverHttpRequstManager.h"
 #import <AFNetworking.h>
 #import <AFURLSessionManager.h>

@@ -342,7 +342,7 @@
         CCLog(@"运单已存在");
         return;
     }
-    if ([orderModel._id isEmpty]||!orderModel.order_details) {
+    if ([orderModel._id isEmpty]||[orderModel.order_number isEmpty]) {
         return;
     }
     NSNumber *status;
@@ -360,7 +360,7 @@
     if (!isSuccess) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
-        CCLog(@"%@---->插入成功", orderModel.order_details.order_number);
+        CCLog(@"%@---->插入成功", orderModel.order_number);
     }
 }
 - (void)orderConfirmSucceedWithOrder:(OrderModel *)orderModel{
@@ -371,7 +371,7 @@
     if (!isSuccess) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
-        CCLog(@"%@---->发车成功", orderModel.order_details.order_number);
+        CCLog(@"%@---->发车成功", orderModel.order_number);
     }
 }
 
@@ -383,7 +383,7 @@
     if (!isSuccess) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
-        CCLog(@"%@---->提货签到成功", orderModel.order_details.order_number);
+        CCLog(@"%@---->提货签到成功", orderModel.order_number);
     }
 }
 
@@ -398,11 +398,21 @@
     if (!isSuccess&&!isSuccess2) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
-        CCLog(@"%@---->提货成功", orderModel.order_details.order_number);
+        CCLog(@"%@---->提货成功", orderModel.order_number);
     }
 
 }
-
+- (OrderModel*)readOrderById:(NSString *)_id{
+    NSString *sql = @"select * from orders where _id = ?";
+    FMResultSet * rs = [_database executeQuery:sql, _id];
+    //遍历集合
+    while ([rs next]) {
+        NSString *orderString = [rs  stringForColumn:@"orderInfo"];
+        OrderModel *model = [[OrderModel alloc]initWithString:orderString error:nil];
+        return model;
+    }
+    return nil;
+}
 
 - (void)orderDeliverySignSucceedWithOrder:(OrderModel *)orderModel{
     orderModel.status = @"unDeliveried";
@@ -412,7 +422,7 @@
     if (!isSuccess) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
-        CCLog(@"%@---->交货签到成功", orderModel.order_details.order_number);
+        CCLog(@"%@---->交货签到成功", orderModel.order_number);
     }
 }
 
@@ -429,7 +439,7 @@
     if (!isSuccess&&!isSuccess2) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
-        CCLog(@"%@---->交货成功", orderModel.order_details.order_number);
+        CCLog(@"%@---->交货成功", orderModel.order_number);
     }
 }
 
@@ -462,7 +472,7 @@
     if (!isSuccess) {
         CCLog(@"insert error:%@",_database.lastErrorMessage);
     }else{
-        CCLog(@"%@---->更新运单成功", orderModel.order_details.order_number);
+        CCLog(@"%@---->更新运单成功", orderModel.order_number);
     }
 }
 
@@ -500,7 +510,6 @@
     }
     return NO;
 }
-
 //根据指定的类型 返回 这条记录在数据库中是否存在
 
 - (BOOL)isExistForOrderId:(NSString *)orderId
@@ -514,8 +523,22 @@
     }
     
 }
+- (BOOL)deletAllOrders{
+    NSString *sql = @"delete from orders";
+    if ([_database open]) {
+        BOOL succeed = [_database executeUpdate:sql];
+        if (!succeed) {
+            CCLog(@"insert error:%@",_database.lastErrorMessage);
+        }
+        return succeed;
+    }
+    return NO;
+}
 
-
-
+- (NSString *)readAllOngoingOrderCount{
+    NSArray *unstart = [self readAllUnpickupOrders];
+    NSArray *ongoing = [self readAllUnDeliveryOrders];
+    return [NSString stringWithFormat:@"%ld",unstart.count + ongoing.count];
+}
 
 @end

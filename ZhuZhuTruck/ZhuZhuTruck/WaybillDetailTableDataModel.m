@@ -159,28 +159,74 @@
     NSMutableArray *goodDetailsArray = [NSMutableArray array];
     WaybillDetailCellModel *model = [[WaybillDetailCellModel alloc]init];
     model.title = @"运单号";
-    model.subTitle = orderModel.order_details.order_number;
+    model.subTitle = orderModel.order_number;
     [goodDetailsArray addObject:model];
     
     model = [[WaybillDetailCellModel alloc]init];
     model.title = @"参考单号";
-    model.subTitle = ![orderModel.order_details.refer_order_number isEmpty]?orderModel.order_details.refer_order_number:@"未填写";
+    model.subTitle = ![orderModel.refer_order_number isEmpty]?orderModel.refer_order_number:@"未填写";
     [goodDetailsArray addObject:model];
     
-    model = [[WaybillDetailCellModel alloc]init];
-    model.title = @"货物";
-    model.subTitle = ![orderModel.order_details.goods_name isEmpty]?orderModel.order_details.goods_name:@"未填写";
-    [goodDetailsArray addObject:model];
     
+//    NSMutableString *goodNameSring = [NSMutableString string];
+//    
+//    for (int i=0; i<orderModel.goods.count; i++) {
+//        GoodModel *goodModel = [orderModel.goods objectAtIndex:i];
+//        if (i!=0) {
+//            [goodNameSring appendString:@" / "];
+//        }
+//        [goodNameSring appendString:goodModel.name];
+//    }
+//
+//    
+//    model = [[WaybillDetailCellModel alloc]init];
+//    model.title = @"货物";
+//    model.subTitle = [goodNameSring isEmpty]?@"未填写":@"  ";
+//    [goodDetailsArray addObject:model];
+//    
+//    if (![goodNameSring isEmpty]) {
+//        int totalCount1 = 0;
+//        int totalCount2 = 0;
+//        int totalCount3 = 0;
+//        for (int i=0; i<orderModel.goods.count; i++) {
+//            GoodModel *goodModel = [orderModel.goods objectAtIndex:i];
+//            model = [[WaybillDetailCellModel alloc]init];
+//            model.title = goodModel.name;
+//            NSMutableString * titleString  = [NSMutableString string];
+//            
+//            if (goodModel.count.integerValue) {
+//                [titleString appendFormat:@"%d%@",goodModel.count.intValue,goodModel.unit];
+//            }else{
+//                [titleString appendFormat:@"未知件数"];
+//            }
+//            if (goodModel.count2.integerValue) {
+//                [titleString appendFormat:@"/ %d%@",goodModel.count2.intValue,goodModel.unit2];
+//            }
+//            if (goodModel.count3.integerValue) {
+//                [titleString appendFormat:@"/ %d%@",goodModel.count3.intValue,goodModel.unit3];
+//            }
+//            model.subTitle = titleString;
+//            [goodDetailsArray addObject:model];
+//            totalCount1 += goodModel.count.intValue;
+//            totalCount2 += goodModel.count2.intValue;
+//            totalCount3 += goodModel.count3.intValue;
+//        }
+        
+//        model = [[WaybillDetailCellModel alloc]init];
+//        model.title = @"总计";
+//        model.subTitle = [NSString stringWithFormat:@"%d%@/ %d%@/ %d%@",totalCount1, orderModel.count_unit, totalCount2, orderModel.weight_unit, totalCount3, orderModel.volume_unit];
+//        [goodDetailsArray addObject:model];
+//    }else{
+//         
+//    }
     
     int totalCount1 = 0;
     int totalCount2 = 0;
     int totalCount3 = 0;
-    
-    for (int i=0; i<orderModel.order_details.goods.count; i++) {
-        GoodModel *goodModel = [orderModel.order_details.goods objectAtIndex:i];
+    for (int i=0; i<orderModel.goods.count; i++) {
+        GoodModel *goodModel = [orderModel.goods objectAtIndex:i];
         model = [[WaybillDetailCellModel alloc]init];
-        model.title = @"";
+        model.title = ![goodModel.name isEmpty]?goodModel.name:@"未知货物";
         NSMutableString * titleString  = [NSMutableString string];
         
         if (goodModel.count.integerValue) {
@@ -200,11 +246,9 @@
         totalCount2 += goodModel.count2.intValue;
         totalCount3 += goodModel.count3.intValue;
     }
+
     
-    model = [[WaybillDetailCellModel alloc]init];
-    model.title = @"总计";
-    model.subTitle = [NSString stringWithFormat:@"%d%@/ %d%@/ %d%@",totalCount1, orderModel.order_details.count_unit, totalCount2, orderModel.order_details.weight_unit, totalCount3, orderModel.order_details.volume_unit];
-    [goodDetailsArray addObject:model];
+    
     
     model = [[WaybillDetailCellModel alloc]init];
     model.title = @"备注";
@@ -280,7 +324,7 @@
     
     model = [[WaybillDetailCellModel alloc]init];
     model.title = @"固话";
-     model.subTitle = ![orderModel.delivery_contacts.phone isEmpty]?orderModel.delivery_contacts.phone:@"未填写";
+    model.subTitle = ![orderModel.delivery_contacts.phone isEmpty]?orderModel.delivery_contacts.phone:@"未填写";
     model.isPhone = ![orderModel.delivery_contacts.phone isEmpty];
     [deliveryArray addObject:model];
     

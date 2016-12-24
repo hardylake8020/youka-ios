@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TruckDetailCellModel.h"
 @interface CarDetailCell : UITableViewCell
-- (void)showCellWithDataDict:(NSDictionary *)dataDict;
+- (void)showCellWithCellModel:(TruckDetailCellModel *)model;
 @end

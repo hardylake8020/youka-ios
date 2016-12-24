@@ -15,7 +15,7 @@
     return ColorFromRGB(0xdddddd);
 }
 + (UIColor *)naviBlackColor{
-    return ColorFromRGB(0x252b37);
+    return ColorFromRGB(0x262C37);
 }
 + (UIColor *)customRedColor
 {

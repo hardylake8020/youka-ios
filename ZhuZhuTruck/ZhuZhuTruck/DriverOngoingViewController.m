@@ -35,14 +35,14 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self reloadData];
-//    if (self.dataArray.count ==0) {
-//        [self tableHeaderRefesh];
-//    }
+    if (self.dataArray.count ==0) {
+        [self tableHeaderRefesh];
+    }
 }
 
 - (void)reloadData{
     [self.dataArray removeAllObjects];
-    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnpickupOrders]];
+    [self.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnDeliveryOrders]];
     [self.tableView reloadData];
 }
 
@@ -78,7 +78,6 @@
     }];
     
     //    [self tableHeaderRefesh];
-    
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
@@ -90,26 +89,32 @@
 //            [tableView.mj_footer endRefreshing];
 //        });
 //    }];
+    
 }
 
 - (void)tableHeaderRefesh{
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)loadNewData{
+    
     CCWeakSelf(self);
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSArray *array = [[NSArray alloc] initWithObjects:@"unDeliverySigned",@"unDeliveried",nil];
     [parameters putKey:array key:@"status"];
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    [[HttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
+            
             CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
+        
         }else{
+            
             //CCLog(@"---->%@",result);
+            
             NSArray *orders = [result objectForKey:@"orders"];
             NSMutableArray *orderModels = [NSMutableArray array];
             CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
-            
             for (NSDictionary *orderDict in orders) {
 //                CCLog(@"%@",orderDict);
                 OrderModel *orderModel = [[OrderModel alloc]initWithDictionary:orderDict error:nil];
@@ -128,13 +133,16 @@
             [weakself.dataArray addObjectsFromArray:[[DBManager sharedManager] readAllUnDeliveryOrders]];
             [weakself.tableView reloadData];
         }
+        
         if (weakself.dataArray.count==0) {
             weakself.errMaskView.hidden = NO;
         }else{
             weakself.errMaskView.hidden = YES;
         }
+        
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView.mj_footer endRefreshing];
+        
     }];
 
 }

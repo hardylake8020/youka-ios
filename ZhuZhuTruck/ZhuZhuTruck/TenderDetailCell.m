@@ -30,18 +30,18 @@
         self.subTitleLabel.text = @"未填写";
     }else{
         self.subTitleLabel.text = model.subTitle;
+        if (model.isPhone) {
+            self.subTitleLabel.textColor = [UIColor blueColor];
+        }
     }
     if (model.isLight) {
         self.subTitleLabel.font = [UIFont boldSystemFontOfSize:18];
         self.contentView.backgroundColor = [UIColor whiteColor];
     }else{
         self.subTitleLabel.font = [UIFont systemFontOfSize:16];
-        if (model.isPhone) {
-            self.subTitleLabel.textColor = [UIColor blueColor];
-        }
+        
         self.contentView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     }
-    
     if (model.noBottomLine) {
         self.bottomLineVIew.hidden = YES;
     }else{

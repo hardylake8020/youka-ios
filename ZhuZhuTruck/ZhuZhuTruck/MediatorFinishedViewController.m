@@ -24,6 +24,12 @@
     [self initErrorMaskView];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadNewData];
+}
+
+
 - (void)initErrorMaskView{
     self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
     [self.tableView addSubview:_errMaskView];
@@ -39,8 +45,6 @@
     return _dataArray;
 }
 - (void)initTableView{
-    
-    [self.dataArray addObjectsFromArray:@[@NO,@NO,@YES,@NO,@YES,@YES]];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, SYSTEM_HEIGHT-100) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
@@ -68,21 +72,54 @@
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
-    // 上拉刷新
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [tableView.mj_footer endRefreshing];
-        });
-    }];
+//    // 上拉刷新
+//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            // 结束刷新
+//            [tableView.mj_footer endRefreshing];
+//        });
+//    }];
 }
 
 - (void)tableHeaderRefesh{
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)loadNewData{
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+#warning 分页
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [parameters put:@"completed" key:@"status"];
     
+    [[HttpRequstManager requestManager] postWithRequestBodyString:GET_TENDER_BY_STATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
+        }else{
+            //CCLog(@"---->%@",result);
+            NSArray *orders = [result objectForKey:@"tenders"];
+            [weakself.dataArray removeAllObjects];
+            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            
+            for (NSDictionary *orderDict in orders) {
+                //                CCLog(@"%@",orderDict);
+                
+                TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
+                [weakself.dataArray addObject:tenderModel];
+            }
+            
+            [weakself.tableView reloadData];
+        }
+        if (weakself.dataArray.count==0) {
+            weakself.errMaskView.hidden = NO;
+        }else{
+            weakself.errMaskView.hidden = YES;
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+
 }
 #pragma mark ---> UITableViewDelegate dataSource
 
@@ -104,20 +141,25 @@
     return 60;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderSucceedCell" forIndexPath:indexPath];
+    TenderModel *tenderModel = [self.dataArray objectAtIndex:indexPath.section];
+    TenderSucceedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderSucceedCell" forIndexPath:indexPath];
+    [cell showTenderCellWithTenderModel:tenderModel];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSNumber *status = [self.dataArray objectAtIndex:indexPath.section];
-    if (status.boolValue) {
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderFailed];
+    TenderModel *tenderModel = [self.dataArray objectAtIndex:indexPath.section];
+    if ([tenderModel.tender_type isEqualToString:@"grab"]) {
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderSucceed andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderSucceed];
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }
+
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    TenderModel *tenderModel = [self.dataArray objectAtIndex:section];
     UIView *footerView = [[UIView alloc]init];
     UIView *topLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 0.5)];
     topLine.backgroundColor = [UIColor customGrayColor];
@@ -128,7 +170,7 @@
     UIButton *carNumberButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0.5, SYSTEM_WIDTH, 49)];
     [carNumberButton setBackgroundColor:[UIColor whiteColor]];
     [carNumberButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
-    [carNumberButton setTitle:@"沪B525N2" forState:UIControlStateNormal];
+    [carNumberButton setTitle:tenderModel.truck_number forState:UIControlStateNormal];
     
     carNumberButton.tag = 4000+section;
     [footerView addSubview:carNumberButton];

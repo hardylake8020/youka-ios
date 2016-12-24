@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+typedef void(^SingInBlock)();
+
 @interface DriverOperationViewController : BaseViewController
+
 - (instancetype)initWithDriverOperationType:(DriverOperationType)type andOrderModel:(OrderModel *)orderModel;
+- (instancetype)initWithDriverOperationType:(DriverOperationType)type andOrderModel:(OrderModel *)orderModel andSigninCallBack:(SingInBlock)callback;
 @end

@@ -9,6 +9,7 @@
 #import "MediatorOrderDetailViewController.h"
 #import "TenderDetailCell.h"
 #import "TenderDetailHeaderCell.h"
+#import "MyDriversViewController.h"
 #import "TenderDetailTableDataModel.h"
 #import "MediatorPendingViewController.h"
 #import "MediatorProgressViewController.h"
@@ -449,6 +450,7 @@
                 [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"抢单失败")];
             }else{
                 [SVProgressHUD dismiss];
+                _weakSelf.tenderModel.status = @"unAssigned";
                 [_weakSelf robTenderSucceed];
             }
         }];
@@ -469,16 +471,18 @@
 - (void)robTenderSucceed{
     __weak typeof(self) _weakSelf = self;
     RIButtonItem *seletdCarItem = [RIButtonItem itemWithLabel:@"选择车辆" action:^{
+        MyDriversViewController *myDrvier = [[MyDriversViewController alloc]initWithAssaginTenderModel:self.tenderModel];
+        myDrvier.isFormDetail = YES;
+        [_weakSelf.navigationController pushViewController:myDrvier animated:YES];
     }];
-    
     RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
-        
+        [_weakSelf naviBack];
     }];
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抢单成功"
                                                         message:@"恭喜你抢单成功，请选择车辆与绑定油卡的操作，“取消”则稍后操作"
-                                               cancelButtonItem:cancelItem
-                                               otherButtonItems:seletdCarItem, nil];
+                                               cancelButtonItem:nil
+                                               otherButtonItems:cancelItem,seletdCarItem, nil];
     [alertView show];
 
 }

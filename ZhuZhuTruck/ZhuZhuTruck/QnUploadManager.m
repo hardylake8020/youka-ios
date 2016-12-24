@@ -16,7 +16,7 @@
 #import "Constants.h"
 #import "CCFile.h"
 #import "DBManager.h"
-#import "HttpRequstManager.h"
+#import "DiverHttpRequstManager.h"
 
 @interface QnUploadManager (){
     QNUploadManager* qnuploadManager;
@@ -51,9 +51,9 @@
         serialQueue = dispatch_queue_create("myThreadQueueImageUpload", DISPATCH_QUEUE_SERIAL);
         qnuploadManager = [[QNUploadManager alloc]init];
         _dbManager = [DBManager sharedManager];
-//        [self uploadImage];
-//        [self upLoadVoice];
-//        [self runClock];
+        [self uploadImage];
+        [self upLoadVoice];
+        [self runClock];
     }
     return self;
 }
@@ -170,7 +170,7 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]init];
     [parameters put:accessToken() key:ACCESS_TOKEN];
     
-    [[HttpRequstManager requestManager] getWithRequestBodyString:QN_IMAGE_TOKEN parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] getWithRequestBodyString:QN_IMAGE_TOKEN parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             CCLog(@"err%@",error.localizedDescription);
         }
@@ -187,7 +187,7 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]init];
     [parameters put:accessToken() key:ACCESS_TOKEN];
     [parameters put:fileName key:@"mp3_key"];
-    [[HttpRequstManager requestManager] getWithRequestBodyString:QN_VOICE_TOKEN parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] getWithRequestBodyString:QN_VOICE_TOKEN parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             CCLog(@"err%@",error.localizedDescription);
             _isVoiceUploading = NO;

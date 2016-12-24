@@ -9,6 +9,7 @@
 #import "OilCardsViewController.h"
 #import "CardModel.h"
 #import "AddCardViewController.h"
+#import "HomePageViewController.h"
 #import "DriverUnStartViewController.h"
 #import "DriverOngoingViewController.h"
 #import "DriverFinishedViewController.h"
@@ -52,6 +53,7 @@
     
     if (self.isSeletedMode) {
         self.title = @"选择卡劵";
+        self.fd_interactivePopDisabled = YES;
     }else{
         self.title = @"我的卡劵";
     }
@@ -63,12 +65,13 @@
         [self initBottomView];
     }
     
-    UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
-    [addButton addTarget:self action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
-    [addButton setTitle:@"添加" forState:UIControlStateNormal];
-    [addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [naivHeader addRightButton:addButton];
-    
+    if (!self.isSeletedMode) {
+        UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
+        [addButton addTarget:self action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
+        [addButton setTitle:@"添加" forState:UIControlStateNormal];
+        [addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [naivHeader addRightButton:addButton];
+    }
     [self initTableView];
     [self initErrorMaskView];
 }
@@ -101,7 +104,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self tableHeaderRefesh];
+    [self loadNewData];
 }
 
 - (void)initErrorMaskView{
@@ -141,7 +144,7 @@
         [weakself loadNewData];
     }];
     
-    [self tableHeaderRefesh];
+//    [self tableHeaderRefesh];
 }
 
 - (void)loadNewData{
@@ -151,13 +154,18 @@
     [parameters put:accessToken() key:ACCESS_TOKEN];
     
     [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GET_CARD_LIST parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        
+        
+        
         if (error) {
             CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
             [weakself.dataArray removeAllObjects];
             NSArray *cards = [result objectForKey:@"cards"];
             CCLog(@"UnpickOrderCount------------->:%ld",cards.count);
+            
             for (NSDictionary *cardDict in cards) {
                 //                CCLog(@"%@",orderDict);
                 CardModel *cardModel = [[CardModel alloc]initWithDictionary:cardDict error:nil];
@@ -292,11 +300,12 @@
                 [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"分配失败")];
             }else{
                 [SVProgressHUD showSuccessWithStatus:@"分配成功"];
-                [_weakSelf gotoDrvierProgress];
+                [_weakSelf jumpToHomePage];
             }
         }];
 
     }];
+    
     
     RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
         
@@ -309,31 +318,14 @@
     [alertView show];
 }
 
-- (void)gotoDrvierProgress{
-    NSArray *viewControllers;
-    NSArray *titles;
-    NSString *title;
-    viewControllers = @[[DriverUnStartViewController class],[DriverOngoingViewController class],[DriverFinishedViewController class]];
-    titles = @[@"待提货",@"运输中",@"已完成"];
-    title = @"我的运单";
-    DriverProgressViewController *pageVC = [[DriverProgressViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
-    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
-    pageVC.postNotification = YES;
-    pageVC.bounces = YES;
-    pageVC.menuHeight = 36;
-    pageVC.menuViewStyle = WMMenuViewStyleLine;
-    pageVC.menuBGColor = [UIColor naviBarColor];
-    pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
-    pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
-    pageVC.progressHeight = 4;
-    pageVC.progressColor = [UIColor whiteColor];
-    pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
-    pageVC.title = title;
-    [self.navigationController pushViewController:pageVC animated:YES];
-    
+- (void)jumpToHomePage{
+    for (NSInteger i=self.navigationController.viewControllers.count-1; i>=0; i--) {
+        UIViewController *VC = [self.navigationController.viewControllers objectAtIndex:i];
+        if ([VC isKindOfClass:[HomePageViewController class]]) {
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:i] animated:YES];
+        }
+    }
+
 }
 
 - (void)naviBack{

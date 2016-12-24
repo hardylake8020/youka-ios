@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#define BASE_URL @"http://192.168.0.112:3006"
-#define DRIVER_BASE_URL @"http://192.168.0.112:3002"
+//#define BASE_URL @"http://192.168.0.112:3006"
+//#define DRIVER_BASE_URL @"http://192.168.0.112:3002"
 
-
-//#define BASE_URL @"http://192.168.0.113:3006"
-//#define DRIVER_BASE_URL @"http://192.168.0.113:3002"
+#define BASE_URL @"http://183.131.76.178:3006"
+#define DRIVER_BASE_URL @"http://183.131.76.178:3002"
 
 
 #define APPVERSION @"2.0.0.9"
@@ -45,7 +44,7 @@
 //通知
 #define USER_TOKEN_INVILID_NOTI @"user_token_invaild_noti"
 #define RELOAD_DRIVER_ORDER_LIST_NOTI @"reload_driver_order_list_noti"
-
+#define CustomErrorDomain @"not_internet_now"
 
 typedef enum : NSUInteger {
     PickupSign,

@@ -43,7 +43,7 @@
         }
     }else{
         if ([model.status isEqualToString:@"unAssigned"]) {
-            self.statusLabel.text = @"比价中标成功";
+            self.statusLabel.text = @"比价中标";
             self.centerTipLabel.text = @"待分配车辆";
             self.statusLabel.textColor = [UIColor customGreenColor];
         }else{

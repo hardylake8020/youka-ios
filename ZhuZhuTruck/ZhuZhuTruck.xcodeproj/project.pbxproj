@@ -189,6 +189,10 @@
 		BB96BECA1DEF2E5D00AA74D2 /* LocationUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BEC91DEF2E5D00AA74D2 /* LocationUploadManager.m */; };
 		BB96BECD1DEF2E7300AA74D2 /* AddressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BECC1DEF2E7300AA74D2 /* AddressManager.m */; };
 		BB96BED01DEF2E9000AA74D2 /* QnUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96BECF1DEF2E9000AA74D2 /* QnUploadManager.m */; };
+		BBAEC3791E0E490100821C09 /* TruckDetailCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAEC3781E0E490100821C09 /* TruckDetailCellModel.m */; };
+		BBAEC37C1E0E492800821C09 /* TruckDetailTableDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAEC37B1E0E492800821C09 /* TruckDetailTableDataModel.m */; };
+		BBAEC37F1E0EADAB00821C09 /* headerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = BBAEC37E1E0EADAB00821C09 /* headerImage.png */; };
+		BBAEC3821E0EBD3600821C09 /* ExecuteDriverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAEC3811E0EBD3600821C09 /* ExecuteDriverModel.m */; };
 		BBD921311DF84938005DE376 /* checked_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD9212F1DF84938005DE376 /* checked_small.png */; };
 		BBD921321DF84938005DE376 /* uncheck_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD921301DF84938005DE376 /* uncheck_small.png */; };
 		BBDCEC6F1DEDAAB100C2125D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BBDCEC6E1DEDAAB100C2125D /* main.m */; };
@@ -529,6 +533,13 @@
 		BB96BECC1DEF2E7300AA74D2 /* AddressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManager.m; sourceTree = "<group>"; };
 		BB96BECE1DEF2E9000AA74D2 /* QnUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QnUploadManager.h; sourceTree = "<group>"; };
 		BB96BECF1DEF2E9000AA74D2 /* QnUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QnUploadManager.m; sourceTree = "<group>"; };
+		BBAEC3771E0E490100821C09 /* TruckDetailCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruckDetailCellModel.h; sourceTree = "<group>"; };
+		BBAEC3781E0E490100821C09 /* TruckDetailCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TruckDetailCellModel.m; sourceTree = "<group>"; };
+		BBAEC37A1E0E492800821C09 /* TruckDetailTableDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruckDetailTableDataModel.h; sourceTree = "<group>"; };
+		BBAEC37B1E0E492800821C09 /* TruckDetailTableDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TruckDetailTableDataModel.m; sourceTree = "<group>"; };
+		BBAEC37E1E0EADAB00821C09 /* headerImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headerImage.png; sourceTree = "<group>"; };
+		BBAEC3801E0EBD3600821C09 /* ExecuteDriverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExecuteDriverModel.h; sourceTree = "<group>"; };
+		BBAEC3811E0EBD3600821C09 /* ExecuteDriverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExecuteDriverModel.m; sourceTree = "<group>"; };
 		BBD9212F1DF84938005DE376 /* checked_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_small.png; sourceTree = "<group>"; };
 		BBD921301DF84938005DE376 /* uncheck_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheck_small.png; sourceTree = "<group>"; };
 		BBDCEC6A1DEDAAB100C2125D /* ZhuZhuTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhuZhuTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -677,6 +688,10 @@
 				BB00C05A1E00267900E9B3FA /* CardModel.m */,
 				BB00C05D1E00272D00E9B3FA /* TruckModel.h */,
 				BB00C05E1E00272D00E9B3FA /* TruckModel.m */,
+				BBAEC3771E0E490100821C09 /* TruckDetailCellModel.h */,
+				BBAEC3781E0E490100821C09 /* TruckDetailCellModel.m */,
+				BBAEC37A1E0E492800821C09 /* TruckDetailTableDataModel.h */,
+				BBAEC37B1E0E492800821C09 /* TruckDetailTableDataModel.m */,
 			);
 			name = TruckAndCardModel;
 			sourceTree = "<group>";
@@ -932,6 +947,7 @@
 		BB5AB55E1DF2C54B009107B9 /* OtherImage */ = {
 			isa = PBXGroup;
 			children = (
+				BBAEC37E1E0EADAB00821C09 /* headerImage.png */,
 				BBE203191DFD6C1700BEB7E0 /* noimage.png */,
 				BB49EFFB1DFD4F8300CFFC39 /* develiy_succeed.png */,
 				BB49EFFC1DFD4F8300CFFC39 /* confirm_succeed.png */,
@@ -1160,6 +1176,19 @@
 			name = "资源文件";
 			sourceTree = "<group>";
 		};
+		BBAEC37D1E0E615E00821C09 /* 废弃代码 */ = {
+			isa = PBXGroup;
+			children = (
+				BBAEC3801E0EBD3600821C09 /* ExecuteDriverModel.h */,
+				BBAEC3811E0EBD3600821C09 /* ExecuteDriverModel.m */,
+				BBED55E11DF1C0A8009776E4 /* CarStockViewController.h */,
+				BBED55E21DF1C0A8009776E4 /* CarStockViewController.m */,
+				BBED55DE1DF1C061009776E4 /* ETCCardsViewController.h */,
+				BBED55DF1DF1C061009776E4 /* ETCCardsViewController.m */,
+			);
+			name = "废弃代码";
+			sourceTree = "<group>";
+		};
 		BBDCEC611DEDAAB100C2125D = {
 			isa = PBXGroup;
 			children = (
@@ -1200,9 +1229,10 @@
 				BBED55F31DF1C1C7009776E4 /* 我的钱包 */,
 				BBED55FF1DF1C4FE009776E4 /* 中介找货 */,
 				BB852BF81E0ACE3A00568B4F /* 设置其他 */,
+				BBAEC37D1E0E615E00821C09 /* 废弃代码 */,
+				BBDCEC7E1DEDAAB100C2125D /* Info.plist */,
 				BB4321631DF0571F00F77680 /* ZhuZhuTruck.entitlements */,
 				BBDCEC791DEDAAB100C2125D /* Assets.xcassets */,
-				BBDCEC7E1DEDAAB100C2125D /* Info.plist */,
 				BBDCEC6D1DEDAAB100C2125D /* Supporting Files */,
 			);
 			path = ZhuZhuTruck;
@@ -1298,10 +1328,6 @@
 				BBED55DC1DF1C042009776E4 /* OilCardsViewController.m */,
 				BB37D31E1E0987D700703AB4 /* AddCardViewController.h */,
 				BB37D31F1E0987D700703AB4 /* AddCardViewController.m */,
-				BBED55E11DF1C0A8009776E4 /* CarStockViewController.h */,
-				BBED55E21DF1C0A8009776E4 /* CarStockViewController.m */,
-				BBED55DE1DF1C061009776E4 /* ETCCardsViewController.h */,
-				BBED55DF1DF1C061009776E4 /* ETCCardsViewController.m */,
 			);
 			name = "油卡卡劵";
 			sourceTree = "<group>";
@@ -1322,10 +1348,10 @@
 				BBED55F51DF1C202009776E4 /* MyDriversViewController.m */,
 				BB57D7FC1DF71464008888B0 /* DriverCarDetailViewController.h */,
 				BB57D7FD1DF71464008888B0 /* DriverCarDetailViewController.m */,
-				BBED55F71DF1C28D009776E4 /* DriversMapViewController.h */,
-				BBED55F81DF1C28D009776E4 /* DriversMapViewController.m */,
 				BB852BF91E0ACE8600568B4F /* AddTruckCarViewController.h */,
 				BB852BFA1E0ACE8600568B4F /* AddTruckCarViewController.m */,
+				BBED55F71DF1C28D009776E4 /* DriversMapViewController.h */,
+				BBED55F81DF1C28D009776E4 /* DriversMapViewController.m */,
 			);
 			name = "我的车队";
 			sourceTree = "<group>";
@@ -1592,6 +1618,7 @@
 				BB4321B71DF069C500F77680 /* ffb30f@2x.png in Resources */,
 				BB49EFFA1DFD4E3C00CFFC39 /* TimeLineCell.xib in Resources */,
 				BB4321B61DF069C500F77680 /* FF8886@2x.png in Resources */,
+				BBAEC37F1E0EADAB00821C09 /* headerImage.png in Resources */,
 				BBFB6EB91E0183AC00BC1EDA /* withdraw.png in Resources */,
 				BB5AB5821DF2C56C009107B9 /* RecordingSignal008.png in Resources */,
 				BB5AB5511DF29EF8009107B9 /* WaybillCell.xib in Resources */,
@@ -1755,6 +1782,7 @@
 				BBED55F91DF1C28D009776E4 /* DriversMapViewController.m in Sources */,
 				BB5AB5861DF2C6F4009107B9 /* ShowPhotoViewController.m in Sources */,
 				BBED55B81DF1BDF0009776E4 /* DriverFinishedViewController.m in Sources */,
+				BBAEC37C1E0E492800821C09 /* TruckDetailTableDataModel.m in Sources */,
 				BB49EFF51DFD47BA00CFFC39 /* PhotoModel.m in Sources */,
 				BB4321741DF05AF300F77680 /* CCNaviHeaderView.m in Sources */,
 				BB5AB5BD1DF2D962009107B9 /* QRCodeVC.m in Sources */,
@@ -1805,6 +1833,7 @@
 				BB96BEC11DEF2E1C00AA74D2 /* LocationTracker.m in Sources */,
 				BBDCEC6F1DEDAAB100C2125D /* main.m in Sources */,
 				BBED55BE1DF1BE46009776E4 /* DriverOperationViewController.m in Sources */,
+				BBAEC3791E0E490100821C09 /* TruckDetailCellModel.m in Sources */,
 				BB8812E51DF9974D00B54644 /* OrderDetailsModel.m in Sources */,
 				BB4321771DF05BC300F77680 /* CCTextFiled.m in Sources */,
 				BB035DD11DF3CA95006EC2F0 /* WaybillDetailTableDataModel.m in Sources */,
@@ -1828,6 +1857,7 @@
 				BB035DD51DF3D140006EC2F0 /* WayBillDetailCell.m in Sources */,
 				BBED55F61DF1C202009776E4 /* MyDriversViewController.m in Sources */,
 				BB96BE901DEF003600AA74D2 /* PooCodeView.m in Sources */,
+				BBAEC3821E0EBD3600821C09 /* ExecuteDriverModel.m in Sources */,
 				BBED55B51DF1BDE0009776E4 /* DriverOngoingViewController.m in Sources */,
 				BB96BE961DEF005700AA74D2 /* ACActionSheet.m in Sources */,
 				BB035DE31DF402DA006EC2F0 /* TenderDetailTableDataModel.m in Sources */,

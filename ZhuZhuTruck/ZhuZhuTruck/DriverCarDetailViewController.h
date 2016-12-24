@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface DriverCarDetailViewController : BaseViewController
-
+- (instancetype)initWithTruckModel:(TruckModel *)model;
 @end

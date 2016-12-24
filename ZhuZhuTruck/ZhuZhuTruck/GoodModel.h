@@ -12,6 +12,9 @@
 @end
 
 @interface GoodModel : JSONModel
+@property (nonatomic, copy) NSString<Optional> *_id;
+@property (nonatomic, copy) NSString<Optional> *name;
+@property (nonatomic, strong) NSNumber<Optional> *price;
 @property (nonatomic, copy) NSString<Optional> *unit;
 @property (nonatomic, strong) NSNumber<Optional> *count;
 @property (nonatomic, copy) NSString<Optional> *unit2;

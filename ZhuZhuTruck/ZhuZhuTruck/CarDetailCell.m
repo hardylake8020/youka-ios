@@ -7,7 +7,7 @@
 //
 
 #import "CarDetailCell.h"
-
+#import "NSString+Tool.h"
 @interface CarDetailCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -20,10 +20,9 @@
     [super awakeFromNib];
     // Initialization code
 }
-- (void)showCellWithDataDict:(NSDictionary *)dataDict{
-    //    self.iconImageView.image = [UIImage imageNamed:[dataDict stringForKey:@"imageName"]];
-    self.titleLabel.text = [dataDict objectForKey:@"title"];
-    self.subTitleLabel.text = [dataDict objectForKey:@"subTitle"];
+- (void)showCellWithCellModel:(TruckDetailCellModel *)model{
+    self.titleLabel.text = model.title;
+    self.subTitleLabel.text = ![model.subTitle isEmpty]?model.subTitle:@"未知";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

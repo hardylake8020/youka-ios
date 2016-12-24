@@ -146,7 +146,9 @@
     save_UserPwd(@"");
     save_AccessToken(@"");
     [[DBManager sharedManager] deletedAllLocations];
-    [[LocationTracker defaultLoactionTarker] stopLocationTracking];
+    [[DBManager sharedManager] deletAllOrders];
+    
+//    [[LocationTracker defaultLoactionTarker] stopLocationTracking];
     __weak typeof(self) _weakSelf = self;
     RIButtonItem *deleteItem = [RIButtonItem itemWithLabel:@"去登录" action:^{
         [_weakSelf.navigationController popToRootViewControllerAnimated:YES];

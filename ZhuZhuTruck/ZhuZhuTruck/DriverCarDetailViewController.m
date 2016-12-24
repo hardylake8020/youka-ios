@@ -8,14 +8,25 @@
 
 #import "DriverCarDetailViewController.h"
 #import "CarDetailCell.h"
+#import "TruckDetailTableDataModel.h"
 @interface DriverCarDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, strong) TruckModel * truckModel;
+@property (nonatomic, strong) TruckDetailTableDataModel * tableModel;
 @end
 
 @implementation DriverCarDetailViewController
 
+
+- (instancetype)initWithTruckModel:(TruckModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.truckModel = model;
+    }
+    return self;
+}
 
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
@@ -51,21 +62,23 @@
 }
 - (void)initTableView{
     
-    NSMutableArray *firstSectionArray = [NSMutableArray array];
-    [firstSectionArray addObject:@{@"title":@"车辆",@"subTitle":@"沪AA8888"}];
-    [firstSectionArray addObject:@{@"title":@"车型",@"subTitle":@"金杯"}];
-    [firstSectionArray addObject:@{@"title":@"油卡",@"subTitle":@"2222 5555 7777 9999"}];
-    [self.dataArray addObject:firstSectionArray];
+//    NSMutableArray *firstSectionArray = [NSMutableArray array];
+//    [firstSectionArray addObject:@{@"title":@"车辆",@"subTitle":@"沪AA8888"}];
+//    [firstSectionArray addObject:@{@"title":@"车型",@"subTitle":@"金杯"}];
+//    [firstSectionArray addObject:@{@"title":@"油卡",@"subTitle":@"2222 5555 7777 9999"}];
+//    [self.dataArray addObject:firstSectionArray];
+//    
+//    NSMutableArray *secondSectionArray = [NSMutableArray array];
+//    [secondSectionArray addObject:@{@"title":@"司机",@"subTitle":@"Sisley"}];
+//    [secondSectionArray addObject:@{@"title":@"司机手机",@"subTitle":@"16598767867"}];
+//    [self.dataArray addObject:secondSectionArray];
+//    
+//    NSMutableArray *thirdSectionArray = [NSMutableArray array];
+//    [thirdSectionArray addObject:@{@"title":@"状态",@"subTitle":@"运输中"}];
+//    [thirdSectionArray addObject:@{@"title":@"当前位置",@"subTitle":@"上海浦东"}];
+//    [self.dataArray addObject:thirdSectionArray];
     
-    NSMutableArray *secondSectionArray = [NSMutableArray array];
-    [secondSectionArray addObject:@{@"title":@"司机",@"subTitle":@"Sisley"}];
-    [secondSectionArray addObject:@{@"title":@"司机手机",@"subTitle":@"16598767867"}];
-    [self.dataArray addObject:secondSectionArray];
-    
-    NSMutableArray *thirdSectionArray = [NSMutableArray array];
-    [thirdSectionArray addObject:@{@"title":@"状态",@"subTitle":@"运输中"}];
-    [thirdSectionArray addObject:@{@"title":@"当前位置",@"subTitle":@"上海浦东"}];
-    [self.dataArray addObject:thirdSectionArray];
+    self.tableModel = [[TruckDetailTableDataModel alloc]initWithTruckModel:self.truckModel];
     
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+150, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-150) style:UITableViewStyleGrouped];
@@ -82,19 +95,18 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.dataArray.count;
+    return self.tableModel.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [(NSArray *)[self.dataArray objectAtIndex:section] count];
+    return [(NSArray *)[self.tableModel.dataArray objectAtIndex:section] count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dataDict = [[self.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
+    TruckDetailCellModel *model = [[self.tableModel.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     CarDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CarDetailCell" forIndexPath:indexPath];
-    [cell showCellWithDataDict:dataDict];
+    [cell showCellWithCellModel:model];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

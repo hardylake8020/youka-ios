@@ -16,7 +16,9 @@
 @property (nonatomic, copy) NSString<Optional> *status;
 @property (nonatomic, copy) NSString<Optional> *confirm_status;
 @property (nonatomic, copy) NSString<Optional> *descrip;
-@property (nonatomic, strong) OrderDetailsModel<Optional> *order_details;
+@property (nonatomic, strong) NSArray<Optional,GoodModel> *goods;
+@property (nonatomic, copy) NSString<Optional> *order_number;
+@property (nonatomic, copy) NSString<Optional> *refer_order_number;
 @property (nonatomic, strong) PickupContactsModel<Optional> *pickup_contacts;
 @property (nonatomic, strong) DeliveryContactsModel<Optional> *delivery_contacts;
 @property (nonatomic, strong) NSNumber<Optional> *delivery_photo_force;

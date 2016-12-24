@@ -34,7 +34,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self tableHeaderRefesh];
+    [self loadNewData];
 }
 
 
@@ -73,14 +73,14 @@
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
-    // 上拉刷新
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [tableView.mj_footer endRefreshing];
-        });
-    }];
+//    // 上拉刷新
+//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            // 结束刷新
+//            [tableView.mj_footer endRefreshing];
+//        });
+//    }];
 }
 
 - (void)tableHeaderRefesh{
@@ -96,6 +96,7 @@
     [[HttpRequstManager requestManager] postWithRequestBodyString:GET_TENDER_BY_STATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
             NSArray *orders = [result objectForKey:@"tenders"];

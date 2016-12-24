@@ -16,13 +16,20 @@
 "account_not_exist" = "此账号不存在";
 "account_password_not_match" = "账号密码不匹配";
 "Could not connect to the server." = "无法连接服务器";
+"com.alamofire.error.serialization.response" = "无法连接服务器";
+"not_internet_now" = "无法连接网络";
 "The request timed out." = "连接超时";
 "event_time_invalid" = "没有获取到当前时间";
 "event_info_invalid" = "提交失败，信息不完整";
 "event_need_photo" = "需要拍照";
 "event_order_empty" = "提交失败，信息不完整";
 "truck_driver_not_exist" = "该司机账号没有注册";
-
+"order_is_deleted" = "运单被删除了";
+"can_not_execute_delivery" = "运单已经交过货了";
+"can_not_execute_pickup" = "运单已经提过货了";
+"can_not_execute_delivery" = "运单已经交过货了";
+"can_not_execute_pickupSign" = "已经签到过了";
+"can_not_execute_deliverySign" = "已经签到过了";
 
 
 

@@ -10,5 +10,6 @@
 
 @interface MyDriversViewController : BaseViewController
 @property (nonatomic, assign) BOOL isSeletedMode;
+@property (nonatomic, assign) BOOL isFormDetail;
 - (id)initWithAssaginTenderModel:(TenderModel*)tenderModel;
 @end

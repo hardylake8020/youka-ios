@@ -13,6 +13,8 @@
 @property (nonatomic, copy) NSString<Optional> *_id;
 @property (nonatomic, copy) NSString<Optional> *tender_number;
 @property (nonatomic, copy) NSString<Optional> *order_number;
+@property (nonatomic, copy) NSString<Optional> *truck;
+@property (nonatomic, copy) NSString<Optional> *truck_number;
 @property (nonatomic, copy) NSString<Optional> *status;
 @property (nonatomic, copy) NSString<Optional> *refer_order_number;
 @property (nonatomic, copy) NSString<Optional> *sender_company;

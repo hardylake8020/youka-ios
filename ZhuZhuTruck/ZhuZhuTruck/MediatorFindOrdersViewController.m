@@ -17,7 +17,7 @@
 }
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation MediatorFindOrdersViewController
@@ -28,7 +28,20 @@
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderViewButton];
     [self initTableView];
+    [self initErrorMaskView];
 }
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
+    [self.tableView addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"暂时未发现订单";
+    self.errMaskView.hidden = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self tableHeaderRefesh];
+}
+
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray  = [NSMutableArray array];
@@ -171,8 +184,6 @@
 
 - (void)initTableView{
     
-    [self.dataArray addObjectsFromArray:@[@YES,@YES,@NO,@NO,@YES,@NO]];
-
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+110, SYSTEM_WIDTH, SYSTEM_HEIGHT-110-SYSTITLEHEIGHT)];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
@@ -206,6 +217,7 @@
         });
     }];
 }
+
 - (UIView *)tabHeaderView{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
     
@@ -225,6 +237,39 @@
 }
 - (void)loadNewData{
     
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+#warning 分页
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    
+    [[HttpRequstManager requestManager] postWithRequestBodyString:GET_UNSTART_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.domain);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
+        }else{
+            //CCLog(@"---->%@",result);
+            NSArray *orders = [result objectForKey:@"tenders"];
+            [weakself.dataArray removeAllObjects];
+            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            
+            for (NSDictionary *orderDict in orders) {
+                //                CCLog(@"%@",orderDict);
+                
+                TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
+                [weakself.dataArray addObject:tenderModel];
+            }
+            
+            [weakself.tableView reloadData];
+        }
+        if (weakself.dataArray.count==0) {
+            weakself.errMaskView.hidden = NO;
+        }else{
+            weakself.errMaskView.hidden = YES;
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+
 }
 
 //- (void)initErrorMaskView{
@@ -244,19 +289,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSNumber *status = [self.dataArray objectAtIndex:indexPath.row];
+    TenderModel *tenderModel = [self.dataArray objectAtIndex:indexPath.row];
     TenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TenderCell" forIndexPath:indexPath];
-    [cell showCellWithStatus:status.boolValue];
+    [cell showTenderCellWithTenderModel:tenderModel];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSNumber *status = [self.dataArray objectAtIndex:indexPath.row];
-    if (status.boolValue) {
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart];
+    TenderModel *tenderModel = [self.dataArray objectAtIndex:indexPath.row];
+    
+    if ([tenderModel.tender_type isEqualToString:@"grab"]) {
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart];
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }
 }

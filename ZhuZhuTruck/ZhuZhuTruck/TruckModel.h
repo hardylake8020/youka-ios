@@ -19,6 +19,7 @@
 @property (nonatomic, copy) NSString<Optional> *driver;
 @property (nonatomic, copy) NSString<Optional> *driver_name;
 @property (nonatomic, copy) NSString<Optional> *driver_number;
+@property (nonatomic, copy) NSString<Optional> *card_number;
 @property (nonatomic, strong) NSMutableArray<Optional> *location;
 @property (nonatomic, strong) CardModel<Optional> *card;
 @property (nonatomic, strong) NSNumber<Optional> *isSeleted;

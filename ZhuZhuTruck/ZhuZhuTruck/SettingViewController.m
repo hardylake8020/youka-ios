@@ -95,7 +95,8 @@
         // delete the object in question...
         save_UserPwd(@"");
         save_AccessToken(@"");
-//        [[DBManager sharedManager] deletedAllLocations];
+        [[DBManager sharedManager] deletedAllLocations];
+        [[DBManager sharedManager] deletAllOrders];
 //        [[LocationTracker defaultLoactionTarker] stopLocationTracking];
         [_weakSelf.navigationController popToRootViewControllerAnimated:YES];
     }];

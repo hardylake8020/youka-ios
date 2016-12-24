@@ -37,8 +37,12 @@
 - (BOOL)deletAllOrdersWithStatus:(NSNumber *)status;
 - (void)inserOrdersWithOrders:(NSArray *)orders;
 - (BOOL)deleteOrderWithOrderId:(NSString *)orderId;
-
+- (BOOL)deletAllOrders;
 - (NSArray *)readAllUnpickupOrders;
 - (NSArray *)readAllUnDeliveryOrders;
 - (NSArray *)readAllCompletedOrders;
+- (NSString *)readAllOngoingOrderCount;
+- (OrderModel*)readOrderById:(NSString *)_id;
+
+
 @end

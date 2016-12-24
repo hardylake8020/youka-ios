@@ -27,6 +27,7 @@
     [self.view addSubview:naivHeader];
 }
 
+
 - (void)naviBack{
     for (NSInteger i=self.navigationController.viewControllers.count-1; i>=0; i--) {
         UIViewController *VC = [self.navigationController.viewControllers objectAtIndex:i];

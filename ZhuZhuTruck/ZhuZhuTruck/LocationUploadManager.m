@@ -13,7 +13,7 @@
 #import "DBManager.h"
 #import "NSString+Tool.h"
 #import "CCUserData.h"
-#import "HttpRequstManager.h"
+#import "DiverHttpRequstManager.h"
 
 @interface LocationUploadManager (){
     
@@ -45,7 +45,7 @@
     self = [super init];
     if (self) {
         _dbManager = [DBManager sharedManager];
-//        [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(startUploadArray) userInfo:nil repeats:YES];
+        [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(startUploadArray) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -71,7 +71,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters put:accessToken() key:ACCESS_TOKEN];
     [parameters put:locationArray key:@"trace_infos"];
-    [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOADLOCATIONS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] postWithRequestBodyString:UPLOADLOCATIONS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         weakself.isUploading = NO;
         if (error) {
             

@@ -110,9 +110,10 @@
     NSArray *array = [[NSArray alloc] initWithObjects:@"unPickupSigned",@"unPickuped",nil];
     [parameters putKey:array key:@"status"];
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    [[HttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] getWithRequestBodyString:GET_BYSTATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
             NSArray *orders = [result objectForKey:@"orders"];
@@ -149,11 +150,6 @@
     }];
 }
 
-- (void)orderCountNotMatch{
-    
-}
-
-
 
 #pragma mark ---> UITableViewDelegate dataSource
 
@@ -181,6 +177,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
+    if (![orderModel.confirm_status isEqualToString:@"confirmed"]){
+        toast_showInfoMsg(@"请先发车启动", 200);
+        return;
+    }
     DriverWayBillDetailViewController *detail = [[DriverWayBillDetailViewController alloc]initWithWillbillStaus:UnpickupedStatus andOrderModel:orderModel];
     [self.navigationController pushViewController:detail animated:YES];
 }
@@ -249,7 +249,7 @@
     
     [SVProgressHUD showWithStatus:@"发车启动..."];
     CCWeakSelf(self);
-    [[HttpRequstManager requestManager] postWithRequestBodyString:UPLOADEVENT parameters:confirReport resultBlock:^(NSDictionary *result, NSError *error) {
+    [[DiverHttpRequstManager requestManager] postWithRequestBodyString:UPLOADEVENT parameters:confirReport resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"请求失败")];
             if ([error.domain isEqualToString:@"can_not_execute_confirm"]) {
