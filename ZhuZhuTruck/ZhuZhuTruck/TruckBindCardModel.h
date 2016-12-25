@@ -1,18 +1,17 @@
 //
-//  CardModel.h
+//  TruckBindCardModel.h
 //  ZhuZhuTruck
 //
-//  Created by CongCong on 2016/12/13.
+//  Created by CongCong on 2016/12/25.
 //  Copyright © 2016年 CongCong. All rights reserved.
 //
 
 #import <JSONModel/JSONModel.h>
-#import "TruckModel.h"
-@protocol CardModel <NSObject>
 
+@protocol  TruckBindCardModel<NSObject>
 @end
 
-@interface CardModel : JSONModel
+@interface TruckBindCardModel : JSONModel
 @property (nonatomic, copy) NSString<Optional> *_id;
 @property (nonatomic, copy) NSString<Optional> *created;
 @property (nonatomic, copy) NSString<Optional> *updated;
@@ -20,6 +19,4 @@
 @property (nonatomic, copy) NSString<Optional> *owner;
 @property (nonatomic, copy) NSString<Optional> *type;
 @property (nonatomic, copy) NSString<Optional> *truck_number;
-@property (nonatomic, strong) TruckModel<Optional>  *truck;
-@property (nonatomic, strong) NSNumber<Optional> *isSeleted;
 @end

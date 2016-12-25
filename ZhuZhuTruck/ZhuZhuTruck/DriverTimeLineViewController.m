@@ -13,6 +13,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) OrderModel *orderModel;
+@property (nonatomic, copy) NSString *tenderId;
+@property (nonatomic, assign) BOOL isFromTender;
 @end
 
 @implementation DriverTimeLineViewController
@@ -26,6 +28,15 @@
     return self;
 }
 
+- (instancetype)initWithTenderId:(NSString *)tenderId{
+    self = [super init];
+    if (self) {
+        self.tenderId = tenderId;
+        self.isFromTender = YES;
+    }
+    return self;
+}
+
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         _dataArray  = [NSMutableArray array];
@@ -35,29 +46,64 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNaviHeaderViewWithTitle:@"时间轴"];
-    [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initTableView];
 
+    if (!self.isFromTender) {
+        [self addNaviHeaderViewWithTitle:@"时间轴"];
+        NSMutableArray *timeLineArray = [NSMutableArray array];
+        [timeLineArray addObjectsFromArray:self.orderModel.halfway_events];
+        [timeLineArray addObjectsFromArray:self.orderModel.confirm_events];
+        [timeLineArray addObjectsFromArray:self.orderModel.pickup_sign_events];
+        [timeLineArray addObjectsFromArray:self.orderModel.pickup_events];
+        [timeLineArray addObjectsFromArray:self.orderModel.delivery_sign_events];
+        [timeLineArray addObjectsFromArray:self.orderModel.delivery_events];
+        NSArray *resultArray = [timeLineArray sortedArrayUsingComparator:^NSComparisonResult(EventModel *event1, EventModel *event2) {
+            NSComparisonResult result = [event1.time  compare:event2.time];
+            return result == NSOrderedDescending; // 升序
+        }];
+        [self.dataArray addObjectsFromArray:resultArray];
+        [self.tableView reloadData];
+    }else{
+        [self addBlackNaviHaderViewWithTitle:@"时间轴"];
+        [self getTimeLine];
+    }
+    
+    [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
 }
+
+- (void)getTimeLine{
+    CCWeakSelf(self);
+    [SVProgressHUD showWithStatus:@"获取时间轴..."];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [parameters put:self.tenderId key:@"tender_id"];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GET_ORDER_TIMELINE parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            CCLog(@"%@",error.localizedDescription);
+            toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
+            [SVProgressHUD dismiss];
+        }else{
+            //CCLog(@"---->%@",result);
+            NSArray *events = [result objectForKey:@"transport_events"];
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)events.count);
+            for (NSDictionary *eventDict in events) {
+                EventModel *eventModel = [[EventModel alloc]initWithDictionary:eventDict error:nil];
+                [weakself.dataArray insertObject:eventModel atIndex:0];
+            }
+            [weakself.tableView reloadData];
+            [SVProgressHUD showSuccessWithStatus:@"获取成功"];
+        }
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_footer endRefreshing];
+    }];
+
+}
+
+
+
 - (void)initTableView{
     
-    NSMutableArray *timeLineArray = [NSMutableArray array];
     
-    
-    [timeLineArray addObjectsFromArray:self.orderModel.halfway_events];
-    [timeLineArray addObjectsFromArray:self.orderModel.confirm_events];
-    [timeLineArray addObjectsFromArray:self.orderModel.pickup_sign_events];
-    [timeLineArray addObjectsFromArray:self.orderModel.pickup_events];
-    [timeLineArray addObjectsFromArray:self.orderModel.delivery_sign_events];
-    [timeLineArray addObjectsFromArray:self.orderModel.delivery_events];
-    
-    NSArray *resultArray = [timeLineArray sortedArrayUsingComparator:^NSComparisonResult(EventModel *event1, EventModel *event2) {
-        NSComparisonResult result = [event1.time  compare:event2.time];
-        return result == NSOrderedDescending; // 升序
-    }];
-    
-    [self.dataArray addObjectsFromArray:resultArray];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
     self.tableView.backgroundColor = [UIColor whiteColor];

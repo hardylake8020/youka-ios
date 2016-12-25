@@ -114,7 +114,7 @@
             
             NSArray *orders = [result objectForKey:@"orders"];
             NSMutableArray *orderModels = [NSMutableArray array];
-            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
             for (NSDictionary *orderDict in orders) {
 //                CCLog(@"%@",orderDict);
                 OrderModel *orderModel = [[OrderModel alloc]initWithDictionary:orderDict error:nil];
@@ -213,7 +213,7 @@
     NSInteger tag = button.tag - 9000;
     OrderModel *orderModel = [self.dataArray objectAtIndex:tag];
     
-    if (orderModel.delivery_entrance_force.boolValue) {
+    if (orderModel.delivery_entrance_force.boolValue&&[orderModel.status isEqualToString:@"unDeliverySigned"]) {
         __weak typeof(self) _weakSelf = self;
         RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
             

@@ -10,4 +10,5 @@
 
 @interface DriverTimeLineViewController : BaseViewController
 - (instancetype)initWithOrderModel:(OrderModel *)model;
+- (instancetype)initWithTenderId:(NSString *)tenderId;
 @end

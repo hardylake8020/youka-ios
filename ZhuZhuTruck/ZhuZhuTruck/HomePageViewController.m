@@ -29,15 +29,15 @@
 @interface HomePageViewController ()<UITableViewDelegate, UITableViewDataSource>{
     UILabel *mediatorNumberLabel;
     UILabel *driverNumberLabel;
-    
-    int _limit;//条数限制
-    int _skipCount;//跳 过 几条
-    int _totoalCount;// 总数
-    int _currentPage;// 当前页
 }
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ErrorMaskView *errMaskView;
+@property (nonatomic, assign) int limit;//条数限制
+@property (nonatomic, assign) int skipCount;//跳 过 几条
+@property (nonatomic, assign) int totoalCount;// 总数
+@property (nonatomic, assign) int currentPage;// 当前页
+
 @end
 
 @implementation HomePageViewController
@@ -206,7 +206,7 @@
     __unsafe_unretained UITableView *tableView = self.tableView;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        _currentPage = 0;
+        weakself.currentPage = 0;
         [weakself loadNewData];
     }];
     
@@ -236,24 +236,23 @@
     CCWeakSelf(self);
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    [parameters putInt:_currentPage key:@"current_page"];
     [parameters putInt:_limit key:@"limit"];
-    [parameters putInt:_skipCount key:@"skip_count"];
+    [parameters putInt:_skipCount key:@"current_count"];
+    
     [[HttpRequstManager requestManager] postWithRequestBodyString:GET_UNSTART_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
-        NSInteger count = 10;
         if (error) {
             CCLog(@"%@",error.domain);
             toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
-            NSArray *orders = [result objectForKey:@"tenders"];
-            
-            if (_currentPage==1) {
+            if (weakself.currentPage==1) {
                 //刷新
                 [weakself.dataArray removeAllObjects];
             }
-            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
-            count = orders.count;
+            NSArray *orders = [result objectForKey:@"tenders"];
+            
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
+            weakself.totoalCount = [result intForKey:@"totalCount"];
             for (NSDictionary *orderDict in orders) {
                 TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
                 [weakself.dataArray addObject:tenderModel];
@@ -267,7 +266,7 @@
             weakself.errMaskView.hidden = YES;
         }
         [weakself.tableView.mj_header endRefreshing];
-        if (count<10) {
+        if (self.dataArray.count >= weakself.totoalCount) {
             [weakself.tableView.mj_footer endRefreshingWithNoMoreData];
         }else{
             [weakself.tableView.mj_footer endRefreshing];

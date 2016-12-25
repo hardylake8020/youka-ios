@@ -7,8 +7,7 @@
 //
 
 #import <JSONModel/JSONModel.h>
-
-#import "CardModel.h"
+#import "TruckBindCardModel.h"
 @interface TruckModel : JSONModel
 @property (nonatomic, copy) NSString<Optional> *_id;
 @property (nonatomic, copy) NSString<Optional> *truck_number;
@@ -21,6 +20,6 @@
 @property (nonatomic, copy) NSString<Optional> *driver_number;
 @property (nonatomic, copy) NSString<Optional> *card_number;
 @property (nonatomic, strong) NSMutableArray<Optional> *location;
-@property (nonatomic, strong) CardModel<Optional> *card;
+@property (nonatomic, strong) TruckBindCardModel<Optional> *card;
 @property (nonatomic, strong) NSNumber<Optional> *isSeleted;
 @end

@@ -135,7 +135,7 @@
     TenderDetailCellModel *model = [[TenderDetailCellModel alloc]init];
     model.title = @"车辆要求";
     model.isLight = YES;
-    model.subTitle = [NSString stringWithFormat:@"%@  %ld辆",tenderModel.truck_type, tenderModel.truck_count.integerValue];
+    model.subTitle = [NSString stringWithFormat:@"%@  %ld辆",tenderModel.truck_type, (long)tenderModel.truck_count.integerValue];
     [self.dataArray addObject:model];
     
     model = [[TenderDetailCellModel alloc]init];

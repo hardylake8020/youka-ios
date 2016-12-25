@@ -100,7 +100,7 @@
             //CCLog(@"---->%@",result);
             NSArray *orders = [result objectForKey:@"orders"];
             NSMutableArray *orderModels = [NSMutableArray array];
-            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
             
             for (NSDictionary *orderDict in orders) {
 //                CCLog(@"%@",orderDict);

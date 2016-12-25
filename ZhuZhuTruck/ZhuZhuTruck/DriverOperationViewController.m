@@ -8,6 +8,7 @@
 
 #import "DriverOperationViewController.h"
 #import "LVRecordTool.h"
+#import "NSString+Tool.h"
 #import "RecordImageView.h"
 #import "ShowPhotoViewController.h"
 #import <AVFoundation/AVFoundation.h>
@@ -225,7 +226,7 @@
     UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     NSLog(@"%f%f",originalImage.size.width,originalImage.size.height);
     UIImage* image= scaleToSize([info objectForKey:UIImagePickerControllerOriginalImage],CGSizeMake(originalImage.size.width/2, originalImage.size.height/2));
-    NSString* fileName=[NSString stringWithFormat:@"ios_user_phone%@take_time%f", user_phone(),[[NSDate  date] timeIntervalSince1970]];
+    NSString* fileName=[NSString stringWithFormat:@"@ios_user_phone%@take_time%f", user_phone(),[[NSDate  date] timeIntervalSince1970]];
     if(saveImg(image,fileName)){
         [self.photos addObject:fileName];
         [[DBManager sharedManager] inserPhotoWithPhotoName:fileName orderId:self.orderModel._id andStatus:self.operationType];

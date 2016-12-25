@@ -7,6 +7,7 @@
 //
 
 #import "DriverUnStartViewController.h"
+#import "NSString+Tool.h"
 #import "DriverOperationViewController.h"
 #import "DriverWayBillDetailViewController.h"
 @interface DriverUnStartViewController ()<UITableViewDelegate, UITableViewDataSource>{
@@ -119,7 +120,7 @@
             NSArray *orders = [result objectForKey:@"orders"];
             
             NSMutableArray *orderModels = [NSMutableArray array];
-            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
             
             for (NSDictionary *orderDict in orders) {
 //                CCLog(@"%@",orderDict);
@@ -281,7 +282,7 @@
     NSInteger tag = button.tag - 7000;
     OrderModel *orderModel = [self.dataArray objectAtIndex:tag];
     
-    if (orderModel.pickup_photo_force.boolValue) {
+    if (orderModel.pickup_photo_force.boolValue&&[orderModel.status isEqualToString:@"unPickupSigned"]) {
         __weak typeof(self) _weakSelf = self;
         RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
             

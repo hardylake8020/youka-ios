@@ -10,7 +10,7 @@
 
 @interface AddCardViewController ()<UITextFieldDelegate>
 {
-    CCTextFiled *_cardNumberFiled;
+    UITextField *_cardNumberFiled;
 }
 @property (nonatomic, assign) UserAddCardType addType;
 @end
@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
     if (self.addType == ADD_ETC_CARD) {
         [self addBlackNaviHaderViewWithTitle:@"添加ETC卡"];
     }else if (self.addType == ADD_OIL_CARD) {
@@ -38,24 +39,44 @@
     [self initAddView];
 }
 - (void)initAddView{
-    _cardNumberFiled = [[CCTextFiled alloc]initWithFrame:CGRectMake(20,SYSTITLEHEIGHT+50, SYSTEM_WIDTH-40, 40)];
-    [_cardNumberFiled setKeyboardType:UIKeyboardTypeNumberPad];
-    _cardNumberFiled.delegate = self;
+    
+    UIView *addView = [[UIView alloc]initWithFrame:CGRectMake(-1, SYSTITLEHEIGHT+20, SYSTEM_WIDTH+2, 50)];
+    addView.layer.borderColor = [UIColor customGrayColor].CGColor;
+    addView.layer.borderWidth = 0.5;
+    [self.view addSubview:addView];
+
+    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 50)];
+    tipLabel.font = fontBysize(18);
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    [addView addSubview:tipLabel];
+    
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(120, 0, 1, 50)];
+    lineView.backgroundColor = [UIColor customGrayColor];
+    [addView addSubview:lineView];
+    
+    _cardNumberFiled = [[UITextField alloc]initWithFrame:CGRectMake(140,0, SYSTEM_WIDTH-140, 50)];
+    _cardNumberFiled.clearButtonMode = UITextFieldViewModeAlways;
     
     if (self.addType == ADD_ETC_CARD) {
         [_cardNumberFiled setPlaceholder:@"请输入ETC卡卡号"];
+        tipLabel.text = @"ETC卡号";
     }else if (self.addType == ADD_OIL_CARD) {
+        tipLabel.text = @"油卡卡号";
         [_cardNumberFiled setPlaceholder:@"请输入油卡卡号"];
     }
     _cardNumberFiled.delegate = self;
     _cardNumberFiled.keyboardType = UIKeyboardTypeNumberPad;
-    [self.view addSubview:_cardNumberFiled];
+    [addView addSubview:_cardNumberFiled];
     
     
-    UIButton *loginButton = [CCButton ButtonWithFrame:CGRectMake(20,SYSTEM_HEIGHT-100, SYSTEM_WIDTH-40, 50) cornerradius:CORNERRADIUS title:@"添加" titleColor:[UIColor whiteColor] titleFont:[UIFont systemFontOfSize:17] normalBackGrondImage:[UIImage imageNamed:@"3ebf43"] highLightImage:[UIImage imageNamed:@"229926"] target:self action:@selector(addCardCall)];
-    [self.view addSubview:loginButton];
+    UIButton * addCadButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-60, SYSTEM_WIDTH, 60)];
+    addCadButton.backgroundColor = [UIColor buttonGreenColor];
+    [addCadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
+    [addCadButton setTitle:@"添加" forState:UIControlStateNormal];
+    [addCadButton addTarget:self action:@selector(addCardCall) forControlEvents:UIControlEventTouchUpInside];
 
+    [self.view addSubview:addCadButton];
 }
 
 - (void)addCardCall{

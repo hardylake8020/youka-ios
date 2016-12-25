@@ -8,17 +8,25 @@
 
 #import "MediatorTransportingViewController.h"
 #import "MediatorOrderDetailViewController.h"
-
+#import "DriverTimeLineViewController.h"
 @interface MediatorTransportingViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ErrorMaskView *errMaskView;
+@property (nonatomic, assign) int limit;//条数限制
+@property (nonatomic, assign) int skipCount;//跳 过 几条
+@property (nonatomic, assign) int totoalCount;// 总数
+@property (nonatomic, assign) int currentPage;// 当前页
 @end
 
 @implementation MediatorTransportingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _limit = 10;
+    _currentPage = 0;
+    _skipCount = 0;
+    _totoalCount = 0;
     self.title = @"订单运输中";
     [self initTableView];
     [self initErrorMaskView];
@@ -26,6 +34,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    _currentPage = 0;
     [self loadNewData];
 }
 
@@ -64,33 +73,35 @@
     __unsafe_unretained UITableView *tableView = self.tableView;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakself.currentPage = 0;
         [weakself loadNewData];
     }];
-    
-    //    [self tableHeaderRefesh];
-    
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
-//    // 上拉刷新
-//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            // 结束刷新
-//            [tableView.mj_footer endRefreshing];
-//        });
-//    }];
+    // 上拉刷新
+    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [weakself loadNewData];
+    }];
 }
 
 - (void)tableHeaderRefesh{
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)loadNewData{
+    _currentPage++;
+    if (_currentPage==1) {
+        _skipCount = 0;
+    }else{
+        _skipCount = (int)self.dataArray.count;
+    }
+    
     CCWeakSelf(self);
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-#warning 分页
     [parameters put:accessToken() key:ACCESS_TOKEN];
     [parameters put:@"inProgress" key:@"status"];
+    [parameters putInt:_limit key:@"limit"];
+    [parameters putInt:_skipCount key:@"current_count"];
     
     [[HttpRequstManager requestManager] postWithRequestBodyString:GET_TENDER_BY_STATUS parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
@@ -98,13 +109,16 @@
             toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
+            if (weakself.currentPage==1) {
+                //刷新
+                [weakself.dataArray removeAllObjects];
+            }
+
             NSArray *orders = [result objectForKey:@"tenders"];
-            [weakself.dataArray removeAllObjects];
-            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            weakself.totoalCount = [result intForKey:@"totalCount"];
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
             
             for (NSDictionary *orderDict in orders) {
-                //                CCLog(@"%@",orderDict);
-                
                 TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
                 [weakself.dataArray addObject:tenderModel];
             }
@@ -117,7 +131,11 @@
             weakself.errMaskView.hidden = YES;
         }
         [weakself.tableView.mj_header endRefreshing];
-        [weakself.tableView.mj_footer endRefreshing];
+        if (self.dataArray.count >= weakself.totoalCount) {
+            [weakself.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            [weakself.tableView.mj_footer endRefreshing];
+        }
     }];
 
 }
@@ -168,12 +186,14 @@
     UIButton *carNumberButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0.5, SYSTEM_WIDTH, 49)];
     [carNumberButton setBackgroundColor:[UIColor whiteColor]];
     [carNumberButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
-    [carNumberButton addTarget:self action:@selector(timeLine:) forControlEvents:UIControlEventTouchUpInside];
     [carNumberButton setTitle:tenderModel.truck_number forState:UIControlStateNormal];
     carNumberButton.tag = 3000+section;
+    [carNumberButton addTarget:self action:@selector(timeLine:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:carNumberButton];
     UIView *centerLine = [[UIView alloc]initWithFrame:CGRectMake(0, 49.5, SYSTEM_WIDTH, 0.5)];
     centerLine.backgroundColor = [UIColor customGrayColor];
+    
+
     [footerView addSubview:centerLine];
     if (section < self.dataArray.count-1) {
         UIView *bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 59.5, SYSTEM_WIDTH, 0.5)];
@@ -184,7 +204,10 @@
 }
 
 - (void)timeLine:(UIButton *)button{
-    //    NSInteger tag = button.tag - 3000;
+    NSInteger tag = button.tag - 3000;
+    TenderModel *tenderModel = [self.dataArray objectAtIndex:tag];
+    DriverTimeLineViewController *timeLine = [[DriverTimeLineViewController alloc]initWithTenderId:tenderModel._id];
+    [self.navigationController pushViewController:timeLine animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

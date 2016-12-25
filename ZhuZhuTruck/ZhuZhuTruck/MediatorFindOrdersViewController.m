@@ -14,6 +14,13 @@
     UIButton * _totoalButton;
     UIButton * _bidButton;
     UIButton * _robButton;
+    
+    CCTextFiled *_fromAddressTextFiled;
+    CCTextFiled *_toAddressTextFiled;
+    
+    NSString *_formSearchKey;
+    NSString *_toSearchKey;
+    NSString *_tendType;
 }
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
@@ -24,6 +31,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _tendType = @"";
+    _formSearchKey = @"";
+    _toSearchKey = @"";
     [self addBlackNaviHaderViewWithTitle:@"货源列表"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderViewButton];
@@ -52,14 +62,16 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 110)];
     [self.view addSubview:headerView];
     
-    UIImageView * searchImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search"]];
-    [headerView addSubview:searchImage];
-    searchImage.sd_layout
+    UIButton * searchButton= [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"search_tender"] forState:UIControlStateNormal];
+    [searchButton addTarget:self action:@selector(serchClick) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:searchButton];
+    searchButton.sd_layout
     .rightSpaceToView(headerView,19)
     .topSpaceToView(headerView,19)
     .heightIs(22)
     .widthIs(22);
-    
+
     UIView *addressView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH-60, 60)];
     [headerView addSubview:addressView];
     
@@ -75,28 +87,29 @@
     .centerXEqualToView(addressView)
     .widthIs(20);
     
-    UILabel *fromAddressLabel = [[UILabel alloc]init];
-    fromAddressLabel.textAlignment = NSTextAlignmentCenter;
-    fromAddressLabel.font = fontBysize(18);
-    [addressView addSubview:fromAddressLabel];
+    _fromAddressTextFiled = [[CCTextFiled alloc]init];
+    _fromAddressTextFiled.textAlignment = NSTextAlignmentCenter;
+    _fromAddressTextFiled.font = fontBysize(18);
+    _fromAddressTextFiled.placeholder = @"起始地";
+    _fromAddressTextFiled.delegate = self;
+    _fromAddressTextFiled.layer.borderWidth = 0;
+    [addressView addSubview:_fromAddressTextFiled];
+    _fromAddressTextFiled.sd_layout
     
-    fromAddressLabel.text = @"上海上海";
-    
-    fromAddressLabel.sd_layout
     .topEqualToView(addressView)
     .bottomEqualToView(addressView)
     .leftEqualToView (addressView)
     .rightSpaceToView(centerLabel,0);
     
-    CCTextFiled *toAddressTextFiled = [[CCTextFiled alloc]init];
-    toAddressTextFiled.textAlignment = NSTextAlignmentCenter;
-    toAddressTextFiled.font = fontBysize(18);
-    toAddressTextFiled.placeholder = @"目的地";
-    toAddressTextFiled.delegate = self;
-    toAddressTextFiled.layer.borderWidth = 0;
-    [addressView addSubview:toAddressTextFiled];
+    _toAddressTextFiled = [[CCTextFiled alloc]init];
+    _toAddressTextFiled.textAlignment = NSTextAlignmentCenter;
+    _toAddressTextFiled.font = fontBysize(18);
+    _toAddressTextFiled.placeholder = @"目的地";
+    _toAddressTextFiled.delegate = self;
+    _toAddressTextFiled.layer.borderWidth = 0;
+    [addressView addSubview:_toAddressTextFiled];
     
-    toAddressTextFiled.sd_layout
+    _toAddressTextFiled.sd_layout
     .topEqualToView(addressView)
     .bottomEqualToView(addressView)
     .rightEqualToView (addressView)
@@ -158,42 +171,70 @@
     if (_totoalButton.selected) {
         return;
     }
+    _tendType = @"";
     _totoalButton.selected = YES;
     _bidButton.selected = NO;
     _robButton.selected = NO;
+    [SVProgressHUD show];
+    _formSearchKey = @"";
+    _toSearchKey = @"";
+    [self loadNewData];
 }
 
 - (void)bidClick{
     if (_bidButton.selected) {
         return;
     }
+    _tendType = @"compare";
     _bidButton.selected = YES;
     _totoalButton.selected = NO;
     _robButton.selected = NO;
+    [SVProgressHUD show];
+    _formSearchKey = @"";
+    _toSearchKey = @"";
+    [self loadNewData];
 }
 
 - (void)robClick{
     if (_robButton.selected) {
         return;
     }
+    _tendType = @"grab";
     _robButton.selected = YES;
     _bidButton.selected = NO;
     _totoalButton.selected = NO;
+    [SVProgressHUD show];
+    _formSearchKey = @"";
+    _toSearchKey = @"";
+    [self loadNewData];
 }
 
+- (void)serchClick{
+    if ([_fromAddressTextFiled.text isEmpty]&&[_toAddressTextFiled.text isEmpty]) {
+        toast_showInfoMsg(@"请至少输入一个地址", 200);
+        return;
+    }
+    _formSearchKey = _fromAddressTextFiled.text;
+    _toSearchKey = _toAddressTextFiled.text;
+    [SVProgressHUD show];
+    [self loadNewData];
+}
 
 - (void)initTableView{
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+110, SYSTEM_WIDTH, SYSTEM_HEIGHT-110-SYSTITLEHEIGHT)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+110, SYSTEM_WIDTH, SYSTEM_HEIGHT-110-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TenderCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TenderCell"];
     self.tableView.showsVerticalScrollIndicator = NO;
+    
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 
     self.tableView.tableHeaderView = [self tabHeaderView];
+    
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 1)];
     
     [self.view addSubview:self.tableView];
     
@@ -208,14 +249,14 @@
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
-    // 上拉刷新
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [tableView.mj_footer endRefreshing];
-        });
-    }];
+//    // 上拉刷新
+//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            // 结束刷新
+//            [tableView.mj_footer endRefreshing];
+//        });
+//    }];
 }
 
 - (UIView *)tabHeaderView{
@@ -241,7 +282,9 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 #warning 分页
     [parameters put:accessToken() key:ACCESS_TOKEN];
-    
+    [parameters put:_tendType key:@"tender_type"];
+    [parameters put:_formSearchKey key:@"pickup_address"];
+    [parameters put:_toSearchKey key:@"delivery_address"];
     [[HttpRequstManager requestManager] postWithRequestBodyString:GET_UNSTART_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             CCLog(@"%@",error.domain);
@@ -250,7 +293,7 @@
             //CCLog(@"---->%@",result);
             NSArray *orders = [result objectForKey:@"tenders"];
             [weakself.dataArray removeAllObjects];
-            CCLog(@"UnpickOrderCount------------->:%ld",orders.count);
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
             
             for (NSDictionary *orderDict in orders) {
                 //                CCLog(@"%@",orderDict);
@@ -268,6 +311,7 @@
         }
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView.mj_footer endRefreshing];
+        [SVProgressHUD dismiss];
     }];
 
 }
@@ -281,6 +325,12 @@
 
 #pragma mark ---> UITableViewDelegate dataSource
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.5;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.5;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArray.count;
 }

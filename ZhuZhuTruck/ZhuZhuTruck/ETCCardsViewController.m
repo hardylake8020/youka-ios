@@ -82,7 +82,7 @@
             //CCLog(@"---->%@",result);
             [weakself.dataArray removeAllObjects];
             NSArray *cards = [result objectForKey:@"cards"];
-            CCLog(@"UnpickOrderCount------------->:%ld",cards.count);
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)cards.count);
             for (NSDictionary *cardDict in cards) {
                 //                CCLog(@"%@",orderDict);
                 CardModel *cardModel = [[CardModel alloc]initWithDictionary:cardDict error:nil];

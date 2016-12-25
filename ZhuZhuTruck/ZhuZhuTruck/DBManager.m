@@ -538,7 +538,7 @@
 - (NSString *)readAllOngoingOrderCount{
     NSArray *unstart = [self readAllUnpickupOrders];
     NSArray *ongoing = [self readAllUnDeliveryOrders];
-    return [NSString stringWithFormat:@"%ld",unstart.count + ongoing.count];
+    return [NSString stringWithFormat:@"%lu",unstart.count + ongoing.count];
 }
 
 @end

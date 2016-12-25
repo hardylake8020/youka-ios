@@ -45,8 +45,13 @@
     [carArray addObject:model];
     
     model = [[TruckDetailCellModel alloc]init];
-    model.title = @"油卡";
-    model.subTitle = truckModel.card?truckModel.card.number:@"未绑定";
+    model.title = @"卡劵";
+//    if ([truckModel.card.type isEqualToString:@"etc"]) {
+//        model.title = @"ETC卡";
+//    } else if ([truckModel.card.type isEqualToString:@"unEtc"]) {
+//        model.title = @"油卡";
+//    }
+    model.subTitle = ![truckModel.card_number isEmpty]?truckModel.card_number:@"未绑定";
     [carArray addObject:model];
     
     

@@ -155,8 +155,6 @@
     
     [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GET_CARD_LIST parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         
-        
-        
         if (error) {
             CCLog(@"%@",error.localizedDescription);
             toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
@@ -164,10 +162,8 @@
             //CCLog(@"---->%@",result);
             [weakself.dataArray removeAllObjects];
             NSArray *cards = [result objectForKey:@"cards"];
-            CCLog(@"UnpickOrderCount------------->:%ld",cards.count);
-            
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)cards.count);
             for (NSDictionary *cardDict in cards) {
-                //                CCLog(@"%@",orderDict);
                 CardModel *cardModel = [[CardModel alloc]initWithDictionary:cardDict error:nil];
                 if (weakself.isSeletedMode) {
                     if ([cardModel.truck_number isEmpty]) {
@@ -257,7 +253,7 @@
         
     }else{
         if (![cardModel.truck_number isEmpty]) {
-            DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]init];
+            DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]initWithTruckModel:cardModel.truck];
             [self.navigationController pushViewController:carDetail animated:YES];
         }
     }

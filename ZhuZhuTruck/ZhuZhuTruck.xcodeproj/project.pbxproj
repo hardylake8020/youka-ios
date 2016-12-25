@@ -31,6 +31,10 @@
 		BB035E011DF45499006EC2F0 /* ETCCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035DFF1DF45499006EC2F0 /* ETCCardCell.xib */; };
 		BB035E061DF468ED006EC2F0 /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035E041DF468ED006EC2F0 /* WalletCell.m */; };
 		BB035E071DF468ED006EC2F0 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035E051DF468ED006EC2F0 /* WalletCell.xib */; };
+		BB2E1E901E0FA5E900482AA1 /* TruckBindCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2E1E8F1E0FA5E900482AA1 /* TruckBindCardModel.m */; };
+		BB2E1E931E0FFDAC00482AA1 /* CarPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2E1E921E0FFDAC00482AA1 /* CarPhotoView.m */; };
+		BB2E1E9D1E10088A00482AA1 /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2E1E9C1E10088A00482AA1 /* DOPDropDownMenu.m */; };
+		BB2E1E9F1E101A2900482AA1 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E1E9E1E101A2900482AA1 /* logo.png */; };
 		BB34625F1DFEDB6C00DC3FA8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */; };
 		BB3462601DFEDB6C00DC3FA8 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */; };
 		BB3462621DFEEA1400DC3FA8 /* F44C5F@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */; };
@@ -42,7 +46,6 @@
 		BB4321691DF0581000F77680 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4321651DF0581000F77680 /* Default-736h@3x.png */; };
 		BB43216A1DF0581000F77680 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4321661DF0581000F77680 /* Default.png */; };
 		BB43216B1DF0581000F77680 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4321671DF0581000F77680 /* Default@2x.png */; };
-		BB43216D1DF0587800F77680 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BB43216C1DF0587800F77680 /* logo.png */; };
 		BB4321701DF05A2700F77680 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB43216F1DF05A2700F77680 /* BaseViewController.m */; };
 		BB4321741DF05AF300F77680 /* CCNaviHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4321731DF05AF300F77680 /* CCNaviHeaderView.m */; };
 		BB4321771DF05BC300F77680 /* CCTextFiled.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4321761DF05BC300F77680 /* CCTextFiled.m */; };
@@ -301,6 +304,13 @@
 		BB035E031DF468ED006EC2F0 /* WalletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
 		BB035E041DF468ED006EC2F0 /* WalletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
 		BB035E051DF468ED006EC2F0 /* WalletCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
+		BB2E1E8E1E0FA5E900482AA1 /* TruckBindCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruckBindCardModel.h; sourceTree = "<group>"; };
+		BB2E1E8F1E0FA5E900482AA1 /* TruckBindCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TruckBindCardModel.m; sourceTree = "<group>"; };
+		BB2E1E911E0FFDAC00482AA1 /* CarPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarPhotoView.h; sourceTree = "<group>"; };
+		BB2E1E921E0FFDAC00482AA1 /* CarPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarPhotoView.m; sourceTree = "<group>"; };
+		BB2E1E9B1E10088A00482AA1 /* DOPDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOPDropDownMenu.h; sourceTree = "<group>"; };
+		BB2E1E9C1E10088A00482AA1 /* DOPDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOPDropDownMenu.m; sourceTree = "<group>"; };
+		BB2E1E9E1E101A2900482AA1 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		BB34625D1DFEDB6C00DC3FA8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ZhuZhuTruck/Crashlytics.framework; sourceTree = "<group>"; };
 		BB34625E1DFEDB6C00DC3FA8 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ZhuZhuTruck/Fabric.framework; sourceTree = "<group>"; };
 		BB3462611DFEEA1400DC3FA8 /* F44C5F@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F44C5F@2x.png"; sourceTree = "<group>"; };
@@ -314,7 +324,6 @@
 		BB4321651DF0581000F77680 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		BB4321661DF0581000F77680 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BB4321671DF0581000F77680 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		BB43216C1DF0587800F77680 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		BB43216E1DF05A2700F77680 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		BB43216F1DF05A2700F77680 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		BB4321721DF05AF300F77680 /* CCNaviHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNaviHeaderView.h; sourceTree = "<group>"; };
@@ -688,6 +697,8 @@
 				BB00C05A1E00267900E9B3FA /* CardModel.m */,
 				BB00C05D1E00272D00E9B3FA /* TruckModel.h */,
 				BB00C05E1E00272D00E9B3FA /* TruckModel.m */,
+				BB2E1E8E1E0FA5E900482AA1 /* TruckBindCardModel.h */,
+				BB2E1E8F1E0FA5E900482AA1 /* TruckBindCardModel.m */,
 				BBAEC3771E0E490100821C09 /* TruckDetailCellModel.h */,
 				BBAEC3781E0E490100821C09 /* TruckDetailCellModel.m */,
 				BBAEC37A1E0E492800821C09 /* TruckDetailTableDataModel.h */,
@@ -787,6 +798,15 @@
 			name = WalletCell;
 			sourceTree = "<group>";
 		};
+		BB2E1E941E0FFF3A00482AA1 /* DOPDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				BB2E1E9B1E10088A00482AA1 /* DOPDropDownMenu.h */,
+				BB2E1E9C1E10088A00482AA1 /* DOPDropDownMenu.m */,
+			);
+			path = DOPDropDownMenu;
+			sourceTree = "<group>";
+		};
 		BB4321711DF05A9D00F77680 /* 自制控件 */ = {
 			isa = PBXGroup;
 			children = (
@@ -866,6 +886,8 @@
 			children = (
 				BB5AB5561DF2C492009107B9 /* PhotosCell.h */,
 				BB5AB5571DF2C492009107B9 /* PhotosCell.m */,
+				BB2E1E911E0FFDAC00482AA1 /* CarPhotoView.h */,
+				BB2E1E921E0FFDAC00482AA1 /* CarPhotoView.m */,
 				BB4321751DF05BC300F77680 /* CCTextFiled.h */,
 				BB4321761DF05BC300F77680 /* CCTextFiled.m */,
 				BB4321781DF05BE900F77680 /* ErrorMaskView.h */,
@@ -909,7 +931,7 @@
 		BB5AB55C1DF2C525009107B9 /* Ipnoe */ = {
 			isa = PBXGroup;
 			children = (
-				BB43216C1DF0587800F77680 /* logo.png */,
+				BB2E1E9E1E101A2900482AA1 /* logo.png */,
 				BB4321641DF0581000F77680 /* Default-667h@2x.png */,
 				BB4321651DF0581000F77680 /* Default-736h@3x.png */,
 				BB4321661DF0581000F77680 /* Default.png */,
@@ -1098,6 +1120,7 @@
 		BB96BE8C1DEF001100AA74D2 /* 第三方类 */ = {
 			isa = PBXGroup;
 			children = (
+				BB2E1E941E0FFF3A00482AA1 /* DOPDropDownMenu */,
 				BBFB6E911E0173CE00BC1EDA /* GtSdkLib */,
 				BB5AB59D1DF2D962009107B9 /* scanVC */,
 				BB4321841DF0618400F77680 /* WMPageController */,
@@ -1640,6 +1663,7 @@
 				BBFB6EBB1E0183AC00BC1EDA /* seleted.png in Resources */,
 				BB49F0021DFD4F8300CFFC39 /* halfway_event.png in Resources */,
 				BBFB6EBA1E0183AC00BC1EDA /* un_seleted.png in Resources */,
+				BB2E1E9F1E101A2900482AA1 /* logo.png in Resources */,
 				BB5AB59C1DF2CB04009107B9 /* ic_head.png in Resources */,
 				BB5AB54C1DF281C5009107B9 /* TenderProcessCell.xib in Resources */,
 				BBED55FB1DF1C372009776E4 /* ic_setting.png in Resources */,
@@ -1652,7 +1676,6 @@
 				BB96BE951DEF005700AA74D2 /* ACActionSheet.bundle in Resources */,
 				BB5AB5B81DF2D962009107B9 /* prev.png in Resources */,
 				BB5AB5B21DF2D962009107B9 /* frame_icon.png in Resources */,
-				BB43216D1DF0587800F77680 /* logo.png in Resources */,
 				BBE2031A1DFD6C1700BEB7E0 /* noimage.png in Resources */,
 				BB5AB5471DF281AD009107B9 /* TenderSucceedCell.xib in Resources */,
 				BB4321B31DF069C500F77680 /* E6EDFD@2x.png in Resources */,
@@ -1822,6 +1845,7 @@
 				BB4321911DF0618400F77680 /* WMMenuItem.m in Sources */,
 				BB49EFF91DFD4E3C00CFFC39 /* TimeLineCell.m in Sources */,
 				BB96BECD1DEF2E7300AA74D2 /* AddressManager.m in Sources */,
+				BB2E1E931E0FFDAC00482AA1 /* CarPhotoView.m in Sources */,
 				BB035DE01DF402A1006EC2F0 /* TenderDetailCellModel.m in Sources */,
 				BBED55E91DF1C15F009776E4 /* MyWalletViewController.m in Sources */,
 				BBED55EC1DF1C17C009776E4 /* BankCardViewController.m in Sources */,
@@ -1861,6 +1885,7 @@
 				BBED55B51DF1BDE0009776E4 /* DriverOngoingViewController.m in Sources */,
 				BB96BE961DEF005700AA74D2 /* ACActionSheet.m in Sources */,
 				BB035DE31DF402DA006EC2F0 /* TenderDetailTableDataModel.m in Sources */,
+				BB2E1E9D1E10088A00482AA1 /* DOPDropDownMenu.m in Sources */,
 				BB035DF31DF44EAF006EC2F0 /* DrvierCarCell.m in Sources */,
 				BB4321941DF0618400F77680 /* WMScrollView.m in Sources */,
 				BB96BEB81DEF2DFF00AA74D2 /* DBManager.m in Sources */,
@@ -1879,6 +1904,7 @@
 				BB5AB55B1DF2C4AF009107B9 /* RecordImageView.m in Sources */,
 				BB96BED01DEF2E9000AA74D2 /* QnUploadManager.m in Sources */,
 				BB37D3201E0987D700703AB4 /* AddCardViewController.m in Sources */,
+				BB2E1E901E0FA5E900482AA1 /* TruckBindCardModel.m in Sources */,
 				BB8812E11DF995F600B54644 /* OrderModel.m in Sources */,
 				BB57D7F91DF6F6CF008888B0 /* MarginCell.m in Sources */,
 				BBED55DA1DF1C01A009776E4 /* SettingViewController.m in Sources */,
@@ -1924,6 +1950,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1971,6 +1998,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2002,6 +2030,7 @@
 				CODE_SIGN_ENTITLEMENTS = ZhuZhuTruck/ZhuZhuTruck.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 4BP3787HSZ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2026,6 +2055,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhuZhuTruck/ZhuZhuTruck.entitlements;
 				DEVELOPMENT_TEAM = 4BP3787HSZ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

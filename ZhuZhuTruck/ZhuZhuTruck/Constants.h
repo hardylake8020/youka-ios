@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-//#define BASE_URL @"http://192.168.0.112:3006"
-//#define DRIVER_BASE_URL @"http://192.168.0.112:3002"
+//#define BASE_URL @"http://192.168.0.111:3006"
+//#define DRIVER_BASE_URL @"http://192.168.0.111:3002"
 
 #define BASE_URL @"http://183.131.76.178:3006"
 #define DRIVER_BASE_URL @"http://183.131.76.178:3002"
-
 
 #define APPVERSION @"2.0.0.9"
 #define VERSIONNUMBER @"2009"
@@ -36,6 +35,9 @@
 #define USER_GET_CARD_LIST @"/tender/driver/card/getListByDriver"
 #define USER_GET_TRUCK_LIST @"/tender/driver/truck/getListByDriver"
 #define USER_ASSGIN_ORDER_TO_TRUCK @"/tender/driver/assginDriver"
+
+#define USER_GET_ORDER_TIMELINE @"/tender/driver/transportevent"
+
 //登录参数
 #define USERNAME @"username"
 #define PWD @"password"

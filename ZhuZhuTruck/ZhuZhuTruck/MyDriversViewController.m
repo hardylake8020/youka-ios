@@ -105,7 +105,7 @@
             //CCLog(@"---->%@",result);
             [weakself.dataArray removeAllObjects];
             NSArray *trucks = [result objectForKey:@"trucks"];
-            CCLog(@"UnpickOrderCount------------->:%ld",trucks.count);
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)trucks.count);
             for (NSDictionary *truckDict in trucks) {
                 TruckModel *model = [[TruckModel alloc]initWithDictionary:truckDict error:nil];
                 if (weakself.isSeletedMode&&model.card) {
