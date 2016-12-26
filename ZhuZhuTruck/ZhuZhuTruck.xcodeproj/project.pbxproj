@@ -143,6 +143,9 @@
 		BB5AB5BE1DF2D962009107B9 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5B11DF2D962009107B9 /* UIViewExt.m */; };
 		BB5AB5C11DF2DBBC009107B9 /* OperationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5C01DF2DBBC009107B9 /* OperationButton.m */; };
 		BB5AB5C31DF2DD70009107B9 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5AB5C21DF2DD70009107B9 /* check.png */; };
+		BB68B0AD1E11512200B0D6E1 /* LoginViewPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB68B0AC1E11512200B0D6E1 /* LoginViewPageViewController.m */; };
+		BB68B0AF1E11521400B0D6E1 /* login_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BB68B0AE1E11521400B0D6E1 /* login_bg.png */; };
+		BB68B0B11E115B8D00B0D6E1 /* login_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BB68B0B01E115B8D00B0D6E1 /* login_arrow.png */; };
 		BB852BF71E0ABDC100568B4F /* DiverHttpRequstManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB852BF61E0ABDC100568B4F /* DiverHttpRequstManager.m */; };
 		BB852BFB1E0ACE8600568B4F /* AddTruckCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB852BFA1E0ACE8600568B4F /* AddTruckCarViewController.m */; };
 		BB852BFD1E0ADA8A00568B4F /* SeverError.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB852BFC1E0ADA8A00568B4F /* SeverError.strings */; };
@@ -453,6 +456,10 @@
 		BB5AB5BF1DF2DBBC009107B9 /* OperationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationButton.h; sourceTree = "<group>"; };
 		BB5AB5C01DF2DBBC009107B9 /* OperationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationButton.m; sourceTree = "<group>"; };
 		BB5AB5C21DF2DD70009107B9 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		BB68B0AB1E11512200B0D6E1 /* LoginViewPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewPageViewController.h; sourceTree = "<group>"; };
+		BB68B0AC1E11512200B0D6E1 /* LoginViewPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewPageViewController.m; sourceTree = "<group>"; };
+		BB68B0AE1E11521400B0D6E1 /* login_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_bg.png; sourceTree = "<group>"; };
+		BB68B0B01E115B8D00B0D6E1 /* login_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_arrow.png; sourceTree = "<group>"; };
 		BB852BF51E0ABDC100568B4F /* DiverHttpRequstManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiverHttpRequstManager.h; sourceTree = "<group>"; };
 		BB852BF61E0ABDC100568B4F /* DiverHttpRequstManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiverHttpRequstManager.m; sourceTree = "<group>"; };
 		BB852BF91E0ACE8600568B4F /* AddTruckCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTruckCarViewController.h; sourceTree = "<group>"; };
@@ -969,6 +976,8 @@
 		BB5AB55E1DF2C54B009107B9 /* OtherImage */ = {
 			isa = PBXGroup;
 			children = (
+				BB68B0B01E115B8D00B0D6E1 /* login_arrow.png */,
+				BB68B0AE1E11521400B0D6E1 /* login_bg.png */,
 				BBAEC37E1E0EADAB00821C09 /* headerImage.png */,
 				BBE203191DFD6C1700BEB7E0 /* noimage.png */,
 				BB49EFFB1DFD4F8300CFFC39 /* develiy_succeed.png */,
@@ -1202,6 +1211,10 @@
 		BBAEC37D1E0E615E00821C09 /* 废弃代码 */ = {
 			isa = PBXGroup;
 			children = (
+				BB43217B1DF0603F00F77680 /* LaunchViewController.h */,
+				BB43217C1DF0603F00F77680 /* LaunchViewController.m */,
+				BB43217E1DF0605300F77680 /* LoginViewController.h */,
+				BB43217F1DF0605300F77680 /* LoginViewController.m */,
 				BBAEC3801E0EBD3600821C09 /* ExecuteDriverModel.h */,
 				BBAEC3811E0EBD3600821C09 /* ExecuteDriverModel.m */,
 				BBED55E11DF1C0A8009776E4 /* CarStockViewController.h */,
@@ -1281,12 +1294,10 @@
 		BBED55AA1DF1BCE7009776E4 /* 登陆注册 */ = {
 			isa = PBXGroup;
 			children = (
-				BB43217B1DF0603F00F77680 /* LaunchViewController.h */,
-				BB43217C1DF0603F00F77680 /* LaunchViewController.m */,
+				BB68B0AB1E11512200B0D6E1 /* LoginViewPageViewController.h */,
+				BB68B0AC1E11512200B0D6E1 /* LoginViewPageViewController.m */,
 				BB4321811DF0606000F77680 /* RegisterViewController.h */,
 				BB4321821DF0606000F77680 /* RegisterViewController.m */,
-				BB43217E1DF0605300F77680 /* LoginViewController.h */,
-				BB43217F1DF0605300F77680 /* LoginViewController.m */,
 			);
 			name = "登陆注册";
 			sourceTree = "<group>";
@@ -1697,6 +1708,8 @@
 				BB5AB5811DF2C56C009107B9 /* RecordingSignal007@2x.png in Resources */,
 				BB5AB57E1DF2C56C009107B9 /* RecordingSignal006.png in Resources */,
 				BB035DE91DF40723006EC2F0 /* TenderDetailCell.xib in Resources */,
+				BB68B0AF1E11521400B0D6E1 /* login_bg.png in Resources */,
+				BB68B0B11E115B8D00B0D6E1 /* login_arrow.png in Resources */,
 				BB5AB53C1DF263E3009107B9 /* TenderCell.xib in Resources */,
 				BB4321AE1DF069C500F77680 /* D7960B@2x.png in Resources */,
 				BB3462621DFEEA1400DC3FA8 /* F44C5F@2x.png in Resources */,
@@ -1909,6 +1922,7 @@
 				BB57D7F91DF6F6CF008888B0 /* MarginCell.m in Sources */,
 				BBED55DA1DF1C01A009776E4 /* SettingViewController.m in Sources */,
 				BB8812EB1DF999B600B54644 /* PickupContactsModel.m in Sources */,
+				BB68B0AD1E11512200B0D6E1 /* LoginViewPageViewController.m in Sources */,
 				BB5AB5BB1DF2D962009107B9 /* QRCodeAreaView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

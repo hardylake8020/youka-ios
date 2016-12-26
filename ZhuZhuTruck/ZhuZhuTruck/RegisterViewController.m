@@ -225,8 +225,9 @@
     
     save_UserPwd(_firstPassWordFiled.text);
     save_userPhone(_phoneNumberFiled.text);
-    LoginViewController *longinVC = [[LoginViewController alloc]init];
-    [self.navigationController pushViewController:longinVC animated:YES];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];

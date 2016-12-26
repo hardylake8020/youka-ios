@@ -48,6 +48,14 @@
     _currentPage = 0;
     _skipCount = 0;
     _totoalCount = 0;
+    
+    CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
+    if(authorizationStatus == kCLAuthorizationStatusNotDetermined){
+        [[LocationTracker defaultLoactionTarker] startLocationTracking];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenInvild) name:USER_TOKEN_INVILID_NOTI object:nil];
+    
+    
     self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.fd_prefersNavigationBarHidden = YES;
     self.fd_interactivePopDisabled = YES;
@@ -59,6 +67,32 @@
     [self initHeaderViewButton];
     [self initTableView];
     [self initErrorMaskView];
+}
+
+
+- (void)tokenInvild{
+    
+    if ([accessToken() isEmpty]) {
+        return;
+    }
+    save_UserPwd(@"");
+    save_AccessToken(@"");
+    [[DBManager sharedManager] deletedAllLocations];
+    [[DBManager sharedManager] deletAllOrders];
+    
+    //    [[LocationTracker defaultLoactionTarker] stopLocationTracking];
+    __weak typeof(self) _weakSelf = self;
+    RIButtonItem *deleteItem = [RIButtonItem itemWithLabel:@"去登录" action:^{
+        [_weakSelf.navigationController popToRootViewControllerAnimated:YES];
+    }];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
+                                                        message:@"用户验证信息失效，请重新登录"
+                                               cancelButtonItem:nil
+                                               otherButtonItems:deleteItem, nil];
+    [alertView show];
+    
+    
 }
 
 - (void)initErrorMaskView{

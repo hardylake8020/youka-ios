@@ -7,12 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import "LaunchViewController.h"
-#import <AudioToolbox/AudioToolbox.h>
-#import <BaiduMapAPI_Location/BMKLocationComponent.h>//引入定位功能所有的头文件
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 #import "GeTuiSdk.h"
+#import <Fabric/Fabric.h>
+#import "LaunchViewController.h"
+#import <Crashlytics/Crashlytics.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import "LoginViewPageViewController.h"
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>//引入定位功能所有的头文件
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 #import <UserNotifications/UserNotifications.h>
 #endif
@@ -45,7 +46,8 @@
     if (!ret) {
         CCLog(@"manager start failed!");
     }
-    LaunchViewController *lauchPage = [[LaunchViewController alloc]init];
+//    LaunchViewController *lauchPage = [[LaunchViewController alloc]init];
+    LoginViewPageViewController *lauchPage = [[LoginViewPageViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:lauchPage];
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
