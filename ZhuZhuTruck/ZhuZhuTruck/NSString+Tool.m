@@ -32,9 +32,27 @@
     return sizeName.width+1;
 }
 
+-(float)blodSizeW:(int)fontSize
+{
+    CGSize sizeName = [self sizeWithFont:[UIFont boldSystemFontOfSize:fontSize]
+                       constrainedToSize:CGSizeMake(MAXFLOAT, 0.0)
+                           lineBreakMode:NSLineBreakByCharWrapping];
+    return sizeName.width+1;
+}
+
+
 -(float)sizeH:(int)fontSize withLabelWidth:(float)width
 {
     CGSize sizeName = [self sizeWithFont:fontBysize(fontSize)
+                       constrainedToSize:CGSizeMake(width, MAXFLOAT)
+                           lineBreakMode:NSLineBreakByCharWrapping];
+    
+    
+    return sizeName.height;
+}
+-(float)blodSizeH:(int)fontSize withLabelWidth:(float)width
+{
+    CGSize sizeName = [self sizeWithFont:[UIFont boldSystemFontOfSize:fontSize]
                        constrainedToSize:CGSizeMake(width, MAXFLOAT)
                            lineBreakMode:NSLineBreakByCharWrapping];
     

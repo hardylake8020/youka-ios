@@ -184,6 +184,7 @@
             [_weakSelf.photos removeObject:fileName];
             [_weakSelf.collectionView reloadData];
         }];
+        
         [self.navigationController pushViewController:show animated:YES];
     }
 }

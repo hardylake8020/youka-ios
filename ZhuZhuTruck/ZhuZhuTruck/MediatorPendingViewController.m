@@ -150,11 +150,7 @@
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TenderModel *tenderModel = [self.dataArray objectAtIndex:indexPath.section];
-    if ([tenderModel.status isEqualToString:@"unAssigned"]) {
-        return 160;
-    }
-    return 140;
+    return 130;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.5;
@@ -195,6 +191,7 @@
         [assignButton setBackgroundColor:[UIColor whiteColor]];
         [assignButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
         [assignButton setTitle:@"分配车辆" forState:UIControlStateNormal];
+        assignButton.titleLabel.font = fontBysize(16);
         assignButton.tag = 2000+section;
         [assignButton addTarget:self action:@selector(assignOrder:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:assignButton];

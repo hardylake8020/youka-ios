@@ -55,10 +55,10 @@
     
     
     
-    self.fromCityLabel.text = model.pickup_city;
-    self.fromDistrictLabel.text = model.pickup_region;
-    self.toCityLabel.text = model.delivery_city;
-    self.toDistrictLabel.text = model.delivery_region;
+    self.fromCityLabel.text = model.pickup_province;
+    self.fromDistrictLabel.text = model.pickup_city;
+    self.toCityLabel.text = model.delivery_province;
+    self.toDistrictLabel.text = model.delivery_city;
     self.timeLabel.text = [NSString stringWithFormat:@"发布时间  %@", dateStringWithDateAndFormart(model.start_time, @"MM-dd hh:mm")];
     self.goodsDetailLabel.text = [NSString stringWithFormat:@"货物摘要  %@ %@ %@",model.sender_company,@"55方",@"44公里"];
     

@@ -53,6 +53,7 @@
     if(authorizationStatus == kCLAuthorizationStatusNotDetermined){
         [[LocationTracker defaultLoactionTarker] startLocationTracking];
     }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenInvild) name:USER_TOKEN_INVILID_NOTI object:nil];
     
     
@@ -141,48 +142,50 @@
 
     
     
+    CGFloat headerHight = 80;
     
-    
-    UIView *progressView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 100)];
+    UIView *progressView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, headerHight)];
     progressView.backgroundColor = [UIColor naviBlackColor];
     [self.view addSubview:progressView];
     
     
-    UIButton *mediatorButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 100)];
+    UIButton *mediatorButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, headerHight)];
     [mediatorButton addTarget:self action:@selector(gotoMediatorProgress) forControlEvents:UIControlEventTouchUpInside];
     [progressView addSubview:mediatorButton];
     
-    mediatorNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 60)];
+    mediatorNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 45)];
     mediatorNumberLabel.text = @"4";
     mediatorNumberLabel.textAlignment = NSTextAlignmentCenter;
-    mediatorNumberLabel.font = [UIFont boldSystemFontOfSize:32];
+    mediatorNumberLabel.font = fontBysize(30);
     mediatorNumberLabel.textColor = [UIColor whiteColor];
     [mediatorButton addSubview:mediatorNumberLabel];
     
-    UILabel *mediatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/2, 40)];
+    UILabel *mediatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 45, SYSTEM_WIDTH/2, 35)];
     mediatorLabel.text = @"比价、抢单中";
     mediatorLabel.textAlignment = NSTextAlignmentCenter;
     mediatorLabel.textColor = [UIColor whiteColor];
+    mediatorLabel.font = fontBysize(15);
     [mediatorButton addSubview:mediatorLabel];
     
-    UIButton *driverButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/2, 0, SYSTEM_WIDTH/2, 100)];
+    UIButton *driverButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/2, 0, SYSTEM_WIDTH/2, headerHight)];
     [driverButton addTarget:self action:@selector(gotoDrvierProgress) forControlEvents:UIControlEventTouchUpInside];
     [progressView addSubview:driverButton];
     
-    driverNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 60)];
+    driverNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 45)];
     
     driverNumberLabel.textAlignment = NSTextAlignmentCenter;
-    driverNumberLabel.font = [UIFont boldSystemFontOfSize:32];
+    driverNumberLabel.font = fontBysize(30);
     driverNumberLabel.textColor = [UIColor whiteColor];
     [driverButton addSubview:driverNumberLabel];
     
-    UILabel *driverLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/2, 40)];
+    UILabel *driverLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 45, SYSTEM_WIDTH/2, 35)];
     driverLabel.text = @"待处理运单";
     driverLabel.textAlignment = NSTextAlignmentCenter;
     driverLabel.textColor = [UIColor whiteColor];
+    driverLabel.font = fontBysize(15);
     [driverButton addSubview:driverLabel];
     
-    UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+100, SYSTEM_WIDTH, 110)];
+    UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+headerHight, SYSTEM_WIDTH, 110)];
     buttonsView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     NSArray *images = @[@"find_tender",@"assign_car",@"wallet",@"oil_card"];
     NSArray *titles = @[@"我要找货",@"我的车队",@"我的钱包",@"我的卡劵"];
@@ -223,7 +226,7 @@
 
 - (void)initTableView{
 
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+210, SYSTEM_WIDTH, SYSTEM_HEIGHT-210-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+190, SYSTEM_WIDTH, SYSTEM_HEIGHT-190-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -390,7 +393,7 @@
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";
     pageVC.titleSizeNormal = 18;
-    pageVC.progressHeight = 4;
+    pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
     pageVC.titleSizeSelected = 18;
@@ -404,7 +407,7 @@
     NSString *title;
     viewControllers = @[[MediatorPendingViewController class],[MediatorTransportingViewController class],[MediatorFinishedViewController class]];
     titles = @[@"待处理",@"运输中",@"已完成"];
-    title = @"我的定单";
+    title = @"比价、抢单中";
     MediatorProgressViewController *pageVC = [[MediatorProgressViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
     pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
     pageVC.postNotification = YES;
@@ -416,7 +419,7 @@
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";
     pageVC.titleSizeNormal = 18;
-    pageVC.progressHeight = 4;
+    pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
     pageVC.titleSizeSelected = 18;

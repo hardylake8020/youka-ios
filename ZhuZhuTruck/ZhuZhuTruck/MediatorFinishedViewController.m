@@ -187,7 +187,7 @@
     [carNumberButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
     [carNumberButton setTitle:tenderModel.truck_number forState:UIControlStateNormal];
     carNumberButton.tag = 4000+section;
-    
+    carNumberButton.titleLabel.font = fontBysize(16);
     [carNumberButton addTarget:self action:@selector(timeLine:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:carNumberButton];
     

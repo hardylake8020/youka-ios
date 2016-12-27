@@ -78,7 +78,7 @@
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errType                                                                     forKey:NSLocalizedDescriptionKey];
                 error = [[NSError alloc]initWithDomain:errType code:-200 userInfo:userInfo];
                 
-                if ([error.localizedDescription isEqualToString:@"driver_token_invalid"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"driver_not_exist"]) {
+                if ([error.localizedDescription isEqualToString:@"invalid_access_token"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"driver_not_exist"]) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USER_TOKEN_INVILID_NOTI object:nil];
                 }
             }
@@ -137,7 +137,7 @@
                 NSLog(@"errtype:----->%@",errType);
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errType                                                                     forKey:NSLocalizedDescriptionKey];
                 error = [[NSError alloc]initWithDomain:errType code:-200 userInfo:userInfo];
-                if ([error.localizedDescription isEqualToString:@"driver_token_invalid"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"driver_not_exist"]) {
+                if ([error.localizedDescription isEqualToString:@"invalid_access_token"]||[error.localizedDescription isEqualToString:@"undefined_access_token"]||[error.localizedDescription isEqualToString:@"driver_not_exist"]) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:USER_TOKEN_INVILID_NOTI object:nil];
                 }
             }

@@ -29,7 +29,7 @@
     self.toProvinceLabel.text = model.delivery_province;
     self.toCityLabel.text = model.delivery_city;
     self.bottomLineVIew.backgroundColor = UIColorFromRGB(0xdddddd);
-    self.bottomLineVIew.frame = CGRectMake(0, 98.5, SYSTEM_WIDTH, 0.5);
+    self.bottomLineVIew.frame = CGRectMake(0, 78.5, SYSTEM_WIDTH, 0.5);
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

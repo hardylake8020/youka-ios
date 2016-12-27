@@ -67,12 +67,12 @@
     [searchButton addTarget:self action:@selector(serchClick) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:searchButton];
     searchButton.sd_layout
-    .rightSpaceToView(headerView,19)
-    .topSpaceToView(headerView,19)
-    .heightIs(22)
-    .widthIs(22);
+    .rightSpaceToView(headerView,15)
+    .topSpaceToView(headerView,15)
+    .heightIs(32)
+    .widthIs(32);
 
-    UIView *addressView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH-60, 60)];
+    UIView *addressView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH-60, 70)];
     [headerView addSubview:addressView];
     
     UILabel * centerLabel = [[UILabel alloc]init];
@@ -89,8 +89,8 @@
     
     _fromAddressTextFiled = [[CCTextFiled alloc]init];
     _fromAddressTextFiled.textAlignment = NSTextAlignmentCenter;
-    _fromAddressTextFiled.font = fontBysize(18);
-    _fromAddressTextFiled.placeholder = @"起始地";
+    _fromAddressTextFiled.font = fontBysize(16);
+    _fromAddressTextFiled.placeholder = @"请输入起始地";
     _fromAddressTextFiled.delegate = self;
     _fromAddressTextFiled.layer.borderWidth = 0;
     [addressView addSubview:_fromAddressTextFiled];
@@ -103,8 +103,8 @@
     
     _toAddressTextFiled = [[CCTextFiled alloc]init];
     _toAddressTextFiled.textAlignment = NSTextAlignmentCenter;
-    _toAddressTextFiled.font = fontBysize(18);
-    _toAddressTextFiled.placeholder = @"目的地";
+    _toAddressTextFiled.font = fontBysize(16);
+    _toAddressTextFiled.placeholder = @"请输入目的地";
     _toAddressTextFiled.delegate = self;
     _toAddressTextFiled.layer.borderWidth = 0;
     [addressView addSubview:_toAddressTextFiled];
@@ -115,10 +115,10 @@
     .rightEqualToView (addressView)
     .leftSpaceToView(centerLabel,0);
     
-    UIView *seletedBar = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH, 50)];
+    UIView *seletedBar = [[UIView alloc]initWithFrame:CGRectMake(0, 70, SYSTEM_WIDTH, 40)];
     [headerView addSubview:seletedBar];
     
-    _totoalButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/3, 50)];
+    _totoalButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/3, 40)];
     [_totoalButton setTitle:@"全部" forState:UIControlStateNormal];
     [_totoalButton setTitleColor:[UIColor grayTextColor] forState:UIControlStateNormal];
     [_totoalButton setTitleColor:[UIColor customRedColor] forState:UIControlStateSelected];
@@ -127,7 +127,7 @@
     [_totoalButton addTarget:self action:@selector(totalClick) forControlEvents:UIControlEventTouchDown];
     _totoalButton.selected = YES;
     
-    _bidButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3, 50)];;
+    _bidButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3, 40)];;
     [_bidButton setTitle:@"竞价" forState:UIControlStateNormal];
     [_bidButton setTitleColor:[UIColor grayTextColor] forState:UIControlStateNormal];
     [_bidButton setTitleColor:[UIColor customRedColor] forState:UIControlStateSelected];
@@ -136,7 +136,7 @@
     [_bidButton addTarget:self action:@selector(bidClick) forControlEvents:UIControlEventTouchDown];
 
     
-    _robButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3*2, 0, SYSTEM_WIDTH/3, 50)];;
+    _robButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3*2, 0, SYSTEM_WIDTH/3, 40)];;
     [_robButton setTitle:@"抢单" forState:UIControlStateNormal];
     [_robButton setTitleColor:[UIColor grayTextColor] forState:UIControlStateNormal];
     [_robButton setTitleColor:[UIColor customRedColor] forState:UIControlStateSelected];
@@ -152,7 +152,7 @@
     .leftEqualToView (headerView)
     .rightEqualToView(headerView)
     .topSpaceToView(addressView,0)
-    .heightIs(0.5);
+    .heightIs(1);
     
     UIView *bottomLine = [[UIView alloc]init];
     bottomLine.backgroundColor = [UIColor customGrayColor];
@@ -163,7 +163,7 @@
     .leftEqualToView (headerView)
     .rightEqualToView(headerView)
     .bottomEqualToView(headerView)
-    .heightIs(0.5);
+    .heightIs(1);
     
 }
 

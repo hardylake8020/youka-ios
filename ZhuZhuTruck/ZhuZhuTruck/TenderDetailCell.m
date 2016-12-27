@@ -9,6 +9,7 @@
 #import "TenderDetailCell.h"
 #import "Constants.h"
 #import "NSString+Tool.h"
+#import "UIColor+CustomColors.h"
 @interface TenderDetailCell ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subTitleLabel;
@@ -31,14 +32,14 @@
     }else{
         self.subTitleLabel.text = model.subTitle;
         if (model.isPhone) {
-            self.subTitleLabel.textColor = [UIColor blueColor];
+            self.subTitleLabel.textColor = [UIColor customBlueColor];
         }
     }
     if (model.isLight) {
-        self.subTitleLabel.font = [UIFont boldSystemFontOfSize:18];
+        self.subTitleLabel.font = [UIFont boldSystemFontOfSize:16];
         self.contentView.backgroundColor = [UIColor whiteColor];
     }else{
-        self.subTitleLabel.font = [UIFont systemFontOfSize:16];
+        self.subTitleLabel.font = [UIFont systemFontOfSize:14];
         
         self.contentView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     }

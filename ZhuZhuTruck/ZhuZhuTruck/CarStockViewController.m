@@ -115,7 +115,7 @@
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";
     pageVC.titleSizeNormal = 18;
-    pageVC.progressHeight = 4;
+    pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
     pageVC.titleSizeSelected = 18;

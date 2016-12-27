@@ -10,6 +10,7 @@
 "invalid_password" = "密码不正确";
 "driver_token_invalid" = "用户凭证失效，请重新登录";
 "token_invalid" = "用户凭证失效，请重新登录";
+"invalid_access_token" = "用户凭证失效，请重新登录";
 "undefined_access_token" = "用户凭证失效，请重新登录";
 "driver_not_exist" = "此账号不存在";
 "driver_account_not_exist" = "此账号不存在";

@@ -66,7 +66,7 @@
     backLabel.text = [NSString fontAwesomeIconStringForEnum:FAAngleLeft];
     UILabel *backTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 45, 44)];
     backTextLabel.textColor = [UIColor whiteColor];
-    backTextLabel.text = @"返回";
+//    backTextLabel.text = @"返回";
     [button addSubview:backLabel];
     [button addSubview:backTextLabel];
     return button;

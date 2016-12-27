@@ -142,10 +142,10 @@
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 140;
+    return 120;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 45;
+    return 40;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
@@ -159,13 +159,13 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 45)];
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 40)];
     UIColor *startColor = UIColorFromRGB(0xf5f5f5);
-    UIButton *timeLineButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 45)];
+    UIButton *timeLineButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 40)];
     [timeLineButton setBackgroundColor:startColor];
     [timeLineButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [timeLineButton setTitle:@"时间轴" forState:UIControlStateNormal];
-    timeLineButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    timeLineButton.titleLabel.font = [UIFont systemFontOfSize:14];
     timeLineButton.tag = 10000+section;
     [timeLineButton addTarget:self action:@selector(timeLine:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:timeLineButton];

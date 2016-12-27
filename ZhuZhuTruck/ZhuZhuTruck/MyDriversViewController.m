@@ -77,7 +77,7 @@
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
-    
+    [self.tableView setSeparatorColor:[UIColor customGrayColor]];
     [self.view addSubview:self.tableView];
     
     CCWeakSelf(self);
@@ -150,7 +150,7 @@
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120;
+    return 110;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

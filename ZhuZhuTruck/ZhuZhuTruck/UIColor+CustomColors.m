@@ -32,7 +32,7 @@
 
 + (UIColor *)customGreenColor
 {
-    return ColorFromRGB(0x9ee32a);
+    return ColorFromRGB(0x2DBF00);
 }
 
 + (UIColor *)customBlueColor

@@ -176,6 +176,7 @@
     
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self.view addSubview:self.tableView];
 }
 #pragma mark ---> UITableViewDelegate dataSource
@@ -192,7 +193,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 100;
+        return 80;
     }else{
         TenderDetailCellModel *cellModel = [self.tableModel.dataArray objectAtIndex:indexPath.row];
         return cellModel.cellHight;
@@ -419,7 +420,7 @@
             statusLabel.textColor = [UIColor whiteColor];
             statusLabel.font = fontBysize(18);
             statusLabel.textAlignment = NSTextAlignmentCenter;
-            statusLabel.backgroundColor = [UIColor customRedColor];
+            statusLabel.backgroundColor = [UIColor naviBlackColor];
             [_operationView addSubview:statusLabel];
             
             statusLabel.sd_layout
@@ -492,7 +493,7 @@
     NSString *title;
     viewControllers = @[[MediatorPendingViewController class],[MediatorTransportingViewController class],[MediatorFinishedViewController class]];
     titles = @[@"待处理",@"运输中",@"已完成"];
-    title = @"我的定单";
+    title = @"比价、抢单中";
     MediatorProgressViewController *pageVC = [[MediatorProgressViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
     pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
     pageVC.postNotification = YES;
@@ -504,13 +505,12 @@
     pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
     pageVC.titleFontName = @"Helvetica-Bold";
     pageVC.titleSizeNormal = 18;
-    pageVC.progressHeight = 4;
+    pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
     pageVC.titleSizeSelected = 18;
     pageVC.title = title;
     [self.navigationController pushViewController:pageVC animated:YES];
-    
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];

@@ -63,6 +63,13 @@
 }
 
 - (void)initLoginView{
+    
+    CGFloat forSmallScreen = 1;
+    if (SYSTEM_WIDTH<=320) {
+        forSmallScreen = 0.8;
+    }
+    
+    
     UIImageView *backImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_bg"]];
     backImageView.frame = self.view.bounds;
     [backImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -74,18 +81,19 @@
     iconImageView.sd_layout
     .centerXEqualToView(backImageView)
     .topSpaceToView(backImageView, 80)
-    .widthIs(80)
-    .heightIs(80);
+    .widthIs(100*forSmallScreen)
+    .heightIs(100*forSmallScreen);
     
-    phoneTextField=[[UITextField alloc] initWithFrame:CGRectMake(40,200,SYSTEM_WIDTH-80, 50)];
+    phoneTextField=[[UITextField alloc] initWithFrame:CGRectMake(40,220,SYSTEM_WIDTH-80, 50)];
     [phoneTextField setKeyboardType:UIKeyboardTypeNumberPad];
     phoneTextField.delegate = self;
     [phoneTextField setText:user_phone()];
     phoneTextField.textColor = [UIColor colorWithWhite:1 alpha:1];
     phoneTextField.textAlignment = NSTextAlignmentCenter;
-    phoneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"用户名" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:0.7 alpha:1]}];
+    phoneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"用户名" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:0.6 alpha:1]}];
     
     [self.view addSubview:phoneTextField];
+    
     
     UIView *bottomView1 = [[UIView alloc]init];
     bottomView1.backgroundColor = [UIColor customRedColor];
@@ -93,14 +101,14 @@
     bottomView1.sd_layout
     .leftSpaceToView(backImageView,80)
     .rightSpaceToView(backImageView,80)
-    .topSpaceToView (phoneTextField, -5)
+    .topSpaceToView (phoneTextField, -10)
     .heightIs(2);
     
     
-    passWordTextFied=[[UITextField alloc] initWithFrame:CGRectMake(40,280, SYSTEM_WIDTH-80, 50)];
+    passWordTextFied=[[UITextField alloc] initWithFrame:CGRectMake(40,200 + 100*forSmallScreen, SYSTEM_WIDTH-80, 50)];
     [passWordTextFied setKeyboardType:UIKeyboardTypeEmailAddress];
     [passWordTextFied setSecureTextEntry:YES];
-    passWordTextFied.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:0.7 alpha:1]}];
+    passWordTextFied.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:0.6 alpha:1]}];
     [passWordTextFied setClearsOnBeginEditing:YES];
     passWordTextFied.delegate = self;
     passWordTextFied.textColor = [UIColor colorWithWhite:1 alpha:1];
@@ -113,7 +121,7 @@
     bottomView2.sd_layout
     .leftSpaceToView(backImageView,80)
     .rightSpaceToView(backImageView,80)
-    .topSpaceToView (passWordTextFied, -5)
+    .topSpaceToView (passWordTextFied, -10)
     .heightIs(2);
     
     
@@ -121,13 +129,13 @@
     loginView.backgroundColor = [UIColor customRedColor];
     [backImageView addSubview:loginView];
     loginView.clipsToBounds = YES;
-    loginView.layer.cornerRadius = 30;
+    loginView.layer.cornerRadius = 35;
     
     loginView.sd_layout
-    .widthIs(60)
-    .heightIs(60)
+    .widthIs(70)
+    .heightIs(70)
     .centerXEqualToView(backImageView)
-    .topSpaceToView(bottomView2,50);
+    .topSpaceToView(bottomView2,40);
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(loginButtonClick)];
     [loginView addGestureRecognizer:tap];
@@ -149,14 +157,16 @@
     [forgetPassport setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgetPassport setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [forgetPassport addTarget:self action:@selector(resetPassWordClick) forControlEvents:UIControlEventTouchUpInside];
+    forgetPassport.titleLabel.font = fontBysize(16);
     [backImageView addSubview:forgetPassport];
+    
     
     forgetPassport.sd_layout
     .leftSpaceToView(backImageView,80)
     .rightSpaceToView(backImageView,80)
     .heightIs(20)
     .centerXEqualToView(backImageView)
-    .bottomSpaceToView(backImageView,50);
+    .bottomSpaceToView(backImageView,70*forSmallScreen);
 
     
 
@@ -164,7 +174,11 @@
     [creatAccount setTitle:@"创建账户" forState:UIControlStateNormal];
     [creatAccount setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [creatAccount addTarget:self action:@selector(gotoRegisterVC) forControlEvents:UIControlEventTouchUpInside];
+    creatAccount.titleLabel.font = fontBysize(16);
     [backImageView addSubview:creatAccount];
+    
+    
+    
     
     creatAccount.sd_layout
     .leftSpaceToView(backImageView,80)

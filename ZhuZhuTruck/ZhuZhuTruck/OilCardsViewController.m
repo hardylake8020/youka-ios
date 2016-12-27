@@ -10,11 +10,15 @@
 #import "CardModel.h"
 #import "AddCardViewController.h"
 #import "HomePageViewController.h"
-#import "DriverUnStartViewController.h"
-#import "DriverOngoingViewController.h"
-#import "DriverFinishedViewController.h"
-#import "DriverProgressViewController.h"
+//#import "DriverUnStartViewController.h"
+//#import "DriverOngoingViewController.h"
+//#import "DriverFinishedViewController.h"
+//#import "DriverProgressViewController.h"
 #import "DriverCarDetailViewController.h"
+#import "MediatorPendingViewController.h"
+#import "MediatorProgressViewController.h"
+#import "MediatorFinishedViewController.h"
+#import "MediatorTransportingViewController.h"
 @interface OilCardsViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
@@ -160,9 +164,10 @@
             toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
+            
             [weakself.dataArray removeAllObjects];
             NSArray *cards = [result objectForKey:@"cards"];
-            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)cards.count);
+            CCLog(@"UnpickOrderCount------------>:%ld",(unsigned long)cards.count);
             for (NSDictionary *cardDict in cards) {
                 CardModel *cardModel = [[CardModel alloc]initWithDictionary:cardDict error:nil];
                 if (weakself.isSeletedMode) {
@@ -173,6 +178,7 @@
                     [weakself.dataArray addObject:cardModel];
                 }
             }
+            
             [weakself.tableView reloadData];
         }
         if (weakself.dataArray.count==0) {
@@ -296,7 +302,7 @@
                 [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"分配失败")];
             }else{
                 [SVProgressHUD showSuccessWithStatus:@"分配成功"];
-                [_weakSelf jumpToHomePage];
+                [_weakSelf gotoMediatorProgress];
             }
         }];
 
@@ -322,6 +328,32 @@
         }
     }
 
+}
+
+- (void)gotoMediatorProgress{
+    NSArray *viewControllers;
+    NSArray *titles;
+    NSString *title;
+    viewControllers = @[[MediatorPendingViewController class],[MediatorTransportingViewController class],[MediatorFinishedViewController class]];
+    titles = @[@"待处理",@"运输中",@"已完成"];
+    title = @"比价、抢单中";
+    MediatorProgressViewController *pageVC = [[MediatorProgressViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
+    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
+    pageVC.postNotification = YES;
+    pageVC.bounces = YES;
+    pageVC.menuHeight = 36;
+    pageVC.menuViewStyle = WMMenuViewStyleLine;
+    pageVC.menuBGColor = [UIColor naviBlackColor];
+    pageVC.titleColorSelected = [UIColor whiteColor];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleFontName = @"Helvetica-Bold";
+    pageVC.titleSizeNormal = 18;
+    pageVC.progressHeight = 3;
+    pageVC.progressColor = [UIColor whiteColor];
+    pageVC.pageAnimatable = YES;
+    pageVC.titleSizeSelected = 18;
+    pageVC.title = title;
+    [self.navigationController pushViewController:pageVC animated:YES];
 }
 
 - (void)naviBack{

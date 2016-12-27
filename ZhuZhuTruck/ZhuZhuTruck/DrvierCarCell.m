@@ -29,16 +29,16 @@
 - (void)showTruckCellWithModel:(TruckModel *)model{
     
     self.carNumberLabel.text = model.truck_number;
-    self.carDetailLabel.text = model.truck_type;
-    self.driverNameLabel.text = ![model.driver_name isEmpty]?model.driver_name:@"未填写";
-    self.contactLabel.text = model.driver_number;
+    self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",model.truck_type];
+    self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",![model.driver_name isEmpty]?model.driver_name:@"未填写"] ;
+    self.contactLabel.text =[NSString stringWithFormat:@"联系手机    %@",model.driver_number];
 }
 
 - (void)showSeletedTruckCellWithModel:(TruckModel *)model{
     self.carNumberLabel.text = model.truck_number;
-    self.carDetailLabel.text = model.truck_type;
-    self.driverNameLabel.text = ![model.driver_name isEmpty]?model.driver_name:@"未填写";
-    self.contactLabel.text = model.driver_number;
+    self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",model.truck_type];
+    self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",![model.driver_name isEmpty]?model.driver_name:@"未填写"] ;
+    self.contactLabel.text =[NSString stringWithFormat:@"联系手机    %@",model.driver_number];
     if (model.isSeleted.boolValue) {
         self.seletedImageView.image = [UIImage imageNamed:@"seleted"];
     }else{

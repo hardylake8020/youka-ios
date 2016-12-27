@@ -12,7 +12,9 @@
 -(BOOL) isEmpty;
 -(BOOL) isEqualToLowerString:(NSString *)aString;
 -(float)sizeW:(int)fontSize;
+-(float)blodSizeW:(int)fontSize;
 -(float)sizeH:(int)fontSize withLabelWidth:(float)width;
+-(float)blodSizeH:(int)fontSize withLabelWidth:(float)width;
 -(NSString*)format:(NSString*)format;
 -(NSInteger)timeRemaining;
 -(NSDate *)dateFromString;

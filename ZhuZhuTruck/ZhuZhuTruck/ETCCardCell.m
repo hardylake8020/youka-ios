@@ -44,7 +44,16 @@
         self.cardNumberLabel.textColor = [UIColor customRedColor];
         self.cardTipLabel.textColor = [UIColor customRedColor];
     }
-    self.cardNumberLabel.text = model.number;
+    NSMutableString *cardNumber = [NSMutableString string];
+    for (int i=0; i<model.number.length; i++) {
+        unichar character = [model.number characterAtIndex:i];
+        [cardNumber appendFormat:@"%c", character];
+        if (i%4==3) {
+            [cardNumber appendString:@" "];
+        }
+    }
+    
+    self.cardNumberLabel.text = cardNumber;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 - (void)showSeletedCardCellWithModel:(CardModel *)model{
@@ -56,7 +65,16 @@
     self.carNumberLabel.textColor = [UIColor customRedColor];
     self.cardNumberLabel.textColor = [UIColor customRedColor];
     self.cardTipLabel.textColor = [UIColor customRedColor];
-    self.cardNumberLabel.text = model.number;
+    NSMutableString *cardNumber = [NSMutableString string];
+    for (int i=0; i<model.number.length; i++) {
+        unichar character = [model.number characterAtIndex:i];
+        [cardNumber appendFormat:@"%c", character];
+        if (i%4==3) {
+            [cardNumber appendString:@" "];
+        }
+    }
+    
+    self.cardNumberLabel.text = cardNumber;
     if (model.isSeleted.boolValue) {
         self.seletedImageView.image = [UIImage imageNamed:@"seleted"];
     }else{

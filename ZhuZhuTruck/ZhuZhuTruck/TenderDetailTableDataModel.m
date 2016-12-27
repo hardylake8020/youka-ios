@@ -182,7 +182,6 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"提货联系人";
     model.isLight = NO;
-    model.isPhone = YES;
     model.noBottomLine = YES;
     model.subTitle = ![tenderModel.pickup_name isEmpty]?tenderModel.pickup_name:@"";
     [self.dataArray addObject:model];

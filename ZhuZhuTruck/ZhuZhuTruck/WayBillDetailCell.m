@@ -8,6 +8,7 @@
 
 #import "WayBillDetailCell.h"
 #import "NSString+Tool.h"
+#import "UIColor+CustomColors.h"
 @interface WayBillDetailCell ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subTitleLabel;
@@ -28,7 +29,7 @@
     }else{
         self.subTitleLabel.text = model.subTitle;
         if (model.isPhone) {
-            self.subTitleLabel.textColor = [UIColor blueColor];
+            self.subTitleLabel.textColor = [UIColor customBlueColor];
         }
     }
     

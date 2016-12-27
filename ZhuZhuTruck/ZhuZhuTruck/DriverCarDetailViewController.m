@@ -42,7 +42,7 @@
     [self initTableView];
 }
 - (void)initHeaderView{
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 150)];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 200)];
     headerView.backgroundColor = [UIColor naviBlackColor];
     [self.view addSubview:headerView];
     
@@ -51,11 +51,11 @@
     [headerView addSubview:carImageView];
     
     carImageView.clipsToBounds = YES;
-    carImageView.layer.cornerRadius = 50;
+    carImageView.layer.cornerRadius = 70;
     
     carImageView.sd_layout
-    .widthIs(100)
-    .heightIs(100)
+    .widthIs(140)
+    .heightIs(140)
     .centerXEqualToView(headerView)
     .centerYEqualToView(headerView);
     
@@ -81,13 +81,14 @@
     self.tableModel = [[TruckDetailTableDataModel alloc]initWithTruckModel:self.truckModel];
     
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+150, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-150) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+200, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-150) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"CarDetailCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"CarDetailCell"];
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    [self.tableView setSeparatorColor:[UIColor customGrayColor]];
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 0.1)];
 }
@@ -101,7 +102,7 @@
     return [(NSArray *)[self.tableModel.dataArray objectAtIndex:section] count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 50;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TruckDetailCellModel *model = [[self.tableModel.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -116,7 +117,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
     headerView.backgroundColor = UIColorFromRGB(0xf5f5f5);
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, SYSTEM_WIDTH, 0.5)];
     lineView.backgroundColor = [UIColor customGrayColor];
     [headerView addSubview:lineView];
     return headerView;

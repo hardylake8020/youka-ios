@@ -39,9 +39,10 @@
     self.photoName = @"";
     
     self.dataArray = @[@"请选择车型",@"金杯车",@"4.2米",@"6.8米",@"7.6米",@"9.6前四后四",@"9.6前四后八",@"12.5米",@"14.7米",@"16.5米",@"17.5米"];
-    self.picker = [[UIImagePickerController alloc] init];
-    _picker.delegate = self;
-    _picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+//    self.picker = [[UIImagePickerController alloc] init];
+//    _picker.delegate = self;
+//    _picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     view_back = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
     view_back.backgroundColor = UIColorFromRGB(0xf5f5f5);
@@ -105,7 +106,7 @@
     addView.backgroundColor = [UIColor whiteColor];
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, 50)];
-    tipLabel.font = fontBysize(18);
+    tipLabel.font = fontBysize(16);
     tipLabel.text = @"车牌";
     [addView addSubview:tipLabel];
     
@@ -117,6 +118,7 @@
     _truckNumberFiled.delegate = self;
     _truckNumberFiled.clearButtonMode = UITextFieldViewModeAlways;
     [_truckNumberFiled setPlaceholder:@"请输入车牌号"];
+    _truckNumberFiled.font = fontBysize(16);
     [addView addSubview:_truckNumberFiled];
     
     UIView* lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 49.5, SYSTEM_WIDTH, 0.5)];
@@ -146,6 +148,7 @@
     _driverNameFiled.delegate = self;
     _driverNameFiled.clearButtonMode = UITextFieldViewModeAlways;
     [_driverNameFiled setPlaceholder:@"请输入司机姓名"];
+    _driverNameFiled.font = fontBysize(16);
     [addView addSubview:_driverNameFiled];
     
     UIView* lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 49.5, SYSTEM_WIDTH, 0.5)];
@@ -163,7 +166,7 @@
     addView.backgroundColor = [UIColor whiteColor];
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, 50)];
-    tipLabel.font = fontBysize(18);
+    tipLabel.font = fontBysize(16);
     tipLabel.text = @"司机手机";
     [addView addSubview:tipLabel];
     
@@ -176,6 +179,7 @@
     _phoneNumberFiled.clearButtonMode = UITextFieldViewModeAlways;
     _phoneNumberFiled.keyboardType = UIKeyboardTypeNumberPad;
     [_phoneNumberFiled setPlaceholder:@"请输入司机手机号"];
+    _phoneNumberFiled.font = fontBysize(16);
     [addView addSubview:_phoneNumberFiled];
     
     
@@ -193,7 +197,7 @@
     addView.backgroundColor = [UIColor whiteColor];
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, 100)];
-    tipLabel.font = fontBysize(18);
+    tipLabel.font = fontBysize(16);
     tipLabel.text = @"车辆照片";
     [addView addSubview:tipLabel];
     
@@ -267,7 +271,7 @@
     addCadButton.backgroundColor = [UIColor buttonGreenColor];
     [addCadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    [addCadButton setTitle:@"添加" forState:UIControlStateNormal];
+    [addCadButton setTitle:@"保存" forState:UIControlStateNormal];
     [addCadButton addTarget:self action:@selector(addCardCall) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:addCadButton];

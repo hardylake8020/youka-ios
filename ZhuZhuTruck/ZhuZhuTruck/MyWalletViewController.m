@@ -26,26 +26,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addBlackNaviHaderViewWithTitle:@"我的钱包"];
+    [self addNaviHeaderViewWithTitle:@"我的钱包"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderView];
     [self initTableView];
 }
 - (void)initHeaderView{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 140)];
-    headerView.backgroundColor = [UIColor naviBlackColor];
+    headerView.backgroundColor = [UIColor naviBarColor];
     [self.view addSubview:headerView];
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, SYSTEM_WIDTH-30, 20)];
     tipLabel.textColor = [UIColor customGrayColor];
-    tipLabel.font = fontBysize(16);
+    tipLabel.font = fontBysize(14);
     tipLabel.text = @"账户余额（元）";
     [headerView addSubview:tipLabel];
     
     UILabel *accountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 40, SYSTEM_WIDTH-30, 100)];
     accountLabel.textColor = [UIColor whiteColor];
-    accountLabel.font = fontBysize(60);
-    accountLabel.text = @"2000.00";
+    accountLabel.font = fontBysize(54);
+    accountLabel.text = @"20000.00";
     [headerView addSubview:accountLabel];
     
 }

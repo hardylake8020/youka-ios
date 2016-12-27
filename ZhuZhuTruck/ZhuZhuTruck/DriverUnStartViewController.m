@@ -165,10 +165,10 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 140;
+    return 120;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 45;
+    return 40;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
@@ -186,7 +186,7 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(-1, 0, SYSTEM_WIDTH+2, 45)];
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(-1, 0, SYSTEM_WIDTH+2, 40)];
     
     footerView.layer.borderColor = [UIColor customGrayColor].CGColor;
     footerView.layer.borderWidth = 0.5;
@@ -195,29 +195,29 @@
     UIColor *startColor = UIColorFromRGB(0xf5f5f5);
     UIColor *enterColor = UIColorFromRGB(0xf9f9f9);
     if (![orderModel.confirm_status isEqualToString:@"confirmed"]) {
-        UIButton *carStartButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 45)];
+        UIButton *carStartButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 40)];
         [carStartButton setBackgroundColor:startColor];
         [carStartButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [carStartButton setTitle:@"发车启动" forState:UIControlStateNormal];
-        carStartButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        carStartButton.titleLabel.font = [UIFont systemFontOfSize:14];
         carStartButton.tag = 5000+section;
         [carStartButton addTarget:self action:@selector(startCar:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:carStartButton];
     }
     else{
-        UIButton *pickupSignButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/3, 44)];
+        UIButton *pickupSignButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/3, 39)];
         [pickupSignButton setBackgroundColor:enterColor];
         [pickupSignButton setTitle:@"进场" forState:UIControlStateNormal];
-        pickupSignButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        pickupSignButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [pickupSignButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
         pickupSignButton.tag = 6000+section;
         [pickupSignButton addTarget:self action:@selector(pickupSign:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:pickupSignButton];
         
-        UIButton *pickupSucceedButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3*2, 45)];
+        UIButton *pickupSucceedButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3*2, 40)];
         [pickupSucceedButton setBackgroundColor:startColor];
         [pickupSucceedButton setTitle:@"提货离场" forState:UIControlStateNormal];
-        pickupSucceedButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        pickupSucceedButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [pickupSucceedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         pickupSucceedButton.tag = 7000+section;
         [pickupSucceedButton addTarget:self action:@selector(pickupSucceed:) forControlEvents:UIControlEventTouchUpInside];
@@ -285,12 +285,12 @@
     if (orderModel.pickup_photo_force.boolValue&&[orderModel.status isEqualToString:@"unPickupSigned"]) {
         __weak typeof(self) _weakSelf = self;
         RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
-            
+            DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:orderModel];
+            [_weakSelf.navigationController pushViewController:operation animated:YES];
         }];
         
         RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
-            DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:orderModel];
-            [_weakSelf.navigationController pushViewController:operation animated:YES];
+            
         }];
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"

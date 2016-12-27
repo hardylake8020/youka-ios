@@ -43,10 +43,11 @@
     UIView *addView = [[UIView alloc]initWithFrame:CGRectMake(-1, SYSTITLEHEIGHT+20, SYSTEM_WIDTH+2, 50)];
     addView.layer.borderColor = [UIColor customGrayColor].CGColor;
     addView.layer.borderWidth = 0.5;
+    addView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:addView];
 
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 50)];
-    tipLabel.font = fontBysize(18);
+    tipLabel.font = fontBysize(16);
     tipLabel.textAlignment = NSTextAlignmentCenter;
     [addView addSubview:tipLabel];
     
@@ -66,6 +67,7 @@
     }
     _cardNumberFiled.delegate = self;
     _cardNumberFiled.keyboardType = UIKeyboardTypeNumberPad;
+    _cardNumberFiled.font = fontBysize(16);
     [addView addSubview:_cardNumberFiled];
     
     

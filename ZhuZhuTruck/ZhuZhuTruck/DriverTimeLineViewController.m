@@ -15,6 +15,7 @@
 @property (nonatomic, strong) OrderModel *orderModel;
 @property (nonatomic, copy) NSString *tenderId;
 @property (nonatomic, assign) BOOL isFromTender;
+@property (nonatomic, strong) ErrorMaskView *errMaskView;
 @end
 
 @implementation DriverTimeLineViewController
@@ -46,8 +47,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = UIColorFromRGB(0xf5f5f5);
+    
     [self initTableView];
-
     if (!self.isFromTender) {
         [self addNaviHeaderViewWithTitle:@"时间轴"];
         NSMutableArray *timeLineArray = [NSMutableArray array];
@@ -69,7 +71,17 @@
     }
     
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
+    
+    [self initErrorMaskView];
 }
+
+- (void)initErrorMaskView{
+    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
+    [self.view addSubview:_errMaskView];
+    self.errMaskView.messageLabel.text = @"运单暂时没有任何操作";
+    self.errMaskView.hidden = YES;
+}
+
 
 - (void)getTimeLine{
     CCWeakSelf(self);
@@ -93,6 +105,11 @@
             [weakself.tableView reloadData];
             [SVProgressHUD showSuccessWithStatus:@"获取成功"];
         }
+        if (weakself.dataArray.count==0) {
+            weakself.errMaskView.hidden = NO;
+        }else{
+            weakself.errMaskView.hidden = YES;
+        }
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView.mj_footer endRefreshing];
     }];
@@ -103,23 +120,61 @@
 
 - (void)initTableView{
     
-    
-    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
-    self.tableView.backgroundColor = [UIColor whiteColor];
+//    self.tableView.backgroundColor = [UIColor whiteColor];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"TimeLineCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TimeLineCell"];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 20)];
     [self.view addSubview:self.tableView];
-
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    if (self.dataArray.count==0) {
+//        return 0;
+//    }
+//    return 10;
+//}
+//- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    CGFloat hight;
+//    if (self.dataArray.count==0) {
+//        hight =  0;
+//    }else{
+//        hight = 10;
+//    }
+//    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, hight)];
+//    headerView.backgroundColor = [UIColor whiteColor];
+//    return headerView;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    if (self.dataArray.count==0) {
+//        return 0;
+//    }
+//    return 10;
+//}
+//- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    CGFloat hight;
+//    if (self.dataArray.count==0) {
+//        hight =  0;
+//    }else{
+//        hight = 10;
+//    }
+//    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, hight)];
+//    headerView.backgroundColor = [UIColor whiteColor];
+//    return headerView;
+//}
+
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArray.count;
 }
+
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     EventModel *eventModel = [self.dataArray objectAtIndex:indexPath.row];
     if (eventModel.photos.count>0) {

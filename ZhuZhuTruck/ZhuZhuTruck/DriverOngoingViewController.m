@@ -159,10 +159,10 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 140;
+    return 120;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 45;
+    return 40;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderModel *orderModel = [self.dataArray objectAtIndex:indexPath.section];
@@ -176,22 +176,22 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 45)];
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 40)];
     UIColor *startColor = UIColorFromRGB(0xf5f5f5);
     UIColor *enterColor = UIColorFromRGB(0xf9f9f9);
-    UIButton *deliverySignButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/3, 44)];
+    UIButton *deliverySignButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/3, 39)];
     [deliverySignButton setBackgroundColor:enterColor];
     [deliverySignButton setTitle:@"进场" forState:UIControlStateNormal];
-    deliverySignButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    deliverySignButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [deliverySignButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
     deliverySignButton.tag = 8000+section;
     [deliverySignButton addTarget:self action:@selector(deliverySign:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:deliverySignButton];
     
-    UIButton *deliverySucceedButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3*2, 45)];
+    UIButton *deliverySucceedButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3*2, 40)];
     [deliverySucceedButton setBackgroundColor:startColor];
     [deliverySucceedButton setTitle:@"交货完成" forState:UIControlStateNormal];
-    deliverySucceedButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    deliverySucceedButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [deliverySucceedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     deliverySucceedButton.tag = 9000+section;
     [deliverySucceedButton addTarget:self action:@selector(deliverySucceed:) forControlEvents:UIControlEventTouchUpInside];
@@ -216,12 +216,12 @@
     if (orderModel.delivery_entrance_force.boolValue&&[orderModel.status isEqualToString:@"unDeliverySigned"]) {
         __weak typeof(self) _weakSelf = self;
         RIButtonItem *pickUpsign = [RIButtonItem itemWithLabel:@"进场" action:^{
-            
+            DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:DeliveySign andOrderModel:orderModel];
+            [_weakSelf.navigationController pushViewController:operation animated:YES];
         }];
         
         RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"取消" action:^{
-            DriverOperationViewController *operation = [[DriverOperationViewController alloc]initWithDriverOperationType:PickupSign andOrderModel:orderModel];
-            [_weakSelf.navigationController pushViewController:operation animated:YES];
+            
         }];
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示！"
