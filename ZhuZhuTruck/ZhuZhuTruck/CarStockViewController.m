@@ -112,13 +112,13 @@
     pageVC.menuViewStyle = WMMenuViewStyleLine;
     pageVC.menuBGColor = [UIColor naviBarColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:1 alpha:0.5];
     pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
+    pageVC.titleSizeNormal = 16;
     pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
+    pageVC.titleSizeSelected = 16;
     pageVC.title = title;
     [self.navigationController pushViewController:pageVC animated:YES];
     

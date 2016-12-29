@@ -16,4 +16,5 @@
 @property (nonatomic, assign) float   cellHight;
 @property (nonatomic, assign) BOOL    isPhone;
 @property (nonatomic, assign) BOOL    noBottomLine;
+@property (nonatomic, assign) NSInteger    upDown;//0 不动 1向下 2向上 11 向下++ 22 向上++
 @end

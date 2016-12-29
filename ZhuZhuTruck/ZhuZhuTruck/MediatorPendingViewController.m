@@ -206,13 +206,13 @@
             [footerView addSubview:bottomLine];
         }
     }else{
-        footerView.backgroundColor = UIColorFromRGB(0xf5f5f5);
         if (section < self.dataArray.count-1) {
             UIView *bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
             bottomLine.backgroundColor = [UIColor customGrayColor];
             [footerView addSubview:bottomLine];
         }
     }
+    footerView.backgroundColor = [UIColor clearColor];
     return footerView;
 }
 

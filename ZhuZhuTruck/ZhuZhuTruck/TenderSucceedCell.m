@@ -38,7 +38,7 @@
     self.toCityLabel.text = model.delivery_province;
     self.toDistrictLabel.text = model.delivery_city;
     if ([model.tender_type isEqualToString:@"grab"]) {
-        self.statusLabel.text = @"抢标成功";
+        self.statusLabel.text = @"抢单成功";
         self.statusLabel.textColor = [UIColor customGreenColor];
     }else{
         self.statusLabel.text = @"比价中标成功";
@@ -49,6 +49,7 @@
     }else{
         self.centerTipLabel.text = @"运输中";
     }
+    self.orderNumberLabel.text = [NSString stringWithFormat:@"订单编号  %@",model.truck_number];
     
     self.timeLabel.text = [NSString stringWithFormat:@"发布时间  %@", dateStringWithDateAndFormart(model.start_time, @"MM-dd hh:mm")];
     self.goodsDetailLabel.text = [NSString stringWithFormat:@"货物摘要  %@ %@ %@",model.sender_company,@"55方",@"44公里"];

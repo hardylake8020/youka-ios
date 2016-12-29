@@ -149,7 +149,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 160;
+    return 150;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
@@ -201,6 +201,7 @@
         bottomLine.backgroundColor = [UIColor customGrayColor];
         [footerView addSubview:bottomLine];
     }
+    footerView.backgroundColor = [UIColor clearColor];
     return footerView;
 }
 

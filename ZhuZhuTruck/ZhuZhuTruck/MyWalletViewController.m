@@ -37,14 +37,14 @@
     [self.view addSubview:headerView];
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, SYSTEM_WIDTH-30, 20)];
-    tipLabel.textColor = [UIColor customGrayColor];
+    tipLabel.textColor = [UIColor colorWithWhite:1 alpha:0.5];
     tipLabel.font = fontBysize(14);
     tipLabel.text = @"账户余额（元）";
     [headerView addSubview:tipLabel];
     
     UILabel *accountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 40, SYSTEM_WIDTH-30, 100)];
     accountLabel.textColor = [UIColor whiteColor];
-    accountLabel.font = fontBysize(54);
+    accountLabel.font = fontBysize(48);
     accountLabel.text = @"20000.00";
     [headerView addSubview:accountLabel];
     
@@ -88,7 +88,7 @@
     return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 50;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -101,7 +101,7 @@
     UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
     footerView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
+    lineView.backgroundColor = [UIColor customGrayColor];
     [footerView addSubview:lineView];
     return footerView;
 }

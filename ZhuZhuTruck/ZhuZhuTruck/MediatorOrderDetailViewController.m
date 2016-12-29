@@ -169,7 +169,7 @@
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+_headerHight, SYSTEM_WIDTH, SYSTEM_HEIGHT-60-SYSTITLEHEIGHT-_headerHight)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     [self.tableView registerNib:[UINib nibWithNibName:@"TenderDetailCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TenderDetailCell"];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TenderDetailHeaderCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TenderDetailHeaderCell"];
@@ -230,7 +230,7 @@
 
 
 - (void)initSumbitView{
-    _operationView = [[UIView alloc]initWithFrame:CGRectMake(-1, SYSTEM_HEIGHT-60, SYSTEM_WIDTH+2, 60)];
+    _operationView = [[UIView alloc]initWithFrame:CGRectMake(-1, SYSTEM_HEIGHT-60, SYSTEM_WIDTH+2, 61)];
     _operationView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_operationView];
     _operationView.layer.borderColor = [UIColor customGrayColor].CGColor;
@@ -281,7 +281,7 @@
             [priceView addSubview:priceLabel];
             
             priceLabel.sd_layout
-            .leftSpaceToView(priceView,15)
+            .leftSpaceToView(priceView,24)
             .rightSpaceToView(priceView,15)
             .topEqualToView(priceView)
             .bottomEqualToView(priceView);
@@ -314,7 +314,7 @@
             [priceView addSubview:priceLabel];
             
             priceLabel.sd_layout
-            .leftSpaceToView(priceView,15)
+            .leftSpaceToView(priceView,24)
             .rightSpaceToView(priceView,15)
             .topEqualToView(priceView)
             .bottomEqualToView(priceView);
@@ -346,7 +346,7 @@
             [priceView addSubview:priceLabel];
             
             priceLabel.sd_layout
-            .leftSpaceToView(priceView,15)
+            .leftSpaceToView(priceView,24)
             .rightSpaceToView(priceView,15)
             .topEqualToView(priceView)
             .bottomEqualToView(priceView);
@@ -378,7 +378,7 @@
             [priceView addSubview:priceLabel];
             
             priceLabel.sd_layout
-            .leftSpaceToView(priceView,15)
+            .leftSpaceToView(priceView,24)
             .rightSpaceToView(priceView,15)
             .topEqualToView(priceView)
             .bottomEqualToView(priceView);
@@ -410,14 +410,14 @@
             [priceView addSubview:priceLabel];
             
             priceLabel.sd_layout
-            .leftSpaceToView(priceView,15)
+            .leftSpaceToView(priceView,24)
             .rightSpaceToView(priceView,15)
             .topEqualToView(priceView)
             .bottomEqualToView(priceView);
             
             UILabel *statusLabel = [[UILabel alloc]init];
             statusLabel.text = @"已抢到";
-            statusLabel.textColor = [UIColor whiteColor];
+            statusLabel.textColor = [UIColor colorWithWhite:1 alpha:0.5];
             statusLabel.font = fontBysize(18);
             statusLabel.textAlignment = NSTextAlignmentCenter;
             statusLabel.backgroundColor = [UIColor naviBlackColor];
@@ -502,13 +502,13 @@
     pageVC.menuViewStyle = WMMenuViewStyleLine;
     pageVC.menuBGColor = [UIColor naviBlackColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:1 alpha:0.5];
     pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
+    pageVC.titleSizeNormal = 16;
     pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
+    pageVC.titleSizeSelected = 16;
     pageVC.title = title;
     [self.navigationController pushViewController:pageVC animated:YES];
 }

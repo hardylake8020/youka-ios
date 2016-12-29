@@ -142,6 +142,7 @@
     model.title = @"合计";
     model.isLight = NO;
     model.noBottomLine = YES;
+    model.upDown = 1;
     
     int totalCount1 = 0;
     int totalCount2 = 0;
@@ -169,6 +170,7 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"注意事项";
     model.isLight = NO;
+    model.upDown = 2;
     model.subTitle = ![tenderModel.remark isEmpty]?tenderModel.remark:@"未填写";
     [self.dataArray addObject:model];
     
@@ -182,6 +184,7 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"提货联系人";
     model.isLight = NO;
+    model.upDown = 1;
     model.noBottomLine = YES;
     model.subTitle = ![tenderModel.pickup_name isEmpty]?tenderModel.pickup_name:@"";
     [self.dataArray addObject:model];
@@ -189,6 +192,7 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"联系电话";
     model.isLight = NO;
+    model.upDown = 2;
     model.subTitle = ![tenderModel.pickup_tel_phone isEmpty]?tenderModel.pickup_tel_phone:@"";
     model.isPhone = YES;
     [self.dataArray addObject:model];
@@ -197,8 +201,8 @@
     model.title = @"提货时间";
     model.isLight = YES;
     
-    NSString *pickupStartTime = dateStringWithDateAndFormart(tenderModel.pickup_start_time_format, @"MM月 dd日 hh:mm");
-    NSString *pickupEndTime = dateStringWithDateAndFormart(tenderModel.pickup_end_time_format, @"MM月 dd日 hh:mm");
+    NSString *pickupStartTime = dateStringWithDateAndFormart(tenderModel.pickup_start_time_format, @"MM-dd hh:mm");
+    NSString *pickupEndTime = dateStringWithDateAndFormart(tenderModel.pickup_end_time_format, @"MM- dd hh:mm");
     model.subTitle = [NSString stringWithFormat:@"%@ ~ %@", pickupStartTime, pickupEndTime];
 
     [self.dataArray addObject:model];
@@ -212,8 +216,8 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"交货时间";
     model.isLight = YES;
-    NSString *deliveryStartTime = dateStringWithDateAndFormart(tenderModel.delivery_start_time_format, @"MM月 dd日 hh:mm");
-    NSString *deliveryEndTime = dateStringWithDateAndFormart(tenderModel.delivery_end_time_format, @"MM月 dd日 hh:mm");
+    NSString *deliveryStartTime = dateStringWithDateAndFormart(tenderModel.delivery_start_time_format, @"MM-dd hh:mm");
+    NSString *deliveryEndTime = dateStringWithDateAndFormart(tenderModel.delivery_end_time_format, @"MM-dd hh:mm");
     model.subTitle = [NSString stringWithFormat:@"%@ ~ %@", deliveryStartTime, deliveryEndTime];
     
     
@@ -233,6 +237,7 @@
     
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"首付";
+    model.upDown = 11;
     model.isLight = NO;
     model.noBottomLine = YES;
 
@@ -258,7 +263,6 @@
         model.subTitle = [NSString stringWithFormat:@"%.f%%（油卡支付）",tenderModel.payment_tail_rate.floatValue];
     }else{
         model.subTitle = [NSString stringWithFormat:@"%.f%%（ %.f%%现金  + %.f%%油卡）",tenderModel.payment_tail_rate.floatValue, tenderModel.payment_tail_cash_rate.floatValue,tenderModel.payment_tail_card_rate.floatValue];
-        
     }
     
     [self.dataArray addObject:model];
@@ -266,6 +270,7 @@
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"回单";
     model.isLight = NO;
+    model.upDown = 22;
     if (tenderModel.payment_last_cash_rate.floatValue==100) {
         model.subTitle = [NSString stringWithFormat:@"%.f%%（现金支付）",tenderModel.payment_last_rate.floatValue];
     }else if (tenderModel.payment_last_card_rate.floatValue==100) {

@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
 
 @property (weak, nonatomic) IBOutlet UIView *timeLineView;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
 @end
 
@@ -85,7 +86,9 @@
     }
     self.dataLabel.text = dateStringWithDateAndFormart(eventModel.time, @"yyyy-MM-dd");
     self.timeLabel.text = dateStringWithDateAndFormart(eventModel.time, @"hh:mm:ss");
+    self.addressLabel.text = eventModel.address;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

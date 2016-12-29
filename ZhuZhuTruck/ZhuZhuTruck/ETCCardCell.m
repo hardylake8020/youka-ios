@@ -38,7 +38,7 @@
         self.cardNumberLabel.textColor = [UIColor whiteColor];
         self.cardTipLabel.textColor = [UIColor whiteColor];
     }else{
-        self.carNumberLabel.text = @"未启用";
+        self.carNumberLabel.text = @"未使用";
         self.backGroundView.backgroundColor = [UIColor whiteColor];
         self.carNumberLabel.textColor = [UIColor customRedColor];
         self.cardNumberLabel.textColor = [UIColor customRedColor];
@@ -60,7 +60,7 @@
     self.backgroundColor = ColorFromRGB(0xf5f5f5);
     self.backGroundView.layer.borderColor = [UIColor customRedColor].CGColor;
     self.backGroundView.layer.borderWidth = 0.5;
-    self.carNumberLabel.text = @"未启用";
+    self.carNumberLabel.text = @"未使用";
     self.backGroundView.backgroundColor = [UIColor whiteColor];
     self.carNumberLabel.textColor = [UIColor customRedColor];
     self.cardNumberLabel.textColor = [UIColor customRedColor];

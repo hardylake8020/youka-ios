@@ -12,7 +12,7 @@
 
 + (UIColor *)customGrayColor
 {
-    return ColorFromRGB(0xdddddd);
+    return ColorFromRGB(0xcccccc);
 }
 + (UIColor *)naviBlackColor{
     return ColorFromRGB(0x262C37);
@@ -56,7 +56,7 @@
     return ColorFromRGB(rgb);
 }
 + (UIColor *)grayTextColor{
-    return ColorFromRGB(0x999999);
+    return ColorFromRGB(0x666666);
 }
 #pragma mark - Private class methods
 

@@ -71,7 +71,7 @@
     [addView addSubview:_cardNumberFiled];
     
     
-    UIButton * addCadButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-60, SYSTEM_WIDTH, 60)];
+    UIButton * addCadButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-50, SYSTEM_WIDTH, 50)];
     addCadButton.backgroundColor = [UIColor buttonGreenColor];
     [addCadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
@@ -83,8 +83,8 @@
 
 - (void)addCardCall{
     
-    if ([_cardNumberFiled.text isEmpty]) {
-        toast_showInfoMsg(@"请填写卡号", 200);
+    if (_cardNumberFiled.text.length!=16) {
+        toast_showInfoMsg(@"请填写16位卡号", 200);
         return;
     }
     

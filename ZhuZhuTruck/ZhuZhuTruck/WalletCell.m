@@ -26,7 +26,7 @@
     self.iconImageView.image = [UIImage imageNamed:[dataDict stringForKey:@"imageName"]];
     self.iconImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.titleLabel.text = [dataDict objectForKey:@"titleName"];
-    self.bottomLineView.frame = CGRectMake(0, 43.5, SYSTEM_WIDTH, 0.5);
+    self.bottomLineView.frame = CGRectMake(0, 49.5, SYSTEM_WIDTH, 0.5);
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

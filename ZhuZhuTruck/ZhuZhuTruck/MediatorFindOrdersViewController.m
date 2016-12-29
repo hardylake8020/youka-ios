@@ -25,6 +25,10 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ErrorMaskView *errMaskView;
+@property (nonatomic, assign) int limit;//条数限制
+@property (nonatomic, assign) int skipCount;//跳 过 几条
+@property (nonatomic, assign) int totoalCount;// 总数
+@property (nonatomic, assign) int currentPage;// 当前页
 @end
 
 @implementation MediatorFindOrdersViewController
@@ -34,7 +38,11 @@
     _tendType = @"";
     _formSearchKey = @"";
     _toSearchKey = @"";
-    [self addBlackNaviHaderViewWithTitle:@"货源列表"];
+    _limit = 10;
+    _currentPage = 0;
+    _skipCount = 0;
+    _totoalCount = 0;
+    [self addBlackNaviHaderViewWithTitle:@"柱柱货源"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderViewButton];
     [self initTableView];
@@ -43,12 +51,13 @@
 - (void)initErrorMaskView{
     self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
     [self.tableView addSubview:_errMaskView];
-    self.errMaskView.messageLabel.text = @"暂时未发现订单";
+    self.errMaskView.messageLabel.text = @"暂时未发现货源";
     self.errMaskView.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    _currentPage = 0;
     [self tableHeaderRefesh];
 }
 
@@ -67,16 +76,18 @@
     [searchButton addTarget:self action:@selector(serchClick) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:searchButton];
     searchButton.sd_layout
-    .rightSpaceToView(headerView,15)
+    .rightSpaceToView(headerView,30)
     .topSpaceToView(headerView,15)
-    .heightIs(32)
-    .widthIs(32);
+    .heightIs(29)
+    .widthIs(29);
 
-    UIView *addressView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH-60, 70)];
+    UIView *addressView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH-80, 70)];
     [headerView addSubview:addressView];
     
     UILabel * centerLabel = [[UILabel alloc]init];
     centerLabel.text = @"至";
+    centerLabel.textAlignment = NSTextAlignmentRight;
+    
     centerLabel.textColor = [UIColor darkGrayColor];
     centerLabel.font = fontBysize(12);
     [addressView addSubview:centerLabel];
@@ -85,7 +96,7 @@
     .topEqualToView(addressView)
     .bottomEqualToView(addressView)
     .centerXEqualToView(addressView)
-    .widthIs(20);
+    .widthIs(24);
     
     _fromAddressTextFiled = [[CCTextFiled alloc]init];
     _fromAddressTextFiled.textAlignment = NSTextAlignmentCenter;
@@ -98,7 +109,7 @@
     
     .topEqualToView(addressView)
     .bottomEqualToView(addressView)
-    .leftEqualToView (addressView)
+    .leftSpaceToView (addressView,15)
     .rightSpaceToView(centerLabel,0);
     
     _toAddressTextFiled = [[CCTextFiled alloc]init];
@@ -112,7 +123,7 @@
     _toAddressTextFiled.sd_layout
     .topEqualToView(addressView)
     .bottomEqualToView(addressView)
-    .rightEqualToView (addressView)
+    .rightSpaceToView (addressView,15)
     .leftSpaceToView(centerLabel,0);
     
     UIView *seletedBar = [[UIView alloc]initWithFrame:CGRectMake(0, 70, SYSTEM_WIDTH, 40)];
@@ -122,16 +133,16 @@
     [_totoalButton setTitle:@"全部" forState:UIControlStateNormal];
     [_totoalButton setTitleColor:[UIColor grayTextColor] forState:UIControlStateNormal];
     [_totoalButton setTitleColor:[UIColor customRedColor] forState:UIControlStateSelected];
-    _totoalButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    _totoalButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [seletedBar addSubview:_totoalButton];
     [_totoalButton addTarget:self action:@selector(totalClick) forControlEvents:UIControlEventTouchDown];
     _totoalButton.selected = YES;
     
     _bidButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/3, 0, SYSTEM_WIDTH/3, 40)];;
-    [_bidButton setTitle:@"竞价" forState:UIControlStateNormal];
+    [_bidButton setTitle:@"比价" forState:UIControlStateNormal];
     [_bidButton setTitleColor:[UIColor grayTextColor] forState:UIControlStateNormal];
     [_bidButton setTitleColor:[UIColor customRedColor] forState:UIControlStateSelected];
-    _bidButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    _bidButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [seletedBar addSubview:_bidButton];
     [_bidButton addTarget:self action:@selector(bidClick) forControlEvents:UIControlEventTouchDown];
 
@@ -140,7 +151,7 @@
     [_robButton setTitle:@"抢单" forState:UIControlStateNormal];
     [_robButton setTitleColor:[UIColor grayTextColor] forState:UIControlStateNormal];
     [_robButton setTitleColor:[UIColor customRedColor] forState:UIControlStateSelected];
-    _robButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    _robButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [seletedBar addSubview:_robButton];
     [_robButton addTarget:self action:@selector(robClick) forControlEvents:UIControlEventTouchDown];
 
@@ -152,7 +163,7 @@
     .leftEqualToView (headerView)
     .rightEqualToView(headerView)
     .topSpaceToView(addressView,0)
-    .heightIs(1);
+    .heightIs(0.5);
     
     UIView *bottomLine = [[UIView alloc]init];
     bottomLine.backgroundColor = [UIColor customGrayColor];
@@ -163,7 +174,7 @@
     .leftEqualToView (headerView)
     .rightEqualToView(headerView)
     .bottomEqualToView(headerView)
-    .heightIs(1);
+    .heightIs(0.5);
     
 }
 
@@ -178,6 +189,7 @@
     [SVProgressHUD show];
     _formSearchKey = @"";
     _toSearchKey = @"";
+    _currentPage = 0;
     [self loadNewData];
 }
 
@@ -192,6 +204,7 @@
     [SVProgressHUD show];
     _formSearchKey = @"";
     _toSearchKey = @"";
+    _currentPage = 0;
     [self loadNewData];
 }
 
@@ -199,6 +212,7 @@
     if (_robButton.selected) {
         return;
     }
+    
     _tendType = @"grab";
     _robButton.selected = YES;
     _bidButton.selected = NO;
@@ -206,17 +220,19 @@
     [SVProgressHUD show];
     _formSearchKey = @"";
     _toSearchKey = @"";
+    _currentPage = 0;
     [self loadNewData];
 }
 
 - (void)serchClick{
-    if ([_fromAddressTextFiled.text isEmpty]&&[_toAddressTextFiled.text isEmpty]) {
-        toast_showInfoMsg(@"请至少输入一个地址", 200);
-        return;
-    }
+//    if ([_fromAddressTextFiled.text isEmpty]&&[_toAddressTextFiled.text isEmpty]) {
+//        toast_showInfoMsg(@"请至少输入一个地址", 200);
+//        return;
+//    }
     _formSearchKey = _fromAddressTextFiled.text;
     _toSearchKey = _toAddressTextFiled.text;
     [SVProgressHUD show];
+    _currentPage = 0;
     [self loadNewData];
 }
 
@@ -234,7 +250,7 @@
 
     self.tableView.tableHeaderView = [self tabHeaderView];
     
-    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 1)];
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 0.5)];
     
     [self.view addSubview:self.tableView];
     
@@ -242,6 +258,7 @@
     __unsafe_unretained UITableView *tableView = self.tableView;
     // 下拉刷新
     tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakself.currentPage = 0;
         [weakself loadNewData];
     }];
     
@@ -249,38 +266,31 @@
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
     
-//    // 上拉刷新
-//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-//        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            // 结束刷新
-//            [tableView.mj_footer endRefreshing];
-//        });
-//    }];
+    // 上拉刷新
+    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [weakself loadNewData];
+    }];
+    
 }
 
 - (UIView *)tabHeaderView{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
-    
-    UIView *bottomLine = [[UIView alloc]init];
-    bottomLine.backgroundColor = [UIColor customGrayColor];
-    [headerView addSubview:bottomLine];
-    bottomLine.sd_layout
-    .leftEqualToView (headerView)
-    .rightEqualToView(headerView)
-    .bottomEqualToView(headerView)
-    .heightIs(0.5);
-    
     return headerView;
 }
 - (void)tableHeaderRefesh{
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)loadNewData{
-    
+    [self.view endEditing:YES];
+    _currentPage++;
+    if (_currentPage==1) {
+        _skipCount = 0;
+    }else{
+        _skipCount = (int)self.dataArray.count;
+    }
+
     CCWeakSelf(self);
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-#warning 分页
     [parameters put:accessToken() key:ACCESS_TOKEN];
     [parameters put:_tendType key:@"tender_type"];
     [parameters put:_formSearchKey key:@"pickup_address"];
@@ -291,17 +301,17 @@
             toast_showInfoMsg(NSLocalizedStringFromTable(error.domain, @"SeverError", @"无数据"), 200);
         }else{
             //CCLog(@"---->%@",result);
+            if (weakself.currentPage==1) {
+                //刷新
+                [weakself.dataArray removeAllObjects];
+            }
             NSArray *orders = [result objectForKey:@"tenders"];
-            [weakself.dataArray removeAllObjects];
             CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
-            
+            weakself.totoalCount = [result intForKey:@"totalCount"];
             for (NSDictionary *orderDict in orders) {
-                //                CCLog(@"%@",orderDict);
-                
                 TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
                 [weakself.dataArray addObject:tenderModel];
             }
-            
             [weakself.tableView reloadData];
         }
         if (weakself.dataArray.count==0) {
@@ -310,18 +320,15 @@
             weakself.errMaskView.hidden = YES;
         }
         [weakself.tableView.mj_header endRefreshing];
-        [weakself.tableView.mj_footer endRefreshing];
+        if (self.dataArray.count >= weakself.totoalCount) {
+            [weakself.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            [weakself.tableView.mj_footer endRefreshing];
+        }
         [SVProgressHUD dismiss];
     }];
 
 }
-
-//- (void)initErrorMaskView{
-//    self.errMaskView = [[ErrorMaskView alloc]initWithFrame:self.tableView.bounds];
-//    [self.tableView addSubview:_errMaskView];
-//    self.errMaskView.messageLabel.text = @"暂时未发现未开始的运单";
-//    self.errMaskView.hidden = YES;
-//}
 
 #pragma mark ---> UITableViewDelegate dataSource
 
@@ -335,7 +342,7 @@
     return self.dataArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 140;
+    return 130;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

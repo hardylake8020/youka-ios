@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4E7BF91F310DEB63E70C6337 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B1A0A1EFD1FDE195631985 /* libPods.a */; };
+		BB009F881E1563890044E44B /* TenderSmallDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB009F861E1563890044E44B /* TenderSmallDetailCell.m */; };
+		BB009F891E1563890044E44B /* TenderSmallDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB009F871E1563890044E44B /* TenderSmallDetailCell.xib */; };
 		BB00C0581E00222100E9B3FA /* TenderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB00C0571E00222100E9B3FA /* TenderModel.m */; };
 		BB00C05B1E00267900E9B3FA /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB00C05A1E00267900E9B3FA /* CardModel.m */; };
 		BB00C05F1E00272D00E9B3FA /* TruckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB00C05E1E00272D00E9B3FA /* TruckModel.m */; };
@@ -270,6 +272,9 @@
 /* Begin PBXFileReference section */
 		10B1A0A1EFD1FDE195631985 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D12FA8AAEF863A2F7DFB76 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BB009F851E1563890044E44B /* TenderSmallDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenderSmallDetailCell.h; sourceTree = "<group>"; };
+		BB009F861E1563890044E44B /* TenderSmallDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenderSmallDetailCell.m; sourceTree = "<group>"; };
+		BB009F871E1563890044E44B /* TenderSmallDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderSmallDetailCell.xib; sourceTree = "<group>"; };
 		BB00C0561E00222100E9B3FA /* TenderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenderModel.h; sourceTree = "<group>"; };
 		BB00C0571E00222100E9B3FA /* TenderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenderModel.m; sourceTree = "<group>"; };
 		BB00C0591E00267900E9B3FA /* CardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
@@ -1211,6 +1216,9 @@
 		BBAEC37D1E0E615E00821C09 /* 废弃代码 */ = {
 			isa = PBXGroup;
 			children = (
+				BB009F851E1563890044E44B /* TenderSmallDetailCell.h */,
+				BB009F861E1563890044E44B /* TenderSmallDetailCell.m */,
+				BB009F871E1563890044E44B /* TenderSmallDetailCell.xib */,
 				BB43217B1DF0603F00F77680 /* LaunchViewController.h */,
 				BB43217C1DF0603F00F77680 /* LaunchViewController.m */,
 				BB43217E1DF0605300F77680 /* LoginViewController.h */,
@@ -1655,6 +1663,7 @@
 				BBAEC37F1E0EADAB00821C09 /* headerImage.png in Resources */,
 				BBFB6EB91E0183AC00BC1EDA /* withdraw.png in Resources */,
 				BB5AB5821DF2C56C009107B9 /* RecordingSignal008.png in Resources */,
+				BB009F891E1563890044E44B /* TenderSmallDetailCell.xib in Resources */,
 				BB5AB5511DF29EF8009107B9 /* WaybillCell.xib in Resources */,
 				BB5AB5771DF2C56C009107B9 /* RecordingSignal002@2x.png in Resources */,
 				BB49F0001DFD4F8300CFFC39 /* confirm_succeed.png in Resources */,
@@ -1818,6 +1827,7 @@
 				BBED55F91DF1C28D009776E4 /* DriversMapViewController.m in Sources */,
 				BB5AB5861DF2C6F4009107B9 /* ShowPhotoViewController.m in Sources */,
 				BBED55B81DF1BDF0009776E4 /* DriverFinishedViewController.m in Sources */,
+				BB009F881E1563890044E44B /* TenderSmallDetailCell.m in Sources */,
 				BBAEC37C1E0E492800821C09 /* TruckDetailTableDataModel.m in Sources */,
 				BB49EFF51DFD47BA00CFFC39 /* PhotoModel.m in Sources */,
 				BB4321741DF05AF300F77680 /* CCNaviHeaderView.m in Sources */,

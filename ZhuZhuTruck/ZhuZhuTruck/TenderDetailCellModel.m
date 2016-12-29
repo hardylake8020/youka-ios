@@ -13,9 +13,9 @@
 - (void)setSubTitle:(NSString *)subTitle{
     _subTitle = subTitle;
     if (_isLight) {
-        _cellHight = [subTitle blodSizeH:16 withLabelWidth:SYSTEM_WIDTH-120]+22;
+        _cellHight = [subTitle sizeH:16 withLabelWidth:SYSTEM_WIDTH-130]+22;
     }else{
-        _cellHight = [subTitle sizeH:14 withLabelWidth:SYSTEM_WIDTH-120]+22;
+        _cellHight = [subTitle sizeH:13 withLabelWidth:SYSTEM_WIDTH-130]+22;
     }
 }
 @end

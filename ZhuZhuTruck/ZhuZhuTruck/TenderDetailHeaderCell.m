@@ -8,6 +8,7 @@
 
 #import "TenderDetailHeaderCell.h"
 #import "Constants.h"
+#import "UIColor+CustomColors.h"
 
 @interface TenderDetailHeaderCell ()
 @property (weak, nonatomic) IBOutlet UILabel *fromProvinceLabel;
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *fromCityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *toCityLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomLineVIew;
+@property (weak, nonatomic) IBOutlet UIView *topLine;
 @end
 
 @implementation TenderDetailHeaderCell
@@ -28,8 +30,12 @@
     self.fromCityLabel.text = model.pickup_city;
     self.toProvinceLabel.text = model.delivery_province;
     self.toCityLabel.text = model.delivery_city;
-    self.bottomLineVIew.backgroundColor = UIColorFromRGB(0xdddddd);
-    self.bottomLineVIew.frame = CGRectMake(0, 78.5, SYSTEM_WIDTH, 0.5);
+    
+    self.bottomLineVIew.backgroundColor = [UIColor customGrayColor];
+    self.bottomLineVIew.frame = CGRectMake(0, 79.5, SYSTEM_WIDTH, 0.5);
+    
+    self.topLine.frame = CGRectMake(0, 0, SYSTEM_WIDTH, 0.5);
+    self.topLine.backgroundColor = [UIColor customGrayColor];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

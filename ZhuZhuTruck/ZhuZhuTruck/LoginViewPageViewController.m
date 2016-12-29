@@ -80,16 +80,17 @@
     
     iconImageView.sd_layout
     .centerXEqualToView(backImageView)
-    .topSpaceToView(backImageView, 80)
+    .topSpaceToView(backImageView, 85)
     .widthIs(100*forSmallScreen)
     .heightIs(100*forSmallScreen);
     
-    phoneTextField=[[UITextField alloc] initWithFrame:CGRectMake(40,220,SYSTEM_WIDTH-80, 50)];
+    phoneTextField=[[UITextField alloc] initWithFrame:CGRectMake(40,230,SYSTEM_WIDTH-80, 50)];
     [phoneTextField setKeyboardType:UIKeyboardTypeNumberPad];
     phoneTextField.delegate = self;
     [phoneTextField setText:user_phone()];
     phoneTextField.textColor = [UIColor colorWithWhite:1 alpha:1];
     phoneTextField.textAlignment = NSTextAlignmentCenter;
+    phoneTextField.font =fontBysize(16);
     phoneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"用户名" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:0.6 alpha:1]}];
     
     [self.view addSubview:phoneTextField];
@@ -101,17 +102,18 @@
     bottomView1.sd_layout
     .leftSpaceToView(backImageView,80)
     .rightSpaceToView(backImageView,80)
-    .topSpaceToView (phoneTextField, -10)
+    .topSpaceToView (phoneTextField, -5)
     .heightIs(2);
     
     
-    passWordTextFied=[[UITextField alloc] initWithFrame:CGRectMake(40,200 + 100*forSmallScreen, SYSTEM_WIDTH-80, 50)];
+    passWordTextFied=[[UITextField alloc] initWithFrame:CGRectMake(40,210 + 100*forSmallScreen, SYSTEM_WIDTH-80, 50)];
     [passWordTextFied setKeyboardType:UIKeyboardTypeEmailAddress];
     [passWordTextFied setSecureTextEntry:YES];
     passWordTextFied.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithWhite:0.6 alpha:1]}];
     [passWordTextFied setClearsOnBeginEditing:YES];
     passWordTextFied.delegate = self;
     passWordTextFied.textColor = [UIColor colorWithWhite:1 alpha:1];
+    passWordTextFied.font =fontBysize(16);
     passWordTextFied.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:passWordTextFied];
 
@@ -121,7 +123,7 @@
     bottomView2.sd_layout
     .leftSpaceToView(backImageView,80)
     .rightSpaceToView(backImageView,80)
-    .topSpaceToView (passWordTextFied, -10)
+    .topSpaceToView (passWordTextFied, -5)
     .heightIs(2);
     
     
@@ -129,11 +131,11 @@
     loginView.backgroundColor = [UIColor customRedColor];
     [backImageView addSubview:loginView];
     loginView.clipsToBounds = YES;
-    loginView.layer.cornerRadius = 35;
+    loginView.layer.cornerRadius = 33;
     
     loginView.sd_layout
-    .widthIs(70)
-    .heightIs(70)
+    .widthIs(66)
+    .heightIs(66)
     .centerXEqualToView(backImageView)
     .topSpaceToView(bottomView2,40);
     

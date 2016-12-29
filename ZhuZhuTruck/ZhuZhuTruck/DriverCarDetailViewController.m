@@ -113,7 +113,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.5;
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
     headerView.backgroundColor = UIColorFromRGB(0xf5f5f5);
@@ -123,17 +125,17 @@
     return headerView;
 }
 
-- (void)initButtonView{
-    UIButton *pickupMarginButton = [[UIButton alloc]initWithFrame:CGRectMake(0, SYSTEM_HEIGHT-80, SYSTEM_WIDTH, 80)];
-    [pickupMarginButton  setTitle:@"提取保证金 ￥ 200.00" forState:UIControlStateNormal];
-    [pickupMarginButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
-    pickupMarginButton.titleLabel.font = fontBysize(18);
-    [self.view addSubview:pickupMarginButton];
-    UIView *topLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 0.5)];
-    topLine.backgroundColor = [UIColor customGrayColor];
-    [pickupMarginButton addSubview:topLine];
-    
-}
+//- (void)initButtonView{
+//    UIButton *pickupMarginButton = [[UIButton alloc]initWithFrame:CGRectMake(0, SYSTEM_HEIGHT-80, SYSTEM_WIDTH, 80)];
+//    [pickupMarginButton  setTitle:@"提取保证金 ￥ 200.00" forState:UIControlStateNormal];
+//    [pickupMarginButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
+//    pickupMarginButton.titleLabel.font = fontBysize(18);
+//    [self.view addSubview:pickupMarginButton];
+//    UIView *topLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 0.5)];
+//    topLine.backgroundColor = [UIColor customGrayColor];
+//    [pickupMarginButton addSubview:topLine];
+//    
+//}
 #pragma mark ---> 返回 其他
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];

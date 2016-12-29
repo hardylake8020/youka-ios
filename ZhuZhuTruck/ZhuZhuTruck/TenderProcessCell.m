@@ -34,11 +34,11 @@
     self.centerTipLabel.text = @"";
     if ([model.tender_type isEqualToString:@"grab"]) {
         if ([model.status isEqualToString:@"unAssigned"]) {
-            self.statusLabel.text = @"抢标成功";
+            self.statusLabel.text = @"抢单成功";
             self.centerTipLabel.text = @"待分配车辆";
             self.statusLabel.textColor = [UIColor customGreenColor];
         }else{
-            self.statusLabel.text = @"抢标失败";
+            self.statusLabel.text = @"抢单失败";
             self.statusLabel.textColor = [UIColor customRedColor];
         }
     }else{

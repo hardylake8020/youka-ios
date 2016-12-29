@@ -31,6 +31,7 @@
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight = 50;
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
 }
@@ -54,32 +55,32 @@
     }
 }
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 70)];
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 60)];
     
     UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0.5, SYSTEM_WIDTH, 0.5)];
     lineView1.backgroundColor = UIColorFromRGB(0xcccccc);
     [footerView addSubview:lineView1];
     
-    UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 19.5, SYSTEM_WIDTH, 0.5)];
+    UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
     lineView2.backgroundColor = UIColorFromRGB(0xcccccc);
     [footerView addSubview:lineView2];
     
     footerView.backgroundColor = _tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);;
-    UIButton *loginOutButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, SYSTEM_WIDTH, 50)];
+    UIButton *loginOutButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, SYSTEM_WIDTH, 50)];
     [loginOutButton setTitle:@"退出登录" forState:UIControlStateNormal];
     loginOutButton.titleLabel.font = [UIFont systemFontOfSize:16];
     loginOutButton.backgroundColor = [UIColor whiteColor];
     [loginOutButton addTarget:self action:@selector(quitAccount) forControlEvents:UIControlEventTouchUpInside];
     [loginOutButton setTitleColor:[UIColor customRedColor] forState:UIControlStateNormal];
     [footerView addSubview:loginOutButton];
-    UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 69.5, SYSTEM_WIDTH, 0.5)];
+    UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 59.5, SYSTEM_WIDTH, 0.5)];
     lineView3.backgroundColor = UIColorFromRGB(0xcccccc);
     [footerView addSubview:lineView3];
     return footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 70;
+    return 60;
 }
 
 - (void)quitAccount{

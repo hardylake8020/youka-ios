@@ -23,9 +23,10 @@
     // Initialization code
 }
 - (void)showCellWithModel:(TenderDetailCellModel*)model{
+    self.titleLabel.center = CGPointMake(self.titleLabel.center.x, model.cellHight/2);
+    self.subTitleLabel.center = CGPointMake(self.subTitleLabel.center.x, model.cellHight/2);
     self.titleLabel.text = model.title;
-    self.subTitleLabel.textColor = [UIColor blackColor];
-    self.bottomLineVIew.backgroundColor = UIColorFromRGB(0xdddddd);
+    self.subTitleLabel.textColor = UIColorFromRGB(0x333333);
     self.bottomLineVIew.frame = CGRectMake(0, model.cellHight-0.5, SYSTEM_WIDTH, 0.5);
     if ([model.subTitle isEmpty]) {
         self.subTitleLabel.text = @"未填写";
@@ -36,12 +37,24 @@
         }
     }
     if (model.isLight) {
-        self.subTitleLabel.font = [UIFont boldSystemFontOfSize:16];
+        self.subTitleLabel.font = [UIFont systemFontOfSize:16];
         self.contentView.backgroundColor = [UIColor whiteColor];
     }else{
-        self.subTitleLabel.font = [UIFont systemFontOfSize:14];
-        
+        self.subTitleLabel.font = [UIFont systemFontOfSize:13];
         self.contentView.backgroundColor = UIColorFromRGB(0xf5f5f5);
+        if (model.upDown==1) {
+            self.titleLabel.center = CGPointMake(self.titleLabel.center.x, model.cellHight/2+5);
+            self.subTitleLabel.center = CGPointMake(self.subTitleLabel.center.x, model.cellHight/2+5);
+        }else if(model.upDown == 2){
+            self.titleLabel.center = CGPointMake(self.titleLabel.center.x, model.cellHight/2-5);
+            self.subTitleLabel.center = CGPointMake(self.subTitleLabel.center.x, model.cellHight/2-5);
+        }else if (model.upDown==11) {
+            self.titleLabel.center = CGPointMake(self.titleLabel.center.x, model.cellHight/2+10);
+            self.subTitleLabel.center = CGPointMake(self.subTitleLabel.center.x, model.cellHight/2+10);
+        }else if(model.upDown == 22){
+            self.titleLabel.center = CGPointMake(self.titleLabel.center.x, model.cellHight/2-10);
+            self.subTitleLabel.center = CGPointMake(self.subTitleLabel.center.x, model.cellHight/2-10);
+        }
     }
     if (model.noBottomLine) {
         self.bottomLineVIew.hidden = YES;

@@ -156,15 +156,15 @@
     mediatorNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 45)];
     mediatorNumberLabel.text = @"4";
     mediatorNumberLabel.textAlignment = NSTextAlignmentCenter;
-    mediatorNumberLabel.font = fontBysize(30);
+    mediatorNumberLabel.font = fontBysize(24);
     mediatorNumberLabel.textColor = [UIColor whiteColor];
     [mediatorButton addSubview:mediatorNumberLabel];
     
-    UILabel *mediatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 45, SYSTEM_WIDTH/2, 35)];
+    UILabel *mediatorLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, SYSTEM_WIDTH/2, 35)];
     mediatorLabel.text = @"比价、抢单中";
     mediatorLabel.textAlignment = NSTextAlignmentCenter;
     mediatorLabel.textColor = [UIColor whiteColor];
-    mediatorLabel.font = fontBysize(15);
+    mediatorLabel.font = fontBysize(14);
     [mediatorButton addSubview:mediatorLabel];
     
     UIButton *driverButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/2, 0, SYSTEM_WIDTH/2, headerHight)];
@@ -174,26 +174,26 @@
     driverNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 45)];
     
     driverNumberLabel.textAlignment = NSTextAlignmentCenter;
-    driverNumberLabel.font = fontBysize(30);
+    driverNumberLabel.font = fontBysize(24);
     driverNumberLabel.textColor = [UIColor whiteColor];
     [driverButton addSubview:driverNumberLabel];
     
-    UILabel *driverLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 45, SYSTEM_WIDTH/2, 35)];
-    driverLabel.text = @"待处理运单";
+    UILabel *driverLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, SYSTEM_WIDTH/2, 35)];
+    driverLabel.text = @"我的运单";
     driverLabel.textAlignment = NSTextAlignmentCenter;
     driverLabel.textColor = [UIColor whiteColor];
-    driverLabel.font = fontBysize(15);
+    driverLabel.font = fontBysize(14);
     [driverButton addSubview:driverLabel];
     
-    UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+headerHight, SYSTEM_WIDTH, 110)];
+    UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+headerHight, SYSTEM_WIDTH, 105)];
     buttonsView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     NSArray *images = @[@"find_tender",@"assign_car",@"wallet",@"oil_card"];
-    NSArray *titles = @[@"我要找货",@"我的车队",@"我的钱包",@"我的卡劵"];
+    NSArray *titles = @[@"柱柱货源",@"我的车队",@"我的钱包",@"我的卡劵"];
     for (int i=0; i<titles.count; i++) {
-        UIButton *itemButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/4*i, 0, SYSTEM_WIDTH/4+1, 100)];
+        UIButton *itemButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/4*i, 0, SYSTEM_WIDTH/4+1, 95)];
         [itemButton addTarget:self action:@selector(itemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         itemButton.layer.borderColor = [UIColor customGrayColor].CGColor;
-        itemButton.layer.borderWidth = 1;
+        itemButton.layer.borderWidth = 0.5;
         itemButton.tag = 1000+i;
         [buttonsView addSubview:itemButton];
         itemButton.backgroundColor = [UIColor whiteColor];
@@ -208,9 +208,10 @@
         .centerYIs(40);
         
         
-        UILabel *itemLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/4, 40)];
+        UILabel *itemLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH/4, 35)];
         itemLabel.font = [UIFont systemFontOfSize:12];
         itemLabel.text = [titles objectAtIndex:i];
+        itemLabel.textColor = UIColorFromRGB(0x333333);
         itemLabel.textAlignment = NSTextAlignmentCenter;
         [itemButton addSubview:itemLabel];
         
@@ -226,7 +227,7 @@
 
 - (void)initTableView{
 
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+190, SYSTEM_WIDTH, SYSTEM_HEIGHT-190-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+175, SYSTEM_WIDTH, SYSTEM_HEIGHT-175-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -236,7 +237,7 @@
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 1)];
-    
+    self.tableView.tableHeaderView = [self tabHeaderView];
     [self.view addSubview:self.tableView];
     
     CCWeakSelf(self);
@@ -257,6 +258,11 @@
     }];
     
 //    [self tableHeaderRefesh];
+}
+
+- (UIView *)tabHeaderView{
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
+    return headerView;
 }
 
 - (void)tableHeaderRefesh{
@@ -324,7 +330,7 @@
     return self.dataArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 140;
+    return 130;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -390,13 +396,13 @@
     pageVC.menuViewStyle = WMMenuViewStyleLine;
     pageVC.menuBGColor = [UIColor naviBarColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:1 alpha:0.5];
     pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
+    pageVC.titleSizeNormal = 16;
     pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
+    pageVC.titleSizeSelected = 16;
     pageVC.title = title;
     [self.navigationController pushViewController:pageVC animated:YES];
 
@@ -416,13 +422,13 @@
     pageVC.menuViewStyle = WMMenuViewStyleLine;
     pageVC.menuBGColor = [UIColor naviBlackColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:1 alpha:0.5];
     pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
+    pageVC.titleSizeNormal = 16;
     pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
+    pageVC.titleSizeSelected = 16;
     pageVC.title = title;
     [self.navigationController pushViewController:pageVC animated:YES];
 

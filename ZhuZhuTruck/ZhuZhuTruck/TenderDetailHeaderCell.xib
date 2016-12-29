@@ -19,14 +19,14 @@
                         <frame key="frameInset" minX="15" minY="15" width="41.97%" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="南京市" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qva-uK-2dt">
                         <frame key="frameInset" minY="15" width="41.97%" height="21" maxX="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="虹口区" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jZR-Ud-7vg">
@@ -52,6 +52,11 @@
                         <frame key="frameInset" minX="50.00%" minY="36" width="96" height="7"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <view contentMode="scaleToFill" misplaced="YES" id="dzS-yA-EtG">
+                        <frame key="frameInset" height="1"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -60,6 +65,7 @@
                 <outlet property="fromProvinceLabel" destination="BTZ-s7-7t6" id="t0H-xV-U5S"/>
                 <outlet property="toCityLabel" destination="Oap-gx-aSt" id="JZP-Kf-eId"/>
                 <outlet property="toProvinceLabel" destination="Qva-uK-2dt" id="GFE-nn-8FK"/>
+                <outlet property="topLine" destination="dzS-yA-EtG" id="cOr-gg-PPf"/>
             </connections>
             <point key="canvasLocation" x="25" y="52"/>
         </tableViewCell>

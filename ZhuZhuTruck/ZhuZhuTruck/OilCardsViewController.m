@@ -126,7 +126,7 @@
 - (void)initTableView{
     
     if (self.isSeletedMode) {
-        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-60)];
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-50)];
     }else{
         self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
     }
@@ -210,7 +210,7 @@
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 110;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
@@ -266,7 +266,7 @@
 }
 
 - (void)initBottomView{
-    UIButton * sumbitButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-60, SYSTEM_WIDTH, 60)];
+    UIButton * sumbitButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-50, SYSTEM_WIDTH, 50)];
     sumbitButton.backgroundColor = [UIColor buttonGreenColor];
     [sumbitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [sumbitButton setTitle:@"确认" forState:UIControlStateNormal];
@@ -345,13 +345,13 @@
     pageVC.menuViewStyle = WMMenuViewStyleLine;
     pageVC.menuBGColor = [UIColor naviBlackColor];
     pageVC.titleColorSelected = [UIColor whiteColor];
-    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:1 alpha:0.5];
     pageVC.titleFontName = @"Helvetica-Bold";
-    pageVC.titleSizeNormal = 18;
+    pageVC.titleSizeNormal = 16;
     pageVC.progressHeight = 3;
     pageVC.progressColor = [UIColor whiteColor];
     pageVC.pageAnimatable = YES;
-    pageVC.titleSizeSelected = 18;
+    pageVC.titleSizeSelected = 16;
     pageVC.title = title;
     [self.navigationController pushViewController:pageVC animated:YES];
 }

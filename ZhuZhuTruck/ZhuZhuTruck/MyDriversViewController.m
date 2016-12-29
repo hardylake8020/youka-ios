@@ -33,15 +33,26 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    CCNaviHeaderView *naivHeader;
+    
     if (self.isSeletedMode) {
-        [self addBlackNaviHaderViewWithTitle:@"分配车辆"];
+        self.title = @"分配车辆";
+        naivHeader  = [[CCNaviHeaderView alloc]newInstance:self.title andBackGruondColor:[UIColor naviBlackColor]];
         self.fd_interactivePopDisabled = YES;
+        [self initBottomView];
     }else{
-        [self addBlackNaviHaderViewWithTitle:@"我的车队"];
+        self.title = @"我的车队";
+        naivHeader  = [[CCNaviHeaderView alloc]newInstance:self.title andBackGruondColor:[UIColor naviBlackColor]];
+        UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
+        [addButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
+        [addButton setTitle:@"添加" forState:UIControlStateNormal];
+        [addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [naivHeader addRightButton:addButton];
     }
-    [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
+    [naivHeader addBackButtonWithTarget:self action:@selector(naviBack)];
+    [self.view addSubview:naivHeader];
+    
     [self initTableView];
-    [self initBottomView];
     [self initErrorMaskView];
 }
 
@@ -66,8 +77,12 @@
     return _dataArray;
 }
 - (void)initTableView{
+    if (self.isSeletedMode) {
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-50) style:UITableViewStyleGrouped];
+    }else{
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
+    }
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-60) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -168,9 +183,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 10)];
     headerView.backgroundColor = UIColorFromRGB(0xf5f5f5);
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
-    lineView.backgroundColor = [UIColor customGrayColor];
-    [headerView addSubview:lineView];
     return headerView;
 }
 
@@ -190,16 +202,11 @@
 }
 
 - (void)initBottomView{
-    UIButton * sumbitButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-60, SYSTEM_WIDTH, 60)];
+    UIButton * sumbitButton = [[UIButton alloc]initWithFrame:CGRectMake(0,SYSTEM_HEIGHT-50, SYSTEM_WIDTH, 50)];
     sumbitButton.backgroundColor = [UIColor buttonGreenColor];
     [sumbitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    if (self.isSeletedMode) {
-        [sumbitButton setTitle:@"分配车辆" forState:UIControlStateNormal];
-        [sumbitButton addTarget:self action:@selector(assginCar) forControlEvents:UIControlEventTouchUpInside];
-    }else{
-        [sumbitButton setTitle:@"添加车辆" forState:UIControlStateNormal];
-        [sumbitButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
-    }
+    [sumbitButton setTitle:@"分配车辆" forState:UIControlStateNormal];
+    [sumbitButton addTarget:self action:@selector(assginCar) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sumbitButton];
 }
 
