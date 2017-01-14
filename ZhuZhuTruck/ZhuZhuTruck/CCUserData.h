@@ -21,6 +21,8 @@
 #define USER_CARRIER_ADDRESS   @"carrier_address"
 #define USER_DEST_NAME         @"dest_name"
 #define USER_DEST_ADDRESS      @"dest_address"
+#define USER_ORDER_COUNT       @"order_count"
+#define USER_TENDER_COUNT      @"tender_count"
 
 
 void save_AppVersion(NSString* appVersion);
@@ -49,7 +51,10 @@ void save_destName(NSString* dest_name);
 NSString* user_destName();
 void save_destAddress(NSString* dest_address);
 NSString* user_destAddress();
-
+void save_orderCount(int count);
+int order_count();
+void save_tenderCount(int count);
+int tender_count();
 
 
 

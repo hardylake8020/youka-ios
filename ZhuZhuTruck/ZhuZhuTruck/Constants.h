@@ -4,19 +4,19 @@
 //
 //  Created by CongCong on 2016/11/30.
 //  Copyright © 2016年 CongCong. All rights reserved.
-//
+//
 
 #import <Foundation/Foundation.h>
-
-//#define BASE_URL @"http://192.168.0.111:3006"
-//#define DRIVER_BASE_URL @"http://192.168.0.111:3002"
 
 #define BASE_URL @"http://183.131.76.178:3006"
 #define DRIVER_BASE_URL @"http://183.131.76.178:3002"
 
+//local
+//#define BASE_URL @"http://192.168.1.100:3006"
+//#define DRIVER_BASE_URL @"http://192.168.1.100:3002"
+
 #define APPVERSION @"2.0.0.9"
 #define VERSIONNUMBER @"2009"
-
 
 #define SIGN_IN @"/driver/signin"
 #define SIGN_UP @"/driver/signup"
@@ -35,8 +35,8 @@
 #define USER_GET_CARD_LIST @"/tender/driver/card/getListByDriver"
 #define USER_GET_TRUCK_LIST @"/tender/driver/truck/getListByDriver"
 #define USER_ASSGIN_ORDER_TO_TRUCK @"/tender/driver/assginDriver"
-
 #define USER_GET_ORDER_TIMELINE @"/tender/driver/transportevent"
+#define USER_GET_ORDER_TENDER_COUNT @"/tender/driver/dashboard"
 
 //登录参数
 #define USERNAME @"username"

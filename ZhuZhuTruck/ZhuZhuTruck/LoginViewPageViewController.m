@@ -260,6 +260,7 @@
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hiddleImage) userInfo:nil repeats:NO];
         HomePageViewController *homePage = [[HomePageViewController alloc]init];
         [self.navigationController pushViewController:homePage animated:NO];
+        
     }
 }
 - (void)hiddleImage{

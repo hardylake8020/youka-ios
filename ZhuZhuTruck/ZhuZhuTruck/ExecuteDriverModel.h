@@ -9,10 +9,8 @@
 #import <JSONModel/JSONModel.h>
 
 @protocol ExecuteDriverModel <NSObject>
-
 @end
 
 @interface ExecuteDriverModel : JSONModel
-
-@property (nonatomic, copy) NSString<Optional> *order_number;
+@property (nonatomic, strong) NSArray<Optional> *current_location;
 @end

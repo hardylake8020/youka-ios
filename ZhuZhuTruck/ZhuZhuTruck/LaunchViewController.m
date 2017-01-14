@@ -25,7 +25,7 @@
     [SVProgressHUD setMinimumDismissTimeInterval:1];
     [SVProgressHUD setFont:[UIFont boldSystemFontOfSize:16]];
 //    [[SeverTimeManager defaultManager] getServerTime];
-    [[LocationUploadManager sharedManager] startUploadArray];
+    
     
     self.title = @"启动页";
     [self initUI];

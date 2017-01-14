@@ -8,6 +8,7 @@
 
 #import <JSONModel/JSONModel.h>
 #import "GoodModel.h"
+#import "ExecuteDriverModel.h"
 
 @interface TenderModel : JSONModel
 @property (nonatomic, copy) NSString<Optional> *_id;
@@ -68,7 +69,8 @@
 @property (nonatomic, strong) NSNumber<Optional> *payment_last_cash_rate;
 @property (nonatomic, strong) NSNumber<Optional> *payment_last_card_rate;
 
-
-
+@property (nonatomic, strong) NSArray<Optional> *pickup_region_location;
+@property (nonatomic, strong) NSArray<Optional> *delivery_region_location;
+@property (nonatomic, strong) ExecuteDriverModel<Optional> *execute_driver;
 
 @end

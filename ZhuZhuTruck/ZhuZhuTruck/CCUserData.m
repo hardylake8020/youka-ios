@@ -390,9 +390,42 @@ NSString* user_PushId()
 }
 
 
+/**
+ <#Description#>保存运单数量
+ @param count <#userpwd description#>
+ */
+void save_orderCount(int count)
+{
+    saveInteger(USER_ORDER_COUNT, count);
+}
+
+/**
+ <#Description#>获取用户运单数量
+ @returns <#return value description#>
+ */
+int order_count()
+{
+    return getInteger(USER_ORDER_COUNT);
+}
 
 
+/**
+ <#Description#>保存用户订单数量
+ @param count <#userpwd description#>
+ */
+void save_tenderCount(int count)
+{
+    saveInteger(USER_TENDER_COUNT, count);
+}
 
+/**
+ <#Description#>获取用户订单数量
+ @returns <#return value description#>
+ */
+int tender_count()
+{
+    return getInteger(USER_TENDER_COUNT);
+}
 
 
 

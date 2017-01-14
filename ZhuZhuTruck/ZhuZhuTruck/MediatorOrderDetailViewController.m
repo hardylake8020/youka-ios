@@ -10,6 +10,7 @@
 #import "TenderDetailCell.h"
 #import "TenderDetailHeaderCell.h"
 #import "MyDriversViewController.h"
+#import "DriversMapViewController.h"
 #import "TenderDetailTableDataModel.h"
 #import "MediatorPendingViewController.h"
 #import "MediatorProgressViewController.h"
@@ -62,7 +63,13 @@
         }
             break;
     }
+    UIButton *mapButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
+    [mapButton addTarget:self action:@selector(showMapDetails) forControlEvents:UIControlEventTouchUpInside];
+    [mapButton setTitle:@"地图" forState:UIControlStateNormal];
+    [mapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.naviHeaderView addRightButton:mapButton];
     
+
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderView];
     [self initTableView];
@@ -77,6 +84,12 @@
                                                object:nil];
 
 }
+
+- (void)showMapDetails{
+    DriversMapViewController *map = [[DriversMapViewController alloc]initWithTenderModel:self.tenderModel];
+    [self.navigationController pushViewController:map animated:YES];
+}
+
 - (void)initHeaderView{
 
     

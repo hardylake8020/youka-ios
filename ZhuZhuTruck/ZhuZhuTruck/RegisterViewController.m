@@ -218,7 +218,6 @@
             [SVProgressHUD showSuccessWithStatus:@"重置成功"];
         }
     }];
-
 }
 
 - (void)succeedDone{

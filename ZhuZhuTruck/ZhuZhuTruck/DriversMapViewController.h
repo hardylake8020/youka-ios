@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface DriversMapViewController : BaseViewController
-
+- (instancetype)initWithTenderModel:(TenderModel*)model;
 @end

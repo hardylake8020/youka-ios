@@ -53,7 +53,7 @@
     if(authorizationStatus == kCLAuthorizationStatusNotDetermined){
         [[LocationTracker defaultLoactionTarker] startLocationTracking];
     }
-    
+    [[LocationUploadManager sharedManager] startUploadArray];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenInvild) name:USER_TOKEN_INVILID_NOTI object:nil];
     
     
@@ -105,7 +105,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    driverNumberLabel.text = [[DBManager sharedManager] readAllOngoingOrderCount];
+    [self getCountNumber];
     _currentPage = 0;
     [self loadNewData];
 }
@@ -154,7 +154,6 @@
     [progressView addSubview:mediatorButton];
     
     mediatorNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 45)];
-    mediatorNumberLabel.text = @"4";
     mediatorNumberLabel.textAlignment = NSTextAlignmentCenter;
     mediatorNumberLabel.font = fontBysize(24);
     mediatorNumberLabel.textColor = [UIColor whiteColor];
@@ -172,7 +171,6 @@
     [progressView addSubview:driverButton];
     
     driverNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH/2, 45)];
-    
     driverNumberLabel.textAlignment = NSTextAlignmentCenter;
     driverNumberLabel.font = fontBysize(24);
     driverNumberLabel.textColor = [UIColor whiteColor];
@@ -222,8 +220,17 @@
 //    [buttonsView addSubview:lineView];
 
     [self.view addSubview:buttonsView];
+    [self setCountNumber];
 }
 
+
+- (void)setCountNumber{
+    
+    mediatorNumberLabel.text = [NSString stringWithFormat:@"%d",tender_count()];
+    
+    driverNumberLabel.text = [NSString stringWithFormat:@"%d",order_count()];
+    
+}
 
 - (void)initTableView{
 
@@ -381,6 +388,9 @@
     [self.navigationController pushViewController:myDrivers animated:YES];
 }
 
+
+
+
 - (void)gotoDrvierProgress{
     NSArray *viewControllers;
     NSArray *titles;
@@ -470,6 +480,27 @@
     MediatorFindOrdersViewController *findOrders  = [[MediatorFindOrdersViewController alloc]init];
     [self.navigationController pushViewController:findOrders animated:YES];
 }
+
+- (void)getCountNumber{
+    
+    __weak typeof(self) _weakSelf = self;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_GET_ORDER_TENDER_COUNT parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            
+        }else{
+            int orderCount = [result intForKey:USER_ORDER_COUNT];
+            int tenderCount = [result intForKey:USER_TENDER_COUNT];
+            save_orderCount(orderCount);
+            save_tenderCount(tenderCount);
+            [_weakSelf setCountNumber];
+        }
+    }];
+
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning {
