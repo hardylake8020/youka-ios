@@ -36,6 +36,16 @@
                             <constraint firstAttribute="height" constant="18" id="v8A-Lz-Trt"/>
                         </constraints>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9c-17-Jnd">
+                        <frame key="frameInset" minY="47.37%" width="40" height="40" maxX="53"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ayr-fN-Wot" firstAttribute="firstBaseline" secondItem="Lfs-PL-gux" secondAttribute="firstBaseline" id="6pN-iQ-43e"/>
@@ -51,6 +61,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="photoImage" destination="H9c-17-Jnd" id="ZCa-I4-A8b"/>
                 <outlet property="stateLabel" destination="ayr-fN-Wot" id="tRE-Ec-M4E"/>
                 <outlet property="titleLabel" destination="Lfs-PL-gux" id="apd-Kn-Kex"/>
             </connections>

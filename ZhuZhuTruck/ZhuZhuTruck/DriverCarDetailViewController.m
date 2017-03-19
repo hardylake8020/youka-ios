@@ -8,6 +8,7 @@
 
 #import "DriverCarDetailViewController.h"
 #import "CarDetailCell.h"
+#import <UIImageView+WebCache.h>
 #import "ShowPhotoViewController.h"
 #import "TruckDetailTableDataModel.h"
 @interface DriverCarDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -92,11 +93,12 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 200)];
     headerView.backgroundColor = [UIColor naviBlackColor];
     [self.view addSubview:headerView];
-    
     UIImageView *carImageView = [[UIImageView alloc]init];
-    
     if (self.driverModel) {
-        carImageView.image = [UIImage imageNamed:@"ic_head"];
+        if ([self.driverModel.photo isEqualToString:@""]) {
+            self.driverModel.photo = nil;
+        }
+        [carImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",QN_IMAGE_HEADER,self.driverModel.photo]]placeholderImage:[UIImage imageNamed:@"ic_head"] options:SDWebImageProgressiveDownload];
     }else{
         carImageView.image = [UIImage imageNamed:@"truck_car"];
     }

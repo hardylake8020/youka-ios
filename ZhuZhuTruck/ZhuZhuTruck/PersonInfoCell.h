@@ -10,6 +10,7 @@
 #import "PersonInfoModel.h"
 @interface PersonInfoCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *photoImage;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 - (void)showCellWithPhotoDict:(NSDictionary *)photoDict;
 - (void)showCellWithPerInfoModel:(PersonInfoModel *)model;

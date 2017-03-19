@@ -321,6 +321,7 @@
     [parameters put:truckInfo key:@"driver_info"];
     
     [SVProgressHUD showWithStatus:@"正在添加..."];
+    
     [[HttpRequstManager requestManager] postWithRequestBodyString:USER_ADD_NEW_DRIVER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"添加失败")];

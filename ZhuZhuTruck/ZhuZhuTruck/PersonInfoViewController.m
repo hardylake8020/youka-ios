@@ -56,6 +56,8 @@
 //    [personInfoDict put:UER_BANK_CARD_PHOTO key:@"key"];
 //    [firstSectionArray addObject:personInfoDict];
 
+    
+    
     model = [[PersonInfoModel alloc]initWithTitle:@"银行卡照片" photoName:user_bankCardPhoto() andKey:UER_BANK_CARD_PHOTO];
     [firstSectionArray addObject:model];
     
@@ -96,6 +98,9 @@
 //    [personInfoDict put:UER_TRUCK_PHOTO key:@"key"];
 //    [secondSectionArray addObject:personInfoDict];
 
+    model = [[PersonInfoModel alloc]initWithTitle:@"司机照片" photoName:user_headPhoto() andKey:USER_HEAD_PHOTO];
+    [secondSectionArray addObject:model];
+    
     model = [[PersonInfoModel alloc]initWithTitle:@"车辆照片" photoName:user_truckPhoto() andKey:UER_TRUCK_PHOTO];
     [secondSectionArray addObject:model];
     
@@ -119,6 +124,7 @@
 //    [thirdSectionArray addObject:personInfoDict];
 
     model = [[PersonInfoModel alloc]initWithTitle:@"车辆类型" photoName:user_truckType() andKey:UER_TRUCK_TYPE];
+    model.isText = YES;
     [thirdSectionArray addObject:model];
     
 //    personInfoDict = [NSMutableDictionary dictionary];
@@ -128,6 +134,7 @@
 //    [thirdSectionArray addObject:personInfoDict];
 
     model = [[PersonInfoModel alloc]initWithTitle:@"车牌号" photoName:user_truckNumber() andKey:UER_TRUCK_NUMBER];
+    model.isText = YES;
     [thirdSectionArray addObject:model];
     
 //    personInfoDict = [NSMutableDictionary dictionary];
@@ -137,6 +144,7 @@
 //    [thirdSectionArray addObject:personInfoDict];
 
     model = [[PersonInfoModel alloc]initWithTitle:@"用户名称" photoName:user_NickName() andKey:USER_NICK_NAME];
+    model.isText = YES;
     [thirdSectionArray addObject:model];
     
     [self.dataArray addObject:thirdSectionArray];

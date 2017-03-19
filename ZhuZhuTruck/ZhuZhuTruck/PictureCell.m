@@ -31,7 +31,7 @@
         iconLabel.text = [NSString fontAwesomeIconStringForEnum:FAPlus];
         [self addSubview:iconLabel];
         imageView = [[UIImageView alloc]initWithFrame:self.contentView.bounds];
-        [imageView setContentMode:UIViewContentModeScaleAspectFill];
+//        [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self addSubview:imageView];
         self.contentView.layer.borderWidth = 0.3;
         self.contentView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;

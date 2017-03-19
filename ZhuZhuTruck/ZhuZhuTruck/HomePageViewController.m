@@ -8,6 +8,7 @@
 
 #import "HomePageViewController.h"
 #import "QnUploadManager.h"
+#import <UIButton+WebCache.h>
 #import "SettingViewController.h"
 #import "SettingViewController.h"
 #import "CarStockViewController.h"
@@ -118,23 +119,16 @@
 }
 
 - (void)initHeaderViewButton{
-    
-    
-//    UIButton *headerButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH-15-26-6, 26+3, 24, 24)];
-//    headerButton.clipsToBounds = YES;
-//    headerButton.layer.cornerRadius = 12;
-//    [headerButton setBackgroundImage:[UIImage imageNamed:@"ic_setting"] forState:UIControlStateNormal];
-//    [headerButton addTarget:self action:@selector(gotoSetting) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:headerButton];
-    
-    
+
     UIView* roundView = [[UIView alloc]initWithFrame:CGRectMake(14, 27, 32, 32)];
     roundView.backgroundColor = [UIColor whiteColor];
     roundView.clipsToBounds = YES;
     roundView.layer.cornerRadius = 16;
     [self.view addSubview:roundView];
     UIButton * headButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 28, 30, 30)];
-    [headButton setBackgroundImage:[UIImage imageNamed:@"headerImage"] forState:UIControlStateNormal];
+//    CCLog(@"%@",[NSString stringWithFormat:@"%@%@",QN_IMAGE_HEADER,user_headPhoto()]);
+    [headButton sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",QN_IMAGE_HEADER,user_headPhoto()]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"ic_head"]];
+    
     headButton.clipsToBounds      = YES;
     headButton.layer.cornerRadius = 15;
     [headButton addTarget:self action:@selector(gotoSetting) forControlEvents:UIControlEventTouchUpInside];

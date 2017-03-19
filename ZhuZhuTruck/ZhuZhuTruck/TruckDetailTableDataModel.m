@@ -169,6 +169,13 @@
     [photos addObject:model];
     
     model = [[TruckDetailCellModel alloc]init];
+    model.title = @"司机照片";
+    model.isImage = YES;
+    model.subTitle = driverModel.photo;
+    [photos addObject:model];
+
+    
+    model = [[TruckDetailCellModel alloc]init];
     model.title = @"车辆照片";
     model.isImage = YES;
     model.subTitle = driverModel.truck_photo;

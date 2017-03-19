@@ -7,7 +7,9 @@
 //
 
 #import "DrvierCarCell.h"
+#import "Constants.h"
 #import "NSString+Tool.h"
+#import <UIImageView+WebCache.h>
 @interface DrvierCarCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *carImageView;
 @property (weak, nonatomic) IBOutlet UILabel *carNumberLabel;
@@ -57,7 +59,11 @@
     self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",(!model.truck_type||[model.truck_type isEmpty])?@"未设置":model.truck_type];
     self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",(![model.nickname isEmpty]&&model.nickname)?model.nickname:@"未设置"] ;
     self.contactLabel.text =[NSString stringWithFormat:@"联系手机    %@",model.username];
-    self.carImageView.image = [UIImage imageNamed:@"ic_head"];
+    
+    if ([model.photo isEqualToString:@""]) {
+        model.photo = nil;
+    }
+    [self.carImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",QN_IMAGE_HEADER,model.photo]] placeholderImage:[UIImage imageNamed:@"ic_head"] options:SDWebImageLowPriority|SDWebImageProgressiveDownload];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -11,7 +11,7 @@
 #define USER_APP_VERSION       @"user_app_version"
 #define USER_NICK_NAME         @"nickname"
 #define USER_ID                @"_id"
-#define USER_HEAD_PHOTO        @"head_photo"
+#define USER_HEAD_PHOTO        @"photo"
 #define QN_TOKEN               @"qn_token"
 #define ACCESS_TOKEN           @"access_token"
 #define USER_PHONE_NUMBER      @"username"

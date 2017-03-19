@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *photoName;
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, assign) BOOL isChange;
+@property (nonatomic, assign) BOOL isText;
 
 
 

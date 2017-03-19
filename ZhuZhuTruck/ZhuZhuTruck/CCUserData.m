@@ -672,6 +672,7 @@ void save_userProfiles(NSDictionary *driver){
     save_truckNumber([driver stringForKey:UER_TRUCK_NUMBER]);
     save_truckType([driver stringForKey:UER_TRUCK_TYPE]);
     save_UserNickName([driver stringForKey:USER_NICK_NAME]);
+    save_UserHeadPhoto([driver stringForKey:USER_HEAD_PHOTO]);
 }
 
 void clearUserProfile(){
@@ -692,6 +693,7 @@ void clearUserProfile(){
     save_truckNumber(@"");
     save_truckType(@"");
     save_UserNickName(@"");
+    save_UserHeadPhoto(@"");
 }
 
 
