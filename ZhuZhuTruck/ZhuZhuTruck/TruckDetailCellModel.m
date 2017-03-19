@@ -9,5 +9,12 @@
 #import "TruckDetailCellModel.h"
 
 @implementation TruckDetailCellModel
+- (void)setSubTitle:(NSString *)subTitle{
+    if (subTitle) {
+        _subTitle = subTitle;
+    }else{
+        _subTitle = @"";
+    }
+}
 
 @end

@@ -20,6 +20,8 @@
 
 #define SIGN_IN @"/driver/signin"
 #define SIGN_UP @"/driver/signup"
+#define UPDATE_USER_INFO @"/tender/driver/updateDriverProfile"
+
 #define GET_BYSTATUS @"/driver/order/getbystatus"
 #define UPLOADEVENT @"/transport_event/upload"
 #define QN_IMAGE_TOKEN @"/token/image/upload"
@@ -30,22 +32,31 @@
 #define GET_UNSTART_TENDER @"/tender/driver/getUnStartedListByDriver" //post
 #define GET_TENDER_BY_STATUS @"/tender/driver/getStartedListByDriver" //post
 #define USER_GRAB_TENDER @"/tender/driver/grab"  //post
+#define USER_COMPARE_TENDER @"/tender/driver/compare"  //post
 #define USER_ADD_CARD   @"/tender/driver/card/create"   //post
 #define USER_ADD_TRUCK_CAR @"/tender/driver/truck/create"
+#define USER_ADD_NEW_DRIVER @"/tender/driver/addNewDriver"
 #define USER_GET_CARD_LIST @"/tender/driver/card/getListByDriver"
 #define USER_GET_TRUCK_LIST @"/tender/driver/truck/getListByDriver"
 #define USER_ASSGIN_ORDER_TO_TRUCK @"/tender/driver/assginDriver"
 #define USER_GET_ORDER_TIMELINE @"/tender/driver/transportevent"
 #define USER_GET_ORDER_TENDER_COUNT @"/tender/driver/dashboard"
+#define USER_GET_TENDER_BY_ID   @"/tender/driver/getTenderByTenderId"
+#define USER_SEARCH_DRIVERS @"/tender/driver/searchDrivers"
+#define USER_ADD_DRIVERS_TO_OWNER @"/tender/driver/addDriversToOwner"
+#define USER_ADD_NEW_DRIVER @"/tender/driver/addNewDriver"
 
 //登录参数
 #define USERNAME @"username"
 #define PWD @"password"
+
 #define QN_IMAGE_HEADER @"http://7xiwrb.com1.z0.glb.clouddn.com/"
 
 //通知
 #define USER_TOKEN_INVILID_NOTI @"user_token_invaild_noti"
 #define RELOAD_DRIVER_ORDER_LIST_NOTI @"reload_driver_order_list_noti"
+#define GET_JPUSH_REGISEDID_NOTI  @"jpsuh_register_id"
+
 #define CustomErrorDomain @"not_internet_now"
 
 typedef enum : NSUInteger {

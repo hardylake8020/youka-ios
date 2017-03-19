@@ -186,7 +186,7 @@
     UIView *buttonsView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+headerHight, SYSTEM_WIDTH, 105)];
     buttonsView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     NSArray *images = @[@"find_tender",@"assign_car",@"wallet",@"oil_card"];
-    NSArray *titles = @[@"柱柱货源",@"我的车队",@"我的钱包",@"我的卡劵"];
+    NSArray *titles = @[@"柱柱货源",@"我的司机",@"我的钱包",@"我的卡劵"];
     for (int i=0; i<titles.count; i++) {
         UIButton *itemButton = [[UIButton alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH/4*i, 0, SYSTEM_WIDTH/4+1, 95)];
         [itemButton addTarget:self action:@selector(itemButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -354,8 +354,13 @@
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
-        [self.navigationController pushViewController:orderDetail animated:YES];
+        if ([tenderModel isAlreadyBind]) {
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }else{
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }
     }
 }
 

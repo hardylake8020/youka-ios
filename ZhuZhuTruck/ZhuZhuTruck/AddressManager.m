@@ -52,6 +52,7 @@
 
 
 - (void)getCurentAddressWithCallBackHandler:(GetCurrentAddressCallBack)callBack{
+
     self.callBackHandler = callBack;
     if (self.callBackHandler) {
         self.callBackHandler(self.currentAddress,self.currentLocation);

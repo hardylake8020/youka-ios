@@ -109,7 +109,7 @@
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
 #define kTableViewCellHeight 43
-#define kTableViewHeight 300
+#define kTableViewHeight 410
 #define kButtomImageViewHeight 21
 
 #define kTextColor [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1]
@@ -307,7 +307,7 @@
         _detailTextFont = [UIFont systemFontOfSize:11];
         _detailTextColor = kDetailTextColor;
         _indicatorColor = kTextColor;
-        _tableViewHeight = IS_IPHONE_4_OR_LESS ? 200 : kTableViewHeight;
+        _tableViewHeight = IS_IPHONE_4_OR_LESS ? 300 : kTableViewHeight;
         _isClickHaveItemValid = YES;
         
         //lefttableView init

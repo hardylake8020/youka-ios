@@ -489,13 +489,15 @@
 
 - (void)sumbitClick{
     
-    if (!_address||[_address isEmpty]) {
-        [self getAddress];
+    if (_userLocation.latitude==0) {
         alert_showInfoMsg(@"还没有得到位置，请稍后再试");
         return;
     }
-    
-    
+    if (!_address||[_address isEmpty]) {
+        [self getAddress];
+        _address = @"";
+    }
+
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     switch (self.operationType) {
         case HalfWayEvent:

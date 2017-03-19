@@ -29,9 +29,20 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="BlE-9T-kZ7">
+                        <frame key="frameInset" minY="47.06%" width="32" height="32" maxX="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="photoImage" destination="BlE-9T-kZ7" id="Tmh-D9-8yp"/>
                 <outlet property="subTitleLabel" destination="cCK-YM-Z6d" id="TeR-y2-lgj"/>
                 <outlet property="titleLabel" destination="sY9-cg-Jxs" id="x23-vy-gvL"/>
             </connections>

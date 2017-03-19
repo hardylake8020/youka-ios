@@ -8,12 +8,15 @@
 
 #import "DriverCarDetailViewController.h"
 #import "CarDetailCell.h"
+#import "ShowPhotoViewController.h"
 #import "TruckDetailTableDataModel.h"
 @interface DriverCarDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, strong) TruckModel * truckModel;
+@property (nonatomic, strong) TruckModel* truckModel;
+@property (nonatomic, strong) DriverModel* driverModel;
 @property (nonatomic, strong) TruckDetailTableDataModel * tableModel;
+@property (nonatomic, copy) SucceedCallBack callBackHandler;
 @end
 
 @implementation DriverCarDetailViewController
@@ -24,6 +27,17 @@
     self = [super init];
     if (self) {
         self.truckModel = model;
+        self.title = @"车辆详情";
+    }
+    return self;
+}
+
+- (instancetype)initWithDriverModel:(DriverModel *)model andSucceedCallBack:(SucceedCallBack)callBack{
+    self = [super init];
+    if (self) {
+        self.driverModel = model;
+        self.title = @"司机详情";
+        self.callBackHandler = callBack;
     }
     return self;
 }
@@ -36,18 +50,56 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addBlackNaviHaderViewWithTitle:@"车辆详情"];
-    [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
+    CCNaviHeaderView *naivHeader  = [[CCNaviHeaderView alloc]newInstance:self.title andBackGruondColor:[UIColor naviBlackColor]];
+    [naivHeader addBackButtonWithTarget:self action:@selector(naviBack)];
+    [self.view addSubview:naivHeader];
+    
+    if (self.driverModel&&self.callBackHandler) {
+        UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
+        [addButton addTarget:self action:@selector(addDrvier) forControlEvents:UIControlEventTouchUpInside];
+        [addButton setTitle:@"添加" forState:UIControlStateNormal];
+        [addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [naivHeader addRightButton:addButton];
+    }
+    
     [self initHeaderView];
     [self initTableView];
 }
+
+- (void)addDrvier{
+    CCWeakSelf(self);
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters put:accessToken() key:ACCESS_TOKEN];
+    [parameters put:self.driverModel._id key:@"driver_id"];
+    
+    
+    [SVProgressHUD showWithStatus:@"正在添加..."];
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_ADD_DRIVERS_TO_OWNER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"添加失败")];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"添加成功"];
+            if (weakself.callBackHandler) {
+                weakself.callBackHandler();
+            }
+            [weakself naviBack];
+        }
+    }];
+
+}
+
 - (void)initHeaderView{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 200)];
     headerView.backgroundColor = [UIColor naviBlackColor];
     [self.view addSubview:headerView];
     
+    UIImageView *carImageView = [[UIImageView alloc]init];
     
-    UIImageView *carImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"truck_car"]];
+    if (self.driverModel) {
+        carImageView.image = [UIImage imageNamed:@"ic_head"];
+    }else{
+        carImageView.image = [UIImage imageNamed:@"truck_car"];
+    }
     [headerView addSubview:carImageView];
     
     carImageView.clipsToBounds = YES;
@@ -62,26 +114,13 @@
 }
 - (void)initTableView{
     
-//    NSMutableArray *firstSectionArray = [NSMutableArray array];
-//    [firstSectionArray addObject:@{@"title":@"车辆",@"subTitle":@"沪AA8888"}];
-//    [firstSectionArray addObject:@{@"title":@"车型",@"subTitle":@"金杯"}];
-//    [firstSectionArray addObject:@{@"title":@"油卡",@"subTitle":@"2222 5555 7777 9999"}];
-//    [self.dataArray addObject:firstSectionArray];
-//    
-//    NSMutableArray *secondSectionArray = [NSMutableArray array];
-//    [secondSectionArray addObject:@{@"title":@"司机",@"subTitle":@"Sisley"}];
-//    [secondSectionArray addObject:@{@"title":@"司机手机",@"subTitle":@"16598767867"}];
-//    [self.dataArray addObject:secondSectionArray];
-//    
-//    NSMutableArray *thirdSectionArray = [NSMutableArray array];
-//    [thirdSectionArray addObject:@{@"title":@"状态",@"subTitle":@"运输中"}];
-//    [thirdSectionArray addObject:@{@"title":@"当前位置",@"subTitle":@"上海浦东"}];
-//    [self.dataArray addObject:thirdSectionArray];
-    
-    self.tableModel = [[TruckDetailTableDataModel alloc]initWithTruckModel:self.truckModel];
-    
-    
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+200, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-150) style:UITableViewStyleGrouped];
+    if (self.truckModel) {
+        self.tableModel = [[TruckDetailTableDataModel alloc]initWithTruckModel:self.truckModel];
+    }
+    if (self.driverModel) {
+        self.tableModel = [[TruckDetailTableDataModel alloc]initWithDriverModel:self.driverModel];
+    }
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+200, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-200) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -125,17 +164,14 @@
     return headerView;
 }
 
-//- (void)initButtonView{
-//    UIButton *pickupMarginButton = [[UIButton alloc]initWithFrame:CGRectMake(0, SYSTEM_HEIGHT-80, SYSTEM_WIDTH, 80)];
-//    [pickupMarginButton  setTitle:@"提取保证金 ￥ 200.00" forState:UIControlStateNormal];
-//    [pickupMarginButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
-//    pickupMarginButton.titleLabel.font = fontBysize(18);
-//    [self.view addSubview:pickupMarginButton];
-//    UIView *topLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 0.5)];
-//    topLine.backgroundColor = [UIColor customGrayColor];
-//    [pickupMarginButton addSubview:topLine];
-//    
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TruckDetailCellModel *model = [[self.tableModel.dataArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if (model.isImage&&model.subTitle&&![model.subTitle isEmpty]) {
+        ShowPhotoViewController *showPhoto = [[ShowPhotoViewController alloc]initWithFileName:model.subTitle];
+        [self.navigationController pushViewController:showPhoto animated:YES];
+    }
+}
+
 #pragma mark ---> 返回 其他
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];

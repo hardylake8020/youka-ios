@@ -157,7 +157,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     TenderModel *tenderModel = [self.dataArray objectAtIndex:section];
-    if ([tenderModel.status isEqualToString:@"unAssigned"]) {
+    if (([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"grab"])||([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"compare"]&&[tenderModel.driver_winner._id isEqualToString:user_id()])) {
         return 60;
     }
     return 10;
@@ -174,8 +174,20 @@
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderSucceed andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing];
-        [self.navigationController pushViewController:orderDetail animated:YES];
+#warning 比价状态
+        if ([tenderModel.status isEqualToString:@"unAssigned"]) {
+            if ([tenderModel.driver_winner._id isEqualToString:user_id()]) {
+                MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderSucceed andTenderModel:tenderModel];;
+                [self.navigationController pushViewController:orderDetail animated:YES];
+            }else{
+                MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderFailed andTenderModel:tenderModel];;
+                [self.navigationController pushViewController:orderDetail animated:YES];
+            }
+            
+        }else if ([tenderModel.status isEqualToString:@"comparing"]) {
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing andTenderModel:tenderModel];;
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -186,7 +198,7 @@
     topLine.backgroundColor = [UIColor customGrayColor];
     [footerView addSubview:topLine];
     
-    if ([tenderModel.status isEqualToString:@"unAssigned"]) {
+    if (([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"grab"])||([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"compare"]&&[tenderModel.driver_winner._id isEqualToString:user_id()])) {
         UIButton *assignButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0.5, SYSTEM_WIDTH, 49)];
         [assignButton setBackgroundColor:[UIColor whiteColor]];
         [assignButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];
@@ -205,7 +217,9 @@
             bottomLine.backgroundColor = [UIColor customGrayColor];
             [footerView addSubview:bottomLine];
         }
-    }else{
+    }
+    
+    else{
         if (section < self.dataArray.count-1) {
             UIView *bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 9.5, SYSTEM_WIDTH, 0.5)];
             bottomLine.backgroundColor = [UIColor customGrayColor];

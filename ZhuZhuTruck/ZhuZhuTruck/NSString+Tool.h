@@ -22,5 +22,7 @@
 -(BOOL) isValidateEge;
 -(BOOL) isValidateMobile;
 -(BOOL) validateCarNo;
+-(BOOL) isValidIdentityCard;
+-(BOOL) isValidBankCard;
 -(NSMutableDictionary *)JSONDataDictionary;
 @end

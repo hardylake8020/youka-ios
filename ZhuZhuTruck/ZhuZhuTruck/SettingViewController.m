@@ -8,7 +8,7 @@
 
 #import "SettingViewController.h"
 #import "NSString+FontAwesome.h"
-
+#import "PersonInfoViewController.h"
 @interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -27,8 +27,9 @@
 
 
 - (void)initTableView{
-    self.dataArray = @[[NSString stringWithFormat:@"%@    合作公司",[NSString fontAwesomeIconStringForEnum:FAshareAlt]],[NSString stringWithFormat:@"%@    帮助中心",[NSString fontAwesomeIconStringForEnum:FAHeadphones]],[NSString stringWithFormat:@"%@    系统设置",[NSString fontAwesomeIconStringForEnum:FACog]]];
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT)];
+    
+    self.dataArray = @[[NSString stringWithFormat:@"%@    合作公司",[NSString fontAwesomeIconStringForEnum:FAshareAlt]],[NSString stringWithFormat:@"%@    个人信息",[NSString fontAwesomeIconStringForEnum:FAUser]],[NSString stringWithFormat:@"%@    帮助中心",[NSString fontAwesomeIconStringForEnum:FAHeadphones]],[NSString stringWithFormat:@"%@    系统设置",[NSString fontAwesomeIconStringForEnum:FACog]]];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT) ];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 50;
@@ -45,13 +46,17 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCellID"];
     if(!cell){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SettingCellID"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.textLabel.font = [UIFont fontWithName:@"FontAwesome" size:16];
     cell.textLabel.text = [self.dataArray objectAtIndex:indexPath.row];
+    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
+    if (indexPath.row == 1) {
+        PersonInfoViewController *info = [[PersonInfoViewController alloc]init];
+        [self.navigationController pushViewController:info animated:YES];
     }
 }
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -94,10 +99,7 @@
     RIButtonItem *deleteItem = [RIButtonItem itemWithLabel:@"确定" action:^{
         // this is the code that will be executed when the user taps "Yes"
         // delete the object in question...
-        save_UserPwd(@"");
-        save_AccessToken(@"");
-        [[DBManager sharedManager] deletedAllLocations];
-        [[DBManager sharedManager] deletAllOrders];
+        [_weakSelf clearLocalData];
 //        [[LocationTracker defaultLoactionTarker] stopLocationTracking];
         [_weakSelf.navigationController popToRootViewControllerAnimated:YES];
     }];
@@ -109,6 +111,17 @@
     [alertView show];
     
 }
+
+- (void)clearLocalData{
+    save_UserPwd(@"");
+    save_AccessToken(@"");
+    save_UseId(@"");
+    save_bankCard(@"");
+    save_identiyCard(@"");
+    [[DBManager sharedManager] deletedAllLocations];
+    [[DBManager sharedManager] deletAllOrders];
+}
+
 #pragma mark ---> 返回 其他
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];

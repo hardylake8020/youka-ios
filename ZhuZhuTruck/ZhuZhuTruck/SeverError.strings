@@ -31,6 +31,7 @@
 "can_not_execute_delivery" = "运单已经交过货了";
 "can_not_execute_pickupSign" = "已经签到过了";
 "can_not_execute_deliverySign" = "已经签到过了";
-
-
-
+"has_compared"  = "已经出过价了";
+"price_invalid" = "出价不符合规定";
+"driver_has_existed" = "司机已存在";
+"driver_has_added" = "司机已经添加过了";

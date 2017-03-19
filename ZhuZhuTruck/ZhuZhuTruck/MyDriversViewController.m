@@ -7,18 +7,22 @@
 //
 
 #import "MyDriversViewController.h"
-#import "TruckModel.h"
 #import "CarStockViewController.h"
 #import "OilCardsViewController.h"
 #import "ETCCardsViewController.h"
 #import "AddTruckCarViewController.h"
+#import "SearchDriverViewController.h"
 #import "DriverCarDetailViewController.h"
-@interface MyDriversViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MyDriversViewController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>{
+    
+}
 @property (nonatomic, strong) NSMutableArray *dataArray;
+//@property (nonatomic, strong) NSMutableArray *sourcedataArray;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) TenderModel *tenderModel;
 @property (nonatomic, strong) TruckModel  *seletedTruck;
 @property (nonatomic, strong) ErrorMaskView *errMaskView;
+@property (nonatomic, strong) UISearchBar *searchBar;
 @end
 
 @implementation MyDriversViewController
@@ -41,12 +45,13 @@
         self.fd_interactivePopDisabled = YES;
         [self initBottomView];
     }else{
-        self.title = @"我的车队";
+        self.title = @"我的司机";
         naivHeader  = [[CCNaviHeaderView alloc]newInstance:self.title andBackGruondColor:[UIColor naviBlackColor]];
         UIButton *addButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
         [addButton addTarget:self action:@selector(addNewCar) forControlEvents:UIControlEventTouchUpInside];
         [addButton setTitle:@"添加" forState:UIControlStateNormal];
         [addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self initSearchView];
         [naivHeader addRightButton:addButton];
     }
     [naivHeader addBackButtonWithTarget:self action:@selector(naviBack)];
@@ -76,11 +81,43 @@
     }
     return _dataArray;
 }
+
+
+//- (NSMutableArray *)sourcedataArray{
+//    if (!_sourcedataArray) {
+//        _sourcedataArray = [NSMutableArray array];
+//    }
+//    return _sourcedataArray;
+//}
+
+- (void)initSearchView{
+    UIView *searchView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 44)];
+    [self.view addSubview:searchView];
+    
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    self.searchBar.placeholder = @"搜索添加";
+    self.searchBar.delegate = self;
+    self.searchBar.backgroundColor=[UIColor colorWithWhite:0.3 alpha:1];
+    self.searchBar.backgroundImage = [UIImage imageNamed:@"searchBg"];
+    
+    self.searchBar.returnKeyType = UIReturnKeySearch;
+    
+    [searchView addSubview:self.searchBar];
+}
+
+#pragma  mark 搜索代理
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    SearchDriverViewController *search = [[SearchDriverViewController alloc]init];
+    UINavigationController *searchNavi = [[UINavigationController alloc]initWithRootViewController:search];
+    [self presentViewController:searchNavi animated:YES completion:nil];
+    return NO;
+}
+
 - (void)initTableView{
     if (self.isSeletedMode) {
         self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-50) style:UITableViewStyleGrouped];
     }else{
-        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT) style:UITableViewStyleGrouped];
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT+44, SYSTEM_WIDTH, SYSTEM_HEIGHT-SYSTITLEHEIGHT-44) style:UITableViewStyleGrouped];
     }
     
     self.tableView.backgroundColor = UIColorFromRGB(0xf5f5f5);
@@ -102,11 +139,17 @@
         [weakself loadNewData];
     }];
     
-//    [self tableHeaderRefesh];
+    [self tableHeaderRefesh];
     
 }
 
+
+
 - (void)loadNewData{
+    
+//    if (self.searchBar) {
+//        self.searchBar.text = @"";
+//    }
     
     CCWeakSelf(self);
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -119,6 +162,7 @@
         }else{
             //CCLog(@"---->%@",result);
             [weakself.dataArray removeAllObjects];
+//            [weakself.sourcedataArray removeAllObjects];
             NSArray *trucks = [result objectForKey:@"trucks"];
             CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)trucks.count);
             for (NSDictionary *truckDict in trucks) {
@@ -127,6 +171,7 @@
                     
                 }else{
                     [weakself.dataArray addObject:model];
+//                    [weakself.sourcedataArray addObject:model];
                 }
             }
             [weakself.tableView reloadData];
@@ -175,7 +220,7 @@
         [cell showSeletedTruckCellWithModel:truckModel];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else{
-        [cell showTruckCellWithModel:truckModel];
+        [cell showDriverCellWithDriverModel:truckModel.driver];
     }
     return cell;
 }
@@ -196,7 +241,7 @@
         self.seletedTruck = truckModel;
         [tableView reloadData];
     }else{
-        DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]initWithTruckModel:truckModel];
+        DriverCarDetailViewController *carDetail = [[DriverCarDetailViewController alloc]initWithDriverModel:truckModel.driver andSucceedCallBack:nil];
         [self.navigationController pushViewController:carDetail animated:YES];
     }
 }
@@ -242,6 +287,9 @@
 }
 
 #pragma mark ---> 返回 其他
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 - (void)naviBack{
     if (self.isFormDetail) {
@@ -253,6 +301,61 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+
+//    [searchBar setShowsCancelButton:YES animated:YES];
+//    UIButton *cancleBtn = [searchBar valueForKey:@"cancelButton"];
+//    //修改标题和标题颜色
+//    [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
+//    self.tableView.scrollEnabled = NO;
+//}
+
+//- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+//    [searchBar setShowsCancelButton:NO animated:NO];
+//    self.tableView.scrollEnabled = YES;
+//}
+//
+//- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{   // called when text changes (including clear)
+//    CCLog(@"----->%@",searchText);
+//
+//
+//    [self searchText:searchText];
+//}
+//
+//- (void)searchText:(NSString*)searchText{
+//
+//    if ([searchText isEmpty]) {
+//        if (self.dataArray.count!=self.sourcedataArray.count) {
+//            [self.dataArray removeAllObjects];
+//            for (id object in self.sourcedataArray) {
+//                [self.dataArray addObject:object];
+//            }
+//            [self.tableView reloadData];
+//        }
+//        return;
+//    }
+//
+//    [self.dataArray removeAllObjects];
+//    NSPredicate *predicate     = [NSPredicate predicateWithFormat:@"self contains [cd] %@",searchText];
+//    for (TruckModel* truckModel in self.sourcedataArray) {
+//        if ([predicate evaluateWithObject:truckModel.truck_number]||[predicate evaluateWithObject:truckModel.truck_type]||[predicate evaluateWithObject:truckModel.driver_number]) {
+//            [self.dataArray addObject:truckModel];
+//        }
+//    }
+//    [self.tableView reloadData];
+//}
+//
+//
+//- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+//    [self searchText:searchBar.text];
+//    [searchBar resignFirstResponder];
+//}
+//
+//- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+//    searchBar.text = @"";
+//    [searchBar resignFirstResponder];
+//    [self searchText:@""];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

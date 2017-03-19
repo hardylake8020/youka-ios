@@ -105,6 +105,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     //个推SDK已注册，返回clientId
     CCLog(@"\n>>>[GeTuiSdk RegisterClient]:%@\n\n", clientId);
+    [[NSNotificationCenter defaultCenter] postNotificationName:GET_JPUSH_REGISEDID_NOTI object:nil];
 }
 
 /** SDK遇到错误回调 */

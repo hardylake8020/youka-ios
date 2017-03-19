@@ -228,10 +228,13 @@
 }
 
 - (void)startCar:(UIButton *)button{
+    if (_userLocation.latitude==0) {
+        alert_showInfoMsg(@"还没有得到位置，请稍后再试");
+        return;
+    }
     if (!_address||[_address isEmpty]) {
         [self getAddress];
-        toast_showInfoMsg(@"还没有得到位置，请稍后再试", 200);
-        return;
+        _address = @"";
     }
     
     NSInteger tag = button.tag - 5000;

@@ -24,7 +24,7 @@
 }
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) DOPDropDownMenu *menu;
-@property (nonatomic, strong) CarPhotoView *photoView;;
+@property (nonatomic, strong) CarPhotoView *photoView;
 @property (nonatomic, copy  ) NSString *photoName;
 @property (nonatomic, strong) UIImagePickerController *picker;
 @end
@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addBlackNaviHaderViewWithTitle:@"添加车辆"];
+    [self addBlackNaviHaderViewWithTitle:@"添加司机"];
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     
     self.photoName = @"";
@@ -50,7 +50,7 @@
     
     [self initSeletCarTypeView];
     [self initAddTruckNumberView];
-//    [self initAddDriverNameView];
+    [self initAddDriverNameView];
     [self initAddPhoneView];
     
 //    [self initAddPhotoView];
@@ -136,8 +136,8 @@
     addView.backgroundColor = [UIColor whiteColor];
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, 50)];
-    tipLabel.font = fontBysize(18);
-    tipLabel.text = @"司机";
+    tipLabel.font = fontBysize(16);
+    tipLabel.text = @"司机名称";
     [addView addSubview:tipLabel];
     
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(120, 0, 0.5, 50)];
@@ -147,7 +147,7 @@
     _driverNameFiled = [[UITextField alloc]initWithFrame:CGRectMake(140,0, SYSTEM_WIDTH-140, 50)];
     _driverNameFiled.delegate = self;
     _driverNameFiled.clearButtonMode = UITextFieldViewModeAlways;
-    [_driverNameFiled setPlaceholder:@"请输入司机姓名"];
+    [_driverNameFiled setPlaceholder:@"请输入司机名称"];
     _driverNameFiled.font = fontBysize(16);
     [addView addSubview:_driverNameFiled];
     
@@ -271,7 +271,7 @@
     addCadButton.backgroundColor = [UIColor buttonGreenColor];
     [addCadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    [addCadButton setTitle:@"保存" forState:UIControlStateNormal];
+    [addCadButton setTitle:@"添加" forState:UIControlStateNormal];
     [addCadButton addTarget:self action:@selector(addCardCall) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:addCadButton];
@@ -315,13 +315,13 @@
     }
     
     if (![_driverNameFiled.text isEmpty]) {
-        [truckInfo put:_driverNameFiled.text key:@"driver_name"];
+        [truckInfo put:_driverNameFiled.text key:USER_NICK_NAME];
     }
     
-    [parameters put:truckInfo key:@"truck_info"];
+    [parameters put:truckInfo key:@"driver_info"];
     
     [SVProgressHUD showWithStatus:@"正在添加..."];
-    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_ADD_TRUCK_CAR parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+    [[HttpRequstManager requestManager] postWithRequestBodyString:USER_ADD_NEW_DRIVER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
         if (error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedStringFromTable(error.domain, @"SeverError", @"添加失败")];
         }else{

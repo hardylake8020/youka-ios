@@ -8,6 +8,8 @@
 
 #import <JSONModel/JSONModel.h>
 #import "GoodModel.h"
+#import "WinnerModel.h"
+#import "TenderRecordModel.h"
 #import "ExecuteDriverModel.h"
 
 @interface TenderModel : JSONModel
@@ -56,6 +58,10 @@
 @property (nonatomic, strong) NSMutableArray<Optional,GoodModel> *mobile_goods;
 
 @property (nonatomic, strong) NSNumber<Optional> *current_grab_price;
+@property (nonatomic, strong) NSNumber<Optional> *highest_protect_price;
+@property (nonatomic, strong) NSNumber<Optional> *lowest_protect_price;
+@property (nonatomic, strong) NSNumber<Optional> *highest_grab_price;
+@property (nonatomic, strong) NSNumber<Optional> *lowest_grab_price;
 @property (nonatomic, strong) NSNumber<Optional> *truck_count;
 @property (nonatomic, strong) NSNumber<Optional> *auto_close_duration;
 
@@ -73,4 +79,9 @@
 @property (nonatomic, strong) NSArray<Optional> *delivery_region_location;
 @property (nonatomic, strong) ExecuteDriverModel<Optional> *execute_driver;
 
+@property (nonatomic, copy) WinnerModel<Optional> *driver_winner;
+@property (nonatomic, strong) NSMutableArray<Optional,TenderRecordModel> *tender_records;
+@property (nonatomic, strong) NSNumber<Optional> *winner_price;
+- (NSInteger)getBindderPrice;
+- (BOOL)isAlreadyBind;
 @end

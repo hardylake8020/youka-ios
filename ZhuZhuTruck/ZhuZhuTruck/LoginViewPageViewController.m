@@ -30,7 +30,7 @@
     self.fd_prefersNavigationBarHidden = YES;
     self.fd_interactivePopDisabled = YES;
     [self initLoginView];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadRegistedId) name:GET_JPUSH_REGISEDID_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadRegistedId) name:GET_JPUSH_REGISEDID_NOTI object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -41,25 +41,25 @@
 
 - (void)uploadRegistedId{
     
-    //    if ([AppDelegate shareAppDelegate].userRole!=TRUCK_MAN) {
-    //        return;
-    //    }
-    //    NSString *regesterId = [JPUSHService registrationID];
-    //    NSString *token = accessToken();
-    //    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    //    if ([regesterId isEmpty]||!regesterId||[token isEmpty]||!token) {
-    //        return;
-    //    }
-    //
-    //    [parameters put:regesterId key:@"push_id"];
-    //    [parameters put:token key:ACCESS_TOKEN];
-    //    [[HttpRequstManager requestManager] postWithRequestBodyString:UPDATE_PUSH_ID parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
-    //        if (error) {
-    //        }else{
-    //            CCLog(@"token_upload_result:%@",result);
-    //            save_PushId(regesterId);
-    //        }
-    //    }];
+//        if ([AppDelegate shareAppDelegate].userRole!=TRUCK_MAN) {
+//            return;
+//        }
+//        NSString *regesterId = [JPUSHService registrationID];
+//        NSString *token = accessToken();
+//        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//        if ([regesterId isEmpty]||!regesterId||[token isEmpty]||!token) {
+//            return;
+//        }
+//    
+//        [parameters put:regesterId key:@"push_id"];
+//        [parameters put:token key:ACCESS_TOKEN];
+//        [[HttpRequstManager requestManager] postWithRequestBodyString:UPDATE_PUSH_ID parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
+//            if (error) {
+//            }else{
+//                CCLog(@"token_upload_result:%@",result);
+//                save_PushId(regesterId);
+//            }
+//        }];
 }
 
 - (void)initLoginView{
@@ -217,9 +217,8 @@
             NSDictionary *driver = [result objectForKey:@"driver"];
             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
             save_UserPwd(passWordTextFied.text);
-            save_userPhone([driver stringForKey:@"username"]);
-            save_PushId([driver stringForKey:USER_PUSH_ID]);
             save_AccessToken([result stringForKey:ACCESS_TOKEN]);
+            save_userProfiles(driver);
             [self pushToHomePage];
         }
     }];

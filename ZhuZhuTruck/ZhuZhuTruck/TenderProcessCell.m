@@ -8,7 +8,9 @@
 
 #import "TenderProcessCell.h"
 #import "CCDate.h"
+#import "CCUserData.h"
 #import "UIColor+CustomColors.h"
+#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 
 @interface TenderProcessCell ()
 @property (weak, nonatomic) IBOutlet UILabel *fromCityLabel;
@@ -17,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *toDistrictLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *centerTipLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *goodsDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
@@ -40,28 +41,71 @@
         }else{
             self.statusLabel.text = @"抢单失败";
             self.statusLabel.textColor = [UIColor customRedColor];
+            self.centerTipLabel.text = @"";
         }
     }else{
         if ([model.status isEqualToString:@"unAssigned"]) {
-            self.statusLabel.text = @"比价中标";
-            self.centerTipLabel.text = @"待分配车辆";
-            self.statusLabel.textColor = [UIColor customGreenColor];
-        }else{
-            self.statusLabel.text = @"抢标失败";
-            self.statusLabel.textColor = [UIColor customRedColor];
+            if ([model.driver_winner._id isEqualToString:user_id()]) {
+                self.statusLabel.text = @"比价中标";
+                self.centerTipLabel.text = @"待分配车辆";
+                self.statusLabel.textColor = [UIColor customGreenColor];
+            }else{
+                self.statusLabel.text = @"比价未中标";
+                self.centerTipLabel.text = @"";
+                self.statusLabel.textColor = [UIColor customRedColor];
+            }
+
+        }else if ([model.status isEqualToString:@"comparing"]) {
+            self.statusLabel.text = @"比价中...";
+            self.centerTipLabel.text = @"";
+            self.statusLabel.textColor = [UIColor customBlueColor];
         }
     }
     
-    
-    
-    
+
     self.fromCityLabel.text = model.pickup_province;
     self.fromDistrictLabel.text = model.pickup_city;
     self.toCityLabel.text = model.delivery_province;
     self.toDistrictLabel.text = model.delivery_city;
     self.timeLabel.text = [NSString stringWithFormat:@"发布时间  %@", dateStringWithDateAndFormart(model.start_time, @"MM-dd hh:mm")];
-    self.goodsDetailLabel.text = [NSString stringWithFormat:@"货物摘要  %@ %@ %@",model.sender_company,@"55方",@"44公里"];
+    self.goodsDetailLabel.text = [NSString stringWithFormat:@"货物摘要  %@ %@ %.2f公里",model.sender_company,[self getGoodNameString:model.goods],[self getDistanceWithStart:model.pickup_region_location andEnd:model.delivery_region_location]];
     
+}
+
+
+- (CGFloat)getDistanceWithStart:(NSArray *)start andEnd:(NSArray *)end{
+    
+    if (start.count==0||end.count==0) {
+        return 0;
+    }
+    NSNumber *startLat = start[1];
+    NSNumber *startLon = start[0];
+    NSNumber *endLat   = end[1];
+    NSNumber *endLon   = end[0];
+    CLLocation *from = [[CLLocation alloc]initWithLatitude:startLat.floatValue longitude:startLon.floatValue];
+    CLLocation *to = [[CLLocation alloc]initWithLatitude:endLat.floatValue longitude:endLon.floatValue];
+    return [from distanceFromLocation:to]/1000.00;
+}
+
+
+- (NSString *)getGoodNameString:(NSArray *)goods{
+    int totalCount1 = 0;
+    NSString *uint1;
+    //    int totalCount2 = 0;
+    //    int totalCount3 = 0;
+    for (int i=0; i<goods.count; i++) {
+        GoodModel *goodModel = [goods objectAtIndex:i];
+        totalCount1 += goodModel.count.intValue;
+        uint1 = goodModel.unit;
+        //        totalCount2 += goodModel.count2.intValue;
+        //        totalCount3 += goodModel.count3.intValue;
+    }
+    
+    if (totalCount1==0) {
+        return @"未知";
+    }
+    
+    return [NSString stringWithFormat:@"%d %@",totalCount1, uint1];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

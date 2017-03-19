@@ -359,8 +359,14 @@
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
-        [self.navigationController pushViewController:orderDetail animated:YES];
+        
+        if ([tenderModel isAlreadyBind]) {
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }else{
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }
     }
 }
 

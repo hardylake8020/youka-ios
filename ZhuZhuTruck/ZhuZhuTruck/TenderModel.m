@@ -7,7 +7,22 @@
 //
 
 #import "TenderModel.h"
-
+#import "CCUserData.h"
 @implementation TenderModel
-
+- (NSInteger)getBindderPrice{
+    for (TenderRecordModel*model in self.tender_records) {
+        if ([model.driver isEqualToString:user_id()]) {
+            return model.price.integerValue;
+        }
+    }
+    return 0;
+}
+- (BOOL)isAlreadyBind{
+    for (TenderRecordModel*model in self.tender_records) {
+        if ([model.driver isEqualToString:user_id()]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 @end

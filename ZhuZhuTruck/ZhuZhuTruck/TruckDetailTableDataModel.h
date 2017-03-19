@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "TruckModel.h"
+#import "DriverModel.h"
 #import "TruckDetailCellModel.h"
 @interface TruckDetailTableDataModel : NSObject
 @property (nonatomic, strong) NSMutableArray *dataArray;
 - (instancetype)initWithTruckModel:(TruckModel *)model;
+- (instancetype)initWithDriverModel:(DriverModel *)driverModel;
 @end

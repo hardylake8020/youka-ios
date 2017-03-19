@@ -14,7 +14,7 @@
 #import "UIAlertView+Blocks.h"
 #define screen_width self.view.bounds.size.width
 #define screen_height self.view.bounds.size.height
-
+#import <UIView+SDAutoLayout.h>
 @interface QRCodeVC()<AVCaptureMetadataOutputObjectsDelegate>{
     AVCaptureSession * session;//输入输出的中间桥梁
     QRCodeAreaView *_areaView;//扫描区域视图
@@ -92,6 +92,9 @@
     }
     
     
+    
+    
+    
     /**
      *  初始化二维码扫描
      */
@@ -130,7 +133,49 @@
 
     //开始捕获
     [session startRunning];
+    
+//    UIButton *flashlight = [[UIButton alloc]init];
+//    [flashlight setBackgroundImage:[UIImage imageNamed:@"light_off"] forState:UIControlStateNormal];
+//    [flashlight setBackgroundImage:[UIImage imageNamed:@"light_on"] forState:UIControlStateSelected];
+//    flashlight.clipsToBounds = YES;
+//    flashlight.layer.cornerRadius = 5;
+//    flashlight.backgroundColor = [UIColor colorWithWhite:0.6 alpha:1];
+//    [self.view addSubview:flashlight];
+//    
+//    flashlight.sd_layout
+//    .centerXEqualToView(self.view)
+//    .bottomSpaceToView(self.view,40)
+//    .heightIs(44)
+//    .widthIs(44);
+//    
+//    [flashlight addTarget:self action:@selector(turnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+
 }
+
+- (void)turnOnClick:(UIButton *)button{
+    //获取摄像设备
+    AVCaptureDevice * device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if (![device hasTorch]) {//判断是否有闪光灯
+        UIAlertView *alter = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前设备没有闪光灯，不能提供手电筒功能" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alter show];
+        return;
+    }
+    
+    button.selected = !button.selected;
+    
+    if (button.selected) {
+        [device lockForConfiguration:nil];
+        [device setTorchMode:AVCaptureTorchModeOn];
+        [device unlockForConfiguration];
+    }else{
+        [device lockForConfiguration:nil];
+        [device setTorchMode: AVCaptureTorchModeOff];
+        [device unlockForConfiguration];
+    }
+}
+
+
+
 
 #pragma 二维码扫描的回调
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{

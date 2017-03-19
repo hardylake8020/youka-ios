@@ -8,6 +8,9 @@
 
 #import "BaseViewController.h"
 
+typedef void(^SucceedCallBack)();
+
 @interface DriverCarDetailViewController : BaseViewController
 - (instancetype)initWithTruckModel:(TruckModel *)model;
+- (instancetype)initWithDriverModel:(DriverModel *)model andSucceedCallBack:(SucceedCallBack)callBack;
 @end

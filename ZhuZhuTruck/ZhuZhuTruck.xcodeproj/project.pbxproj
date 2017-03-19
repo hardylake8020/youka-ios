@@ -44,6 +44,8 @@
 		BB26022C1E293CEE008392FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB26022B1E293CEE008392FE /* UIKit.framework */; };
 		BB26022E1E293D4C008392FE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB26022D1E293D4C008392FE /* MessageUI.framework */; };
 		BB2602301E293D7E008392FE /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB26022F1E293D7E008392FE /* mapapi.bundle */; };
+		BB26A3691E7C0C5400D7582B /* searchBg.png in Resources */ = {isa = PBXBuildFile; fileRef = BB26A3681E7C0C5400D7582B /* searchBg.png */; };
+		BB2CC79C1E699726004C70B4 /* PersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2CC79B1E699726004C70B4 /* PersonInfoViewController.m */; };
 		BB2E1E901E0FA5E900482AA1 /* TruckBindCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2E1E8F1E0FA5E900482AA1 /* TruckBindCardModel.m */; };
 		BB2E1E931E0FFDAC00482AA1 /* CarPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2E1E921E0FFDAC00482AA1 /* CarPhotoView.m */; };
 		BB2E1E9D1E10088A00482AA1 /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2E1E9C1E10088A00482AA1 /* DOPDropDownMenu.m */; };
@@ -153,9 +155,17 @@
 		BB5AB5BE1DF2D962009107B9 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5B11DF2D962009107B9 /* UIViewExt.m */; };
 		BB5AB5C11DF2DBBC009107B9 /* OperationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5AB5C01DF2DBBC009107B9 /* OperationButton.m */; };
 		BB5AB5C31DF2DD70009107B9 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5AB5C21DF2DD70009107B9 /* check.png */; };
+		BB6452E51E4EFC6300068901 /* TenderRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6452E41E4EFC6300068901 /* TenderRecordModel.m */; };
+		BB6452E81E4F1FE100068901 /* WinnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6452E71E4F1FE100068901 /* WinnerModel.m */; };
+		BB66471A1E7ABF76000D5832 /* PersonInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6647181E7ABF76000D5832 /* PersonInfoCell.m */; };
+		BB66471B1E7ABF76000D5832 /* PersonInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB6647191E7ABF76000D5832 /* PersonInfoCell.xib */; };
+		BB66471F1E7AD3E6000D5832 /* AddPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66471E1E7AD3E6000D5832 /* AddPhotoViewController.m */; };
+		BB6647251E7ADDA4000D5832 /* PictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6647241E7ADDA4000D5832 /* PictureCell.m */; };
 		BB68B0AD1E11512200B0D6E1 /* LoginViewPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB68B0AC1E11512200B0D6E1 /* LoginViewPageViewController.m */; };
 		BB68B0AF1E11521400B0D6E1 /* login_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BB68B0AE1E11521400B0D6E1 /* login_bg.png */; };
 		BB68B0B11E115B8D00B0D6E1 /* login_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BB68B0B01E115B8D00B0D6E1 /* login_arrow.png */; };
+		BB69F1441E6A80AD00EE432B /* light_on.png in Resources */ = {isa = PBXBuildFile; fileRef = BB69F1421E6A80AD00EE432B /* light_on.png */; };
+		BB69F1451E6A80AD00EE432B /* light_off.png in Resources */ = {isa = PBXBuildFile; fileRef = BB69F1431E6A80AD00EE432B /* light_off.png */; };
 		BB852BF71E0ABDC100568B4F /* DiverHttpRequstManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB852BF61E0ABDC100568B4F /* DiverHttpRequstManager.m */; };
 		BB852BFB1E0ACE8600568B4F /* AddTruckCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB852BFA1E0ACE8600568B4F /* AddTruckCarViewController.m */; };
 		BB852BFD1E0ADA8A00568B4F /* SeverError.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB852BFC1E0ADA8A00568B4F /* SeverError.strings */; };
@@ -253,6 +263,11 @@
 		BBED55F91DF1C28D009776E4 /* DriversMapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBED55F81DF1C28D009776E4 /* DriversMapViewController.mm */; };
 		BBED55FB1DF1C372009776E4 /* ic_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = BBED55FA1DF1C372009776E4 /* ic_setting.png */; };
 		BBED56021DF1C545009776E4 /* MediatorFindOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBED56011DF1C545009776E4 /* MediatorFindOrdersViewController.m */; };
+		BBEE589E1E7E53FE007BB1EC /* SearchDriverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEE589D1E7E53FE007BB1EC /* SearchDriverViewController.m */; };
+		BBEE58A11E7E6B66007BB1EC /* DriverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEE58A01E7E6B66007BB1EC /* DriverModel.m */; };
+		BBEE58A41E7E7B7F007BB1EC /* AddTruckTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEE58A31E7E7B7F007BB1EC /* AddTruckTypeViewController.m */; };
+		BBEE58A71E7E8862007BB1EC /* AddTextFiledViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEE58A61E7E8862007BB1EC /* AddTextFiledViewController.m */; };
+		BBEE58AA1E7EBC2D007BB1EC /* PersonInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEE58A91E7EBC2D007BB1EC /* PersonInfoModel.m */; };
 		BBFB6E901E0171CD00BC1EDA /* Default-640@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFB6E8F1E0171CD00BC1EDA /* Default-640@2x.png */; };
 		BBFB6E961E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E941E0173CE00BC1EDA /* libGeTuiSdk-1.5.3.a */; };
 		BBFB6E991E01740500BC1EDA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB6E981E01740500BC1EDA /* libc++.tbd */; };
@@ -343,6 +358,9 @@
 		BB26022B1E293CEE008392FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BB26022D1E293D4C008392FE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BB26022F1E293D7E008392FE /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = BaiduMapAPI/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = SOURCE_ROOT; };
+		BB26A3681E7C0C5400D7582B /* searchBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchBg.png; sourceTree = "<group>"; };
+		BB2CC79A1E699726004C70B4 /* PersonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoViewController.h; sourceTree = "<group>"; };
+		BB2CC79B1E699726004C70B4 /* PersonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoViewController.m; sourceTree = "<group>"; };
 		BB2E1E8E1E0FA5E900482AA1 /* TruckBindCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruckBindCardModel.h; sourceTree = "<group>"; };
 		BB2E1E8F1E0FA5E900482AA1 /* TruckBindCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TruckBindCardModel.m; sourceTree = "<group>"; };
 		BB2E1E911E0FFDAC00482AA1 /* CarPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarPhotoView.h; sourceTree = "<group>"; };
@@ -489,10 +507,23 @@
 		BB5AB5BF1DF2DBBC009107B9 /* OperationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationButton.h; sourceTree = "<group>"; };
 		BB5AB5C01DF2DBBC009107B9 /* OperationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationButton.m; sourceTree = "<group>"; };
 		BB5AB5C21DF2DD70009107B9 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		BB6452E31E4EFC6300068901 /* TenderRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenderRecordModel.h; sourceTree = "<group>"; };
+		BB6452E41E4EFC6300068901 /* TenderRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenderRecordModel.m; sourceTree = "<group>"; };
+		BB6452E61E4F1FE100068901 /* WinnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinnerModel.h; sourceTree = "<group>"; };
+		BB6452E71E4F1FE100068901 /* WinnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinnerModel.m; sourceTree = "<group>"; };
+		BB6647171E7ABF76000D5832 /* PersonInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoCell.h; sourceTree = "<group>"; };
+		BB6647181E7ABF76000D5832 /* PersonInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoCell.m; sourceTree = "<group>"; };
+		BB6647191E7ABF76000D5832 /* PersonInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonInfoCell.xib; sourceTree = "<group>"; };
+		BB66471D1E7AD3E6000D5832 /* AddPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPhotoViewController.h; sourceTree = "<group>"; };
+		BB66471E1E7AD3E6000D5832 /* AddPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPhotoViewController.m; sourceTree = "<group>"; };
+		BB6647231E7ADDA4000D5832 /* PictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureCell.h; sourceTree = "<group>"; };
+		BB6647241E7ADDA4000D5832 /* PictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureCell.m; sourceTree = "<group>"; };
 		BB68B0AB1E11512200B0D6E1 /* LoginViewPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewPageViewController.h; sourceTree = "<group>"; };
 		BB68B0AC1E11512200B0D6E1 /* LoginViewPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewPageViewController.m; sourceTree = "<group>"; };
 		BB68B0AE1E11521400B0D6E1 /* login_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_bg.png; sourceTree = "<group>"; };
 		BB68B0B01E115B8D00B0D6E1 /* login_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_arrow.png; sourceTree = "<group>"; };
+		BB69F1421E6A80AD00EE432B /* light_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_on.png; sourceTree = "<group>"; };
+		BB69F1431E6A80AD00EE432B /* light_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_off.png; sourceTree = "<group>"; };
 		BB852BF51E0ABDC100568B4F /* DiverHttpRequstManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiverHttpRequstManager.h; sourceTree = "<group>"; };
 		BB852BF61E0ABDC100568B4F /* DiverHttpRequstManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiverHttpRequstManager.m; sourceTree = "<group>"; };
 		BB852BF91E0ACE8600568B4F /* AddTruckCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTruckCarViewController.h; sourceTree = "<group>"; };
@@ -666,6 +697,16 @@
 		BBED55FA1DF1C372009776E4 /* ic_setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_setting.png; sourceTree = "<group>"; };
 		BBED56001DF1C545009776E4 /* MediatorFindOrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediatorFindOrdersViewController.h; sourceTree = "<group>"; };
 		BBED56011DF1C545009776E4 /* MediatorFindOrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediatorFindOrdersViewController.m; sourceTree = "<group>"; };
+		BBEE589C1E7E53FE007BB1EC /* SearchDriverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDriverViewController.h; sourceTree = "<group>"; };
+		BBEE589D1E7E53FE007BB1EC /* SearchDriverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDriverViewController.m; sourceTree = "<group>"; };
+		BBEE589F1E7E6B66007BB1EC /* DriverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverModel.h; sourceTree = "<group>"; };
+		BBEE58A01E7E6B66007BB1EC /* DriverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverModel.m; sourceTree = "<group>"; };
+		BBEE58A21E7E7B7F007BB1EC /* AddTruckTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTruckTypeViewController.h; sourceTree = "<group>"; };
+		BBEE58A31E7E7B7F007BB1EC /* AddTruckTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTruckTypeViewController.m; sourceTree = "<group>"; };
+		BBEE58A51E7E8862007BB1EC /* AddTextFiledViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTextFiledViewController.h; sourceTree = "<group>"; };
+		BBEE58A61E7E8862007BB1EC /* AddTextFiledViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTextFiledViewController.m; sourceTree = "<group>"; };
+		BBEE58A81E7EBC2D007BB1EC /* PersonInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoModel.h; sourceTree = "<group>"; };
+		BBEE58A91E7EBC2D007BB1EC /* PersonInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoModel.m; sourceTree = "<group>"; };
 		BBFB6E8F1E0171CD00BC1EDA /* Default-640@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-640@2x.png"; sourceTree = "<group>"; };
 		BBFB6E921E0173CE00BC1EDA /* GeTuiExtSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiExtSdk.h; sourceTree = "<group>"; };
 		BBFB6E931E0173CE00BC1EDA /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
@@ -766,6 +807,8 @@
 				BBAEC3781E0E490100821C09 /* TruckDetailCellModel.m */,
 				BBAEC37A1E0E492800821C09 /* TruckDetailTableDataModel.h */,
 				BBAEC37B1E0E492800821C09 /* TruckDetailTableDataModel.m */,
+				BBEE589F1E7E6B66007BB1EC /* DriverModel.h */,
+				BBEE58A01E7E6B66007BB1EC /* DriverModel.m */,
 			);
 			name = TruckAndCardModel;
 			sourceTree = "<group>";
@@ -777,6 +820,7 @@
 				BB035DE41DF402E0006EC2F0 /* TenderModel */,
 				BB8812E21DF995FA00B54644 /* DrvierOrderModel */,
 				BB00C05C1E00267F00E9B3FA /* TruckAndCardModel */,
+				BBEE58AB1E7EBC36007BB1EC /* PersonInfoModel */,
 			);
 			name = "数据模型";
 			sourceTree = "<group>";
@@ -807,6 +851,10 @@
 			children = (
 				BB00C0561E00222100E9B3FA /* TenderModel.h */,
 				BB00C0571E00222100E9B3FA /* TenderModel.m */,
+				BB6452E61E4F1FE100068901 /* WinnerModel.h */,
+				BB6452E71E4F1FE100068901 /* WinnerModel.m */,
+				BB6452E31E4EFC6300068901 /* TenderRecordModel.h */,
+				BB6452E41E4EFC6300068901 /* TenderRecordModel.m */,
 				BBAEC3801E0EBD3600821C09 /* ExecuteDriverModel.h */,
 				BBAEC3811E0EBD3600821C09 /* ExecuteDriverModel.m */,
 				BB035DDE1DF402A1006EC2F0 /* TenderDetailCellModel.h */,
@@ -887,6 +935,7 @@
 				BB57D8041DF71642008888B0 /* CarDetailCell */,
 				BB49F0031DFD4FCB00CFFC39 /* TimeLineCell */,
 				BBC26A611E29F29F00DC388C /* BMKAntationVIew */,
+				BB66471C1E7ABF7B000D5832 /* PersonInfoCell */,
 			);
 			name = "自制控件";
 			sourceTree = "<group>";
@@ -952,6 +1001,8 @@
 			children = (
 				BB5AB5561DF2C492009107B9 /* PhotosCell.h */,
 				BB5AB5571DF2C492009107B9 /* PhotosCell.m */,
+				BB6647231E7ADDA4000D5832 /* PictureCell.h */,
+				BB6647241E7ADDA4000D5832 /* PictureCell.m */,
 				BB2E1E911E0FFDAC00482AA1 /* CarPhotoView.h */,
 				BB2E1E921E0FFDAC00482AA1 /* CarPhotoView.m */,
 				BB4321751DF05BC300F77680 /* CCTextFiled.h */,
@@ -1035,6 +1086,7 @@
 		BB5AB55E1DF2C54B009107B9 /* OtherImage */ = {
 			isa = PBXGroup;
 			children = (
+				BB26A3681E7C0C5400D7582B /* searchBg.png */,
 				BB68B0B01E115B8D00B0D6E1 /* login_arrow.png */,
 				BB68B0AE1E11521400B0D6E1 /* login_bg.png */,
 				BBAEC37E1E0EADAB00821C09 /* headerImage.png */,
@@ -1058,6 +1110,8 @@
 				BB5AB5961DF2CB04009107B9 /* arrowleftseleted.png */,
 				BB5AB5971DF2CB04009107B9 /* arrowright@2x.png */,
 				BB5AB5981DF2CB04009107B9 /* ic_head.png */,
+				BB69F1421E6A80AD00EE432B /* light_on.png */,
+				BB69F1431E6A80AD00EE432B /* light_off.png */,
 			);
 			name = OtherImage;
 			sourceTree = "<group>";
@@ -1135,11 +1189,29 @@
 			path = prev.imageset;
 			sourceTree = "<group>";
 		};
+		BB66471C1E7ABF7B000D5832 /* PersonInfoCell */ = {
+			isa = PBXGroup;
+			children = (
+				BB6647171E7ABF76000D5832 /* PersonInfoCell.h */,
+				BB6647181E7ABF76000D5832 /* PersonInfoCell.m */,
+				BB6647191E7ABF76000D5832 /* PersonInfoCell.xib */,
+			);
+			name = PersonInfoCell;
+			sourceTree = "<group>";
+		};
 		BB852BF81E0ACE3A00568B4F /* 设置其他 */ = {
 			isa = PBXGroup;
 			children = (
 				BBED55D81DF1C01A009776E4 /* SettingViewController.h */,
 				BBED55D91DF1C01A009776E4 /* SettingViewController.m */,
+				BB2CC79A1E699726004C70B4 /* PersonInfoViewController.h */,
+				BB2CC79B1E699726004C70B4 /* PersonInfoViewController.m */,
+				BB66471D1E7AD3E6000D5832 /* AddPhotoViewController.h */,
+				BB66471E1E7AD3E6000D5832 /* AddPhotoViewController.m */,
+				BBEE58A21E7E7B7F007BB1EC /* AddTruckTypeViewController.h */,
+				BBEE58A31E7E7B7F007BB1EC /* AddTruckTypeViewController.m */,
+				BBEE58A51E7E8862007BB1EC /* AddTextFiledViewController.h */,
+				BBEE58A61E7E8862007BB1EC /* AddTextFiledViewController.m */,
 				BB5AB5841DF2C6F4009107B9 /* ShowPhotoViewController.h */,
 				BB5AB5851DF2C6F4009107B9 /* ShowPhotoViewController.m */,
 			);
@@ -1472,10 +1544,12 @@
 				BBED55F51DF1C202009776E4 /* MyDriversViewController.m */,
 				BB57D7FC1DF71464008888B0 /* DriverCarDetailViewController.h */,
 				BB57D7FD1DF71464008888B0 /* DriverCarDetailViewController.m */,
-				BB852BF91E0ACE8600568B4F /* AddTruckCarViewController.h */,
-				BB852BFA1E0ACE8600568B4F /* AddTruckCarViewController.m */,
 				BBED55F71DF1C28D009776E4 /* DriversMapViewController.h */,
 				BBED55F81DF1C28D009776E4 /* DriversMapViewController.mm */,
+				BBEE589C1E7E53FE007BB1EC /* SearchDriverViewController.h */,
+				BBEE589D1E7E53FE007BB1EC /* SearchDriverViewController.m */,
+				BB852BF91E0ACE8600568B4F /* AddTruckCarViewController.h */,
+				BB852BFA1E0ACE8600568B4F /* AddTruckCarViewController.m */,
 			);
 			name = "我的车队";
 			sourceTree = "<group>";
@@ -1502,6 +1576,15 @@
 				BBED56011DF1C545009776E4 /* MediatorFindOrdersViewController.m */,
 			);
 			name = "中介找货";
+			sourceTree = "<group>";
+		};
+		BBEE58AB1E7EBC36007BB1EC /* PersonInfoModel */ = {
+			isa = PBXGroup;
+			children = (
+				BBEE58A81E7EBC2D007BB1EC /* PersonInfoModel.h */,
+				BBEE58A91E7EBC2D007BB1EC /* PersonInfoModel.m */,
+			);
+			name = PersonInfoModel;
 			sourceTree = "<group>";
 		};
 		BBF824B21DFAD25400A5A4F9 /* CCTool */ = {
@@ -1743,6 +1826,7 @@
 				BBD921321DF84938005DE376 /* uncheck_small.png in Resources */,
 				BB5AB59B1DF2CB04009107B9 /* arrowright@2x.png in Resources */,
 				BB4321AB1DF069C500F77680 /* 4285f4@2x.png in Resources */,
+				BB69F1451E6A80AD00EE432B /* light_off.png in Resources */,
 				BB4321B21DF069C500F77680 /* E0F9E3@2x.png in Resources */,
 				BB035DFC1DF45484006EC2F0 /* OilCardCell.xib in Resources */,
 				BBFB6EBE1E0183AC00BC1EDA /* car white.png in Resources */,
@@ -1766,6 +1850,7 @@
 				BB5AB59A1DF2CB04009107B9 /* arrowleftseleted.png in Resources */,
 				BB5AB5B61DF2D962009107B9 /* line@2x.png in Resources */,
 				BB035DEE1DF40760006EC2F0 /* TenderDetailHeaderCell.xib in Resources */,
+				BB26A3691E7C0C5400D7582B /* searchBg.png in Resources */,
 				BB035DF71DF44FA0006EC2F0 /* truck_car.png in Resources */,
 				BB035E011DF45499006EC2F0 /* ETCCardCell.xib in Resources */,
 				BBFB6EBC1E0183AC00BC1EDA /* bank_card.png in Resources */,
@@ -1777,6 +1862,7 @@
 				BBFB6EBA1E0183AC00BC1EDA /* un_seleted.png in Resources */,
 				BB2E1E9F1E101A2900482AA1 /* logo.png in Resources */,
 				BB5AB59C1DF2CB04009107B9 /* ic_head.png in Resources */,
+				BB69F1441E6A80AD00EE432B /* light_on.png in Resources */,
 				BB5AB54C1DF281C5009107B9 /* TenderProcessCell.xib in Resources */,
 				BBED55FB1DF1C372009776E4 /* ic_setting.png in Resources */,
 				BB5AB5751DF2C56C009107B9 /* RecordingSignal001@2x.png in Resources */,
@@ -1797,6 +1883,7 @@
 				BB4321691DF0581000F77680 /* Default-736h@3x.png in Resources */,
 				BB5AB5C31DF2DD70009107B9 /* check.png in Resources */,
 				BB4321B11DF069C500F77680 /* e0e0e0@2x.png in Resources */,
+				BB66471B1E7ABF76000D5832 /* PersonInfoCell.xib in Resources */,
 				BBFB6EBD1E0183AC00BC1EDA /* tender_bill.png in Resources */,
 				BB5AB57F1DF2C56C009107B9 /* RecordingSignal006@2x.png in Resources */,
 				BB49EFFF1DFD4F8300CFFC39 /* develiy_succeed.png in Resources */,
@@ -1916,9 +2003,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB96BE991DEF007E00AA74D2 /* LVRecordTool.m in Sources */,
+				BB2CC79C1E699726004C70B4 /* PersonInfoViewController.m in Sources */,
 				BBED55D41DF1BFDC009776E4 /* MediatorOrderDetailViewController.m in Sources */,
 				BB852BF71E0ABDC100568B4F /* DiverHttpRequstManager.m in Sources */,
+				BBEE58A11E7E6B66007BB1EC /* DriverModel.m in Sources */,
 				BB4321951DF0618400F77680 /* WMPageController.m in Sources */,
+				BB66471F1E7AD3E6000D5832 /* AddPhotoViewController.m in Sources */,
+				BB6647251E7ADDA4000D5832 /* PictureCell.m in Sources */,
 				BBED55B21DF1BDD2009776E4 /* DriverUnStartViewController.m in Sources */,
 				BB5AB5BE1DF2D962009107B9 /* UIViewExt.m in Sources */,
 				BB00C05F1E00272D00E9B3FA /* TruckModel.m in Sources */,
@@ -1926,6 +2017,7 @@
 				BB4321931DF0618400F77680 /* WMProgressView.m in Sources */,
 				BBED55F91DF1C28D009776E4 /* DriversMapViewController.mm in Sources */,
 				BBC26A601E29F0AA00DC388C /* GifAnnotationView.m in Sources */,
+				BB6452E81E4F1FE100068901 /* WinnerModel.m in Sources */,
 				BB5AB5861DF2C6F4009107B9 /* ShowPhotoViewController.m in Sources */,
 				BBED55B81DF1BDF0009776E4 /* DriverFinishedViewController.m in Sources */,
 				BB009F881E1563890044E44B /* TenderSmallDetailCell.m in Sources */,
@@ -1947,9 +2039,11 @@
 				BBED56021DF1C545009776E4 /* MediatorFindOrdersViewController.m in Sources */,
 				BB96BE801DEEFDAA00AA74D2 /* CCColor.m in Sources */,
 				BB96BE8B1DEEFEA200AA74D2 /* MarginLabel.mm in Sources */,
+				BB6452E51E4EFC6300068901 /* TenderRecordModel.m in Sources */,
 				BB96BEC01DEF2E1C00AA74D2 /* LocationShareModel.m in Sources */,
 				BB96BE6A1DEEFD5900AA74D2 /* UIActionSheet+Blocks.m in Sources */,
 				BB4321701DF05A2700F77680 /* BaseViewController.m in Sources */,
+				BB66471A1E7ABF76000D5832 /* PersonInfoCell.m in Sources */,
 				BB96BEBF1DEF2E1C00AA74D2 /* BackgroundTaskManager.m in Sources */,
 				BB8812EE1DF999D000B54644 /* DeliveryContactsModel.m in Sources */,
 				BB96BE661DEEFD5900AA74D2 /* NSMutableDictionary+Tool.m in Sources */,
@@ -1971,6 +2065,7 @@
 				BB49EFF91DFD4E3C00CFFC39 /* TimeLineCell.m in Sources */,
 				BB96BECD1DEF2E7300AA74D2 /* AddressManager.m in Sources */,
 				BB2E1E931E0FFDAC00482AA1 /* CarPhotoView.m in Sources */,
+				BBEE589E1E7E53FE007BB1EC /* SearchDriverViewController.m in Sources */,
 				BB035DE01DF402A1006EC2F0 /* TenderDetailCellModel.m in Sources */,
 				BBED55E91DF1C15F009776E4 /* MyWalletViewController.m in Sources */,
 				BBED55EC1DF1C17C009776E4 /* BankCardViewController.m in Sources */,
@@ -2017,8 +2112,11 @@
 				BB4321941DF0618400F77680 /* WMScrollView.m in Sources */,
 				BB96BEB81DEF2DFF00AA74D2 /* DBManager.m in Sources */,
 				BB96BE6C1DEEFD5900AA74D2 /* UIButton+Block.m in Sources */,
+				BBEE58AA1E7EBC2D007BB1EC /* PersonInfoModel.m in Sources */,
+				BBEE58A41E7E7B7F007BB1EC /* AddTruckTypeViewController.m in Sources */,
 				BBED55D11DF1BFA8009776E4 /* MediatorSeletedOilCardsViewController.m in Sources */,
 				BBED55AE1DF1BD89009776E4 /* DriverProgressViewController.m in Sources */,
+				BBEE58A71E7E8862007BB1EC /* AddTextFiledViewController.m in Sources */,
 				BB96BEC41DEF2E3800AA74D2 /* HttpRequstManager.m in Sources */,
 				BB5AB5551DF29F25009107B9 /* DriverWayBillDetailViewController.m in Sources */,
 				BB5AB53B1DF263E3009107B9 /* TenderCell.m in Sources */,

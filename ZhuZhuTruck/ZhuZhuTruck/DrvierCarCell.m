@@ -27,17 +27,21 @@
 
 
 - (void)showTruckCellWithModel:(TruckModel *)model{
-    
-    self.carNumberLabel.text = model.truck_number;
-    self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",model.truck_type];
-    self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",![model.driver_name isEmpty]?model.driver_name:@"未填写"] ;
+    self.carImageView.image = [UIImage imageNamed:@"truck_car"];
+    self.carNumberLabel.text = (!model.truck_number||[model.truck_number isEmpty])?@"未设置":model.truck_number;
+    self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",(!model.truck_type||[model.truck_type isEmpty])?@"未设置":model.truck_type];
+    self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",(![model.driver_name isEmpty]&&model.driver_name)?model.driver_name:@"未设置"] ;
     self.contactLabel.text =[NSString stringWithFormat:@"联系手机    %@",model.driver_number];
 }
 
+
+
+
 - (void)showSeletedTruckCellWithModel:(TruckModel *)model{
-    self.carNumberLabel.text = model.truck_number;
-    self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",model.truck_type];
-    self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",![model.driver_name isEmpty]?model.driver_name:@"未填写"] ;
+    self.carImageView.image = [UIImage imageNamed:@"truck_car"];
+    self.carNumberLabel.text = (!model.truck_number||[model.truck_number isEmpty])?@"未设置":model.truck_number;
+    self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",(!model.truck_type||[model.truck_type isEmpty])?@"未设置":model.truck_type];
+    self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",(![model.driver_name isEmpty]&&model.driver_name)?model.driver_name:@"未设置"] ;
     self.contactLabel.text =[NSString stringWithFormat:@"联系手机    %@",model.driver_number];
     if (model.isSeleted.boolValue) {
         self.seletedImageView.image = [UIImage imageNamed:@"seleted"];
@@ -45,6 +49,15 @@
         self.seletedImageView.image = [UIImage imageNamed:@"un_seleted"];
     }
 
+}
+
+- (void)showDriverCellWithDriverModel:(DriverModel*)model{
+    
+    self.carNumberLabel.text = (!model.truck_number||[model.truck_number isEmpty])?@"未设置":model.truck_number;
+    self.carDetailLabel.text = [NSString stringWithFormat:@"车辆描述    %@",(!model.truck_type||[model.truck_type isEmpty])?@"未设置":model.truck_type];
+    self.driverNameLabel.text = [NSString stringWithFormat:@"车辆司机    %@",(![model.nickname isEmpty]&&model.nickname)?model.nickname:@"未设置"] ;
+    self.contactLabel.text =[NSString stringWithFormat:@"联系手机    %@",model.username];
+    self.carImageView.image = [UIImage imageNamed:@"ic_head"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -37,7 +37,7 @@
         [self addSubview:textLabel];
         
         imageView = [[UIImageView alloc]initWithFrame:self.contentView.bounds];
-        [imageView setContentMode:UIViewContentModeScaleToFill];
+        [imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self addSubview:imageView];
         
 //        titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 16)];
@@ -45,7 +45,7 @@
 //        titleLabel.font = [UIFont systemFontOfSize:12];
 //        titleLabel.textAlignment  = NSTextAlignmentCenter;
 //        [imageView addSubview:titleLabel];
-        
+        self.clipsToBounds = YES;
         self.contentView.layer.borderWidth = 0.3;
         self.contentView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;
         
@@ -67,7 +67,6 @@
         UIImage *image = [UIImage imageWithData:imageData];
         imageView.image = image;
         imageView.hidden = NO;
-        imageView.image = image;
 //        if ([title hasSuffix:@"(可选)"]) {
 //            titleLabel.backgroundColor = UIColorFromRGB(0x3ebf43);
 //        }

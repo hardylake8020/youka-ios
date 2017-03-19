@@ -7,7 +7,7 @@
 //
 
 #import "ShowPhotoViewController.h"
-
+#import <UIImageView+WebCache.h>
 @interface ShowPhotoViewController ()<UIScrollViewDelegate>{
     UIImageView *imageView;
 }
@@ -63,6 +63,7 @@
     [self naviBack];
 }
 - (void)initShowPageView{
+    
     UIScrollView *imageScrollView =[[UIScrollView alloc]initWithFrame:CGRectMake(0,SYSTITLEHEIGHT, self.view.frame.size.width, self.view.frame.size.height-SYSTITLEHEIGHT)];
     imageScrollView.contentSize = CGSizeMake(self.view.frame.size.width,  self.view.frame.size.height-SYSTITLEHEIGHT);
     
@@ -70,10 +71,17 @@
     NSString* filePath=filePathByName([NSString stringWithFormat:@"%@.jpg", _fileName]);
     // NSLog(@"filepath: %@",filePath);
     NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-    UIImage *image = [UIImage imageWithData:imageData];
-    imageView.image = image;
+    
+    if (!imageData||imageData.length==0) {
+        NSString *urlString = [NSString stringWithFormat:@"%@%@",QN_IMAGE_HEADER,self.fileName];
+        CCLog(@"----->%@",urlString);
+        [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:[UIImage imageNamed:@"noimage"]];
+    }else{
+        UIImage *image = [UIImage imageWithData:imageData];
+        imageView.image = image;
+    }
     imageView.hidden = NO;
-    imageView.image = image;
+    
     [imageView setContentMode:UIViewContentModeScaleAspectFit];
     [imageScrollView addSubview:imageView];
     //设置代理scrollview的代理对象

@@ -11,4 +11,5 @@
 @interface TruckDetailCellModel : NSObject
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subTitle;
+@property (nonatomic, assign) BOOL isImage;
 @end
