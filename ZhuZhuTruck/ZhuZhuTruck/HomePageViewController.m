@@ -347,12 +347,21 @@
     if ([tenderModel.tender_type isEqualToString:@"grab"]) {
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
-    }else{
+    }else if([tenderModel.tender_type isEqualToString:@"compare"]){
+        
         if ([tenderModel isAlreadyBind]) {
             MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing andTenderModel:tenderModel];
             [self.navigationController pushViewController:orderDetail animated:YES];
         }else{
             MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }
+    }else if([tenderModel.tender_type isEqualToString:@"compares_ton"]){
+        if ([tenderModel isAlreadyBind]) {
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderOngoing andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }else{
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderUnStart andTenderModel:tenderModel];
             [self.navigationController pushViewController:orderDetail animated:YES];
         }
     }
@@ -447,29 +456,7 @@
     [self.navigationController pushViewController:myWallet animated:YES];
 }
 - (void)gotoMyOilCardsStock{
-//    NSArray *viewControllers;
-//    NSArray *titles;
-//    NSString *title;
-//    viewControllers = @[[OilCardsViewController class],[ETCCardsViewController class]];
-//    titles = @[@"油卡",@"ETC卡"];
-//    title = @"我的卡劵";
-//    CarStockViewController *pageVC = [[CarStockViewController alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
-//    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
-//    pageVC.postNotification = YES;
-//    pageVC.bounces = YES;
-//    pageVC.menuHeight = 36;
-//    pageVC.menuViewStyle = WMMenuViewStyleLine;
-//    pageVC.menuBGColor = [UIColor naviBlackColor];
-//    pageVC.titleColorSelected = [UIColor whiteColor];
-//    pageVC.titleColorNormal = [UIColor colorWithWhite:0.9 alpha:0.8];
-//    pageVC.titleFontName = @"Helvetica-Bold";
-//    pageVC.titleSizeNormal = 18;
-//    pageVC.progressHeight = 4;
-//    pageVC.progressColor = [UIColor whiteColor];
-//    pageVC.pageAnimatable = YES;
-//    pageVC.titleSizeSelected = 18;
-//    pageVC.title = title;
-//    [self.navigationController pushViewController:pageVC animated:YES];
+
     
     OilCardsViewController *card = [[OilCardsViewController alloc]init];
     [self.navigationController pushViewController:card animated:YES];

@@ -115,11 +115,11 @@
                 //刷新
                 [weakself.dataArray removeAllObjects];
             }
-            NSArray *orders = [result objectForKey:@"tenders"];
+            NSArray *tenders = [result objectForKey:@"tenders"];
             weakself.totoalCount = [result intForKey:@"totalCount"];
             
-            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)orders.count);
-            for (NSDictionary *orderDict in orders) {
+            CCLog(@"UnpickOrderCount------------->:%ld",(unsigned long)tenders.count);
+            for (NSDictionary *orderDict in tenders) {
                 TenderModel *tenderModel = [[TenderModel alloc]initWithDictionary:orderDict error:nil];
                 [weakself.dataArray addObject:tenderModel];
             }
@@ -157,7 +157,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     TenderModel *tenderModel = [self.dataArray objectAtIndex:section];
-    if (([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"grab"])||([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"compare"]&&[tenderModel.driver_winner._id isEqualToString:user_id()])) {
+    if (([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"grab"])||([tenderModel.status isEqualToString:@"unAssigned"]&&([tenderModel.tender_type isEqualToString:@"compare"]||[tenderModel.tender_type isEqualToString:@"compares_ton"])&&[tenderModel.driver_winner._id isEqualToString:user_id()])) {
         return 60;
     }
     return 10;
@@ -173,8 +173,7 @@
     if ([tenderModel.tender_type isEqualToString:@"grab"]) {
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderSucceed andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
-    }else{
-#warning 比价状态
+    }else if([tenderModel.tender_type isEqualToString:@"compare"]){
         if ([tenderModel.status isEqualToString:@"unAssigned"]) {
             if ([tenderModel.driver_winner._id isEqualToString:user_id()]) {
                 MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderSucceed andTenderModel:tenderModel];;
@@ -188,6 +187,20 @@
             MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing andTenderModel:tenderModel];;
             [self.navigationController pushViewController:orderDetail animated:YES];
         }
+    }else if([tenderModel.tender_type isEqualToString:@"compares_ton"]){
+        if ([tenderModel.status isEqualToString:@"unAssigned"]) {
+            if ([tenderModel.driver_winner._id isEqualToString:user_id()]) {
+                MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderSucceed andTenderModel:tenderModel];;
+                [self.navigationController pushViewController:orderDetail animated:YES];
+            }else{
+                MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderFailed andTenderModel:tenderModel];;
+                [self.navigationController pushViewController:orderDetail animated:YES];
+            }
+            
+        }else if ([tenderModel.status isEqualToString:@"comparing"]) {
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderOngoing andTenderModel:tenderModel];;
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -198,7 +211,7 @@
     topLine.backgroundColor = [UIColor customGrayColor];
     [footerView addSubview:topLine];
     
-    if (([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"grab"])||([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"compare"]&&[tenderModel.driver_winner._id isEqualToString:user_id()])) {
+    if (([tenderModel.status isEqualToString:@"unAssigned"]&&[tenderModel.tender_type isEqualToString:@"grab"])||([tenderModel.status isEqualToString:@"unAssigned"]&&([tenderModel.tender_type isEqualToString:@"compare"]||[tenderModel.tender_type isEqualToString:@"compares_ton"])&&[tenderModel.driver_winner._id isEqualToString:user_id()])) {
         UIButton *assignButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0.5, SYSTEM_WIDTH, 49)];
         [assignButton setBackgroundColor:[UIColor whiteColor]];
         [assignButton setTitleColor:[UIColor customBlueColor] forState:UIControlStateNormal];

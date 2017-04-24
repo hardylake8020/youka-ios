@@ -169,8 +169,11 @@
     if ([tenderModel.tender_type isEqualToString:@"grab"]) {
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderSucceed andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
-    }else{
-        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderSucceed andTenderModel:tenderModel];;
+    }else if([tenderModel.tender_type isEqualToString:@"compare"]){
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderSucceed andTenderModel:tenderModel];
+        [self.navigationController pushViewController:orderDetail animated:YES];
+    }else if([tenderModel.tender_type isEqualToString:@"compares_ton"]){
+        MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderSucceed andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
     }
 }

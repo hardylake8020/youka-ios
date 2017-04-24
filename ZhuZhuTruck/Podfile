@@ -1,4 +1,5 @@
-platform:ios, ‘7.0’
+platform:ios, ‘8.0’
+target 'ZhuZhuTruck' do
 pod 'SDWebImage', '~> 3.7.5'
 pod 'SDAutoLayout', '~> 2.1.1'
 pod "Qiniu", :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
@@ -7,4 +8,6 @@ pod 'JSONKit-NoWarning', '~> 1.2'
 pod 'MJRefresh', '~> 3.1.0'
 pod 'FDFullscreenPopGesture', '~> 1.1'
 pod 'FMDB', '~> 2.6.2'
+pod 'RMPickerViewController', '~> 2.2.1'
 pod 'SVProgressHUD'
+end

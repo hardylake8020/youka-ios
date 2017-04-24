@@ -17,6 +17,16 @@
     }
     return 0;
 }
+
+- (NSInteger)getBindderTonPrice{
+    for (TenderRecordModel*model in self.tender_records) {
+        if ([model.driver isEqualToString:user_id()]) {
+            return model.price_per_ton.integerValue;
+        }
+    }
+    return 0;
+}
+
 - (BOOL)isAlreadyBind{
     for (TenderRecordModel*model in self.tender_records) {
         if ([model.driver isEqualToString:user_id()]) {

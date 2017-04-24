@@ -190,12 +190,20 @@
     [self.dataArray addObject:model];
     
     model = [[TenderDetailCellModel alloc]init];
-    model.title = @"联系电话";
+    model.title = @"联系手机";
     model.isLight = NO;
     model.upDown = 2;
-    model.subTitle = ![tenderModel.pickup_tel_phone isEmpty]?tenderModel.pickup_tel_phone:@"";
+    model.subTitle = ![tenderModel.pickup_mobile_phone isEmpty]?tenderModel.pickup_mobile_phone:@"";
     model.isPhone = YES;
     [self.dataArray addObject:model];
+    
+//    model = [[TenderDetailCellModel alloc]init];
+//    model.title = @"联系电话";
+//    model.isLight = NO;
+//    model.upDown = 2;
+//    model.subTitle = ![tenderModel.pickup_tel_phone isEmpty]?tenderModel.pickup_tel_phone:@"";
+//    model.isPhone = YES;
+//    [self.dataArray addObject:model];
     
     model = [[TenderDetailCellModel alloc]init];
     model.title = @"提货时间";

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E7BF91F310DEB63E70C6337 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B1A0A1EFD1FDE195631985 /* libPods.a */; };
+		9E98D3DAC5D2C66D2A142926 /* libPods-ZhuZhuTruck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A15A3D062D70550CC9BAA10 /* libPods-ZhuZhuTruck.a */; };
 		BB009F881E1563890044E44B /* TenderSmallDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB009F861E1563890044E44B /* TenderSmallDetailCell.m */; };
 		BB009F891E1563890044E44B /* TenderSmallDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB009F871E1563890044E44B /* TenderSmallDetailCell.xib */; };
 		BB00C0581E00222100E9B3FA /* TenderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB00C0571E00222100E9B3FA /* TenderModel.m */; };
@@ -33,6 +33,15 @@
 		BB035E011DF45499006EC2F0 /* ETCCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035DFF1DF45499006EC2F0 /* ETCCardCell.xib */; };
 		BB035E061DF468ED006EC2F0 /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB035E041DF468ED006EC2F0 /* WalletCell.m */; };
 		BB035E071DF468ED006EC2F0 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB035E051DF468ED006EC2F0 /* WalletCell.xib */; };
+		BB214ABD1E8A839500F0849E /* CarCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB214ABC1E8A839500F0849E /* CarCertificationViewController.m */; };
+		BB214AC01E8A83AC00F0849E /* UserCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB214ABF1E8A83AC00F0849E /* UserCertificationViewController.m */; };
+		BB214AC31E8A85B400F0849E /* InfomatationCertificationPages.m in Sources */ = {isa = PBXBuildFile; fileRef = BB214AC21E8A85B400F0849E /* InfomatationCertificationPages.m */; };
+		BB214AC61E8A94FF00F0849E /* TakePhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB214AC51E8A94FF00F0849E /* TakePhotoModel.m */; };
+		BB214ACC1E8A953D00F0849E /* TextFiledModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB214ACB1E8A953D00F0849E /* TextFiledModel.m */; };
+		BB214AD01E8A960B00F0849E /* TakePhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB214ACE1E8A960B00F0849E /* TakePhotoCell.m */; };
+		BB214AD11E8A960B00F0849E /* TakePhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB214ACF1E8A960B00F0849E /* TakePhotoCell.xib */; };
+		BB214AD51E8A962D00F0849E /* TextFiledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB214AD31E8A962D00F0849E /* TextFiledCell.m */; };
+		BB214AD61E8A962D00F0849E /* TextFiledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB214AD41E8A962D00F0849E /* TextFiledCell.xib */; };
 		BB26021E1E293CA9008392FE /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2602171E293CA9008392FE /* BaiduMapAPI_Base.framework */; };
 		BB2602201E293CA9008392FE /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2602191E293CA9008392FE /* BaiduMapAPI_Location.framework */; };
 		BB2602211E293CA9008392FE /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB26021A1E293CA9008392FE /* BaiduMapAPI_Map.framework */; };
@@ -305,8 +314,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		10B1A0A1EFD1FDE195631985 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3D12FA8AAEF863A2F7DFB76 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		5A15A3D062D70550CC9BAA10 /* libPods-ZhuZhuTruck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZhuZhuTruck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D89BFA2A8B0D74E0D6F24AF /* Pods-ZhuZhuTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhuZhuTruck.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhuZhuTruck/Pods-ZhuZhuTruck.release.xcconfig"; sourceTree = "<group>"; };
 		BB009F851E1563890044E44B /* TenderSmallDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TenderSmallDetailCell.h; sourceTree = "<group>"; };
 		BB009F861E1563890044E44B /* TenderSmallDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenderSmallDetailCell.m; sourceTree = "<group>"; };
 		BB009F871E1563890044E44B /* TenderSmallDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderSmallDetailCell.xib; sourceTree = "<group>"; };
@@ -347,6 +356,22 @@
 		BB035E031DF468ED006EC2F0 /* WalletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
 		BB035E041DF468ED006EC2F0 /* WalletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
 		BB035E051DF468ED006EC2F0 /* WalletCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
+		BB214ABB1E8A839500F0849E /* CarCertificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarCertificationViewController.h; sourceTree = "<group>"; };
+		BB214ABC1E8A839500F0849E /* CarCertificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarCertificationViewController.m; sourceTree = "<group>"; };
+		BB214ABE1E8A83AC00F0849E /* UserCertificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCertificationViewController.h; sourceTree = "<group>"; };
+		BB214ABF1E8A83AC00F0849E /* UserCertificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCertificationViewController.m; sourceTree = "<group>"; };
+		BB214AC11E8A85B400F0849E /* InfomatationCertificationPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomatationCertificationPages.h; sourceTree = "<group>"; };
+		BB214AC21E8A85B400F0849E /* InfomatationCertificationPages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomatationCertificationPages.m; sourceTree = "<group>"; };
+		BB214AC41E8A94FF00F0849E /* TakePhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoModel.h; sourceTree = "<group>"; };
+		BB214AC51E8A94FF00F0849E /* TakePhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoModel.m; sourceTree = "<group>"; };
+		BB214ACA1E8A953D00F0849E /* TextFiledModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFiledModel.h; sourceTree = "<group>"; };
+		BB214ACB1E8A953D00F0849E /* TextFiledModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFiledModel.m; sourceTree = "<group>"; };
+		BB214ACD1E8A960B00F0849E /* TakePhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoCell.h; sourceTree = "<group>"; };
+		BB214ACE1E8A960B00F0849E /* TakePhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoCell.m; sourceTree = "<group>"; };
+		BB214ACF1E8A960B00F0849E /* TakePhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TakePhotoCell.xib; sourceTree = "<group>"; };
+		BB214AD21E8A962D00F0849E /* TextFiledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFiledCell.h; sourceTree = "<group>"; };
+		BB214AD31E8A962D00F0849E /* TextFiledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFiledCell.m; sourceTree = "<group>"; };
+		BB214AD41E8A962D00F0849E /* TextFiledCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFiledCell.xib; sourceTree = "<group>"; };
 		BB2602171E293CA9008392FE /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = BaiduMapAPI/BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
 		BB2602191E293CA9008392FE /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Location.framework; path = BaiduMapAPI/BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
 		BB26021A1E293CA9008392FE /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Map.framework; path = BaiduMapAPI/BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
@@ -734,7 +759,7 @@
 		BBFB6EB31E0183AC00BC1EDA /* oil_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oil_card.png; sourceTree = "<group>"; };
 		BBFB6EB41E0183AC00BC1EDA /* search_tender.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_tender.png; sourceTree = "<group>"; };
 		BBFB6EC31E018D7400BC1EDA /* f3455a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f3455a@2x.png"; sourceTree = "<group>"; };
-		CAB17238D143F9086A717D95 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D6EA390FC7985B8793E4420B /* Pods-ZhuZhuTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhuZhuTruck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhuZhuTruck/Pods-ZhuZhuTruck.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -771,7 +796,7 @@
 				BB3462601DFEDB6C00DC3FA8 /* Fabric.framework in Frameworks */,
 				BB96BEA11DEF2B2500AA74D2 /* QuartzCore.framework in Frameworks */,
 				BB96BE9F1DEF2B1B00AA74D2 /* CoreLocation.framework in Frameworks */,
-				4E7BF91F310DEB63E70C6337 /* libPods.a in Frameworks */,
+				9E98D3DAC5D2C66D2A142926 /* libPods-ZhuZhuTruck.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,11 +810,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0CCC561631795DF5C0303483 /* Pods */ = {
+		258AEFACCD7FA9E193630AD6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CAB17238D143F9086A717D95 /* Pods.debug.xcconfig */,
-				B3D12FA8AAEF863A2F7DFB76 /* Pods.release.xcconfig */,
+				D6EA390FC7985B8793E4420B /* Pods-ZhuZhuTruck.debug.xcconfig */,
+				6D89BFA2A8B0D74E0D6F24AF /* Pods-ZhuZhuTruck.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1195,6 +1220,12 @@
 				BB6647171E7ABF76000D5832 /* PersonInfoCell.h */,
 				BB6647181E7ABF76000D5832 /* PersonInfoCell.m */,
 				BB6647191E7ABF76000D5832 /* PersonInfoCell.xib */,
+				BB214ACD1E8A960B00F0849E /* TakePhotoCell.h */,
+				BB214ACE1E8A960B00F0849E /* TakePhotoCell.m */,
+				BB214ACF1E8A960B00F0849E /* TakePhotoCell.xib */,
+				BB214AD21E8A962D00F0849E /* TextFiledCell.h */,
+				BB214AD31E8A962D00F0849E /* TextFiledCell.m */,
+				BB214AD41E8A962D00F0849E /* TextFiledCell.xib */,
 			);
 			name = PersonInfoCell;
 			sourceTree = "<group>";
@@ -1206,14 +1237,14 @@
 				BBED55D91DF1C01A009776E4 /* SettingViewController.m */,
 				BB2CC79A1E699726004C70B4 /* PersonInfoViewController.h */,
 				BB2CC79B1E699726004C70B4 /* PersonInfoViewController.m */,
-				BB66471D1E7AD3E6000D5832 /* AddPhotoViewController.h */,
-				BB66471E1E7AD3E6000D5832 /* AddPhotoViewController.m */,
-				BBEE58A21E7E7B7F007BB1EC /* AddTruckTypeViewController.h */,
-				BBEE58A31E7E7B7F007BB1EC /* AddTruckTypeViewController.m */,
-				BBEE58A51E7E8862007BB1EC /* AddTextFiledViewController.h */,
-				BBEE58A61E7E8862007BB1EC /* AddTextFiledViewController.m */,
 				BB5AB5841DF2C6F4009107B9 /* ShowPhotoViewController.h */,
 				BB5AB5851DF2C6F4009107B9 /* ShowPhotoViewController.m */,
+				BB214AC11E8A85B400F0849E /* InfomatationCertificationPages.h */,
+				BB214AC21E8A85B400F0849E /* InfomatationCertificationPages.m */,
+				BB214ABE1E8A83AC00F0849E /* UserCertificationViewController.h */,
+				BB214ABF1E8A83AC00F0849E /* UserCertificationViewController.m */,
+				BB214ABB1E8A839500F0849E /* CarCertificationViewController.h */,
+				BB214ABC1E8A839500F0849E /* CarCertificationViewController.m */,
 			);
 			name = "设置其他";
 			sourceTree = "<group>";
@@ -1344,6 +1375,12 @@
 		BBAEC37D1E0E615E00821C09 /* 废弃代码 */ = {
 			isa = PBXGroup;
 			children = (
+				BB66471D1E7AD3E6000D5832 /* AddPhotoViewController.h */,
+				BB66471E1E7AD3E6000D5832 /* AddPhotoViewController.m */,
+				BBEE58A21E7E7B7F007BB1EC /* AddTruckTypeViewController.h */,
+				BBEE58A31E7E7B7F007BB1EC /* AddTruckTypeViewController.m */,
+				BBEE58A51E7E8862007BB1EC /* AddTextFiledViewController.h */,
+				BBEE58A61E7E8862007BB1EC /* AddTextFiledViewController.m */,
 				BB009F851E1563890044E44B /* TenderSmallDetailCell.h */,
 				BB009F861E1563890044E44B /* TenderSmallDetailCell.m */,
 				BB009F871E1563890044E44B /* TenderSmallDetailCell.xib */,
@@ -1393,8 +1430,8 @@
 				BBDCEC6C1DEDAAB100C2125D /* ZhuZhuTruck */,
 				BBDCEC861DEDAAB100C2125D /* ZhuZhuTruckTests */,
 				BBDCEC6B1DEDAAB100C2125D /* Products */,
-				0CCC561631795DF5C0303483 /* Pods */,
 				C7174C4BF7FF45B283FFC286 /* Frameworks */,
+				258AEFACCD7FA9E193630AD6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1583,6 +1620,10 @@
 			children = (
 				BBEE58A81E7EBC2D007BB1EC /* PersonInfoModel.h */,
 				BBEE58A91E7EBC2D007BB1EC /* PersonInfoModel.m */,
+				BB214AC41E8A94FF00F0849E /* TakePhotoModel.h */,
+				BB214AC51E8A94FF00F0849E /* TakePhotoModel.m */,
+				BB214ACA1E8A953D00F0849E /* TextFiledModel.h */,
+				BB214ACB1E8A953D00F0849E /* TextFiledModel.m */,
 			);
 			name = PersonInfoModel;
 			sourceTree = "<group>";
@@ -1704,7 +1745,7 @@
 				BB96BEA21DEF2B2E00AA74D2 /* OpenGLES.framework */,
 				BB96BEA01DEF2B2500AA74D2 /* QuartzCore.framework */,
 				BB96BE9E1DEF2B1B00AA74D2 /* CoreLocation.framework */,
-				10B1A0A1EFD1FDE195631985 /* libPods.a */,
+				5A15A3D062D70550CC9BAA10 /* libPods-ZhuZhuTruck.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1716,13 +1757,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BBDCEC8C1DEDAAB100C2125D /* Build configuration list for PBXNativeTarget "ZhuZhuTruck" */;
 			buildPhases = (
-				F9039AB6D2D2DB93EB7EF679 /* Check Pods Manifest.lock */,
+				C67D82C27BAA08D9F24D32A7 /* 📦 Check Pods Manifest.lock */,
 				BBDCEC661DEDAAB100C2125D /* Sources */,
 				BBDCEC671DEDAAB100C2125D /* Frameworks */,
 				BBDCEC681DEDAAB100C2125D /* Resources */,
-				2113E658471473A99E618E00 /* Embed Pods Frameworks */,
-				D92269C7064684128B005F72 /* Copy Pods Resources */,
 				BB3462581DFEDA3F00DC3FA8 /* ShellScript */,
+				3792543CEF9869F6ED5C2A21 /* 📦 Embed Pods Frameworks */,
+				546CE472541DF8CC09BDF93C /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1843,6 +1884,7 @@
 				BB5AB5511DF29EF8009107B9 /* WaybillCell.xib in Resources */,
 				BB5AB5771DF2C56C009107B9 /* RecordingSignal002@2x.png in Resources */,
 				BB49F0001DFD4F8300CFFC39 /* confirm_succeed.png in Resources */,
+				BB214AD61E8A962D00F0849E /* TextFiledCell.xib in Resources */,
 				BB4321A91DF069C500F77680 /* 7f7f7f@2x.png in Resources */,
 				BB5AB5BA1DF2D962009107B9 /* prev@3x.png in Resources */,
 				BBFB6EC01E0183AC00BC1EDA /* find_tender.png in Resources */,
@@ -1887,6 +1929,7 @@
 				BBFB6EBD1E0183AC00BC1EDA /* tender_bill.png in Resources */,
 				BB5AB57F1DF2C56C009107B9 /* RecordingSignal006@2x.png in Resources */,
 				BB49EFFF1DFD4F8300CFFC39 /* develiy_succeed.png in Resources */,
+				BB214AD11E8A960B00F0849E /* TakePhotoCell.xib in Resources */,
 				BB852BFD1E0ADA8A00568B4F /* SeverError.strings in Resources */,
 				BB57D7FA1DF6F6CF008888B0 /* MarginCell.xib in Resources */,
 				BBFB6EC11E0183AC00BC1EDA /* oil_card.png in Resources */,
@@ -1937,19 +1980,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2113E658471473A99E618E00 /* Embed Pods Frameworks */ = {
+		3792543CEF9869F6ED5C2A21 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhuZhuTruck/Pods-ZhuZhuTruck-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		546CE472541DF8CC09BDF93C /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhuZhuTruck/Pods-ZhuZhuTruck-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BB3462581DFEDA3F00DC3FA8 /* ShellScript */ = {
@@ -1965,29 +2023,14 @@
 			shellPath = /bin/sh;
 			shellScript = "./ZhuZhuTruck/Fabric.framework/run 61cf4e1887e8894345852aa6dc9c12bf55205da3 022923131f84265ce022a9a36385dbecccac7658b474539a1d8b9392bb2d8d97";
 		};
-		D92269C7064684128B005F72 /* Copy Pods Resources */ = {
+		C67D82C27BAA08D9F24D32A7 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9039AB6D2D2DB93EB7EF679 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2009,6 +2052,7 @@
 				BBEE58A11E7E6B66007BB1EC /* DriverModel.m in Sources */,
 				BB4321951DF0618400F77680 /* WMPageController.m in Sources */,
 				BB66471F1E7AD3E6000D5832 /* AddPhotoViewController.m in Sources */,
+				BB214AC61E8A94FF00F0849E /* TakePhotoModel.m in Sources */,
 				BB6647251E7ADDA4000D5832 /* PictureCell.m in Sources */,
 				BBED55B21DF1BDD2009776E4 /* DriverUnStartViewController.m in Sources */,
 				BB5AB5BE1DF2D962009107B9 /* UIViewExt.m in Sources */,
@@ -2018,12 +2062,14 @@
 				BBED55F91DF1C28D009776E4 /* DriversMapViewController.mm in Sources */,
 				BBC26A601E29F0AA00DC388C /* GifAnnotationView.m in Sources */,
 				BB6452E81E4F1FE100068901 /* WinnerModel.m in Sources */,
+				BB214ACC1E8A953D00F0849E /* TextFiledModel.m in Sources */,
 				BB5AB5861DF2C6F4009107B9 /* ShowPhotoViewController.m in Sources */,
 				BBED55B81DF1BDF0009776E4 /* DriverFinishedViewController.m in Sources */,
 				BB009F881E1563890044E44B /* TenderSmallDetailCell.m in Sources */,
 				BBAEC37C1E0E492800821C09 /* TruckDetailTableDataModel.m in Sources */,
 				BB49EFF51DFD47BA00CFFC39 /* PhotoModel.m in Sources */,
 				BB4321741DF05AF300F77680 /* CCNaviHeaderView.m in Sources */,
+				BB214AD51E8A962D00F0849E /* TextFiledCell.m in Sources */,
 				BBC26A671E29FD5700DC388C /* UIImage+Rotate.m in Sources */,
 				BB5AB5BD1DF2D962009107B9 /* QRCodeVC.m in Sources */,
 				BBED55DD1DF1C042009776E4 /* OilCardsViewController.m in Sources */,
@@ -2059,6 +2105,7 @@
 				BBED55CB1DF1BF57009776E4 /* MediatorFinishedViewController.m in Sources */,
 				BB5AB5501DF29EF8009107B9 /* WaybillCell.m in Sources */,
 				BB5AB54B1DF281C5009107B9 /* TenderProcessCell.m in Sources */,
+				BB214AC31E8A85B400F0849E /* InfomatationCertificationPages.m in Sources */,
 				BBDCEC721DEDAAB100C2125D /* AppDelegate.m in Sources */,
 				BB852BFB1E0ACE8600568B4F /* AddTruckCarViewController.m in Sources */,
 				BB4321911DF0618400F77680 /* WMMenuItem.m in Sources */,
@@ -2084,6 +2131,7 @@
 				BB035DD11DF3CA95006EC2F0 /* WaybillDetailTableDataModel.m in Sources */,
 				BB4321921DF0618400F77680 /* WMMenuView.m in Sources */,
 				BB5AB5581DF2C492009107B9 /* PhotosCell.m in Sources */,
+				BB214AD01E8A960B00F0849E /* TakePhotoCell.m in Sources */,
 				BB96BE851DEEFDAA00AA74D2 /* CCUserData.m in Sources */,
 				BB035DED1DF40760006EC2F0 /* TenderDetailHeaderCell.m in Sources */,
 				BB00C05B1E00267900E9B3FA /* CardModel.m in Sources */,
@@ -2097,8 +2145,10 @@
 				BBC26A6C1E29FF9D00DC388C /* RouteAnnotation.m in Sources */,
 				BB035E001DF45499006EC2F0 /* ETCCardCell.m in Sources */,
 				BBED55F21DF1C1BC009776E4 /* MarginViewController.m in Sources */,
+				BB214ABD1E8A839500F0849E /* CarCertificationViewController.m in Sources */,
 				BB57D8021DF7163E008888B0 /* CarDetailCell.m in Sources */,
 				BB96BE641DEEFD5900AA74D2 /* NSDictionary+Tool.m in Sources */,
+				BB214AC01E8A83AC00F0849E /* UserCertificationViewController.m in Sources */,
 				BB96BEC71DEF2E4B00AA74D2 /* SeverTimeManager.m in Sources */,
 				BB035DD51DF3D140006EC2F0 /* WayBillDetailCell.m in Sources */,
 				BBED55F61DF1C202009776E4 /* MyDriversViewController.m in Sources */,
@@ -2250,7 +2300,7 @@
 		};
 		BBDCEC8D1DEDAAB100C2125D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAB17238D143F9086A717D95 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = D6EA390FC7985B8793E4420B /* Pods-ZhuZhuTruck.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhuZhuTruck/ZhuZhuTruck.entitlements;
@@ -2279,7 +2329,7 @@
 		};
 		BBDCEC8E1DEDAAB100C2125D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3D12FA8AAEF863A2F7DFB76 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 6D89BFA2A8B0D74E0D6F24AF /* Pods-ZhuZhuTruck.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhuZhuTruck/ZhuZhuTruck.entitlements;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#define DEFAULT_DISPLAY_DURATION 4.0f
+#define DEFAULT_DISPLAY_DURATION 3.0f
 
 @interface CCToast : NSObject{
     NSString *text;

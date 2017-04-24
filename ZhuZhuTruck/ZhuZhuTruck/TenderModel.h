@@ -82,6 +82,11 @@
 @property (nonatomic, copy) WinnerModel<Optional> *driver_winner;
 @property (nonatomic, strong) NSMutableArray<Optional,TenderRecordModel> *tender_records;
 @property (nonatomic, strong) NSNumber<Optional> *winner_price;
+
+@property (nonatomic, strong) NSNumber<Optional> *lowest_tons_count;
+
+
 - (NSInteger)getBindderPrice;
+- (NSInteger)getBindderTonPrice;
 - (BOOL)isAlreadyBind;
 @end

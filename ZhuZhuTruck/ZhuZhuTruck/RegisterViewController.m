@@ -46,7 +46,7 @@
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initTextFileds];
     [self initSubmitView];
-    //增加监听，当键盘出现或改变时收出消息
+//    //增加监听，当键盘出现或改变时收出消息
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(keyboardWillShow:)
 //                                                 name:UIKeyboardWillShowNotification
@@ -241,7 +241,7 @@
 - (void)naviBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
-//当键盘出现或改变时调用
+////当键盘出现或改变时调用
 //- (void)keyboardWillShow:(NSNotification *)aNotification
 //{
 //    //获取键盘的高度

@@ -18,9 +18,11 @@
 #import "MediatorTransportingViewController.h"
 @interface MediatorOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>{
     CGFloat _headerHight;
+    CGFloat _bottomHight;
     UIView *_operationView;
     UIView *_headerView;
     CCTextFiled *_priceTextField;
+    CCTextFiled *_unitTextField;
     UILabel * _timeLeftLabel;
 }
 @property (nonatomic, assign) TenderOrderStatus tenderStatus;
@@ -57,7 +59,11 @@
         case BidTenderUnStart:
         case BidTenderOngoing:
         case BidTenderSucceed:
-        case BidTenderFailed:{
+        case BidTenderFailed:
+        case TonTenderUnStart:
+        case TonTenderOngoing:
+        case TonTenderSucceed:
+        case TonTenderFailed:{
             [self addBlackNaviHaderViewWithTitle:@"比价详情"];
         }
             break;
@@ -76,8 +82,8 @@
 
     [self.naviHeaderView addBackButtonWithTarget:self action:@selector(naviBack)];
     [self initHeaderView];
-    [self initTableView];
     [self initSumbitView];
+    [self initTableView];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -109,7 +115,7 @@
         case BidTenderOngoing:
         {
             _headerHight = 100;
-            _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, 100)];
+            _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, _headerHight)];
             [self.view addSubview:_headerView];
             UILabel *bidTimeLabel = [[UILabel alloc]init];
             bidTimeLabel.text = @"比价剩余时间";
@@ -145,7 +151,7 @@
             [_headerView addSubview:priceLabel];
             
             priceLabel.sd_layout
-            .topSpaceToView(_headerView,50)
+            .bottomSpaceToView(_headerView,0)
             .leftSpaceToView(_headerView,15)
             .widthIs(90)
             .heightIs(50);
@@ -157,7 +163,7 @@
             [_headerView addSubview:heighPriceLabel];
             
             heighPriceLabel.sd_layout
-            .topSpaceToView(_headerView,50)
+            .bottomSpaceToView(_headerView,0)
             .leftSpaceToView(priceLabel,15)
             .rightSpaceToView(_headerView,15)
             .heightIs(50);
@@ -170,6 +176,7 @@
             UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 99.5, SYSTEM_WIDTH, 0.5)];
             lineView2.backgroundColor = [UIColor customGrayColor];
             [_headerView addSubview:lineView2];
+            
             
         }
             break;
@@ -318,6 +325,294 @@
             _headerHight = 0;
         }
             break;
+        case TonTenderUnStart:
+        case TonTenderOngoing:
+        {
+            _headerHight = 150;
+            _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, _headerHight)];
+            [self.view addSubview:_headerView];
+            UILabel *bidTimeLabel = [[UILabel alloc]init];
+            bidTimeLabel.text = @"比价剩余时间";
+            bidTimeLabel.textColor = [UIColor grayTextColor];
+            bidTimeLabel.font = fontBysize(14);
+            [_headerView addSubview:bidTimeLabel];
+            
+            bidTimeLabel.sd_layout
+            .topSpaceToView(_headerView,0)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            _timeLeftLabel = [[UILabel alloc]init];
+            self.timeLeft = [self.tenderModel.end_time timeRemaining];
+            _timeLeftLabel.textColor = [UIColor customRedColor];
+            _timeLeftLabel.font = [UIFont boldSystemFontOfSize:16];
+            [_headerView addSubview:_timeLeftLabel];
+            [self timeClockRun];
+            self.runTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeClockRun) userInfo:nil repeats:YES];
+            
+            _timeLeftLabel.sd_layout
+            .topSpaceToView(_headerView,0)
+            .leftSpaceToView(bidTimeLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            
+            UILabel *unitLabel = [[UILabel alloc]init];
+            unitLabel.text = @"保底吨数";
+            unitLabel.textColor = [UIColor grayTextColor];
+            unitLabel.font = fontBysize(14);
+            [_headerView addSubview:unitLabel];
+            
+            unitLabel.sd_layout
+            .topSpaceToView(_headerView,50)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *unitCountLabel = [[UILabel alloc]init];
+            unitCountLabel.text = [NSString stringWithFormat:@"%@ 吨",self.tenderModel.lowest_tons_count];
+            unitCountLabel.textColor = [UIColor customRedColor];
+            unitCountLabel.font = [UIFont boldSystemFontOfSize:16];
+            [_headerView addSubview:unitCountLabel];
+            
+            unitCountLabel.sd_layout
+            .topSpaceToView(_headerView,50)
+            .leftSpaceToView(unitLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            
+            UILabel *priceLabel = [[UILabel alloc]init];
+            priceLabel.text = @"保底价不高于";
+            priceLabel.textColor = [UIColor grayTextColor];
+            priceLabel.font = fontBysize(14);
+            [_headerView addSubview:priceLabel];
+            
+            priceLabel.sd_layout
+            .topSpaceToView(_headerView,100)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *heighPriceLabel = [[UILabel alloc]init];
+            heighPriceLabel.text = [NSString stringWithFormat:@"%@ 元",self.tenderModel.highest_protect_price];
+            heighPriceLabel.textColor = [UIColor customRedColor];
+            heighPriceLabel.font = [UIFont boldSystemFontOfSize:16];
+            [_headerView addSubview:heighPriceLabel];
+            
+            heighPriceLabel.sd_layout
+            .topSpaceToView(_headerView,100)
+            .leftSpaceToView(priceLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 50, SYSTEM_WIDTH, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView1];
+            
+            UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 99.5, SYSTEM_WIDTH, 0.5)];
+            lineView2.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView2];
+            
+            UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 149.5, SYSTEM_WIDTH, 0.5)];
+            lineView3.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView3];
+            
+        }
+            break;
+        case TonTenderSucceed:
+        {
+            _headerHight = 150;
+            _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, _headerHight)];
+            [self.view addSubview:_headerView];
+            UILabel *bidTimeLabel = [[UILabel alloc]init];
+            bidTimeLabel.text = @"比价结果";
+            bidTimeLabel.textColor = [UIColor grayTextColor];
+            bidTimeLabel.font = fontBysize(14);
+            [_headerView addSubview:bidTimeLabel];
+            
+            bidTimeLabel.sd_layout
+            .topSpaceToView(_headerView,0)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *unitLabel = [[UILabel alloc]init];
+            unitLabel.text = @"保底吨数";
+            unitLabel.textColor = [UIColor grayTextColor];
+            unitLabel.font = fontBysize(14);
+            [_headerView addSubview:unitLabel];
+            
+            unitLabel.sd_layout
+            .topSpaceToView(_headerView,50)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *unitCountLabel = [[UILabel alloc]init];
+            unitCountLabel.text = [NSString stringWithFormat:@"%@ 吨",self.tenderModel.lowest_tons_count];
+            unitCountLabel.textColor = [UIColor customRedColor];
+            unitCountLabel.font = [UIFont boldSystemFontOfSize:16];
+            [_headerView addSubview:unitCountLabel];
+            
+            unitCountLabel.sd_layout
+            .topSpaceToView(_headerView,50)
+            .leftSpaceToView(unitLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            UILabel *statusLabel = [[UILabel alloc]init];
+            self.timeLeft = [self.tenderModel.end_time timeRemaining];
+            statusLabel.textColor = [UIColor customGreenColor];
+            statusLabel.font = [UIFont boldSystemFontOfSize:16];
+            statusLabel.text = @"恭喜你中标了";
+            [_headerView addSubview:statusLabel];
+            
+            statusLabel.sd_layout
+            .topSpaceToView(_headerView,0)
+            .leftSpaceToView(bidTimeLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            
+            UILabel *priceLabel = [[UILabel alloc]init];
+            priceLabel.text = @"中标情况";
+            priceLabel.textColor = [UIColor grayTextColor];
+            priceLabel.font = fontBysize(14);
+            [_headerView addSubview:priceLabel];
+            
+            priceLabel.sd_layout
+            .bottomSpaceToView(_headerView,0)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *heighPriceLabel = [[UILabel alloc]init];
+            heighPriceLabel.text = [NSString stringWithFormat:@"%@ 元",self.tenderModel.winner_price];
+            heighPriceLabel.textColor = [UIColor customGreenColor];
+            heighPriceLabel.font = [UIFont boldSystemFontOfSize:16];
+            [_headerView addSubview:heighPriceLabel];
+            
+            heighPriceLabel.sd_layout
+            .bottomSpaceToView(_headerView,0)
+            .leftSpaceToView(priceLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 50, SYSTEM_WIDTH, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView1];
+            
+            UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 99.5, SYSTEM_WIDTH, 0.5)];
+            lineView2.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView2];
+            
+            UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 149.5, SYSTEM_WIDTH, 0.5)];
+            lineView3.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView3];
+            
+        }
+            break;
+            
+            
+        case TonTenderFailed:
+            
+        {
+            _headerHight = 150;
+            _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, SYSTITLEHEIGHT, SYSTEM_WIDTH, _headerHight)];
+            [self.view addSubview:_headerView];
+            UILabel *bidTimeLabel = [[UILabel alloc]init];
+            bidTimeLabel.text = @"比价结果";
+            bidTimeLabel.textColor = [UIColor grayTextColor];
+            bidTimeLabel.font = fontBysize(14);
+            [_headerView addSubview:bidTimeLabel];
+            
+            bidTimeLabel.sd_layout
+            .topSpaceToView(_headerView,0)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *statusLabel = [[UILabel alloc]init];
+            self.timeLeft = [self.tenderModel.end_time timeRemaining];
+            statusLabel.textColor = [UIColor customRedColor];
+            statusLabel.font = [UIFont boldSystemFontOfSize:16];
+            statusLabel.text = @"很遗憾你未中标";
+            [_headerView addSubview:statusLabel];
+            
+            statusLabel.sd_layout
+            .topSpaceToView(_headerView,0)
+            .leftSpaceToView(bidTimeLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            UILabel *unitLabel = [[UILabel alloc]init];
+            unitLabel.text = @"保底吨数";
+            unitLabel.textColor = [UIColor grayTextColor];
+            unitLabel.font = fontBysize(14);
+            [_headerView addSubview:unitLabel];
+            
+            unitLabel.sd_layout
+            .topSpaceToView(_headerView,50)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *unitCountLabel = [[UILabel alloc]init];
+            unitCountLabel.text = [NSString stringWithFormat:@"%@ 吨",self.tenderModel.lowest_tons_count];
+            unitCountLabel.textColor = [UIColor customRedColor];
+            unitCountLabel.font = [UIFont boldSystemFontOfSize:16];
+            [_headerView addSubview:unitCountLabel];
+            
+            unitCountLabel.sd_layout
+            .topSpaceToView(_headerView,50)
+            .leftSpaceToView(unitLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+
+            UILabel *priceLabel = [[UILabel alloc]init];
+            priceLabel.text = @"中标情况";
+            priceLabel.textColor = [UIColor grayTextColor];
+            priceLabel.font = fontBysize(14);
+            [_headerView addSubview:priceLabel];
+            
+            priceLabel.sd_layout
+            .bottomSpaceToView(_headerView,0)
+            .leftSpaceToView(_headerView,15)
+            .widthIs(90)
+            .heightIs(50);
+            
+            UILabel *heighPriceLabel = [[UILabel alloc]init];
+            heighPriceLabel.text = [NSString stringWithFormat:@"%@ 元 （%@）",self.tenderModel.winner_price, [self.tenderModel.driver_winner.username stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"]];
+            
+            heighPriceLabel.textColor = [UIColor customRedColor];
+            heighPriceLabel.font = [UIFont boldSystemFontOfSize:16];
+            [_headerView addSubview:heighPriceLabel];
+            
+            heighPriceLabel.sd_layout
+            .bottomSpaceToView(_headerView,0)
+            .leftSpaceToView(priceLabel,15)
+            .rightSpaceToView(_headerView,15)
+            .heightIs(50);
+            
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 50, SYSTEM_WIDTH, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView1];
+            
+            UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 99.5, SYSTEM_WIDTH, 0.5)];
+            lineView2.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView2];
+            
+            UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 149.5, SYSTEM_WIDTH, 0.5)];
+            lineView3.backgroundColor = [UIColor customGrayColor];
+            [_headerView addSubview:lineView3];
+            
+        }
+            break;
     }
 }
 
@@ -334,7 +629,7 @@
         [self timeLeftString];
     }
     
-    if (self.timeLeft%5==0&&self.tenderStatus == BidTenderOngoing) {
+    if (self.timeLeft%5==0&&(self.tenderStatus == BidTenderOngoing||self.tenderStatus == TonTenderOngoing||self.tenderStatus == BidTenderUnStart||self.tenderStatus == TonTenderUnStart)) {
         [self reloadStatus];
     }
 }
@@ -352,9 +647,19 @@
             TenderModel *newTenderModel = [[TenderModel alloc]initWithDictionary:result error:nil];
             if ([newTenderModel.status isEqualToString:@"unAssigned"]) {
                 if ([newTenderModel.driver_winner._id isEqualToString:user_id()]) {
-                    weakself.tenderStatus = BidTenderSucceed;
+                    if (weakself.tenderStatus == BidTenderUnStart||self.tenderStatus == BidTenderOngoing) {
+                        weakself.tenderStatus = BidTenderSucceed;
+                    }
+                    else if (weakself.tenderStatus == TonTenderUnStart||self.tenderStatus == TonTenderOngoing){
+                        weakself.tenderStatus = TonTenderSucceed;
+                    }
                 }else{
-                    weakself.tenderStatus = BidTenderFailed;
+                    if (weakself.tenderStatus == BidTenderUnStart||self.tenderStatus == BidTenderOngoing) {
+                        weakself.tenderStatus = BidTenderFailed;
+                    }
+                    else if (weakself.tenderStatus == TonTenderUnStart||self.tenderStatus == TonTenderOngoing){
+                        weakself.tenderStatus = TonTenderFailed;
+                    }
                 }
                 weakself.tenderModel = newTenderModel;
                 [weakself.runTimer invalidate];
@@ -379,7 +684,7 @@
 - (void)initTableView{
     
     self.tableModel = [[TenderDetailTableDataModel alloc]initWithModel:self.tenderModel];
-    //WithFrame:CGRectMake(0, SYSTITLEHEIGHT+_headerHight, SYSTEM_WIDTH, SYSTEM_HEIGHT-60-SYSTITLEHEIGHT-_headerHight)
+    
     self.tableView = [[UITableView alloc]init];
     
     [self.view addSubview:self.tableView];
@@ -388,7 +693,7 @@
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .topSpaceToView(self.view,SYSTITLEHEIGHT+_headerHight)
-    .bottomSpaceToView(self.view,60);
+    .bottomSpaceToView(self.view,_bottomHight);
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -456,17 +761,21 @@
         [_operationView removeFromSuperview];
     }
     
-    _operationView = [[UIView alloc]initWithFrame:CGRectMake(-1, SYSTEM_HEIGHT-60, SYSTEM_WIDTH+2, 61)];
+    _operationView = [[UIView alloc]init];
     _operationView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_operationView];
     _operationView.layer.borderColor = [UIColor customGrayColor].CGColor;
     _operationView.layer.borderWidth = 0.5;
-
     switch (self.tenderStatus) {
         case BidTenderUnStart:
         {
-            UIView *inputView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
+            _bottomHight = 60;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
+            UIView *inputView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
             [_operationView addSubview:inputView];
+            
+            
             _priceTextField = [[CCTextFiled alloc]init];
             _priceTextField.font = fontBysize(18);
             _priceTextField.placeholder = @"请输入总价格";
@@ -478,8 +787,9 @@
             _priceTextField.sd_layout
             .leftSpaceToView(inputView,15)
             .rightSpaceToView(inputView,15)
-            .topEqualToView(inputView)
-            .bottomEqualToView(inputView);
+            .bottomEqualToView(inputView)
+            .heightIs(60);
+            
             
             UIButton * sumbitButton = [[UIButton alloc]init];
             sumbitButton.backgroundColor = [UIColor buttonGreenColor];
@@ -493,42 +803,25 @@
             .bottomEqualToView(_operationView)
             .rightSpaceToView(_operationView,1);
             
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [inputView addSubview:lineView1];
+
+            
         }
             break;
         case BidTenderOngoing:
         {
-//            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
-//            [_operationView addSubview:priceView];
-//            
-//            UILabel *priceLabel = [[UILabel alloc]init];
-//            priceLabel.text = [NSString stringWithFormat:@"出价：%ld 元",[self.tenderModel getBindderPrice]];
-//            priceLabel.font = fontBysize(18);
-//            priceLabel.textColor = [UIColor darkTextColor];
-//            [priceView addSubview:priceLabel];
-//            
-//            priceLabel.sd_layout
-//            .leftSpaceToView(priceView,24)
-//            .rightSpaceToView(priceView,15)
-//            .topEqualToView(priceView)
-//            .bottomEqualToView(priceView);
-//            
-//            UILabel *statusLabel = [[UILabel alloc]init];
-//            statusLabel.text = @"已出价";
-//            statusLabel.textColor = [UIColor whiteColor];
-//            statusLabel.font = fontBysize(18);
-//            statusLabel.textAlignment = NSTextAlignmentCenter;
-//            statusLabel.backgroundColor = [UIColor naviBlackColor];
-//            [_operationView addSubview:statusLabel];
-//            
-//            statusLabel.sd_layout
-//            .leftSpaceToView(priceView,0)
-//            .topEqualToView(_operationView)
-//            .bottomEqualToView(_operationView)
-//            .rightSpaceToView(_operationView,1);
-            
 
-            UIView *inputView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
+            _bottomHight = 60;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
+            UIView *inputView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
             [_operationView addSubview:inputView];
+            
+            
+            
             _priceTextField = [[CCTextFiled alloc]init];
             _priceTextField.font = fontBysize(18);
             
@@ -558,8 +851,8 @@
             _priceTextField.sd_layout
             .leftSpaceToView(inputView,15)
             .rightSpaceToView(inputView,15)
-            .topEqualToView(inputView)
-            .bottomEqualToView(inputView);
+            .bottomEqualToView(inputView)
+            .heightIs(60);
             
             UIButton * sumbitButton = [[UIButton alloc]init];
             sumbitButton.backgroundColor = [UIColor buttonGreenColor];
@@ -573,14 +866,19 @@
             .bottomEqualToView(_operationView)
             .rightSpaceToView(_operationView,1);
 
-            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [inputView addSubview:lineView1];
         }
             break;
         case BidTenderSucceed:
         {
-            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
-            [_operationView addSubview:priceView];
+            _bottomHight = 60;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
             
+            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
+            [_operationView addSubview:priceView];
+
             UILabel *priceLabel = [[UILabel alloc]init];
             
             NSMutableAttributedString *priceString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"出价:%ld元",[self.tenderModel getBindderPrice]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayTextColor]}];
@@ -599,8 +897,8 @@
             priceLabel.sd_layout
             .leftSpaceToView(priceView,24)
             .rightSpaceToView(priceView,15)
-            .topEqualToView(priceView)
-            .bottomEqualToView(priceView);
+            .bottomEqualToView(priceView)
+            .heightIs(60);
             
             UILabel *statusLabel = [[UILabel alloc]init];
             statusLabel.text = @"已出价";
@@ -615,33 +913,20 @@
             .topEqualToView(_operationView)
             .bottomEqualToView(_operationView)
             .rightSpaceToView(_operationView,1);
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [priceView addSubview:lineView1];
         }
             break;
         case BidTenderFailed:
         {
-            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
+            _bottomHight = 60;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
+            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
             [_operationView addSubview:priceView];
             
-            UILabel *priceLabel = [[UILabel alloc]init];
-            
-            NSMutableAttributedString *priceString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"出价:%ld元",[self.tenderModel getBindderPrice]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayTextColor]}];
-            [priceString addAttribute:NSForegroundColorAttributeName
-                                value:[UIColor customRedColor]
-                                range:NSMakeRange(3, priceString.length-4)];
-            
-            [priceString addAttribute:NSFontAttributeName
-                                value:[UIFont boldSystemFontOfSize:18]
-                                range:NSMakeRange(3, priceString.length-4)];
-            
-            priceLabel.attributedText = priceString;
-            
-            [priceView addSubview:priceLabel];
-            
-            priceLabel.sd_layout
-            .leftSpaceToView(priceView,24)
-            .rightSpaceToView(priceView,15)
-            .topEqualToView(priceView)
-            .bottomEqualToView(priceView);
             
             UILabel *statusLabel = [[UILabel alloc]init];
             statusLabel.text = @"已出价";
@@ -656,10 +941,19 @@
             .topEqualToView(_operationView)
             .bottomEqualToView(_operationView)
             .rightSpaceToView(_operationView,1);
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [priceView addSubview:lineView1];
+
+            
         }
             break;
         case RobTenderUnStart:
         {
+            _bottomHight = 60;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
             UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
             [_operationView addSubview:priceView];
             
@@ -703,6 +997,9 @@
             
         case RobTenderSucceed:
         {
+            _bottomHight = 60;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
             UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, 60)];
             [_operationView addSubview:priceView];
             
@@ -743,16 +1040,330 @@
             .rightSpaceToView(_operationView,1);
         }
             break;
+        case TonTenderUnStart:
+        {
+            _bottomHight = 120;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
+            UIView *inputView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
+            [_operationView addSubview:inputView];
+            
+            
+            _unitTextField = [[CCTextFiled alloc]init];
+            _unitTextField.font = fontBysize(18);
+            _unitTextField.placeholder = @"请输入超额单价/吨";
+            _unitTextField.layer.borderWidth = 0;
+            _unitTextField.keyboardType = UIKeyboardTypeNumberPad;
+            _unitTextField.delegate = self;
+            [inputView addSubview:_unitTextField];
+            
+            _unitTextField.sd_layout
+            .leftSpaceToView(inputView,15)
+            .rightSpaceToView(inputView,15)
+            .bottomEqualToView(inputView)
+            .heightIs(60);
+            
+            
+            _priceTextField = [[CCTextFiled alloc]init];
+            _priceTextField.font = fontBysize(18);
+            _priceTextField.placeholder = @"请输入保底价格";
+            _priceTextField.layer.borderWidth = 0;
+            _priceTextField.keyboardType = UIKeyboardTypeNumberPad;
+            _priceTextField.delegate = self;
+            [inputView addSubview:_priceTextField];
+            
+            _priceTextField.sd_layout
+            .leftSpaceToView(inputView,15)
+            .rightSpaceToView(inputView,15)
+            .topEqualToView(inputView)
+            .heightIs(60);
+            
+            
+            UIButton * sumbitButton = [[UIButton alloc]init];
+            sumbitButton.backgroundColor = [UIColor buttonGreenColor];
+            [sumbitButton setTitle:@"出价" forState:UIControlStateNormal];
+            [sumbitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [sumbitButton addTarget:self action:@selector(bidPriceOffer) forControlEvents:UIControlEventTouchUpInside];
+            [_operationView addSubview:sumbitButton];
+            sumbitButton.sd_layout
+            .leftSpaceToView(inputView,0)
+            .topEqualToView(_operationView)
+            .bottomEqualToView(_operationView)
+            .rightSpaceToView(_operationView,1);
+            
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [inputView addSubview:lineView1];
+            
+            
+        }
+            break;
+        case TonTenderOngoing:
+        {
+            
+            _bottomHight = 120;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
+            UIView *inputView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
+            [_operationView addSubview:inputView];
+            
+            _unitTextField = [[CCTextFiled alloc]init];
+            _unitTextField.font = fontBysize(18);
+            
+            NSString *unitString = [NSString stringWithFormat:@"%ld",[self.tenderModel getBindderTonPrice]];
+            NSString *unitPlaceHolerSting = [NSString stringWithFormat:@"超出单价:%@元/吨 点击修改",unitString];
+            NSRange   unitPlaceHolerRange = [unitPlaceHolerSting rangeOfString:unitString];
+            
+            NSMutableAttributedString *unitPlaceholer = [[NSMutableAttributedString alloc]initWithString:unitPlaceHolerSting attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
+            
+            // 设置字体和设置字体的范围
+            [unitPlaceholer addAttribute:NSFontAttributeName
+                               value:[UIFont boldSystemFontOfSize:16.0f]
+                               range:unitPlaceHolerRange];
+            // 添加文字颜色
+            [unitPlaceholer addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor redColor]
+                               range:unitPlaceHolerRange];
+            _unitTextField.attributedPlaceholder = unitPlaceholer;
+            _unitTextField.layer.borderWidth = 0;
+            _unitTextField.keyboardType = UIKeyboardTypeNumberPad;
+            _unitTextField.delegate = self;
+            [inputView addSubview:_unitTextField];
+            
+            _unitTextField.sd_layout
+            .leftSpaceToView(inputView,15)
+            .rightSpaceToView(inputView,15)
+            .bottomEqualToView(inputView)
+            .heightIs(60);
+            
+            
+            
+            _priceTextField = [[CCTextFiled alloc]init];
+            _priceTextField.font = fontBysize(18);
+            
+            
+            NSString *priceString = [NSString stringWithFormat:@"%ld",[self.tenderModel getBindderPrice]];
+            NSString *placeHolerSting = [NSString stringWithFormat:@"保底价:%@元 点击修改",priceString];
+            NSRange   placeHolerRange = [placeHolerSting rangeOfString:priceString];
+            
+            NSMutableAttributedString *placeholer = [[NSMutableAttributedString alloc]initWithString:placeHolerSting attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
+            
+            // 设置字体和设置字体的范围
+            [placeholer addAttribute:NSFontAttributeName
+                               value:[UIFont boldSystemFontOfSize:16.0f]
+                               range:placeHolerRange];
+            // 添加文字颜色
+            [placeholer addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor redColor]
+                               range:placeHolerRange];
+            
+            
+            _priceTextField.attributedPlaceholder = placeholer;
+            _priceTextField.layer.borderWidth = 0;
+            _priceTextField.keyboardType = UIKeyboardTypeNumberPad;
+            _priceTextField.delegate = self;
+            [inputView addSubview:_priceTextField];
+            
+            _priceTextField.sd_layout
+            .leftSpaceToView(inputView,15)
+            .rightSpaceToView(inputView,15)
+            .topEqualToView(inputView)
+            .heightIs(60);
+            
+            UIButton * sumbitButton = [[UIButton alloc]init];
+            sumbitButton.backgroundColor = [UIColor buttonGreenColor];
+            [sumbitButton setTitle:@"重新出价" forState:UIControlStateNormal];
+            [sumbitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [sumbitButton addTarget:self action:@selector(bidPriceOffer) forControlEvents:UIControlEventTouchUpInside];
+            [_operationView addSubview:sumbitButton];
+            sumbitButton.sd_layout
+            .leftSpaceToView(inputView,0)
+            .topEqualToView(_operationView)
+            .bottomEqualToView(_operationView)
+            .rightSpaceToView(_operationView,1);
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [inputView addSubview:lineView1];
+        }
+            break;
+        case TonTenderSucceed:
+        {
+            _bottomHight = 120;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
+            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
+            [_operationView addSubview:priceView];
+            
+            
+            UILabel *unitLabel = [[UILabel alloc]init];
+            
+            NSMutableAttributedString *unitString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"超出单价:%ld元/吨",[self.tenderModel getBindderTonPrice]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayTextColor]}];
+            [unitString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor customRedColor]
+                               range:NSMakeRange(5, unitString.length-8)];
+            
+            [unitString addAttribute:NSFontAttributeName
+                               value:[UIFont boldSystemFontOfSize:18]
+                               range:NSMakeRange(5, unitString.length-8)];
+            
+            unitLabel.attributedText = unitString;
+            
+            [priceView addSubview:unitLabel];
+            
+            unitLabel.sd_layout
+            .leftSpaceToView(priceView,24)
+            .rightSpaceToView(priceView,15)
+            .bottomEqualToView(priceView)
+            .heightIs(60);
+            
+            
+            
+            UILabel *priceLabel = [[UILabel alloc]init];
+            
+            NSMutableAttributedString *priceString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"保底价:%ld元",[self.tenderModel getBindderPrice]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayTextColor]}];
+            [priceString addAttribute:NSForegroundColorAttributeName
+                                value:[UIColor customRedColor]
+                                range:NSMakeRange(4, priceString.length-5)];
+            
+            [priceString addAttribute:NSFontAttributeName
+                                value:[UIFont boldSystemFontOfSize:18]
+                                range:NSMakeRange(4, priceString.length-5)];
+            
+            priceLabel.attributedText = priceString;
+            
+            [priceView addSubview:priceLabel];
+            
+            priceLabel.sd_layout
+            .leftSpaceToView(priceView,24)
+            .rightSpaceToView(priceView,15)
+            .topEqualToView(priceView)
+            .heightIs(60);
+            
+            UILabel *statusLabel = [[UILabel alloc]init];
+            statusLabel.text = @"已出价";
+            statusLabel.textColor = [UIColor whiteColor];
+            statusLabel.font = fontBysize(18);
+            statusLabel.textAlignment = NSTextAlignmentCenter;
+            statusLabel.backgroundColor = [UIColor naviBlackColor];
+            [_operationView addSubview:statusLabel];
+            
+            statusLabel.sd_layout
+            .leftSpaceToView(priceView,0)
+            .topEqualToView(_operationView)
+            .bottomEqualToView(_operationView)
+            .rightSpaceToView(_operationView,1);
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [priceView addSubview:lineView1];
+        }
+            break;
+        case TonTenderFailed:
+        {
+
+            _bottomHight = 120;
+            _operationView.frame = CGRectMake(-1, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH+2, _bottomHight+1);
+            
+            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(1, 0, SYSTEM_WIDTH-120, _bottomHight)];
+            [_operationView addSubview:priceView];
+            
+            
+            UILabel *unitLabel = [[UILabel alloc]init];
+            
+            NSMutableAttributedString *unitString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"超出单价:%ld元/吨",[self.tenderModel getBindderTonPrice]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayTextColor]}];
+            [unitString addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor customRedColor]
+                               range:NSMakeRange(5, unitString.length-8)];
+            
+            [unitString addAttribute:NSFontAttributeName
+                               value:[UIFont boldSystemFontOfSize:18]
+                               range:NSMakeRange(5, unitString.length-8)];
+            
+            unitLabel.attributedText = unitString;
+            
+            [priceView addSubview:unitLabel];
+            
+            unitLabel.sd_layout
+            .leftSpaceToView(priceView,24)
+            .rightSpaceToView(priceView,15)
+            .bottomEqualToView(priceView)
+            .heightIs(60);
+            
+            
+            
+            UILabel *priceLabel = [[UILabel alloc]init];
+            
+            NSMutableAttributedString *priceString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"保底价:%ld元",[self.tenderModel getBindderPrice]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayTextColor]}];
+            [priceString addAttribute:NSForegroundColorAttributeName
+                                value:[UIColor customRedColor]
+                                range:NSMakeRange(4, priceString.length-5)];
+            
+            [priceString addAttribute:NSFontAttributeName
+                                value:[UIFont boldSystemFontOfSize:18]
+                                range:NSMakeRange(4, priceString.length-5)];
+            
+            priceLabel.attributedText = priceString;
+            
+            [priceView addSubview:priceLabel];
+            
+            priceLabel.sd_layout
+            .leftSpaceToView(priceView,24)
+            .rightSpaceToView(priceView,15)
+            .topEqualToView(priceView)
+            .heightIs(60);
+            
+            UILabel *statusLabel = [[UILabel alloc]init];
+            statusLabel.text = @"已出价";
+            statusLabel.textColor = [UIColor whiteColor];
+            statusLabel.font = fontBysize(18);
+            statusLabel.textAlignment = NSTextAlignmentCenter;
+            statusLabel.backgroundColor = [UIColor naviBlackColor];
+            [_operationView addSubview:statusLabel];
+            
+            statusLabel.sd_layout
+            .leftSpaceToView(priceView,0)
+            .topEqualToView(_operationView)
+            .bottomEqualToView(_operationView)
+            .rightSpaceToView(_operationView,1);
+            
+            UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH-120, 0.5)];
+            lineView1.backgroundColor = [UIColor customGrayColor];
+            [priceView addSubview:lineView1];
+            
+            
+        }
+            break;
     }
     
 }
+
+
 #pragma mark ---------> 出价
 - (void)bidPriceOffer{
     
-    if ([_priceTextField.text isEmpty]) {
-        toast_showInfoMsg(@"请输入价格", 300);
-        return;
+    
+    
+    if (self.tenderStatus == TonTenderUnStart||self.tenderStatus == TonTenderOngoing) {
+        
+        if ([_priceTextField.text isEmpty]) {
+            toast_showInfoMsg(@"请输入保底价格", 300);
+            return;
+        }
+        
+        if ([_unitTextField.text isEmpty]) {
+            toast_showInfoMsg(@"请输入超出单价/吨", 300);
+            return;
+        }
+        
+    }else{
+        if ([_priceTextField.text isEmpty]) {
+            toast_showInfoMsg(@"请输入价格", 300);
+            return;
+        }
     }
+    
     if (_priceTextField.text.integerValue>self.tenderModel.highest_protect_price.integerValue) {
         toast_showInfoMsg(@"大于最高价，请重新输入", 300);
         return;
@@ -775,6 +1386,7 @@
         [parameters put:accessToken() key:ACCESS_TOKEN];
         [parameters put:self.tenderModel._id key:@"tender_id"];
         [parameters put:_priceTextField.text key:@"price"];
+        [parameters put:_unitTextField.text key:@"price_per_ton"];
         [SVProgressHUD showWithStatus:@"正在出价..."];
         [[HttpRequstManager requestManager] postWithRequestBodyString:USER_COMPARE_TENDER parameters:parameters resultBlock:^(NSDictionary *result, NSError *error) {
             if (error) {
@@ -783,11 +1395,16 @@
             }else{
                 
                 [SVProgressHUD showSuccessWithStatus:@"出价成功"];
-//                [_weakSelf compareSucceed];
                 
                 TenderModel *newTenderModel = [[TenderModel alloc]initWithDictionary:[result objectForKey:@"tender"] error:nil];
                 _weakSelf.tenderModel = newTenderModel;
-                _weakSelf.tenderStatus = BidTenderOngoing;
+                
+                if (_weakSelf.tenderStatus == BidTenderUnStart) {
+                    _weakSelf.tenderStatus = BidTenderOngoing;
+                }
+                else if (_weakSelf.tenderStatus == TonTenderUnStart){
+                    _weakSelf.tenderStatus = TonTenderOngoing;
+                }
                 [_weakSelf initSumbitView];
             }
         }];
@@ -900,6 +1517,7 @@
     pageVC.title = title;
     [self.navigationController pushViewController:pageVC animated:YES];
 }
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
@@ -912,20 +1530,22 @@
 //当键盘出现或改变时调用
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
+    [self.view bringSubviewToFront:_operationView];
     //获取键盘的高度
     NSDictionary *userInfo = [aNotification userInfo];
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];
     int keyboardHeight = keyboardRect.size.height;
-    CGRect frame = CGRectMake(0, SYSTEM_HEIGHT-60-keyboardHeight, SYSTEM_WIDTH, 60);
+    CGRect frame = CGRectMake(0, SYSTEM_HEIGHT-_bottomHight-keyboardHeight, SYSTEM_WIDTH, _bottomHight);
     [UIView animateWithDuration:0.25 animations:^{
         _operationView.frame = frame;
     }];
     
 }
+
 - (void)keyboardWillHide:(NSNotification *)aNotification{
     [UIView animateWithDuration:0.25 animations:^{
-        _operationView.frame = CGRectMake(0, SYSTEM_HEIGHT-60, SYSTEM_WIDTH, 60);
+        _operationView.frame = CGRectMake(0, SYSTEM_HEIGHT-_bottomHight, SYSTEM_WIDTH, _bottomHight);
     }];
 }
 

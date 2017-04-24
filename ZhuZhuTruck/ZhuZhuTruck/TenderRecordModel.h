@@ -15,4 +15,5 @@
 @interface TenderRecordModel : JSONModel
 @property (nonatomic, copy) NSString<Optional> *driver;
 @property (nonatomic, strong) NSNumber<Optional> *price;
+@property (nonatomic, strong) NSNumber<Optional> *price_per_ton;
 @end

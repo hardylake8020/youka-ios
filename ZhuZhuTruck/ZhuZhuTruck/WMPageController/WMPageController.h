@@ -132,7 +132,7 @@ typedef NS_ENUM(NSUInteger, WMPageControllerPreloadPolicy) {
  */
 @property (nonatomic, copy) NSArray<NSString *> *titles;
 @property (nonatomic, strong, readonly) UIViewController *currentViewController;
-
+@property (nonatomic, strong) NSMutableArray *subViewControllers;
 /**
  *  设置选中几号 item
  *  To select item at index

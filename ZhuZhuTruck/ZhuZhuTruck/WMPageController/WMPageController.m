@@ -19,12 +19,13 @@ static NSInteger const kWMControllerCountUndefined = -1;
 @property (nonatomic, strong, readwrite) UIViewController *currentViewController;
 // 用于记录子控制器view的frame，用于 scrollView 上的展示的位置
 @property (nonatomic, strong) NSMutableArray *childViewFrames;
-// 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
-@property (nonatomic, strong) NSMutableDictionary *displayVC;
 // 用于记录销毁的viewController的位置 (如果它是某一种scrollView的Controller的话)
 @property (nonatomic, strong) NSMutableDictionary *posRecords;
 // 用于缓存加载过的控制器
 @property (nonatomic, strong) NSCache *memCache;
+// 当前展示在屏幕上的控制器，方便在滚动的时候读取 (避免不必要计算)
+@property (nonatomic, strong) NSMutableDictionary *displayVC;
+
 @property (nonatomic, strong) NSMutableDictionary *backgroundCache;
 // 收到内存警告的次数
 @property (nonatomic, assign) int memoryWarningCount;
@@ -56,6 +57,12 @@ static NSInteger const kWMControllerCountUndefined = -1;
     return _backgroundCache;
 }
 
+- (NSMutableArray*)subViewControllers{
+    if (!_subViewControllers) {
+        _subViewControllers = [NSMutableArray array];
+    }
+    return _subViewControllers;
+}
 #pragma mark - Public Methods
 
 - (instancetype)initWithViewControllerClasses:(NSArray<Class> *)classes andTheirTitles:(NSArray<NSString *> *)titles {
@@ -280,7 +287,9 @@ static NSInteger const kWMControllerCountUndefined = -1;
     if ([self.dataSource respondsToSelector:@selector(pageController:viewControllerAtIndex:)]) {
         return [self.dataSource pageController:self viewControllerAtIndex:index];
     }
-    return [[self.viewControllerClasses[index] alloc] init];
+    UIViewController *VC = [[self.viewControllerClasses[index] alloc] init];
+    [self.subViewControllers addObject:VC];
+    return VC;
 }
 
 - (NSString *)titleAtIndex:(NSInteger)index {

@@ -358,13 +358,21 @@
     if ([tenderModel.tender_type isEqualToString:@"grab"]) {
         MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:RobTenderUnStart andTenderModel:tenderModel];
         [self.navigationController pushViewController:orderDetail animated:YES];
-    }else{
+    }else if([tenderModel.tender_type isEqualToString:@"compare"]){
         
         if ([tenderModel isAlreadyBind]) {
             MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderOngoing andTenderModel:tenderModel];
             [self.navigationController pushViewController:orderDetail animated:YES];
         }else{
             MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:BidTenderUnStart andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }
+    }else if([tenderModel.tender_type isEqualToString:@"compares_ton"]){
+        if ([tenderModel isAlreadyBind]) {
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderOngoing andTenderModel:tenderModel];
+            [self.navigationController pushViewController:orderDetail animated:YES];
+        }else{
+            MediatorOrderDetailViewController *orderDetail = [[MediatorOrderDetailViewController alloc]initWithTenderStatus:TonTenderUnStart andTenderModel:tenderModel];
             [self.navigationController pushViewController:orderDetail animated:YES];
         }
     }

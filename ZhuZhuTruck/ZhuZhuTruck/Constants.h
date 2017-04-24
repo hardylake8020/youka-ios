@@ -80,6 +80,10 @@ typedef enum : NSUInteger {
     BidTenderFailed,
     RobTenderUnStart,
     RobTenderSucceed,
+    TonTenderUnStart,
+    TonTenderOngoing,
+    TonTenderSucceed,
+    TonTenderFailed,
 } TenderOrderStatus;
 
 

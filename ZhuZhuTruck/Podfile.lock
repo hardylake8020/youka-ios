@@ -25,6 +25,9 @@ PODS:
   - Qiniu (7.0.20):
     - AFNetworking (~> 3)
     - HappyDNS (~> 0.3)
+  - RMActionController (1.2.1)
+  - RMPickerViewController (2.2.1):
+    - RMActionController (~> 1.2.1)
   - SDAutoLayout (2.1.4)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
@@ -38,6 +41,7 @@ DEPENDENCIES:
   - JSONModel (~> 1.2.0)
   - MJRefresh (~> 3.1.0)
   - Qiniu (from `https://github.com/qiniu/objc-sdk.git`, branch `AFNetworking-3.x`)
+  - RMPickerViewController (~> 2.2.1)
   - SDAutoLayout (~> 2.1.1)
   - SDWebImage (~> 3.7.5)
   - SVProgressHUD
@@ -61,8 +65,12 @@ SPEC CHECKSUMS:
   JSONModel: 12523685c4b623553ccf844bbbf7007624317b2c
   MJRefresh: bb72948c985914b0b5cecac573a2c69a8915fb02
   Qiniu: 4dbf1e6acb3236c4d7251046a17d08b16d21fcfe
+  RMActionController: e516bc0651a61d675abb5eaf09ee79a92ae6155c
+  RMPickerViewController: f2925d34875f63840ea1c2eeda9f6f1fc8a3afd4
   SDAutoLayout: 1b2926b193a63287f473dae426ed07861e21e271
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 71c88822614943640dc143c620e70f85bbbcf771
+
+COCOAPODS: 1.0.0

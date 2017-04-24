@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSNumber<Optional> *delivery_entrance_force;
 @property (nonatomic, strong) NSNumber<Optional> *pickup_photo_force;
 @property (nonatomic, strong) NSNumber<Optional> *pickup_entrance_force;
+@property (nonatomic, strong) NSNumber<Optional> *lowest_tons_count;
 @property (nonatomic, copy) NSString<Optional> *delivery_end_time_format;
 @property (nonatomic, copy) NSString<Optional> *delivery_start_time_format;
 @property (nonatomic, copy) NSString<Optional> *pickup_end_time_format;

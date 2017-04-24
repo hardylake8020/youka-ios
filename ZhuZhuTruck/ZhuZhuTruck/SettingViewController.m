@@ -9,6 +9,10 @@
 #import "SettingViewController.h"
 #import "NSString+FontAwesome.h"
 #import "PersonInfoViewController.h"
+#import "InfomatationCertificationPages.h"
+#import "CarCertificationViewController.h"
+#import "UserCertificationViewController.h"
+
 @interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -55,10 +59,40 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
-        PersonInfoViewController *info = [[PersonInfoViewController alloc]init];
-        [self.navigationController pushViewController:info animated:YES];
+//        PersonInfoViewController *info = [[PersonInfoViewController alloc]init];
+//        [self.navigationController pushViewController:info animated:YES];
+        [self gotoInfoCertification];
     }
 }
+
+- (void)gotoInfoCertification{
+    NSArray *viewControllers;
+    NSArray *titles;
+    NSString *title;
+    viewControllers = @[[UserCertificationViewController class],[CarCertificationViewController class]];
+    titles = @[@"实名认证",@"车辆认证"];
+    title = @"个人信息";
+    InfomatationCertificationPages *pageVC = [[InfomatationCertificationPages alloc] initWithViewControllerClasses:viewControllers andTheirTitles:titles];
+    pageVC.menuItemWidth = [UIScreen mainScreen].bounds.size.width/titles.count;
+    pageVC.postNotification = YES;
+    pageVC.bounces = YES;
+    pageVC.menuHeight = 36;
+    pageVC.menuViewStyle = WMMenuViewStyleLine;
+    pageVC.menuBGColor = [UIColor naviBlackColor];
+    pageVC.titleColorSelected = [UIColor whiteColor];
+    pageVC.titleColorNormal = [UIColor colorWithWhite:1 alpha:0.5];
+    pageVC.titleFontName = @"Helvetica-Bold";
+    pageVC.titleSizeNormal = 16;
+    pageVC.progressHeight = 3;
+    pageVC.progressColor = [UIColor whiteColor];
+    pageVC.pageAnimatable = YES;
+    pageVC.titleSizeSelected = 16;
+    pageVC.title = title;
+    [self.navigationController pushViewController:pageVC animated:YES];
+    
+}
+
+
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 60)];
     

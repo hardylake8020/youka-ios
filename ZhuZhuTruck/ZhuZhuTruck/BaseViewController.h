@@ -31,6 +31,10 @@
 #import <SVProgressHUD.h>
 #import "NSString+Tool.h"
 #import "ErrorMaskView.h"
+#import "TakePhotoCell.h"
+#import "TextFiledCell.h"
+#import "TextFiledModel.h"
+#import "TakePhotoModel.h"
 #import "AddressManager.h"
 #import "PersonInfoModel.h"
 #import "OperationButton.h"

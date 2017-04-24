@@ -17,6 +17,7 @@
 @interface DriverOperationViewController ()<AVAudioRecorderDelegate,AVAudioPlayerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,LVRecordToolDelegate>
 {
     CCTextFiled *_markTextView;
+    CCTextFiled *_unitTextView;
     UIButton *_markVioceButton;
     UIButton *_playButton;
     RecordImageView *_voiceView;
@@ -37,6 +38,7 @@
 @property (nonatomic, assign) CLLocationCoordinate2D userLocation;
 @property (nonatomic, assign) NSArray *scanCodeArray;
 @property (nonatomic, copy  ) SingInBlock singinCallBack;
+@property (nonatomic, assign) BOOL isNeedTon;
 @end
 
 @implementation DriverOperationViewController
@@ -47,6 +49,9 @@
     if (self) {
         self.operationType = type;
         self.orderModel = orderModel;
+        if (orderModel.lowest_tons_count&&orderModel.lowest_tons_count.intValue>0) {
+            self.isNeedTon = YES;
+        }
     }
     return self;
 }
@@ -56,6 +61,9 @@
         self.operationType = type;
         self.orderModel = orderModel;
         self.singinCallBack = callback;
+        if (orderModel.lowest_tons_count&&orderModel.lowest_tons_count.intValue>0) {
+            self.isNeedTon = YES;
+        }
     }
     return self;
 }
@@ -75,8 +83,11 @@
         case PickupSucceed:
         {
             [self addNaviHeaderViewWithTitle:@"提货成功"];
-            
-            _bottomHight = 160;
+            if (self.isNeedTon) {
+                _bottomHight = 160+60;
+            }else{
+                _bottomHight = 160;
+            }
         }
             break;
         case DeliveySign:
@@ -89,7 +100,10 @@
         {
             [self addNaviHeaderViewWithTitle:@"交货成功"];
             self.scanCodeArray = self.orderModel.scanCodes;
+            
             _bottomHight = 160;
+        
+            
         }
             break;
         case HalfWayEvent:
@@ -244,27 +258,96 @@
     
     self.reportReasonView.backgroundColor = [UIColor whiteColor];
     
-    if (_bottomHight==160) {
-        UIView *switchLine = [[UIView alloc]initWithFrame:CGRectMake(0, 50, SYSTEM_WIDTH, 0.5)];
+    if (self.operationType==PickupSucceed) {
+        
+        
+        if (self.isNeedTon) {
+            UIView *unitLine = [[UIView alloc]initWithFrame:CGRectMake(0, 60, SYSTEM_WIDTH, 0.5)];
+            unitLine.backgroundColor = ColorFromRGB(0xdddddd);
+            [_reportReasonView addSubview:unitLine];
+            
+            UIView *unitView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 60)];
+            [_reportReasonView addSubview:unitView];
+            
+            UILabel *unitLeftTipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 60)];
+            unitLeftTipLabel.text = @"吨数";
+            [unitView addSubview:unitLeftTipLabel];
+            
+            UILabel *unitRightTipLabel = [[UILabel alloc]initWithFrame:CGRectMake(SYSTEM_WIDTH-120, 0, 100, 60)];
+            unitRightTipLabel.text = [NSString stringWithFormat:@"保底%@吨",self.orderModel.lowest_tons_count];
+            unitRightTipLabel.textColor = [UIColor customBlueColor];
+            unitRightTipLabel.textAlignment = NSTextAlignmentRight;
+            unitRightTipLabel.font = fontBysize(14);
+            [unitView addSubview:unitRightTipLabel];
+            
+            _unitTextView = [[CCTextFiled alloc]init];
+            _unitTextView.delegate = self;
+            _unitTextView.placeholder = @"实际提货吨数";
+            [unitView addSubview:_unitTextView];
+            _unitTextView.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+            _unitTextView.sd_layout
+            .leftSpaceToView(unitView,80)
+            .rightSpaceToView (unitRightTipLabel,20)
+            .bottomSpaceToView (unitView,7.5)
+            .heightIs(45);
+            
+            UILabel *unitCenterTipLabel = [[UILabel alloc]init];
+            unitCenterTipLabel.text = @"吨";
+            unitCenterTipLabel.textAlignment = NSTextAlignmentRight;
+            unitCenterTipLabel.font = fontBysize(14);
+            [unitView addSubview:unitCenterTipLabel];
+            
+            unitCenterTipLabel.sd_layout
+            .leftSpaceToView(_unitTextView,5)
+            .topEqualToView(unitView)
+            .bottomEqualToView(unitView)
+            .widthIs(20);
+            
+        }
+        
+        UIView *switchLine = [[UIView alloc]initWithFrame:CGRectMake(0, _bottomHight-110, SYSTEM_WIDTH, 0.5)];
         switchLine.backgroundColor = ColorFromRGB(0xdddddd);
         [_reportReasonView addSubview:switchLine];
         
-        UIView *switchView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSTEM_WIDTH, 50)];
+        UIView *switchView = [[UIView alloc]initWithFrame:CGRectMake(0, _bottomHight-160, SYSTEM_WIDTH, 50)];
         [_reportReasonView addSubview:switchView];
         
         UILabel *switchTipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 50)];
         switchTipLabel.text = @"货损";
-//        switchTipLabel.textColor  = [UIColor customRedColor];
-        
         [switchView addSubview:switchTipLabel];
         
-        _demageButton  = [[UISwitch alloc]init];
+        _demageButton = [[UISwitch alloc]init];
         _demageButton.onTintColor = [UIColor customRedColor];
         [switchView addSubview:_demageButton];
         
         _demageButton.sd_layout
         .rightSpaceToView(switchView, 15)
         .centerYEqualToView(switchView);
+        
+        
+    }else if (self.operationType==DeliveySucceed) {
+        
+        
+
+        UIView *switchLine = [[UIView alloc]initWithFrame:CGRectMake(0, _bottomHight-110, SYSTEM_WIDTH, 0.5)];
+        switchLine.backgroundColor = ColorFromRGB(0xdddddd);
+        [_reportReasonView addSubview:switchLine];
+        
+        UIView *switchView = [[UIView alloc]initWithFrame:CGRectMake(0, _bottomHight-160, SYSTEM_WIDTH, 50)];
+        [_reportReasonView addSubview:switchView];
+        
+        UILabel *switchTipLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 50)];
+        switchTipLabel.text = @"货损";
+        [switchView addSubview:switchTipLabel];
+        
+        _demageButton = [[UISwitch alloc]init];
+        _demageButton.onTintColor = [UIColor customRedColor];
+        [switchView addSubview:_demageButton];
+        
+        _demageButton.sd_layout
+        .rightSpaceToView(switchView, 15)
+        .centerYEqualToView(switchView);
+
     }
     
     
@@ -525,6 +608,19 @@
                 toast_showInfoMsg(@"请至少拍摄一张照片", 200);
                 return;
             }
+            
+            if (self.isNeedTon) {
+                if (!_unitTextView.text||[_unitTextView.text isEmpty]) {
+                    toast_showInfoMsg(@"请输入实际提货吨数", 200);
+                    return;
+                }
+                if (![_unitTextView.text isValidateDecimals]) {
+                    toast_showInfoMsg(@"请输入正确的吨数格式", 200);
+                    return;
+                }
+                [parameters put:_unitTextView.text key:@"pickup_real_tons"];
+            }
+            
             [parameters putKey:self.orderModel.scanCodes key:@"order_codes"];
             [parameters put:@"pickup" key:@"type"];
             [parameters putBool:_demageButton.isOn key:@"damaged"];
@@ -533,10 +629,6 @@
             
         case DeliveySign:
         {
-//            if (self.orderModel.delivery_entrance_force.boolValue&&self.photos.count==0) {
-//                toast_showInfoMsg(@"请至少拍摄一张照片", 200);
-//                return;
-//            }
             [parameters put:@"deliverySign" key:@"type"];
         }
             break;
@@ -547,6 +639,7 @@
                 toast_showInfoMsg(@"请至少拍摄一张照片", 200);
                 return;
             }
+   
             [parameters putKey:self.orderModel.scanCodes key:@"order_codes"];
             [parameters putBool:_demageButton.isOn key:@"damaged"];
             [parameters put:@"delivery" key:@"type"];
